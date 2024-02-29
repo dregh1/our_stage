@@ -9,6 +9,7 @@ import { PersonnelService } from 'src/app/services/personnel.service';
 })
 export class PersonnelComponent implements OnInit {
   personnels: Personnel[]=[];
+  showmesg=false;
   personnel= {
     nom: '',
     prenom: '',
@@ -33,6 +34,12 @@ export class PersonnelComponent implements OnInit {
       .subscribe(response  => {
         // Traitez la réponse du backend si nécessaire
         console.log(response);
+        this.showmesg=true;
+        
+        setTimeout(() => {
+          this.showmesg=false;
+        }, 2000);
+        window.location.reload();
       });
   }
 
@@ -42,6 +49,7 @@ export class PersonnelComponent implements OnInit {
         // Traitez la réponse du backend si nécessaire
         console.log(response);
         // Actualisez les données ou effectuez d'autres actions après la suppression
+        window.location.reload();
       });
     }
     updateRecord(id: number, newData: any): void {
@@ -49,6 +57,7 @@ export class PersonnelComponent implements OnInit {
         .subscribe(response => {
           // Traitez la réponse du backend si nécessaire
           console.log(response);
+          window.location.reload();
           // Actualisez les données ou effectuez d'autres actions après la mise à jour
         });
     }

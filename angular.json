@@ -28,9 +28,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/boosted/dist/css/boosted.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/boosted/dist/js/boosted.min.js"
+            ]
           },
           "configurations": {
             "production": {
