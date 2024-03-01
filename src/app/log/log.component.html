@@ -1,0 +1,71 @@
+
+<div class="body">
+
+	<!-- container div -->
+	<div class="container">
+
+		<!-- upper button section to select
+			the login or signup form -->
+		<div class="slider"></div>
+		<div class="btn">
+			<button class="login">Connexion</button>
+			<button class="signup">Inscription</button>
+		</div>
+       
+        
+    
+		<!-- Form section that contains the
+			login and the signup form -->
+		<div class="form-section">
+
+			<!-- login form -->
+			<div class="login-box">
+				<input type="email"
+					class="email ele"
+					placeholder="user">
+				<input type="password"
+					class="password ele"
+					placeholder="password">
+				<button class="clkbtn">Connexion</button>
+			</div>
+
+
+           
+
+
+			<!-- signup form -->
+			<div class="signup-box">
+				<input type="text"
+					class="name ele"
+                    name="nom"
+                    [(ngModel)]="personnel.nom"
+					placeholder="entrer votre Nom">
+				<input type="texte"
+					class="ele"
+                    name="prenom"
+                    [(ngModel)]="personnel.prenom"
+					placeholder="votre prenom">
+                    <input type="texte"
+					class="ele"
+                    name="age"
+                    [(ngModel)]="personnel.age"
+					placeholder="votre age">
+				<input type="password"
+					class="password ele"
+					placeholder="mot de passe">
+				<input type="password"
+					class="password ele"
+					placeholder="Confirmer votre mot de passe">
+                    <button class="btn btn-success" (click)="onSubmit()">enregistrer</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div *ngIf="showmesg" class="showmesg text-success pt-5"><h1> Success!!</h1></div>
+<div class="col-md mb-3">
+    <ul class="list-group list-group-horizontal-xxl" *ngFor="let item of personnels">
+      <li class="list-group-item d-flex justify-content-between">
+        <p>{{ item.nom }}</p><p>{{ item.prenom }}</p><p>{{ item.age }}</p>
+        <button class="btn btn-success" (click)="deletePersonnel(item.id)">del</button></li>
+    </ul>
+  </div>
