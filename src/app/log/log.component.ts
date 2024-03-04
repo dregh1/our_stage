@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, AfterViewInit ,ViewChild } from '@angular/core';
 import { Personnel } from 'src/app/models/Personnel';
 import { PersonnelService } from 'src/app/services/personnel.service';
 
@@ -8,7 +8,8 @@ import { PersonnelService } from 'src/app/services/personnel.service';
   styleUrls: ['./log.component.scss']
 })
 export class LogComponent implements OnInit, AfterViewInit {
-  personnels: Personnel[] = [];
+  personnels: Personnel[] = []; 
+  showPassword=false;
   showmesg = false;
   personnel = {
     nom: '',
@@ -56,18 +57,26 @@ export class LogComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     const signup = this.el.nativeElement.querySelector('.signup');
     const login = this.el.nativeElement.querySelector('.login');
-    const slider = this.el.nativeElement.querySelector('.slider');
+    //const slider = this.el.nativeElement.querySelector('.slider');
     const formSection = this.el.nativeElement.querySelector('.form-section');
 
     signup.addEventListener('click', () => {
-      this.renderer.addClass(slider, 'moveslider');
+    //  this.renderer.addClass(slider, 'moveslider');
       this.renderer.addClass(formSection, 'form-section-move');
     });
 
     login.addEventListener('click', () => {
-      this.renderer.removeClass(slider, 'moveslider');
+      //this.renderer.removeClass(slider, 'moveslider');
       this.renderer.removeClass(formSection, 'form-section-move');
     });
   }
-}
+  togglePasswordVisibility1(): void {
+    const inputElement = document.getElementById('myInput') as HTMLInputElement;
 
+    if (inputElement.type === 'password') {
+      inputElement.type = 'text';
+    } else {
+      inputElement.type = 'password';
+    }
+  }
+}
