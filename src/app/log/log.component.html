@@ -14,15 +14,21 @@
 			<!-- login form -->
 			<div class="login-box">
 				<h1>Authenticaton</h1>
+				<div class="error-message" *ngIf="errorStatus">
+					<p style="color: red;">{{ errorMessage }}</p>
+					
+				</div>
 				<!-- app.component.html -->
-				<input type="text" class="ele1 form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+				<input type="text" class="ele1 form-control" placeholder="Username" aria-label="Username" [(ngModel)]="this.logindata.username" aria-describedby="basic-addon1">
 					
 				  <div class="form-group inner-addon right-addon">
 					<div class="input-group col-6 mx-auto">
 						  <input name="password"
+						  [(ngModel)]="this.logindata.password"
 						  [type]="showPassword ? 'text' : 'password'"
 						  class=" ele1 form-control pwd-control"
 						  id="password-field" placeholder="Password">
+
 					  <div>
 						<i alt="show" class="far fa-eye fa-lg eye-show"
 						   (click)="showPassword = !showPassword"
@@ -35,7 +41,8 @@
 				  </div>
 
 				<a class="text-success pass">forgot password</a>
-				<button type="button" class="btn btn-primary" routerLink="/home">connexion</button>
+
+				<button type="button" class="btn btn-primary" (click)="verifierLogin()">connexion</button>
 				<div>No account?<button class="signup border-0 text-info">create an account</button>
 				</div>
 			</div>

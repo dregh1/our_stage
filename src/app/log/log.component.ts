@@ -1,6 +1,8 @@
 import { Component, OnInit, Renderer2, ElementRef, AfterViewInit ,ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Personnel } from 'src/app/models/Personnel';
 import { PersonnelService } from 'src/app/services/personnel.service';
+import { LogService } from '../services/log.service';
 
 
 @Component({
@@ -9,6 +11,9 @@ import { PersonnelService } from 'src/app/services/personnel.service';
   styleUrls: ['./log.component.scss']
 })
 export class LogComponent implements OnInit, AfterViewInit {
+  errorStatus = false;
+  errorMessage ='' ;
+
   personnels: Personnel[] = []; 
   showPassword=false;
   showmesg = false; 
@@ -19,11 +24,16 @@ export class LogComponent implements OnInit, AfterViewInit {
     prenom: '',
     age: ''
   };
- 
+  logindata = {
+   
+    username: '',
+    password: '',
+    
+  }
 
 
 
-  constructor(private personnelService: PersonnelService, private renderer: Renderer2, private el: ElementRef) {}
+  constructor(private logService: LogService, private router: Router ,private personnelService: PersonnelService, private renderer: Renderer2, private el: ElementRef) {}
 
   ngOnInit(): void {
     this.personnelService.get().subscribe(data => {
@@ -31,6 +41,36 @@ export class LogComponent implements OnInit, AfterViewInit {
     });
   }
 
+// verifier login  //
+
+verifierLogin(): void {
+
+      
+  // etape vers quarkus
+  this.logService.post(this.logindata)
+    .subscribe((response: any)  => {
+      
+      // Traitez la réponse du backend si nécessaire
+      
+      // condition si l'utisateur est autorisé 
+      if (response.message === 'Authentification réussie') {
+        // Rediriger l'utilisateur vers la page d'accueil
+        this.router.navigate(['/home']);
+    }else{
+      // Afficher un message d'erreur à l'utilisateur
+      console.log("DISO A");
+      this.errorStatus = true;
+      this.errorMessage = 'Identifiants incorrects';
+  }
+
+
+      console.log(response);
+      
+      this.showmesg=true;
+      
+      
+    });
+}
   onSubmit(): void {
     this.personnelService.post(this.personnel).subscribe(response => {
       console.log(response);
