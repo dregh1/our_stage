@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2, ElementRef, AfterViewInit ,ViewChild } fr
 import { Personnel } from 'src/app/models/Personnel';
 import { PersonnelService } from 'src/app/services/personnel.service';
 
+
 @Component({
   selector: 'app-log',
   templateUrl: './log.component.html',
@@ -10,8 +11,10 @@ import { PersonnelService } from 'src/app/services/personnel.service';
 export class LogComponent implements OnInit, AfterViewInit {
   personnels: Personnel[] = []; 
   showPassword=false;
-  showmesg = false;
+  showmesg = false; 
+
   personnel = {
+    id: '' ,
     nom: '',
     prenom: '',
     age: ''
@@ -47,13 +50,13 @@ export class LogComponent implements OnInit, AfterViewInit {
     });
   }
 
-  updateRecord(id: number, newData: any): void {
+  updateRecord(id: any, newData: any): void {
     this.personnelService.update(id, newData).subscribe(response => {
       console.log(response);
       window.location.reload();
     });
   }
-
+  ///////////////////////////Animation slide///////////////////////////////////////
   ngAfterViewInit() {
     const signup = this.el.nativeElement.querySelector('.signup');
     const login = this.el.nativeElement.querySelector('.login');
@@ -70,13 +73,5 @@ export class LogComponent implements OnInit, AfterViewInit {
       this.renderer.removeClass(formSection, 'form-section-move');
     });
   }
-  togglePasswordVisibility1(): void {
-    const inputElement = document.getElementById('myInput') as HTMLInputElement;
 
-    if (inputElement.type === 'password') {
-      inputElement.type = 'text';
-    } else {
-      inputElement.type = 'password';
-    }
-  }
 }

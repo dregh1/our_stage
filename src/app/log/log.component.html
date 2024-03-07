@@ -33,12 +33,10 @@
 					  </div>
 					</div>
 				  </div>
-				
-
 
 				<a class="text-success pass">forgot password</a>
 				<button type="button" class="btn btn-primary" routerLink="/home">connexion</button>
-				<div>No compt?<button class="signup border-0 text-info">create an account</button>
+				<div>No account?<button class="signup border-0 text-info">create an account</button>
 				</div>
 			</div>
 
@@ -50,6 +48,7 @@
 					class="ele1 form-control"  
 					aria-label="Utilisateur" 
 					aria-describedby="addon-wrapping"
+					for="nom"
                     name="nom"
                     [(ngModel)]="personnel.nom"
 					placeholder="entrer votre Nom">
@@ -58,6 +57,7 @@
 					aria-label="Utilisateur" 
 					aria-describedby="addon-wrapping"
                     name="prenom"
+					for="prenom"
                     [(ngModel)]="personnel.prenom"
 					placeholder="votre prenom">
                 <input type="text"
@@ -65,6 +65,7 @@
 					aria-label="Utilisateur" 
 					aria-describedby="addon-wrapping"
                     name="age"
+					for="age"
                     [(ngModel)]="personnel.age"
 					placeholder="votre age">
 				<input type="password"
@@ -78,8 +79,8 @@
 					aria-describedby="addon-wrapping"
 					placeholder="Confirmer votre mot de passe">
 					<div class="d-flex">
-						<button class="login btn btn-primary">Connexion</button>
-						<button class="btn btn-primary" (click)="onSubmit()">Save</button>
+						<button class="login">Connexion</button>
+						<button class="" (click)="onSubmit()">Save</button>
 					</div>
 					<div>
 						<ul class="navbar-nav gap-2 flex-row align-self-start">
@@ -92,14 +93,6 @@
 		</div>
 	</div>
 </div>
-<div *ngIf="showmesg" class="showmesg text-success pt-5"><h1> Success!!</h1></div>
-<div class="col-md mb-3">
-    <ul class="list-group list-group-horizontal-xxl" *ngFor="let item of personnels">
-      <li class="list-group-item d-flex justify-content-between">
-        <p>{{ item.nom }}</p><p>{{ item.prenom }}</p><p>{{ item.age }}</p>
-        <button class="btn btn-success" (click)="deletePersonnel(item.id)">del</button></li>
-    </ul>
-  </div>
   
 <!--
 

@@ -24,7 +24,7 @@ export class PersonnelService {
   get(): Observable<Personnel[]> {
     return this.http.get<Personnel[]>(this.baseUrl+'/all');
   }
-
+ 
   post(formData: any): Observable<any> {
     return this.http.post<any>(this.baseUrl+'/c', formData);
   }
@@ -32,9 +32,8 @@ export class PersonnelService {
   delete(id: any): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/d/${id}`);
   }
-
   update(id: number, newData: any): Observable<any> {
-    return this.http.put<any>(`${this.baseUrl}/${id}`, newData);
+    return this.http.put<any>(`${this.baseUrl}/u/${id}`, newData);
   }
 
 }

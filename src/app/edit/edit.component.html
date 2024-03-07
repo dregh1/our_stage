@@ -1,0 +1,40 @@
+<div class="signup-box">
+    <h1>Inscription</h1>
+    <input type="text"
+        class="ele1 form-control"  
+        aria-label="Utilisateur" 
+        aria-describedby="addon-wrapping"
+        for="nom"
+        name="nom"
+        [(ngModel)]="personnel.nom"
+        placeholder="entrer votre Nom">
+    <input type="texte"
+        class="ele1 form-control"  
+        aria-label="Utilisateur" 
+        aria-describedby="addon-wrapping"
+        name="prenom"
+        for="prenom"
+        [(ngModel)]="personnel.prenom"
+        placeholder="votre prenom">
+    <input type="text"
+        class="ele1 form-control"  
+        aria-label="Utilisateur" 
+        aria-describedby="addon-wrapping"
+        name="age"
+        for="age"
+        [(ngModel)]="personnel.age"
+        placeholder="votre age">
+    <input type="password"
+        class="ele1 form-control"  
+        aria-label="Utilisateur" 
+        aria-describedby="addon-wrapping"
+        placeholder="mot de passe">
+    <input type="password"
+        class="ele1 form-control"  
+        aria-label="Utilisateur" 
+        aria-describedby="addon-wrapping"
+        placeholder="Confirmer votre mot de passe">
+        <div class="d-flex">
+            <button class="btn-success" (click)="updateRecord(personnel.id,personnel)">up</button>
+        </div>
+    </div>

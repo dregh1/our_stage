@@ -8,12 +8,14 @@ import { PersonnelService } from './services/personnel.service';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { LogComponent } from './log/log.component';
+import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LogComponent
+    LogComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,
