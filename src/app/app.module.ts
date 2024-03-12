@@ -6,16 +6,20 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PersonnelService } from './services/personnel.service';
 import { FormsModule } from '@angular/forms';
-import { HomeComponent } from './home/home.component';
-import { LogComponent } from './log/log.component';
-import { EditComponent } from './edit/edit.component';
+import { HomeComponent } from './component/creation_session/home.component';
+import { LogComponent } from './component/log/log.component';
+import { MenuComponent } from './component/menu/menu.component';
+import { HeaderComponent } from './component/header/header.component';
+import { EditComponent } from './component/edit/edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LogComponent,
-    EditComponent
+    EditComponent,
+    MenuComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
