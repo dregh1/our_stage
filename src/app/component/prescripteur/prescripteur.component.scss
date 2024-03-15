@@ -1,0 +1,21 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+section,.bt{
+    background-color: #ddd;
+     }
+.input-group{
+    width: 600px;
+    height: 40px;
+}
+@media screen and (max-width: 650px) {
+    .input-group{
+        width: 400px;
+        height: 30px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .input-group{
+        width: 200px;
+        height: 15px;
+    }
+}

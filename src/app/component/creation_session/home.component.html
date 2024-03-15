@@ -1,25 +1,36 @@
 <app-header></app-header>
 <section class="mx-3">
   <div class="main mx-2">
-    <div class="main row justify-content-around pt-5">
-                        
+    <div class="main row justify-content-around">
+             <h3 class="p-4">Création session</h3>          
         <div class="card mb-3 p-4" style="width:650px;">
           <div class="row ">
+            <div class="d-flex">
+              <div class="input-group mb-3 ">
+                <span class="input-group-text" id="basic-addon3">Date cloture</span>
+                <input type="date" class="ele1 mx-1">
+              </div>
+              <div class="input-group mb-3 ">
+                <span class="input-group-text" id="basic-addon3">Heure cloture</span>
+                <input id="appt-time" type="time"step="2"  class="ele1 mx-1">
+              </div>
+          </div>
           <div class="col-md">
               <div class="card-body text-center">
-                <div class="input-group mb-3 ">
-                  <span class="input-group-text" id="basic-addon3">Date et Heure cloture</span>
-                  <input type="date" class="ele1 mx-1">
-                </div>
-                  <span class="input-group-text mb-3" id="basic-addon3">Taux Devise(EUR/USD): </span>
+                
+                  <span class="input-group-text mb-3" id="basic-addon3">Taux Devise(EUR/USD/MGA): </span>
                   <div class="mx-5 mb-3">
                     <div class="input-group mb-3">
-                      <input type="text" class="ele1 mx-2">
+                      <input type="text" class="ele1 mx-1">
                       <span class="input-group-text" id="basic-addon3">EUR</span>
                     </div>
                     <div class="input-group mb-3">
-                      <input type="text" class="ele1 mx-2">
+                      <input type="text" class="ele1 mx-1">
                       <span class="input-group-text" id="basic-addon3">USD</span>
+                    </div>
+                    <div class="input-group mb-3">
+                      <input type="text" class="ele1 mx-1">
+                      <span class="input-group-text" id="basic-addon3">MGA</span>
                     </div>
                   </div>
                   <button type="button" class="ele mb-3 p-2 mx-4 border-0">Ouverture de session</button>

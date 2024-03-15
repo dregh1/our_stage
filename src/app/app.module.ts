@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,7 +9,7 @@ import { HomeComponent } from './component/creation_session/home.component';
 import { LogComponent } from './component/log/log.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { HeaderComponent } from './component/header/header.component';
-import { EditComponent } from './component/edit/edit.component';
+import { EditComponent } from './component/prescripteur/prescripteur.component';
 
 @NgModule({
   declarations: [
