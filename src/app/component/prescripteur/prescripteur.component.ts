@@ -11,14 +11,28 @@ import { LogService } from '../../services/log.service';
 })
 export class EditComponent {
   
-  
+  isUp1 = false; // Initial state for first button
+  isUp2 = false; // Initial state for second button
+  isUp3 = false;
+  toggleUp() {
+    this.isUp1 = !this.isUp1;
+  }
 
-  constructor() {}
+  toggleDown() {
+    this.isUp2 = !this.isUp2;
+  }
+  constructor() {
+    enum Role {
+      Prescripteur,
+      Achat,
+      Admin,
+    }
+  }
 
   isUp = true; // Initial state
 
   toggleIcon() {
-    this.isUp = !this.isUp;
+    this.isUp3 = !this.isUp3;
   }
 
 }

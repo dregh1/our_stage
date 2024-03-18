@@ -19,15 +19,27 @@
 					
 				</div>
 				<!-- app.component.html -->
-				<input type="text" class="ele1 form-control" placeholder="Username" aria-label="Username" [(ngModel)]="this.logindata.username" aria-describedby="basic-addon1">
-					
-				 
+				<input type="text" class="ele1 form-control px-2" placeholder="Username" aria-label="Username" [(ngModel)]="this.logindata.username" aria-describedby="basic-addon1">
+				
+				
+				<div class="ele1 input-group">
+					<select class="ele1 form-select px-2" id="inputGroupSelect02">
+					  <option selected>Choisir...</option>
+					  <option value="1">CDG</option>
+					  <option value="2">Prescripteur</option>
+					  <option value="3">Achat</option>
+					</select>
+				  </div>
+				  
+
+
+
 				  <div class="form-group inner-addon right-addon">
 					<div class="input-group col-6 mx-auto">
 						  <input name="password"
 						  [(ngModel)]="this.logindata.password"
 						  [type]="showPassword ? 'text' : 'password'"
-						  class=" ele1 form-control pwd-control"
+						  class=" ele1 form-control pwd-control px-2"
 						  id="password-field" placeholder="Password">
 
 					  <div>

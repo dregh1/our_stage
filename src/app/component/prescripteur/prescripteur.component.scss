@@ -6,10 +6,17 @@ section,.bt{
     width: 600px;
     height: 40px;
 }
+.ele1{
+	height: 60px;
+	width: 400px;
+	font-size: 18px;
+	font-size: 18px;
+}
 @media screen and (max-width: 650px) {
     .input-group{
         width: 400px;
         height: 30px;
+        padding: 20px;
     }
 }
 
@@ -17,5 +24,6 @@ section,.bt{
     .input-group{
         width: 200px;
         height: 15px;
+        padding: 20px;
     }
 }
