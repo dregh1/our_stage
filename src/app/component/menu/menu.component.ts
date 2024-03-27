@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  heure:Date=new Date();
+  heure:Date=new Date();role: string = 'prescripteur';
   heureDepart:Date=new Date();
   constructor(){
     this.heureDepart.setHours(0,30, 3);

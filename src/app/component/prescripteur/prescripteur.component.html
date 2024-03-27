@@ -1,140 +1,171 @@
-<app-header></app-header>
+
+<select [(ngModel)]="role">
+  <option value="cdg">CDG</option>
+  <option value="prescripteur">Prescripteur</option>
+  <option value="achat">Achat</option>
+</select>
 <section class="mx-3">
-    <div class="main mx-2">
-        <div class="pt-5">
-           
-            <fieldset class="form-group border border-1 p-3">
-                <legend class="w-auto px-2">Prescripteur
-                        <button  (click)="toggleUp()" class="btn"data-bs-toggle="collapse" href="#collapseExample"  aria-expanded="false" aria-controls="collapseExample">
-                            <i class="fa" [ngClass]="{'fa-chevron-down': isUp1, 'fa-chevron-up': !isUp1}"></i>
-                          </button>
-                </legend>
-                <div class="collapse" id="collapseExample">
-                    <div class="card card-body" >
-                        <div class="mx-4">
-                            <div class="row">
-                              <div class="col-md input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Regularisation</span>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                </div>
-                               
-                            </div>
-                            <div class="d-flex col-md mb-2">
-                                  <span class="input-group-text" id="inputGroup-sizing-sm">Titre</span>
-                                <div class="input-group" style="width: 200px;">
-                                  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
-                                <button type="button"  id="button-addon2" data-bs-target="#exampleModalToggle" data-bs-toggle="modal" ><i class="fa fa-plus" aria-hidden="true" style="font-size: 20px;"></i></button>
-                                </div>
-                            </div>
-                            </div>
-                                <!--popup-->
-                           <!-- Vertically centered modal -->
-                           <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                            <div class="modal-dialog modal-dialog-centered">
-                              <div class="modal-content">
+  <div class="main mx-2 pt-5">
+        <div class="">
+              
+                 <div *ngIf="role === 'cdg' || role === 'achat'">
+                      <fieldset class="form-group border border-1 p-3">
+                          <legend class="w-auto px-2">Prescripteur
+                                  <button  (click)="toggleUp()" class="btn"data-bs-toggle="collapse" href="#collapseExample"  aria-expanded="false" aria-controls="collapseExample">
+                                      <i class="fa" [ngClass]="{'fa-chevron-up': isUp1, 'fa-chevron-down': !isUp1}"></i>
+                                    </button>
+                          </legend>
+                        <!--  -->
+                          <div class="collapse" id="collapseExample" >
+                              <div class="card card-body" >
+                                  <div class="mx-4">
+                                      <div class=" justify-content-around d-flex">
+                                        <div class="d-flex">
+                                            <div class="label">
+                                              <span class="input-group-text mb-2" id="basic-addon1">Regularisation</span>
+                                              <span class="input-group-text mb-2" id="basic-addon1">Réference</span>
+                                              <span class="input-group-text mb-2" id="basic-addon1">Motif Besoin</span>
+                                              <span class="input-group-text mb-2" id="basic-addon1">Devise</span>
+                                              <span class="input-group-text mb-2" id="basic-addon1">Commentaire prescripteur</span>
+                                            </div>
+                                            <div class="mx-3">
+                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex">
+                                          <div class="label">
+                                              <span class="input-group-text mb-2" id="basic-addon1">Titre</span>
+                                              <span class="input-group-text mb-2" id="basic-addon1">fournisseurs</span>
+                                              <span class="input-group-text mb-2" id="basic-addon1">Montant HT</span>
+                                              <span class="input-group-text mb-2" id="basic-addon1">Période prestation</span>
+                                            </div>
+                                            <div class="mx-3">
+                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                            </div>
+                                      </div>
+                                      </div>
+                                    
+                                  </div>
+                                          <!--popup-->
+                                    <!-- Vertically centered modal -->
+                                    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                                      <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                          
+                                          <div class="ele1 input-group mb-3">
+                                            <div class="modal-header">
+                                              <button class="btn btn-outline-secondary border border-end-0" type="button" id="button-addon1"><i class="fa fa-search" aria-hidden="true" style="font-size: 20px;"></i></button>
+                                              <input type="text" class="form-control border border-start-0" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                            </div>
+                                            <div class="modal-body">
+                                              Show a second modal and hide this one with the button below.
+                                            </div>
+                                          
+                                            
+                                        </div>
+                                      </div>
+                                    </div>
+                                  
                                 
-                                <div class="ele1 input-group mb-3">
-                                  <div class="modal-header">
-                                    <button class="btn btn-outline-secondary border border-end-0" type="button" id="button-addon1"><i class="fa fa-search" aria-hidden="true" style="font-size: 20px;"></i></button>
-                                    <input type="text" class="form-control border border-start-0" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                   </div>
-                                  <div class="modal-body">
-                                    Show a second modal and hide this one with the button below.
+                                  
+
+                                    
+                                      
+                                        <div class="input-group input-group-sm mb-3">
+                                          <span class="input-group-text" id="inputGroup-sizing-sm">Réference BC</span>
+                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">  
+                                          <span class="input-group-text" id="inputGroup-sizing-sm">Réference DED</span>
+                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                      </div>
+                                        <div class="input-group input-group-sm mb-3">
+                                          <span class="input-group-text" id="inputGroup-sizing-sm">Motif Besoin</span>
+                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                        </div>
+                                        <div class="input-group input-group-sm mb-3">
+                                          <span class="input-group-text" id="inputGroup-sizing-sm">fournisseurs</span>
+                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                        </div>
+                                        <div class="input-group input-group-sm mb-3">
+                                          <span class="input-group-text" id="inputGroup-sizing-sm">Devise</span>
+                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">  
+                                          <span class="input-group-text" id="inputGroup-sizing-sm">Montant HT</span>
+                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                      </div>
+                                      <div class="input-group input-group-sm mb-3">
+                                          <span class="input-group-text" id="inputGroup-sizing-sm">Commentaire prescripteur</span>
+                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                        </div> 
                                   </div>
-                                 
+                                </div>
+                            </div>
+                      </fieldset>
+                      <fieldset class="form-group border border-1 p-3">
+                        <legend class="w-auto px-2">CDG
+                                <button  (click)="toggleDown()" class="btn"data-bs-toggle="collapse" href="#collapseExample1"  aria-expanded="false" aria-controls="collapseExample1">
+                                    <i class="fa" [ngClass]="{'fa-chevron-up': isUp2, 'fa-chevron-down': !isUp2}"></i>
+                                  </button>
+                        </legend>
+                        <div class="collapse" id="collapseExample1">
+                            <div class="card card-body " >
+                                  <div class=" justify-content-around d-flex">
+                                      <div class="d-flex">
+                                          <div class="label">
+                                            <span class="input-group-text mb-2" id="basic-addon1">Rubrique Budgetaire</span>
+                                            <span class="input-group-text mb-2" id="basic-addon1">Montant budget mensuel KMGA</span>
+                                            <span class="input-group-text mb-2" id="basic-addon1">Reliquat KMGA</span>
+                                          </div>
+                                            <div class="mx-3">
+                                            <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                            <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                            <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                          </div>
+                                    
+                                      <div class="d-flex">
+                                        <div class="label">
+                                            <span class="input-group-text mb-2" id="basic-addon1">Sous Rubrique</span>
+                                            <span class="input-group-text mb-2" id="basic-addon1">Montant engagé KMGA</span>
+                                            <span class="input-group-text mb-2" id="basic-addon1">Commentaire CDG</span>
+                                            </div>
+                                          <div class="mx-3">
+                                            <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                            <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                            <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                          </div>
+                                    </div>
                                   </div>
-                              </div>
+                            </div>
+                          </div></div>
+                      </fieldset>
+                  </div>
+                  <div *ngIf="role === 'achat'">
+                    <fieldset class="form-group border border-1 p-3">
+                        <legend class="w-auto px-2">Achat
+                                <button  (click)="toggleIcon()" class="btn"data-bs-toggle="collapse" href="#collapseExample2"  aria-expanded="false" aria-controls="collapseExample2">
+                                    <i class="fa" [ngClass]="{'fa-chevron-up': isUp3, 'fa-chevron-down': !isUp3}"></i>
+                                  </button>
+                        </legend>
+                        <div class="collapse" id="collapseExample2">
+                            <div class="card card-body " >
+                                
+                                <div class="d-flex p-1">
+                                  <span class="input-group-text mb-2" id="basic-addon1">Commentaire Achat</span>
+                                  <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                </div> 
                             </div>
                           </div>
-                         
-                      
-                         
-
-                           
-                            
-                              <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Réference BC</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">  
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Réference DED</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                              <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Motif Besoin</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                              </div>
-                              <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">fournisseurs</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                              </div>
-                              <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Devise</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">  
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Montant HT</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                            <div class="input-group input-group-sm mb-3">
-                                <span class="input-group-text" id="inputGroup-sizing-sm">Commentaire prescripteur</span>
-                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                              </div> 
-                        </div>
-                      </div>
-                  </div>
-            </fieldset>
-            <fieldset class="form-group border border-1 p-3">
-                <legend class="w-auto px-2">CDG
-                        <button  (click)="toggleDown()" class="btn"data-bs-toggle="collapse" href="#collapseExample1"  aria-expanded="false" aria-controls="collapseExample1">
-                            <i class="fa" [ngClass]="{'fa-chevron-down': isUp2, 'fa-chevron-up': !isUp2}"></i>
-                          </button>
-                </legend>
-                <div class="collapse" id="collapseExample1">
-                    <div class="card card-body " >
-                        <div class="mx-3">
-                          <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">Rubrique budgétaire</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">Sous Rubrique</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                         </div>
-                          <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text mb-1" id="inputGroup-sizing-sm">Montant budget KMGA</span>
-                            <input type="text" class="form-control mb-1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            <span class="input-group-text mb-1" id="inputGroup-sizing-sm">Montant engagé </span>
-                            <input type="text" class="form-control mb-1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                         <div class="input-group input-group-sm mb-3">
-                          <span class="input-group-text mb-2" id="inputGroup-sizing-sm">Reliquat KMGA</span>
-                            <input type="text" class="form-control mb-2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                         </div>
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text  mb-2" id="inputGroup-sizing-sm">Commentaire CDG</span>
-                            <input type="text" class="form-control mb-2"  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                          </div> 
-                    </div>
-                        </div>
-                  </div>
-            </fieldset>
-            <fieldset class="form-group border border-1 p-3">
-                <legend class="w-auto px-2">Achat
-                        <button  (click)="toggleIcon()" class="btn"data-bs-toggle="collapse" href="#collapseExample2"  aria-expanded="false" aria-controls="collapseExample2">
-                            <i class="fa" [ngClass]="{'fa-chevron-down': isUp3, 'fa-chevron-up': !isUp3}"></i>
-                          </button>
-                </legend>
-                <div class="collapse" id="collapseExample2">
-                    <div class="card card-body " >
-                        
-                        <div class="input-group input-group-sm mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">Commentaire Achat</span>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                          </div> 
-                    </div>
-                  </div>
-            </fieldset>
-
-          
+                    </fieldset>
+                 </div>
+           </div>  
+          <div class="bt p-3 d-flex justify-content-end" >
+              <button type="button" class="btn btn-primary">Valider</button>  
+          </div>
         </div>
-        <div class="bt p-3 d-flex justify-content-end" >
-            <button type="button" class="btn btn-primary">Valider</button>  
-        </div>
-    </div>  
+   
 </section>

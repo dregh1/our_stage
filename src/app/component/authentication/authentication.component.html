@@ -1,0 +1,54 @@
+
+<section class="mx-3">
+  <div class="main mx-2 pt-5">
+    <div class="main row justify-content-around pt-5">      
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                  <h2 class="card-title text-center p-2">Authentification</h2>
+                  <div class="input-group mb-3">
+                    <input type="text" 
+                    [(ngModel)]="this.logindata.username"
+                    class="form-control border border-end-0" placeholder="Utilisateur" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <button class="btn border border-start-0" id="button-addon2"><i class="fa-solid fa-user"></i></button>
+                  </div>
+                  <div class="mb-3">
+                    <div class="input-group mb-2">
+                    <input type="password" 
+                    [(ngModel)]="this.logindata.password"
+                    [type]="showPassword ? 'text' : 'password'" class="form-control border border-end-0" placeholder="Mot de passe" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                    <button class="btn btn-outline-secondary  border-start-0" type="button" id="button-addon2">
+                        <i class="fas fa-eye fa-lg eye-show" *ngIf="!showPassword" (click)="showPassword = !showPassword"></i>
+                        <i class="fas fa-eye-slash fa-lg eye-hide" *ngIf="showPassword" (click)="showPassword = !showPassword"></i>
+                    </button>
+                    </div>
+                      
+                    <a class="text-success justify-content-end d-flex"  >mot de passe oublié</a>
+                  </div>
+                  
+                  <div class="text-center">
+                    <button class="btn btn-primary" type="button" id="button-addon2" routerLink="/main/menu">Connexion</button>
+                     <button type="button" class="btn btn-primary" (click)="sendToKc()">sendToKc</button> 
+
+                    <!-- <button type="button" class="btn btn-primary" (click)="verifierLogin()">connexion</button>
+                     <button type="button" class="btn btn-primary" (click)="versKeyCloak()">connexion kc</button> 
+                    <button type="button" class="btn btn-primary" (click)="requet()">connexion kc rq</button>
+                    <button type="button" class="btn btn-primary" (click)="logToKeyCloak()">connexion kc js</button>
+                     -->
+                            
+                
+                  </div>  
+                </div>
+                <div class="error-message" *ngIf="errorStatus">
+                  <p style="color: red;">{{ errorMessage }}</p>
+                  
+                </div>
+              
+      </div>
+    </div>
+</div>
+</section>
+
+
+
+
+

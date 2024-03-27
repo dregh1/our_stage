@@ -1,0 +1,17 @@
+
+
+<h1>Choisir votre rôle</h1>
+<input type="text" [(ngModel)]="role">
+
+<select [(ngModel)]="role">
+  <option value="admin">Administrateur</option>
+  <option value="utilisateur">Utilisateur</option>
+</select>
+
+<div *ngIf="role === 'admin'">
+  <h2>Template pour les administrateurs</h2>
+  </div>
+
+<div *ngIf="role === 'utilisateur'">
+  <h2>Template pour les utilisateurs</h2>
+  </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, AfterViewInit ,ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { Personnel } from 'src/app/models/Personnel';
 import { PersonnelService } from 'src/app/services/personnel.service';
@@ -10,7 +10,7 @@ import { LogService } from '../../services/log.service';
   styleUrls: ['./prescripteur.component.scss']
 })
 export class EditComponent {
-  
+  role: string = 'prescripteur';
   isUp1 = false; // Initial state for first button
   isUp2 = false; // Initial state for second button
   isUp3 = false;

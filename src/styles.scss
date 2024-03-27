@@ -1,2 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@fortawesome/fontawesome-free/css/all.css';
+@font-face {
+    font-family: "Helvetica";
+    src: url("assets/font/helvetica_75_bold.ttf") format("truetype");
+  }
+  *{
+    font-family: "Helvetica";
+  }
+  @media (max-width: 768px) {
+    h1 {
+      font-size:3vw;
+    }
+    *,button{
+      font-size: 1vh;
+    }
+  }

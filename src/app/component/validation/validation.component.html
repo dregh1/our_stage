@@ -1,0 +1,191 @@
+<section>
+  
+<div class=" justify-content-between d-flex p-3">
+  <div class="d-flex">
+      <div class="label d-flex">
+            <span class="input-group-text  mx-2" id="basic-addon1">Direction</span>
+              <div class="input-group p-2">
+                <select class="form-select" id="inputGroupSelect02">
+                  <option selected>DTI</option>
+                  <option value="1">DRH</option>
+                  <option value="2">ODC</option>
+                </select>
+              </div>
+       </div>
+ 
+     <div class="label d-flex">
+        <span class="input-group-text  mx-2" id="basic-addon1">session CD</span>
+        <div class="input-group p-2">
+          <select class="form-select" id="inputGroupSelect02">
+            <option selected>OK</option>
+            <option value="1">NOK</option>
+            <option value="2">Stand By</option>
+          </select>
+        </div>
+      </div>
+</div>
+<div class="d-flex">
+    <button class="btn btn-primary p-2 mx-2" type="button">Cloture session</button>
+    <button class="btn btn-primary p-2 mx-2" type="button">Enregistrer</button>
+    <button class="btn btn-primary p-2" routerLink="/main/menu">
+     <i class="icon fas fa-close"></i>
+    </button>
+</div>
+
+</div>
+<div class="scrollmenu">
+<div  id="navbarExample" class="scrollspy-example p-3 entete "data-spy="scroll" data-target="#navbarExample">
+          
+
+         
+  <div class=" p-3 d-flex">
+        <div>
+          <span class="input-group-text " id="basic-addon1">Validation </span>
+        </div>
+        <div>
+          <span class="input-group-text " id="basic-addon1">Motif </span>
+        </div>
+        <div>
+          <span class="input-group-text " id="basic-addon1">Devise </span>
+        </div>
+        <div>
+          <span class="input-group-text " id="basic-addon1">Montant </span>
+      </div>
+        <div>
+          <span class="input-group-text " id="basic-addon1">fournisseurs</span>
+        </div>
+        <div>
+          <span class="input-group-text " id="basic-addon1">Commentaires CD</span>
+        </div>
+        <div>
+          <span class="input-group-text" id="basic-addon1">Periode</span>
+        </div>
+        <div>
+          <span class="input-group-text " id="basic-addon1">Commentaire Prescripteur</span>
+        </div>
+        <div>
+          <span class="input-group-text " id="basic-addon1">Commentaire Achat</span>
+        </div>
+</div>
+          
+<fieldset class="form-group border border-end-0">
+  <legend class=" px-2">
+          <button  (click)="toggleUp()" class="btn"data-bs-toggle="collapse" href="#collapseExample"  aria-expanded="false" aria-controls="collapseExample">
+              <i class="fa" [ngClass]="{'fa-chevron-up': isUp1, 'fa-chevron-down': !isUp1}"></i>
+            </button>
+   </legend>
+ <!--  -->
+  <div class="collapse" id="collapseExample" >
+      <div class="" >
+          <div class="">
+            <div style="height: 300px;" data-offset="50">    
+              <div class=" d-flex">
+                      <div>
+                            <div class="input-group p-2">
+                              <select class="form-select" id="inputGroupSelect02">
+                                <option selected>OK</option>
+                                <option value="1">NOK</option>
+                                <option value="2">Stand By</option>
+                              </select>
+                            </div>
+                      </div>
+                      <div>
+                        <span class="input-group-text " id="basic-addon1">Demande1 </span>
+                      </div>
+                      <div>
+                        <span class="input-group-text " id="basic-addon1">4800.00</span>
+                      </div>
+                      <div>
+                        <span class="input-group-text " id="basic-addon1">10 000,00 </span>
+                    </div>
+                      <div>
+                            <div class="input-group p-2">
+                              <select class="form-select" id="inputGroupSelect02">
+                                <option selected>OK</option>
+                                <option value="1">NOK</option>
+                                <option value="2">Stand By</option>
+                              </select>
+                            </div>
+                      </div>
+                      <div class="p-2">
+                         <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                      </div>
+                      <div>
+                          <div class="input-group p-2">
+                            <select class="form-select" id="inputGroupSelect02">
+                              <option selected>Mois</option>
+                              <option value="1">Année</option>
+                              <option value="2">Trimestre</option>
+                              <option value="2">Q1</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="p-2">
+                        <input type="text" class="form-control " placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                      </div>
+                      <div class="p-2">
+                        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                      </div>
+              </div>
+          </div> 
+          </div>
+        </div>
+    </div>
+</fieldset>
+<br><br> 
+    <div class="d-flex">
+          <div class="">
+            <div class="input-group p-2">
+              <select class="form-select" id="inputGroupSelect02">
+                <option selected>OK</option>
+                <option value="1">NOK</option>
+                <option value="2">Stand By</option>
+              </select>
+            </div>
+          </div>
+          <div class="">
+            <span class="input-group-text " id="basic-addon1">Demande1</span>
+          </div>
+          <div class="">
+            <span class="input-group-text " id="basic-addon1">4800.00</span>
+          </div>
+          <div>
+            <span class="input-group-text " id="basic-addon1">10 000,00</span>
+          </div>
+          <div>
+              <div class="input-group p-2">
+                <select class="form-select" id="inputGroupSelect02">
+                  <option selected>OK</option>
+                  <option value="1">NOK</option>
+                  <option value="2">Stand By</option>
+                </select>
+              </div>
+          </div>
+          <div class="p-2">
+            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div>
+              <div class="input-group p-2">
+                <select class="form-select" id="inputGroupSelect02">
+                  <option selected>Mois</option>
+                  <option value="1">Année</option>
+                  <option value="2">Trimestre</option>
+                  <option value="2">Q1</option>
+                </select>
+              </div>
+            </div>
+          <div class="p-2">
+            <input type="text" class="form-control " placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="p-2">
+            <input type="text" class="form-control " placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+    </div>
+
+      </div>
+</div>
+ 
+
+
+
+</section>
