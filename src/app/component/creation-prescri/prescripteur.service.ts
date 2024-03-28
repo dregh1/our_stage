@@ -7,6 +7,7 @@ import { Fournisseur } from 'src/app/models/Fournisseur';
 import { Sousrubrique } from 'src/app/models/Sousrubrique';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Active_dmd } from 'src/app/models/Active_dmd';
+import { Titre } from 'src/app/models/titre';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,15 @@ export class PrescripteurService {
   //   is_closed :Boolean
   // }
   
+// maka titre
+ getTitre(): Observable<Titre[]> {
+   return this.http.get<Titre[]>(this.baseUrl2+'/titre/get');
+ }
+//Ajout titre
 
+posttitre(formData: any): Observable<any> {
+  return this.http.post<any>(this.baseUrl2+'/titre/create',formData);
+}
 
 // maka periode
   getPeriode(): Observable<Periode[]> {
@@ -41,18 +50,13 @@ export class PrescripteurService {
   }
   
 // maka rubrique
-  getRubrique(): Observable<Rubrique[]> {
-    return this.http.get<Rubrique[]>(this.baseUrl+'/rubrique/get');
-  }
+ 
 // maka periode
   getFournisseur(): Observable<Fournisseur[]> {
   return this.http.get<Fournisseur[]>(this.baseUrl+'/fournisseur/get');
 }
 
 // maka periode
-getSousrubrique(): Observable<Sousrubrique[]> {
-  return this.http.get<Sousrubrique[]>(this.baseUrl+'/sousrubrique/get');
-}
 
 // maka ny brouillon
 getBrouillon():  Observable<Brouillon[]> {

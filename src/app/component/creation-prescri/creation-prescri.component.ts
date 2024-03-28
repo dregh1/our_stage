@@ -3,11 +3,10 @@ import { PrescripteurService } from './prescripteur.service';
 import { Demande } from 'src/app/models/Demande';
 import { Fournisseur } from 'src/app/models/Fournisseur';
 import { Periode } from 'src/app/models/Periode';
-import { Rubrique } from 'src/app/models/Rubrique';
-import { Sousrubrique } from 'src/app/models/Sousrubrique';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { formatNumber } from '@angular/common';
 import { of, distinct } from 'rxjs';
+import { Titre } from 'src/app/models/titre';
 
 
 @Component({
@@ -19,9 +18,8 @@ export class CreationPrescriComponent implements OnInit {
 
    // donnee PRESCRIPTEUR
    periodes: Periode[]=[];
-   rubriques: Rubrique[]=[];
-   sousrubriques: Sousrubrique[]=[];
    fournisseurs : Fournisseur[] = [];
+   titres : Titre[] = [];
    brouillons : Brouillon [] = [];
    active_dmds : Brouillon [] = [];
    titresBr : any [] = [];
@@ -30,13 +28,11 @@ export class CreationPrescriComponent implements OnInit {
    selectedTitleAct: string | undefined;
    devises : any [] =  [];
    refences : any []= [];
- 
+  designation:string='';
+  texte:string='';
    // valeur
  
    periode:any;
-   rubrique:any;
-   sousrubrique:any;
-   fournisseur:any;
    isregularisation : boolean;  
    id_session : any = 3351;
    id_titre_depense : any =  1;
@@ -51,7 +47,6 @@ export class CreationPrescriComponent implements OnInit {
  
    motif               : '',
    type_devise : '',
-   id_rubrique         :'',
    coms_prescripteur :'',
  
    id_titre_depense    : '',
@@ -59,7 +54,6 @@ export class CreationPrescriComponent implements OnInit {
  
    id_fournisseur      :'',
    montant_ht          :'',
-   sousrubrique     :'',
  
    id_periode          : '',
  
@@ -68,6 +62,12 @@ export class CreationPrescriComponent implements OnInit {
  
   }
  
+  titre_depense =
+  {
+    designation :'',
+  }
+
+
    //  données ACHAT
    commentairesAch : string = '';
  
@@ -76,27 +76,24 @@ export class CreationPrescriComponent implements OnInit {
    constructor(private prescripteurService : PrescripteurService)
     {
        this.isregularisation = false;
-       this.rubrique = null;
     
        
  
      }
  
    ngOnInit(): void {
+    //maka titre
+    this.prescripteurService.getTitre().subscribe(data => {
+      this.titres = data;
+    });
+//aJOUT
+   
      // maka ny fournisseur
      this.prescripteurService.getFournisseur().subscribe(data => {
        this.fournisseurs = data;
      });
      
-     // maka ny rubrique
-     this.prescripteurService.getRubrique().subscribe(data => {
-       this.rubriques = data;
-     });
- 
-     // maka ny sousrubrique
-     this.prescripteurService.getSousrubrique().subscribe(data => {
-       this.sousrubriques = data;
-     });
+    
  
      // maka ny periode
      this.prescripteurService.getPeriode().subscribe(data => {
@@ -155,13 +152,13 @@ export class CreationPrescriComponent implements OnInit {
    showDetailsAct(title: string) {
      this.selectedTitleAct = title;
    }
+
+
    creerDemande()
    {
      console.log( 
       "periode : "+this.demande.id_periode + "\n " + 
-       "rubrique : "+this.demande.id_rubrique + "\n " 
-       +  "rubrique : "+this.demande.sousrubrique + "\n " + 
-      //  "sousrubrique : "+this.demande.id_sousrubrique + "\n " + 
+       //  "sousrubrique : "+this.demande.id_sousrubrique + "\n " + 
        "fournisseur : "+this.demande.id_fournisseur + "\n " + 
        "isregularisation : "+this.demande.is_regularisation  + "\n " +
        "devise" + this.demande.type_devise + " \n"+
@@ -176,26 +173,63 @@ export class CreationPrescriComponent implements OnInit {
        );
      
        
-        this.prescripteurService.createDemande(this.demande)
-        .subscribe(
-           response  => {
-             // Gérer la réponse du jeton avec succès
-             console.log(' reçu:', response);
-             console.log('\n\n\n\n\n\n');
+        // this.prescripteurService.createDemande(this.demande)
+        // .subscribe(
+        //    response  => {
+        //      // Gérer la réponse du jeton avec succès
+        //      console.log(' reçu:', response);
+        //      console.log('\n\n\n\n\n\n');
              
-           },
-           error => {
-             // Gérer les erreurs pendant la requête
-             console.error('Erreur lors de l\'obtention du jeton:', error);
+        //    },
+        //    error => {
+        //      // Gérer les erreurs pendant la requête
+        //      console.error('Erreur lors de l\'obtention du jeton:', error);
             
-           }
-        );
+        //    }
+        // );
  
    }
    // set coms achat
    setComsAchat(){
      
    }
+   //Ajout titre
+// 
+Ajouttitre() {
+  var id ='';
+  console.log(this.titre_depense.designation);
  
- }
+  this.prescripteurService.posttitre(this.titre_depense).subscribe(response => {
+    console.log( response);
+    id = response.id;
+    //this.demande.id_titre_depense = response.id;
+      }
+      )
+     
+      // const selectelement = document.getElementById("idtitre");
+      // const newOpt = document.createElement("option");
+      // newOpt.value = id;
+      // newOpt.text = this.texte;
+
+      // if(selectelement!=null)
+      // {
+      //   selectelement.appendChild(newOpt);
+      //   selectelement.selectedIndex = selectelement.options.length - 1 ;
+      // };
+
+    }
+add(){
+  this.texte=this.titre_depense.designation;
+}
+
+    // .subscribe(response => {
+    //   console.log(response);
+    //   this.showmesg = true;
+
+    //   setTimeout(() => {
+    //     this.showmesg = false;
+    //   }, 2000);
+    //   window.location.reload();
+    // });
+}
  

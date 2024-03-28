@@ -13,10 +13,9 @@
                           <div class="d-flex">
                               <div class="label">
                                 <span class="input-group-text mb-2" id="basic-addon1">Regularisation</span>
-                                <span class="input-group-text mb-2" id="basic-addon1">Réference</span>
+                                <span class="input-group-text mb-2" id="basic-addon1">Type</span>
                                 <span class="input-group-text mb-2" id="basic-addon1">Motif Besoin</span>
                                 <span class="input-group-text mb-2" id="basic-addon1">Devise</span>
-                                <span class="input-group-text mb-2" id="basic-addon1">Rubrique </span>
                                 <span class="input-group-text mb-2" id="basic-addon1">Commentaire prescripteur</span>
                               </div>
                               <div class="mx-3">
@@ -26,24 +25,19 @@
                                  </div>
                                  <div class="input-group mb-2">
                                       <select class="form-select" [(ngModel)]="this.demande.type_reference" id="inputGroupSelect04" aria-label="Example select with button addon">
-                                        <option selected value="BC">BC</option>
-                                        <option value="DED">DED</option>
+                                        <option selected value="BC">Réference BC</option>
+                                        <option value="DED">Réference DED</option>
                                       </select>
                                 </div>
                                 <input type="text" class="form-control mb-2"  [(ngModel)]="this.demande.motif" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                                 
                                  <div class="input-group mb-2">
                                       <select class="form-select" [(ngModel)]="this.demande.type_devise" id="inputGroupSelect04" aria-label="Example select with button addon">
-                                        <option selected value="EUR">EUR</option>
+                                        <option  value="EUR"selected >EUR</option>
                                         <option value="USD">USD</option>
                                       </select>
                                   </div>
-                                  <div class="input-group mb-2">
-                                    <select class="form-select" [(ngModel)]="this.demande.id_rubrique" id="inputGroupSelect04" aria-label="Example select with button addon">
-                                      <option *ngFor="let item of this.rubriques" [value]="item.id"> {{item.designation}}  </option>
-                                
-                                    </select>
-                                   </div>
+                                 
                                  <input type="text"type="text"  [(ngModel)]="this.demande.coms_prescripteur" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                               </div>
                           </div>
@@ -51,19 +45,19 @@
                           <div class="d-flex">
                              <div class="label">
                                 <span class="input-group-text mb-2" id="basic-addon1">Titre</span>
-                                <span class="input-group-text mb-2" id="basic-addon1">re</span>
+                                <span class="input-group-text mb-2" id="basic-addon1">Réference</span>
                                 <span class="input-group-text mb-2" id="basic-addon1">fournisseurs</span>
                                 <span class="input-group-text mb-2" id="basic-addon1">Montant HT</span>
-                                <span class="input-group-text mb-2" id="basic-addon1">Sous Rubrique</span>
                                 <span class="input-group-text mb-2" id="basic-addon1">Période prestation</span>
                                </div>
                               <div class="mx-3">
+                                
                                     <div class="input-group mb-2">
-                                      <select class="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                      </select>
+                                        <select class="form-select" [(ngModel)]="this.demande.id_titre_depense"   id="idtitre" aria-label="Example select with button addon">
+                                          <option *ngFor="let item of this.titres" [value]="item.id"> {{item.designation}}  </option>
+                                          <option >{{texte}}</option>
+                                        </select>
+                    
                                        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">+</button>
                                      </div>
                                      <input type="text" step="any"[(ngModel)]="this.demande.nom_reference" class="form-control mb-2" placeholder="reference" aria-label="Username" aria-describedby="basic-addon1">
@@ -74,7 +68,6 @@
                                       </select>
                                      </div>
                                    <input type="number" step="any" [(ngModel)]="this.demande.montant_ht" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                   <input type="text" [(ngModel)]="this.demande.sousrubrique" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
                                    
                                    <div class="input-group mb-2">
                                     <select class="form-select"  [(ngModel)]="this.demande.id_periode"id="inputGroupSelect04" aria-label="Example select with button addon">
@@ -109,13 +102,14 @@
         <form>
           <div class="mb-3">
             <label for="recipient-name" class="col-form-label">Ajout titre:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="text" class="form-control" [(ngModel)]="titre_depense.designation" [ngModelOptions]="{standalone:true}" id="recipient-name">
+            
           </div>
           
         </form>
       </div>
       <div class="modal-footer">
-       <button type="button" class="btn btn-primary">Enregistrer</button>
+       <button type="button" class="btn btn-primary" (click)="Ajouttitre()">Enregistrer</button>
        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">fermer</button>
       </div>
     </div>
