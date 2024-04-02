@@ -31,7 +31,6 @@ export class CreationPrescriComponent implements OnInit {
   designation:string='';
   texte:string='';
    // valeur
- 
    periode:any;
    isregularisation : boolean;  
    id_session : any = 3351;
@@ -56,21 +55,16 @@ export class CreationPrescriComponent implements OnInit {
    montant_ht          :'',
  
    id_periode          : '',
- 
- 
-   
- 
   }
  
   titre_depense =
   {
     designation :'',
   }
-
+   id ='';
 
    //  données ACHAT
    commentairesAch : string = '';
- 
  
  
    constructor(private prescripteurService : PrescripteurService)
@@ -100,26 +94,26 @@ export class CreationPrescriComponent implements OnInit {
        this.periodes = data;
      });
  
-      // maka ny brouillon
-      this.prescripteurService.getBrouillon().subscribe(data => {
-       this.brouillons = data;
+    //   // maka ny brouillon
+    //   this.prescripteurService.getBrouillon().subscribe(data => {
+    //    this.brouillons = data;
  
-       const uniqueTitles = Array.from(new Set(this.brouillons.map(obj => obj.titre)));
-       this.titresBr = uniqueTitles;
-       console.log(uniqueTitles); // ["Team Building", "sans titre"]
+    //    const uniqueTitles = Array.from(new Set(this.brouillons.map(obj => obj.titre)));
+    //    this.titresBr = uniqueTitles;
+    //    console.log(uniqueTitles); // ["Team Building", "sans titre"]
        
-     });
+    //  });
  
  
-     //maka ny Active_dmd
-     this.prescripteurService.getActive().subscribe(data => {
-       this.active_dmds = data;
+    //  //maka ny Active_dmd
+    //  this.prescripteurService.getActive().subscribe(data => {
+    //    this.active_dmds = data;
  
-       const uniqueTitles = Array.from(new Set(this.active_dmds.map(obj => obj.titre)));
-       this.titresAct = uniqueTitles;
-       console.log(uniqueTitles); // ["Team Building", "sans titre"]
+    //    const uniqueTitles = Array.from(new Set(this.active_dmds.map(obj => obj.titre)));
+    //    this.titresAct = uniqueTitles;
+    //    console.log(uniqueTitles); // ["Team Building", "sans titre"]
        
-     });
+    //  });
  
      //maka ny reference
      this.prescripteurService.getReference().subscribe(data => {
@@ -166,27 +160,27 @@ export class CreationPrescriComponent implements OnInit {
        "motif" + this.demande.motif + " \n"+"ref" + this.demande.type_reference + " \n"+
        "commentaire" + this.demande.coms_prescripteur + " \n"+
        "montant_ht" + this.demande.montant_ht + " \n"+"ree" + this.demande.nom_reference + " \n"
- 
-       
+        +"demande.id_titre_depense"+this.demande.id_titre_depense
+      
      
        
        );
-     
-       
-        // this.prescripteurService.createDemande(this.demande)
-        // .subscribe(
-        //    response  => {
-        //      // Gérer la réponse du jeton avec succès
-        //      console.log(' reçu:', response);
-        //      console.log('\n\n\n\n\n\n');
+       this.demande.id_titre_depense = this.id;
+       console.log('ito ilay id',this.id);
+        this.prescripteurService.createDemande(this.demande)
+        .subscribe(
+           response  => {
+             // Gérer la réponse du jeton avec succès
+             console.log(' reçu:', response);
+             console.log('\n\n\n\n\n\n');
              
-        //    },
-        //    error => {
-        //      // Gérer les erreurs pendant la requête
-        //      console.error('Erreur lors de l\'obtention du jeton:', error);
+           },
+           error => {
+             // Gérer les erreurs pendant la requête
+             console.error('Erreur lors de l\'obtention du jeton:', error);
             
-        //    }
-        // );
+           }
+        );
  
    }
    // set coms achat
@@ -195,17 +189,20 @@ export class CreationPrescriComponent implements OnInit {
    }
    //Ajout titre
 // 
+
+
 Ajouttitre() {
-  var id ='';
+  
   console.log(this.titre_depense.designation);
  
   this.prescripteurService.posttitre(this.titre_depense).subscribe(response => {
     console.log( response);
-    id = response.id;
+    this.id = response.id;
     //this.demande.id_titre_depense = response.id;
       }
       )
-     
+      this.texte=this.titre_depense.designation;
+      console.log(this.id);
       // const selectelement = document.getElementById("idtitre");
       // const newOpt = document.createElement("option");
       // newOpt.value = id;
@@ -218,18 +215,12 @@ Ajouttitre() {
       // };
 
     }
-add(){
-  this.texte=this.titre_depense.designation;
-}
+
 
     // .subscribe(response => {
     //   console.log(response);
     //   this.showmesg = true;
 
-    //   setTimeout(() => {
-    //     this.showmesg = false;
-    //   }, 2000);
-    //   window.location.reload();
-    // });
+    
 }
  

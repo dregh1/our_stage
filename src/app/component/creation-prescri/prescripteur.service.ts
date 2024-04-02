@@ -8,6 +8,7 @@ import { Sousrubrique } from 'src/app/models/Sousrubrique';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Active_dmd } from 'src/app/models/Active_dmd';
 import { Titre } from 'src/app/models/titre';
+import { Demande } from 'src/app/models/Demande';
 
 @Injectable({
   providedIn: 'root'
@@ -92,5 +93,16 @@ createDemande(formData: any): Observable<any> {
   getReference():  Observable<FormData[]> {
     return this.http.get<FormData[]>(this.baseUrl2+'/reference/get'); 
    }
-
+   //maj demande
+   updateDemande(demande:Demande):Observable<Demande[]>{
+    return this.http.put<Demande[]>(this.baseUrl2+'/achat/commentaire/create', demande.id);
+   }
+   //delete demad
+   deleteDemande(DemandeId:number):Observable<void>{
+    return this.http.delete<void>(this.baseUrl2+'/achat/commentaire/create'+ DemandeId);
+   }
+   //aiche par detail
+   getDemandeById(DemandeId:number):Observable<Demande>{
+    return this.http.get<Demande>(this.baseUrl2+'/achat/commentaire/create'+ DemandeId);
+   }
 }
