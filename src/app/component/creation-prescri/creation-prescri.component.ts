@@ -62,6 +62,7 @@ export class CreationPrescriComponent implements OnInit {
     designation :'',
   }
    id ='';
+   //titre_depenqe
 
    //  données ACHAT
    commentairesAch : string = '';
