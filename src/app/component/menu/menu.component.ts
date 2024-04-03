@@ -1,31 +1,35 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuService } from './menu.service';
+import { Brouillon } from 'src/app/models/Brouillon';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  heure:Date=new Date();role: string = 'prescripteur';
-  heureDepart:Date=new Date();
-  constructor(){
-    this.heureDepart.setHours(0,30, 3);
+  heure:Date=new Date();
+  role: string = 'prescripteur';
+  brouillons : Brouillon [] = [];
+// brouillons={
+//   titre : '',
+//    motif : '',
+//  montant_ht : '',
+//  is_regularisation : '',
+//   coms_prescripteur : '',
+//    periode : '',
+//   direction : '',
+//  devise : '',
+//   fournisseur :'',
+// }
+  constructor(private MenuSerice:MenuService){
+    
   }
-
+ 
   ngOnInit(): void {
-      setInterval(()=>{
-        this.decrementeHeure();
-        this.updateColor();
-      },1000);
+   
+    this.MenuSerice.getBrouillon().subscribe(brouillons => {
+      this.brouillons = brouillons;
+    });
 }
-decrementeHeure(){
-  this.heureDepart = new Date(this.heureDepart.getTime()-1000);
-}
-updateColor(){
-  const timedi=this.heureDepart.getTime() - this.heure.getTime();
-  const trente=30 * 60 * 1000;
-  if(timedi<=trente){
-   return 'red';
-  }
-  return 'black';
-}
+
 }

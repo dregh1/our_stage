@@ -51,13 +51,14 @@ posttitre(formData: any): Observable<any> {
   }
   
 // maka rubrique
- 
+getRubrique(): Observable<Rubrique[]> {
+  return this.http.get<Rubrique[]>(this.baseUrl2+'/rubrique/get');
+}
 // maka periode
   getFournisseur(): Observable<Fournisseur[]> {
   return this.http.get<Fournisseur[]>(this.baseUrl+'/fournisseur/get');
 }
 
-// maka periode
 
 // maka ny brouillon
 getBrouillon():  Observable<Brouillon[]> {
