@@ -17,7 +17,7 @@ const routes: Routes = [
   {path:'',component:AuthenticationComponent},
   {path:'main',component:MainComponent,
         children:[
-            {path:'achat',component:EditComponent},
+            {path:'achat/:id',component:EditComponent},
             {path:'header',component:HeaderComponent},
             {path:'session',component:HomeComponent},
             {path:'menu',component:MenuComponent},

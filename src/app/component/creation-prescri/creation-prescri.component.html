@@ -58,13 +58,12 @@
                                 <span class="input-group-text mb-2" id="basic-addon1">Période prestation</span>
                                </div>
                               <div class="mx-3">
-                                
+                                    <!--creation titre-->
                                     <div class="input-group mb-2">
                                         <select class="form-select" [(ngModel)]="this.demande.id_titre_depense"  id="idtitre" aria-label="Example select with button addon">
                                           <option *ngFor="let item of this.titres " [value]="item.id"> {{item.designation}}  </option>
                                          <option >{{this.texte}}</option>
                                         </select>
-                    
                                        <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">+</button>
                                      </div>
                                      <input type="text" step="any"[(ngModel)]="this.demande.nom_reference" class="form-control mb-2" placeholder="reference" aria-label="Username" aria-describedby="basic-addon1">
@@ -97,7 +96,7 @@
     </div>
 </section>
 
-
+<!--POP UP TITRTE-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -117,8 +116,7 @@
       </div>
       <div class="modal-footer">
        <button type="button" class="btn btn-primary" (click)="Ajouttitre()" data-bs-dismiss="modal">Enregistrer</button>
-       <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">fermer</button>
-      </div>
+        </div>
     </div>
   </div>
 </div>

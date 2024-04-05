@@ -6,106 +6,109 @@
 </select>
 <section class="mx-3">
   <div class="main mx-2 pt-5">
-        <div class="">
-              
-                 <div *ngIf="role === 'cdg' || role === 'achat'">
-                      <fieldset class="form-group border border-1 p-3">
+        
+                  <!--partie Prescripteur-->
+                  <fieldset class="form-group border border-1 p-3">
+                          <!--titre du Prescripteur-->  
                           <legend class="w-auto px-2">Prescripteur
-                                  <button  (click)="toggleUp()" class="btn"data-bs-toggle="collapse" href="#collapseExample"  aria-expanded="false" aria-controls="collapseExample">
-                                      <i class="fa" [ngClass]="{'fa-chevron-up': isUp1, 'fa-chevron-down': !isUp1}"></i>
-                                    </button>
-                          </legend>
-                        <!--  -->
-                          <div class="collapse" id="collapseExample" >
-                              <div class="card card-body" >
-                                  <div class="mx-4">
-                                      <div class=" justify-content-around d-flex">
-                                        <div class="d-flex">
+                                    <button  (click)="toggleUp()" class="btn" data-bs-toggle="collapse" href="#collapseExample"  aria-expanded="false" aria-controls="collapseExample">
+                                        <i class="fa" [ngClass]="{'fa-chevron-up': isUp1, 'fa-chevron-down': !isUp1}"></i>
+                                      </button>
+                            </legend>
+                            <ul>
+                              <li>
+                          <!-- les attributs du  prescripteur -->
+                            <div class="collapse show" id="collapseExample" >
+                                <div class="card card-body" >
+                                    <div class="mx-4">
+                                        <div class=" justify-content-around d-flex form-group" >
+                                          <div class="d-flex">
+                                              <div class="label">
+                                                <span class="input-group-text mb-2" id="basic-addon1">Regularisation</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Réference</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Motif Besoin</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Devise</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Commentaire prescripteur</span>
+                                              </div>
+                                              <div class="mx-3">
+                                                <div class="form-check mb-2 form-switch">
+                                                  <input class="form-check-input" [(ngModel)]="this.demande.is_regularisation"type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                                 </div>
+                                               <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"  [(ngModel)]="this.demande.type_reference">
+                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.motif">
+                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"[(ngModel)]="this.demande.type_devise">
+                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.coms_prescripteur">
+                                              </div>
+                                          </div>
+                                          <div class="d-flex">
                                             <div class="label">
-                                              <span class="input-group-text mb-2" id="basic-addon1">Regularisation</span>
-                                              <span class="input-group-text mb-2" id="basic-addon1">Réference</span>
-                                              <span class="input-group-text mb-2" id="basic-addon1">Motif Besoin</span>
-                                              <span class="input-group-text mb-2" id="basic-addon1">Devise</span>
-                                              <span class="input-group-text mb-2" id="basic-addon1">Commentaire prescripteur</span>
-                                            </div>
-                                            <div class="mx-3">
-                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                            </div>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Titre</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Réference</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">fournisseurs</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Montant HT</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Période prestation</span>
+                                              </div>
+                                              <div class="mx-3">
+                                                <!--CREATION TITRE-->
+                                                <div class="input-group mb-2">
+                                                  <select class="form-select" [(ngModel)]="this.demande.id_titre_depense"  id="idtitre" aria-label="Example select with button addon">
+                                                    <!-- <select class="form-select"  id="idtitre" aria-label="Example select with button addon"> -->
+                                                    <option *ngFor="let item of this.titres " [value]="item.id"> {{item.designation}}  </option>
+                                                   <!-- <option value="{{this.demande.id_titre_depense}}">{{this.demande.titre}}</option> -->
+                                                   <!-- <option [selected]="this.item.id=== this.demande.id_titre_depense" value="{{ this.demande.titre }}">
+                                                    {{ this.demande.titre }}
+                                                  <
+                                                  option> -->
+                                                  </select>
+                                                 <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">+</button>
+                                               </div>
+                                               <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"  [(ngModel)]="this.demande.nom_reference">
+                                               
+                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"[(ngModel)]="this.demande.fournisseur">
+                                                                                             
+                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"[(ngModel)]="this.demande.montant_ht">
+                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"[(ngModel)]="this.demande.periode">
+                                              </div>
+                                          </div>
                                         </div>
-                                        <div class="d-flex">
-                                          <div class="label">
-                                              <span class="input-group-text mb-2" id="basic-addon1">Titre</span>
-                                              <span class="input-group-text mb-2" id="basic-addon1">fournisseurs</span>
-                                              <span class="input-group-text mb-2" id="basic-addon1">Montant HT</span>
-                                              <span class="input-group-text mb-2" id="basic-addon1">Période prestation</span>
-                                            </div>
-                                            <div class="mx-3">
-                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                              <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                            </div>
-                                      </div>
-                                      </div>
-                                    
-                                  </div>
-                                          <!--popup-->
-                                    <!-- Vertically centered modal -->
-                                    <!-- <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                                      <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                          
-                                          <div class="ele1 input-group mb-3">
-                                            <div class="modal-header">
-                                              <button class="btn btn-outline-secondary border border-end-0" type="button" id="button-addon1"><i class="fa fa-search" aria-hidden="true" style="font-size: 20px;"></i></button>
-                                              <input type="text" class="form-control border border-start-0" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                            </div>
-                                            <div class="modal-body">
-                                              Show a second modal and hide this one with the button below.
-                                            </div>
-                                          
-                                            
-                                        </div>
-                                      </div>
-                                    </div>
-                                  
-                                
-                                  
-
-                                    
                                       
-                                        <div class="input-group input-group-sm mb-3">
-                                          <span class="input-group-text" id="inputGroup-sizing-sm">Réference BC</span>
-                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">  
-                                          <span class="input-group-text" id="inputGroup-sizing-sm">Réference DED</span>
-                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                      </div>
-                                        <div class="input-group input-group-sm mb-3">
-                                          <span class="input-group-text" id="inputGroup-sizing-sm">Motif Besoin</span>
-                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                        </div>
-                                        <div class="input-group input-group-sm mb-3">
-                                          <span class="input-group-text" id="inputGroup-sizing-sm">fournisseurs</span>
-                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                        </div>
-                                        <div class="input-group input-group-sm mb-3">
-                                          <span class="input-group-text" id="inputGroup-sizing-sm">Devise</span>
-                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">  
-                                          <span class="input-group-text" id="inputGroup-sizing-sm">Montant HT</span>
-                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                      </div>
-                                      <div class="input-group input-group-sm mb-3">
-                                          <span class="input-group-text" id="inputGroup-sizing-sm">Commentaire prescripteur</span>
-                                          <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                                        </div> 
-                                  </div> -->
+                                    </div>
+                                            
+                                  </div>
+                              </div></li>
+                            </ul>
+                          <!--    popu titre-->
+                          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title h5" id="exampleModalLabel">Titre</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
                                 </div>
+                                <div class="modal-body">
+                                  <form>
+                                    <div class="mb-3">
+                                      <label for="recipient-name" class="col-form-label">Ajout titre:</label>
+                                      <input type="text" class="form-control" [(ngModel)]="titre_depense.designation" [ngModelOptions]="{standalone:true}" id="recipient-name">
+                                      
+                                    </div>
+                                    
+                                  </form>
+                                </div>
+                                <div class="modal-footer">
+                                 <button type="button" class="btn btn-primary" (click)="Ajouttitre()" data-bs-dismiss="modal">Enregistrer</button>
+                                  </div>
+                              </div>
                             </div>
-                      </fieldset>
+                          </div>
+                          <!--bouton valider-->
+                          <div *ngIf="role === 'prescripteur' " class="bt p-3 d-flex justify-content-end" >
+                            <button type="button" class="btn btn-primary"(click)="update()">Enregistrer</button> 
+                            <button type="button" class="btn btn-primary">Valider</button>  
+                          </div>
+                  </fieldset>
+                  <!--partie cdg-->
+                  <div *ngIf="role === 'cdg' || role === 'achat' ">
                       <fieldset class="form-group border border-1 p-3">
                         <legend class="w-auto px-2">CDG
                                 <button  (click)="toggleDown()" class="btn"data-bs-toggle="collapse" href="#collapseExample1"  aria-expanded="false" aria-controls="collapseExample1">
@@ -144,6 +147,7 @@
                           </div></div>
                       </fieldset>
                   </div>
+                    <!--partie Achat-->
                   <div *ngIf="role === 'achat'">
                     <fieldset class="form-group border border-1 p-3">
                         <legend class="w-auto px-2">Achat
@@ -162,10 +166,8 @@
                           </div>
                     </fieldset>
                  </div>
-           </div>  
-          <div class="bt p-3 d-flex justify-content-end" >
-              <button type="button" class="btn btn-primary">Valider</button>  
-          </div>
+           
+          
         </div>
    
 </section>
