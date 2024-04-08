@@ -42,32 +42,17 @@
               Liste des demandes CD Actives 
             </div>
             <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item justify-content-between d-flex ">
-                        <div>
-                          <h6>Titre: <p>sous titre</p></h6>
-                        </div>
-                         <div>
-                            <button type="button" class="btn"><i class=" icon fas fa-chevron-circle-right"  routerLink="/achat"></i></button>
-                        </div>
-                     </li>
-                     <li class="list-group-item justify-content-between d-flex ">
-                        <div>
-                          <h6>Titre: <p>sous titre</p></h6>
-                        </div>
-                         <div>
-                            <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right"  routerLink="/achat"></i></button>
-                        </div>
-                     </li>
-                     <li class="list-group-item justify-content-between d-flex ">
-                        <div>
-                          <h6>Titre: <p>sous titre</p></h6>
-                        </div>
-                         <div>
-                            <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right"  routerLink="achat"></i></button>
-                        </div>
-                     </li>
-                  </ul>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item justify-content-between d-flex " *ngFor="let active of actives">
+                   <div>
+                     <h6 >{{active.titre}} <p>{{active.motif}}</p></h6>
+                   </div>
+                    <div>
+                        <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/achat/', active.id]" ></i></button>
+                        
+                    </div>
+                </li>
+              </ul>
             </div>
 
 
