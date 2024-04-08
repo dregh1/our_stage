@@ -89,9 +89,11 @@
                   </div>
                   
         </fieldset>  
-        <div class="bt p-3 d-flex justify-content-end" >
-            <button type="button" class="btn btn-primary p-2">Enregistrer</button>  
-            <button type="button" class="btn btn-danger p-2 mx-2" (click)="creerDemande()">Valider</button>  
+        <div class="bt p-3 d-flex justify-content-end" >  
+          <div class="error-message">
+            <p class="text-warning">{{ errorMessage }}</p>
+          </div>
+            <button type="button" class="btn btn-danger p-2 mx-2" (click)="creerDemande()">Ajouter</button>  
         </div> 
     </div>
 </section>

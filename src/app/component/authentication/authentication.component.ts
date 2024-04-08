@@ -64,9 +64,9 @@ export class AuthenticationComponent implements OnInit {
             .set('password', this.logindata.password)
             .set('grant_type', 'password')
             .set('client_id', 'angular-client')
-            .set('client_secret', 'eIRXkLaEnLubyFr1mqwv6bu862oHIIn9');
+            .set('client_secret', 'diNdyU2iGksempOMKqs5gZlA2UkwngCJ');
         
-            return this.http.post('http://localhost:8081/realms/oma/protocol/openid-connect/token', body.toString(), {
+            return this.http.post('http://localhost:8082/realms/oma/protocol/openid-connect/token', body.toString(), {
               headers: new HttpHeaders()
                 .set('Content-Type', 'application/x-www-form-urlencoded')
             })
@@ -110,36 +110,7 @@ export class AuthenticationComponent implements OnInit {
             });
           }
 
-   // requete xhr
-   requet() : void {
-    var data = "client_id=angular-client&client_secret=eIRXkLaEnLubyFr1mqwv6bu862oHIIn9&grant_type=password&username="+this.logindata.username+"&password="+this.logindata.password;
-    var statErr =false;
   
-        this.errorStatus = true;
-        this.errorMessage = 'Identifiants incorrects';
-  
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    xhr.addEventListener("readystatechange", function() {
-      if(this.readyState === 4 && this.status == 200) {
-        console.log(this.responseText);
-        // this.readyState == 4 && this.status == 200
-      
-          statErr = true;
-          
-          // errorMessage ='' ;
-      }
-
-
-    });
-
-    xhr.open("POST", "http://localhost:8081/realms/oma/protocol/openid-connect/token");
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    xhr.send(data);
-    }
-
     getUserInfo(token : string){
       var data = "";
 
@@ -165,24 +136,24 @@ export class AuthenticationComponent implements OnInit {
                 if(tableRole[i]==='CDG')
                 {
                   console.log('C EST UN CDG!!!!!!!!!!!!!!!!!!!!!!');
-                  window.location.href = '/cdg';
+                  // window.location.href = '/cdg';
                   break;
                 }else
                 if(tableRole[i]==='PRS')
                 {
-                  console.log('C EST UN PRESCRIPTEUR!!!!!!!!!!!!!!!!!!!!!!');
-                  window.location.href = '/prescripteur';
+                  console.log('C EST  PRESCRIPTEUR!!!!!!!!!!!!!!!!!!!!!!');
+                  // window.location.href = '/prescripteur';
                   break;
                 }else
                 if(tableRole[i]==='ACH')
                 {
                   console.log('C EST UN ACHAT!!!!!!!!!!!!!!!!!!!!!!');
-                  window.location.href = '/achat';
+                  // window.location.href = '/achat';
                   break;
 
                 }else
                 {
-                  window.location.href = '/user';
+                  // window.location.href = '/user';
                 }
 
               }
@@ -192,7 +163,7 @@ export class AuthenticationComponent implements OnInit {
           }
         });
 
-        xhr.open("GET", "http://localhost:8081/realms/oma/protocol/openid-connect/userinfo");
+        xhr.open("GET", "http://localhost:8082/realms/oma/protocol/openid-connect/userinfo");
         xhr.setRequestHeader("Authorization", "Bearer "+token);
 
         xhr.send(data);
@@ -208,18 +179,7 @@ export class AuthenticationComponent implements OnInit {
       }
 
 
-      // keycloak 
-          logToKeyCloak(): void {
-            // this.keycloak.login({ username: this.logindata.username, password: this.logindata.password })
-            //   .then((success:any) => {
-            //     // Rediriger vers l'application après une connexion réussie
-            //     window.location.href = '/home';
-            //   })
-            //   .catch((error:any) => {
-            //     // Afficher un message d'erreur en cas d'échec de la connexion
-            //     console.error('Echec de la connexion : ', error);
-            //   });
-          }
+     
 
 
        
@@ -231,41 +191,7 @@ export class AuthenticationComponent implements OnInit {
           }
         // VERIFIER LOGIN  //
 
-        verifierLogin(): void {
-              
-          // Rediriger l'utilisateur vers l'URL d'authentification de Keycloak
-          // window.location.href = 'http://localhost:8081/realms/oma/protocol/openid-connect/token';
-          
-          //  vers keycloak  an' i Toky
-          //  window.location.href = 'http://localhost:8081/auth/realms/quarkus/protocol/openid-connect/auth?response_type=code&client_id=quarkus-app&redirect_uri=http://localhost:8080/redirect';
-              
-          // ETAPE VERS QUARKUS
-          this.logService.post(this.logindata)
-            .subscribe((response: any)  => {
-              
-              // Traitez la réponse du backend si nécessaire
-              
-              // condition si l'utisateur est autorisé 
-              if (response.message === 'Authentification réussie') {
-                // Rediriger l'utilisateur vers la page d'accueil
-                this.router.navigate(['/home']);
-            }else{
-              // Afficher un message d'erreur à l'utilisateur
-              console.log("DISO A");
-              this.errorStatus = true;
-              this.errorMessage = 'Identifiants incorrects';
-          }
-
-          // VERS KEYCLOAK
-
-
-              console.log(response);
-              
-              this.showmesg=true;
-              
-              
-            });
-        }
+        
           onSubmit(): void {
             this.personnelService.post(this.personnel).subscribe(response => {
               console.log(response);
@@ -291,23 +217,7 @@ export class AuthenticationComponent implements OnInit {
               window.location.reload();
             });
           }
-          ///////////////////////////Animation slide///////////////////////////////////////
-          ngAfterViewInit() {
-            const signup = this.el.nativeElement.querySelector('.signup');
-            const login = this.el.nativeElement.querySelector('.login');
-            //const slider = this.el.nativeElement.querySelector('.slider');
-            const formSection = this.el.nativeElement.querySelector('.form-section');
-
-            signup.addEventListener('click', () => {
-            //  this.renderer.addClass(slider, 'moveslider');
-              this.renderer.addClass(formSection, 'form-section-move');
-            });
-
-            login.addEventListener('click', () => {
-              //this.renderer.removeClass(slider, 'moveslider');
-              this.renderer.removeClass(formSection, 'form-section-move');
-            });
-           }
+          
 
 }
 

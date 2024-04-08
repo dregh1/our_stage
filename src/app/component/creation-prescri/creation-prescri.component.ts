@@ -67,7 +67,8 @@ export class CreationPrescriComponent implements OnInit {
     designation :'',
   }
   
-   
+  errorStatus = false;
+  errorMessage : string='';
    //  données ACHAT
    commentairesAch : string = '';
    constructor(private prescripteurService : PrescripteurService)
@@ -82,11 +83,7 @@ export class CreationPrescriComponent implements OnInit {
       this.titres = data;
     });
     
-   // this.titre1=this.prescripteurService.getTitre();
-    //////aichage seconde
-   
-    //aJOUT
-   
+  
      // maka ny fournisseur
      this.prescripteurService.getFournisseur().subscribe(data => {
        this.fournisseurs = data;
@@ -102,26 +99,7 @@ export class CreationPrescriComponent implements OnInit {
      this.prescripteurService.getRubrique().subscribe(data => {
       this.rubriques = data;
     });
-    //   // maka ny brouillon
-    //   this.prescripteurService.getBrouillon().subscribe(data => {
-    //    this.brouillons = data;
- 
-    //    const uniqueTitles = Array.from(new Set(this.brouillons.map(obj => obj.titre)));
-    //    this.titresBr = uniqueTitles;
-    //    console.log(uniqueTitles); // ["Team Building", "sans titre"]
-       
-    //  });
- 
- 
-    //  //maka ny Active_dmd
-    //  this.prescripteurService.getActive().subscribe(data => {
-    //    this.active_dmds = data;
- 
-    //    const uniqueTitles = Array.from(new Set(this.active_dmds.map(obj => obj.titre)));
-    //    this.titresAct = uniqueTitles;
-    //    console.log(uniqueTitles); // ["Team Building", "sans titre"]
-       
-    //  });
+    
  
      //maka ny reference
      this.prescripteurService.getReference().subscribe(data => {
@@ -180,7 +158,11 @@ export class CreationPrescriComponent implements OnInit {
             console.log(' reçu:', response);
             console.log('\n\n\n\n\n\n');
             window.location.reload();
-            
+            this.errorMessage='Demande validé!';
+            setTimeout(() => {
+              this.errorStatus = false; // Hide the message by setting errorStatus to false
+              this.errorMessage = '';    // Optionally, clear the error message
+            }, 3000);
           },
           error => {
             // Gérer les erreurs pendant la requête
