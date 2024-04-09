@@ -8,13 +8,15 @@ import { Prescripteur1Service } from './prescripteur1.service';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
+import { AuthenticationService } from '../authentication copy/authentication.service';
 @Component({
   selector: 'app-edit',
   templateUrl: './prescripteur.component.html',
   styleUrls: ['./prescripteur.component.scss']
 })
 export class EditComponent {
-  role: string = 'prescripteur';
+  role : string | null='';
+  token : string | null = '' ;
   isUp1 = false; // Initial state for first button
   isUp2 = false; // Initial state for second button
   isUp3 = false;
@@ -49,15 +51,23 @@ export class EditComponent {
   {
     designation :'',
   }
+  
 id:number;type:string='';devise:string='';
   titres : Titre[] = [];  fournisseurs : Fournisseur[] = [];
   brouillons = new Brouillon();
   demandes=new Demande();
  message:string='';
-  constructor( private Prescripteur1Service:Prescripteur1Service,private activatedRoute: ActivatedRoute,private router:Router) {
+  constructor( private Prescripteur1Service:Prescripteur1Service,private autheticationServ:AuthenticationService,private activatedRoute: ActivatedRoute,private router:Router) {
    
     this.id = this.activatedRoute.snapshot.params['id'];
-  
+    this.token = sessionStorage.getItem("token");
+    if(this.token !== null )
+    {
+      this.autheticationServ.getUserInfo(this.token);
+      this.role = sessionStorage.getItem("role");
+      // sessionStorage.removeItem("role");
+      // window.location.reload();
+    }
   }
   
   ngOnInit(): void {

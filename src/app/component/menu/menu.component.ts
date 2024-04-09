@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuService } from './menu.service';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Active_dmd } from 'src/app/models/Active_dmd';
+import { AuthenticationService } from '../authentication copy/authentication.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -9,7 +10,11 @@ import { Active_dmd } from 'src/app/models/Active_dmd';
 })
 export class MenuComponent implements OnInit {
   heure:Date=new Date();
-  role: string = 'prescripteur';
+  
+    
+  role : string | null='';
+  token : string | null = '' ;
+
   brouillons : Brouillon [] = [];
   actives: Active_dmd[]=[];
 // brouillons={
@@ -23,18 +28,37 @@ export class MenuComponent implements OnInit {
 //  devise : '',
 //   fournisseur :'',
 // }
-  constructor(private MenuSerice:MenuService){
-    
+  constructor(private MenuSerice:MenuService,private autheticationServ : AuthenticationService){
+    this.token = sessionStorage.getItem("token");
+    if(this.token !== null )
+    {
+      this.autheticationServ.getUserInfo(this.token);
+      this.role = sessionStorage.getItem("role");
+      // sessionStorage.removeItem("role");
+      // window.location.reload();
+    }
   }
  
   ngOnInit(): void {
-   
+   ///maka brouillon
     this.MenuSerice.getBrouillon().subscribe(brouillons => {
       this.brouillons = brouillons;
     });
+    //maka active
     this.MenuSerice.getdmdactive().subscribe(Response => {
       this.actives = Response;
     });
 }
+getIdOfDirection (nomDirection  : string ) 
+    {
+      const nomDirectionn  : string = "DTI";
+      
+      this.autheticationServ.getIdDirectionByName(nomDirection)
+              .subscribe(response => {
+                              console.log( response);
+                            }
+                        ); 
+      console.log(nomDirection);
 
+    }
 }

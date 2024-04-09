@@ -1,65 +1,64 @@
 
 
-<select [(ngModel)]="role">
-    <option value="cdg">CDG</option>
-    <option value="prescripteur">Prescripteur</option>
-    <option value="achat">Achat</option>
-  </select>
+
 <section class="mx-3">
     <div class="main mx-2 pt-3 p-2">
-        <div *ngIf="role === 'cdg' || role === 'achat'">
+        <div *ngIf="role === 'CDG' || role === 'ACH'">
             <div class="p-2 d-flex justify-content-end" >
                 <button type="button" class="btn btn-primary p-2" routerLink="/validation">Validation</button>  
             </div> 
         </div>  
-        <div class="card">
-            <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
-             <p> Brouillon liste des demandes </p>
-             <button type="button" class="btn" [routerLink]="'/main/crea'" >+</button>
+        <div *ngIf="role === 'PRS' ">
+            <div class="card">
+                <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
+                <p> Brouillon liste des demandes </p>
+                <button type="button" class="btn" [routerLink]="'/main/crea'" >+</button>
+                </div>
+                <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item justify-content-between d-flex " *ngFor="let brouillon of brouillons">
+                          <div>
+                            <h6 >{{brouillon.titre}} <p>{{brouillon.motif}}</p></h6>
+                          </div>
+                            <div>
+                                <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/aff/', brouillon.id]" ></i></button>
+                                
+                            </div>
+                        </li>
+                      </ul>
+                </div>
+
+
+
+
+
             </div>
-            <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item justify-content-between d-flex " *ngFor="let brouillon of brouillons">
-                       <div>
-                         <h6 >{{brouillon.titre}} <p>{{brouillon.motif}}</p></h6>
-                       </div>
-                        <div>
-                            <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/achat/', brouillon.id]" ></i></button>
-                            
-                        </div>
-                    </li>
-                  </ul>
-            </div>
-
-
-
-
-
         </div>
         <br> <br>
-        <div class="card">
-            <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static" id="navbarExample">
-              Liste des demandes CD Actives 
-            </div>
-            <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item justify-content-between d-flex " *ngFor="let active of actives">
-                   <div>
-                     <h6 >{{active.titre}} <p>{{active.motif}}</p></h6>
-                   </div>
+      
+          <div class="card">
+              <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static" id="navbarExample">
+                Liste des demandes CD Actives 
+              </div>
+              <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item justify-content-between d-flex " *ngFor="let active of actives">
                     <div>
-                        <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/achat/', active.id]" ></i></button>
-                        
+                      <h6 >{{active.titre}} <p>{{active.motif}}</p></h6>
                     </div>
-                </li>
-              </ul>
-            </div>
+                      <div>
+                          <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/achat/', active.id]" ></i></button>
+                      </div>
+                  </li>
+                </ul>
+              
 
 
 
 
 
-        </div>
+          </div>
+      </div>
     </div>
 </section>
             

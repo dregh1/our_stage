@@ -18,8 +18,10 @@
                           <span class="input-group-text mb-2" id="basic-addon1">USD</span>
                           </div>
                         <div class="mx-3">
-                          <input type="text" class="form-control mb-2" [(ngModel)]="this.formData.taux_eur" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                          <input type="text" class="form-control mb-2"[(ngModel)]="this.formData.taux_usd" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                          <!-- [(ngModel)]="this.formData.taux_eur" -->
+                          <!-- [(ngModel)]="this.formData.taux_usd"  -->
+                          <input type="number" step="any" class="form-control mb-2"  [(ngModel)]="this.formData.taux_eur" placeholder="eur" aria-label="Username" aria-describedby="basic-addon1">
+                          <input  type="number" step="any" class="form-control mb-2" [(ngModel)]="this.formData.taux_usd" placeholder="usd" aria-label="Username" aria-describedby="basic-addon1">
                         </div>
                 </div>
                 <button type="button" (click)="openSession()"  class="btn btn-primary p-2">Ouverture de session</button>

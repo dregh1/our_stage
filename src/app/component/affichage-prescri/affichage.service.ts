@@ -8,6 +8,7 @@ import { Fournisseur } from 'src/app/models/Fournisseur';
 import { Sousrubrique } from 'src/app/models/Sousrubrique';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Active_dmd } from 'src/app/models/Active_dmd';
+import { Titre } from 'src/app/models/titre';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,44 +17,44 @@ export class AffichageService {
 
   private baseUrl = 'http://localhost:8080/teste';
   private baseUrl2 = 'http://localhost:8080/prescripteur';
-  constructor(private http: HttpClient) { }
-    
-  //maka periode
  
-  //aiche par detail
-    //  getDemandeById(DemandeId:number):Observable<Demande>{
-    //   return this.http.get<Demande>(this.baseUrl2+'/achat/commentaire/create'+ DemandeId);
-    //  }
+  constructor(private http: HttpClient) { }
 
-     getPeriode(DemandeId:number): Observable<Periode[]> {
-      return this.http.get<Periode[]>(this.baseUrl+'/periode/get'+ DemandeId);
-    }
-    
-  // maka rubrique
-  //   getRubrique(rubriqueId): Observable<Rubrique[]> {
-  //     return this.http.get<Rubrique[]>(this.baseUrl+'/rubrique/get'+rubriqueId);
-  //   }
-  // // maka periode
-  //   getFournisseur(fournisseuresId): Observable<Fournisseur[]> {
-  //   return this.http.get<Fournisseur[]>(this.baseUrl+'/fournisseur/get'+fournisseuresId);
-  // }
-  
-  // maka periode
-  getSousrubrique(): Observable<Sousrubrique[]> {
-    return this.http.get<Sousrubrique[]>(this.baseUrl+'/sousrubrique/get');
+//maka titre
+  getTitre(): Observable<Titre[]> {
+    return this.http.get<Titre[]>(this.baseUrl2+'/titre/get');
   }
-  
-   // maka ny brouillon
-    getDevise():  Observable<FormData[]> {
-     return this.http.get<FormData[]>(this.baseUrl2+'/devise/get'); 
-    }
-  
-    // maka ny reference
-    getReference():  Observable<FormData[]> {
-      return this.http.get<FormData[]>(this.baseUrl2+'/reference/get'); 
-     }
-     getItemById(id: number): Observable<Demande> {
-      const url = `<span class="math-inline">\{this\.baseUrl\}/</span>{id}`;
-      return this.http.get<Demande>(url);
-    }
+  //maka demande
+  getdemande(id:number): Observable<Demande> {
+    return this.http.get<Demande>(`${this.baseUrl2}/demande/${id}`);
+  }
+  //Ajout titre
+
+posttitre(formData: any): Observable<any> {
+  return this.http.post<any>(this.baseUrl2+'/titre/create',formData);
+}
+  // maka ny brouillon
+getBrouillonbyId(id:number):  Observable<Brouillon> {
+  return this.http.get<Brouillon>(`${this.baseUrl2}/brouillon/${id}`);
+}
+//modication demande
+update(id:number,data:any):Observable<any>{
+  return this.http.put<any>(`${this.baseUrl2}/demande/${id}`,data);
+}
+//suppression
+delete(id:number):Observable<any>{
+  return this.http.delete<Brouillon>(`${this.baseUrl2}/brouillon/${id}`);
+}
+//recherche
+searchByName(name:any):Observable<any>{
+  return this.http.get<any>(`${this.baseUrl2}/brouillon/?name=${name}`);
+}
+// maka periode
+  getPeriode(): Observable<Periode[]> {
+    return this.http.get<Periode[]>(this.baseUrl+'/periode/get');
+  }
+  // maka periode
+  getFournisseur(): Observable<Fournisseur[]> {
+    return this.http.get<Fournisseur[]>(this.baseUrl+'/fournisseur/get');
+  }
 }

@@ -12,14 +12,14 @@ const httpsOptions = {
   providedIn: 'root'
 })
 export class HomeService {
-  private baseUrl = 'http://localhost:8080/session';
+  private baseUrl = 'http://localhost:8080/';
 
   constructor(private http: HttpClient) { }
 
 
   post(formData: any): Observable<any> {
     
-    return this.http.post<any>(this.baseUrl+'/create', formData);
+    return this.http.post<any>(this.baseUrl+'cdg/session/create', formData);
   }
 
 }

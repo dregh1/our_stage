@@ -18,6 +18,6 @@ getBrouillon():  Observable<Brouillon[]> {
   return this.http.get<Brouillon[]>(this.baseUrl2+'/brouillon/get');
 }
 getdmdactive():  Observable<Active_dmd[]> {
-  return this.http.get<Active_dmd[]>(this.baseUrl2+'/active/get');
+  return this.http.get<Active_dmd[]>(this.baseUrl2+'/active_dmd/get');
 }
 }
