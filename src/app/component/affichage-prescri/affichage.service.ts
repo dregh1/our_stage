@@ -57,4 +57,8 @@ searchByName(name:any):Observable<any>{
   getFournisseur(): Observable<Fournisseur[]> {
     return this.http.get<Fournisseur[]>(this.baseUrl+'/fournisseur/get');
   }
+  // maka rubrique
+getRubrique(): Observable<Rubrique[]> {
+  return this.http.get<Rubrique[]>(this.baseUrl2+'/rubrique/get');
+}
 }

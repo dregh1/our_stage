@@ -8,6 +8,8 @@
  import { Periode } from 'src/app/models/Periode';
  import { Fournisseur } from 'src/app/models/Fournisseur';
  import { AffichageService } from './affichage.service';
+import { Rubrique } from 'src/app/models/Rubrique';
+import { Sousrubrique } from 'src/app/models/Sousrubrique';
  @Component({
   selector: 'app-affichage-prescri',
   templateUrl: './affichage-prescri.component.html',
@@ -19,6 +21,7 @@ export class AffichagePrescriComponent implements OnInit {
    isUp2 = false; // Initial state for second button
    isUp3 = false;
    item:any;errorMessage:string='';
+   rubriques:Rubrique[]=[];
    periodes: Periode[]=[];errorStatus = false;errorStatus1 = false;errorStatus2 = false;
    demande
      ={
@@ -36,7 +39,8 @@ export class AffichagePrescriComponent implements OnInit {
  
          id_fournisseur      :'',
          montant_ht          :'',
-       
+       rubrique:'',
+       Sousrubrique:'',
          id_periode          : '',
            titre:'',
            id_direction:'',
@@ -79,7 +83,10 @@ export class AffichagePrescriComponent implements OnInit {
      // this.demandes = response;
      //  this.demande.id_periode= this.demande.id_periode;
      // });
-     
+      //maka rubrique
+  this.AffichageService.getRubrique().subscribe(data => {
+    this.rubriques = data;
+  });
      //  //maka titre
      //maka par detail
      this.AffichageService.getBrouillonbyId(this.id).subscribe(response=> {
@@ -101,6 +108,9 @@ export class AffichagePrescriComponent implements OnInit {
        this.demande.id_direction = this.brouillons.id_direction?.toString() ?? ""; 
        this.demande.id_fournisseur = this.brouillons.id_fournisseur?.toString() ?? ""; 
        this.demande.id_titre_depense = this.brouillons.id_titre?.toString() ?? ""; 
+       this.demande.id_rubrique = this.brouillons.id_rubrique?.toString() ??"";
+      this.demande.rubrique=this.brouillons.rubrique?.toString() ??"";
+      this.demande.sousrubrique=this.brouillons.sousrubrique?.toString()?? "";
        this.setSelected(this.demande.id_titre_depense);
    });
    }
@@ -186,6 +196,34 @@ export class AffichagePrescriComponent implements OnInit {
          }, 3000);
          console.log(this.message);
          // window.location.reload();
+  }
+  oup(){
+    this.ajout =! this.ajout;
+  }
+  ajout=false;
+  nouveau(){
+    this.demande.is_regularisation = "";
+       this.demande.titre = "";
+       this.demande.id_titre="";
+       this.demande.type_reference =   "";
+       this.type="";
+       this.demande.nom_reference =  "";
+       this.demande.motif = "";
+       this.demande.type_devise = "";
+       this.devise="";
+       this.demande.coms_prescripteur = "";
+       this.demande.fournisseur = "";
+       this.demande.montant_ht = "";
+       this.demande.periode =""; 
+       this.demande.id_periode =""; 
+       this.demande.id_direction = ""; 
+       this.demande.id_fournisseur = ""; 
+       this.demande.id_titre_depense = ""; 
+       this.demande.id_rubrique="";
+       this.demande.rubrique="";
+       this.demande.Sousrubrique="";
+       console.log("vide");
+       this.ajout =! this.ajout;
   }
   
   //suppression

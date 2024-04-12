@@ -6,12 +6,19 @@
   }
   *{
     font-family: "Helvetica";
+    h1 {
+      font-size:3vw;
+    }
+    *,button{
+      font-size: 2vh;
+    }
   }
   @media (max-width: 768px) {
     h1 {
-      font-size:3vw;
+      font-size:2vw;
     }
     *,button{
       font-size: 1vh;
     }
   }
+ 

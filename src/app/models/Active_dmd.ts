@@ -12,15 +12,17 @@ export class Active_dmd {
         public coms_prescripteur : string,
         public id_periode : number,
         public periode : string,
-        public id_direction : number,
+        //public id_direction : number,
         public direction : string,
         public id_devise : number,
         public devise : string,
-        public id_fournisseur : number,
+        //public id_fournisseur : number,
         public fournisseur : string,
         public id_session : number ,
-        public etat_session : boolean
-
+        public etat_session : boolean,
+        public rubrique:string,
+        public id_rubriques : number, 
+        public sousrubrique:string
       // Autres propriétés de votre modèle de données personnel
     ) {}
   }

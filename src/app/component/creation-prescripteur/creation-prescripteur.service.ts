@@ -9,11 +9,10 @@ import { Brouillon } from 'src/app/models/Brouillon';
 import { Active_dmd } from 'src/app/models/Active_dmd';
 import { Titre } from 'src/app/models/titre';
 import { Demande } from 'src/app/models/Demande';
-
 @Injectable({
   providedIn: 'root'
 })
-export class PrescripteurService {
+export class CreationPrescripteurService {
   private url = 'http://localhost:8080';
 
   private baseUrl = 'http://localhost:8080/teste';

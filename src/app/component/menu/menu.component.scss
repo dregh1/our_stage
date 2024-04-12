@@ -1,7 +1,7 @@
 
- section{
-     background-color: #ddd;
-     }
+body{
+    background-color: #ddd;
+}
      .scrollspy-example {
       height: 250px;
       overflow: auto;
@@ -10,6 +10,6 @@
       .icon{font-size: 30px;}
       @media (max-width: 768px) {
         .icon{
-            font-size: 18px;
+            font-size: 8px;
         }
 }

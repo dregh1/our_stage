@@ -1,20 +1,23 @@
-import { Component, OnInit, Renderer2, ElementRef} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute ,Router} from '@angular/router';
 import { Personnel } from 'src/app/models/Personnel';
 import { LogService } from '../../services/log.service';
 import { Demande } from 'src/app/models/Demande';
 import { Titre } from 'src/app/models/titre';
-import { Prescripteur1Service } from './prescripteur1.service';
+import { DetailDemandeService } from './detail-demande.service';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
 import { AuthenticationService } from '../authentication copy/authentication.service';
+import { Rubrique } from 'src/app/models/Rubrique';
 @Component({
-  selector: 'app-edit',
-  templateUrl: './prescripteur.component.html',
-  styleUrls: ['./prescripteur.component.scss']
+  selector: 'app-detail-demande',
+  templateUrl: './detail-demande.component.html',
+  styleUrls: ['./detail-demande.component.scss']
 })
-export class EditComponent {
+export class DetailDemandeComponent implements OnInit {
+
+ 
   role : string | null='';
   token : string | null = '' ;
   isUp1 = false; // Initial state for first button
@@ -55,9 +58,9 @@ export class EditComponent {
 id:number;type:string='';devise:string='';
   titres : Titre[] = [];  fournisseurs : Fournisseur[] = [];
   brouillons = new Brouillon();
-  demandes=new Demande();
+  demandes=new Demande();rubriques :Rubrique[]=[];
  message:string='';
-  constructor( private Prescripteur1Service:Prescripteur1Service,private autheticationServ:AuthenticationService,private activatedRoute: ActivatedRoute,private router:Router) {
+  constructor( private DetailDemandeService:DetailDemandeService,private autheticationServ:AuthenticationService,private activatedRoute: ActivatedRoute,private router:Router) {
    
     this.id = this.activatedRoute.snapshot.params['id'];
     this.token = sessionStorage.getItem("token");
@@ -72,27 +75,31 @@ id:number;type:string='';devise:string='';
   
   ngOnInit(): void {
     //maka titre
-    this.Prescripteur1Service.getTitre().subscribe(data => {
+    this.DetailDemandeService.getTitre().subscribe(data => {
       this.titres = data;
      
     });
      // maka ny periode
-     this.Prescripteur1Service.getPeriode().subscribe(data => {
+     this.DetailDemandeService.getPeriode().subscribe(data => {
       this.periodes = data;
     });
     // maka ny fournisseur
-    this.Prescripteur1Service.getFournisseur().subscribe(data => {
+    this.DetailDemandeService.getFournisseur().subscribe(data => {
       this.fournisseurs = data;
     });
+    //maka rubrique
+    this.DetailDemandeService.getRubrique().subscribe(data => {
+      this.rubriques = data;
+    });
    // maka demande
-    //  this.Prescripteur1Service.getdemande(this.id).subscribe(response=> {
+    //  this.DetailDemandeService.getdemande(this.id).subscribe(response=> {
     // this.demandes = response;
     //  this.demande.id_periode= this.demande.id_periode;
     // });
     
     //  //maka titre
     //maka par detail
-    this.Prescripteur1Service.getBrouillonbyId(this.id).subscribe(response=> {
+    this.DetailDemandeService.getActiveId(this.id).subscribe(response=> {
       this.brouillons = response;
       this.demande.is_regularisation = this.brouillons.is_regularisation?.toString() ?? "";
       this.demande.titre = this.brouillons.titre ?? "";
@@ -111,6 +118,8 @@ id:number;type:string='';devise:string='';
       this.demande.id_direction = this.brouillons.id_direction?.toString() ?? ""; 
       this.demande.id_fournisseur = this.brouillons.id_fournisseur?.toString() ?? ""; 
       this.demande.id_titre_depense = this.brouillons.id_titre?.toString() ?? ""; 
+      this.demande.sousrubrique=this.brouillons.rubrique?.toString() ?? ""; 
+      this.demande.id_rubrique=this.brouillons.id_rubrique?.toString() ?? "";
       this.setSelected(this.demande.id_titre_depense);
   });
   }
@@ -167,7 +176,7 @@ id:number;type:string='';devise:string='';
 
 valider():void{
   this.demande.is_valdby_pres = true;
-  this.Prescripteur1Service.update(this.id,this.demande).subscribe(Response=>{
+  this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
     console.log(Response);
 
     this.message='updat!';
@@ -184,7 +193,7 @@ valider():void{
   
   console.log("moulle");
   console.log(this.demande);
-        this.Prescripteur1Service.update(this.id,this.demande).subscribe(Response=>{
+        this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
 
           console.log(Response);
           this.message='updat!';
@@ -200,7 +209,7 @@ valider():void{
  
  //suppression
 //  delete():void{
-//   this.Prescripteur1Service.delete(this.id,this.demande).subscribe(Response=>{
+//   this.DetailDemandeService.delete(this.id,this.demande).subscribe(Response=>{
 //     console.log(Response);
 //     this.router.navigate(['/main/menu']);
 //     this.message='delete!';
@@ -219,7 +228,7 @@ valider():void{
 Ajouttitre() {
   
 
-  this.Prescripteur1Service.posttitre(this.titre_depense)
+  this.DetailDemandeService.posttitre(this.titre_depense)
   .subscribe(response => {
                   console.log( response);
                   this.ajoutOpt(response.id , response.designation);
@@ -236,7 +245,7 @@ Ajouttitre() {
 
 
 ////////////////////
-//this.Prescripteur1Service.getDemandeById(this.DemandeId).subscribe(demande=>{
+//this.DetailDemandeService.getDemandeById(this.DemandeId).subscribe(demande=>{
   //this.demande=demande;
  // });
 }

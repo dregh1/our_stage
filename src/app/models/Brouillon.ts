@@ -5,22 +5,24 @@
 
 export class Brouillon {
     constructor(
-        public id?  : number,
-        public id_titre? : number,
-        public titre? : string,
-        public motif? : string,
-        public montant_ht? : number,
-        public is_regularisation? : boolean,
-        public coms_prescripteur? : string,
-        public id_periode? : number,
-        public periode? : string,
-        public id_direction? : number,
-        public type_reference? : string,
-        public reference? : string,
-        public id_devise? : number,
-        public devise? : string,
-        public id_fournisseur? : number,
-        public fournisseur? : string,
+        public  idTitre : number,
+        public   titre : string,
+        public motif : string,
+        public montantHt : string,
+        public  typeReference : string,
+        public  reference : string,
+        public  estRegularisation : string,
+        public  comsPrescripteur : string,
+        public  idPeriode : number,
+        public  periode : string,
+        public  idDirection : number,
+        public  devise : string,
+        public  idFournisseur : number,
+       
+        public idRubrique: number,
+        public nomRubrique: string,
+        public  fournisseur: string,
+       
       // Autres propriétés de votre modèle de données personnel
     ) {}
   }

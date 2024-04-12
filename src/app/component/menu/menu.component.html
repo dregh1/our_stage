@@ -1,18 +1,15 @@
 
 
 
-<section class="mx-3">
-    <div class="main mx-2 pt-3 p-2">
-        <div *ngIf="role === 'CDG' || role === 'ACH'">
-            <div class="p-2 d-flex justify-content-end" >
-                <button type="button" class="btn btn-primary p-2" routerLink="/validation">Validation</button>  
-            </div> 
-        </div>  
+<body>
+  <section class="mx-3 p-1">
+    <div class="main  pt-3">
+         
         <div *ngIf="role === 'PRS' ">
             <div class="card">
                 <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
                 <p> Brouillon liste des demandes </p>
-                <button type="button" class="btn" [routerLink]="'/main/crea'" >+</button>
+                <button type="button" class="btn" [routerLink]="'/main/creationprescripteur'" >+</button>
                 </div>
                 <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
                     <ul class="list-group list-group-flush">
@@ -33,12 +30,22 @@
 
 
             </div>
+            <br> <br>
         </div>
-        <br> <br>
-      
+       
+        
           <div class="card">
-              <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static" id="navbarExample">
-                Liste des demandes CD Actives 
+            <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
+              <div><p> Listes des demandes CD Active </p></div>
+              <div>
+                  <div *ngIf="role === 'CDG' || role === 'ACH'">
+                    <div class="d-flex justify-content-end" >
+                        <button type="button" class="btn btn-primary p-1 mx-2" routerLink="/validation">Validation</button> 
+                         <button type="button" class="btn btn-primary p-1">Extraction</button>  
+                    </div> 
+                  </div> 
+              </div>
+             
               </div>
               <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
                 <ul class="list-group list-group-flush">
@@ -47,7 +54,7 @@
                       <h6 >{{active.titre}} <p>{{active.motif}}</p></h6>
                     </div>
                       <div>
-                          <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/achat/', active.id]" ></i></button>
+                          <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/detaildemande/', active.id]" ></i></button>
                       </div>
                   </li>
                 </ul>
@@ -61,6 +68,7 @@
       </div>
     </div>
 </section>
+</body>
             
 
 

@@ -1,15 +1,18 @@
-import { HttpParams, HttpHeaders, HttpClient,HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { HttpParams, HttpHeaders, HttpClient,HttpResponse } from '@angular/common/http';
 import { Personnel } from 'src/app/models/Personnel';
 import { PersonnelService } from 'src/app/services/personnel.service';
-import { HomeService } from './home.service';
+import { CreationSession1Service } from './creation-session1.service';
 import { NumberSymbol } from '@angular/common';
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-creation-session1',
+  templateUrl: './creation-session1.component.html',
+  styleUrls: ['./creation-session1.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class CreationSession1Component implements OnInit {
+
+  
+
   //CREATION SESSION
   formData ={
     ref : "",
@@ -24,7 +27,7 @@ export class HomeComponent implements OnInit {
 
 
   userName='';
-  personnels: Personnel[] = []; 
+  // personnels: Personnel[] = []; 
   
   showPassword=false;
   showmesg = false; 
@@ -39,11 +42,11 @@ export class HomeComponent implements OnInit {
 
 
 
-  constructor(private homeService: HomeService,private personnelService: PersonnelService,private http: HttpClient) {}
+  constructor(private CreationSession1Service: CreationSession1Service,private personnelService: PersonnelService,private http: HttpClient) {}
   ngOnInit(): void {
-    this.personnelService.get().subscribe(data => {
-      this.personnels = data;
-    });
+    // this.personnelService.get().subscribe(data => {
+    //   this.personnels = data;
+    // });
 
     var token = sessionStorage.getItem('token');
     // maka ny momba azy
@@ -71,19 +74,19 @@ export class HomeComponent implements OnInit {
           }
 
   }
-  deletePersonnel(id: number): void {
-    this.personnelService.delete(id).subscribe(response => {
-      console.log(response);
-      window.location.reload();
-    });
-  }
+  // deletePersonnel(id: number): void {
+  //   this.personnelService.delete(id).subscribe(response => {
+  //     console.log(response);
+  //     window.location.reload();
+  //   });
+  // }
 
-  updateRecord(id: any, newData: any): void {
-    this.personnelService.update(id, newData).subscribe(response => {
-      console.log(response);
-      window.location.reload();
-    });
-  }
+  // updateRecord(id: any, newData: any): void {
+  //   this.personnelService.update(id, newData).subscribe(response => {
+  //     console.log(response);
+  //     window.location.reload();
+  //   });
+  // }
 
   // submit bouton ouvrir session
   openSession(){
@@ -108,7 +111,7 @@ export class HomeComponent implements OnInit {
 
       
         // creation session
-    this.homeService.post(this.formData).subscribe
+    this.CreationSession1Service.post(this.formData).subscribe
     (response => {
       console.log(response);
       window.location.reload();
