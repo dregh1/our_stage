@@ -3,13 +3,12 @@
  import { Component, OnInit, Renderer2, ElementRef} from '@angular/core';
  import { ActivatedRoute ,Router} from '@angular/router';
  import { Demande } from 'src/app/models/Demande';
- import { Titre } from 'src/app/models/titre';
+ import { Titre } from 'src/app/models/TitreDepense';
  import { Brouillon } from 'src/app/models/Brouillon';
  import { Periode } from 'src/app/models/Periode';
  import { Fournisseur } from 'src/app/models/Fournisseur';
  import { AffichageService } from './affichage.service';
 import { Rubrique } from 'src/app/models/Rubrique';
-import { Sousrubrique } from 'src/app/models/Sousrubrique';
  @Component({
   selector: 'app-affichage-prescri',
   templateUrl: './affichage-prescri.component.html',
@@ -25,31 +24,28 @@ export class AffichagePrescriComponent implements OnInit {
    periodes: Periode[]=[];errorStatus = false;errorStatus1 = false;errorStatus2 = false;
    demande
      ={
-         is_valdby_pres:false,
-         is_regularisation    :'',
-         type_reference : '',
-         id_rubrique:'',
-         sousrubrique : '',
+         validationPrescripteur:false,
+         estRegularisation    :'',
+         typeReference : '',
+         idRubrique:'',
+         SousRubrique : '',
          motif               : '',
-         type_devise : '',
-         coms_prescripteur :'',
- 
-         id_titre_depense    : '',
-         reference : '',
- 
-         id_fournisseur      :'',
-         montant_ht          :'',
+         typeDevise : '',
+         comsPrescripteur :'',
+         idTitreDepense    : '',
+         Reference : '',
+         idFournisseur      :'',
+         montantHt          :'',
        rubrique:'',
        Sousrubrique:'',
-         id_periode          : '',
-           titre:'',
-           id_direction:'',
-           id_titre:'',
+         idPeriode          : '',
+           idDirection:'',
+           
            fournisseur:'',
            periode:'',
-           nom_reference:''
+           nomReference:''
          }  
-   titre_depense =
+   Titredepense =
    {
      designation :'',
    }
@@ -91,27 +87,26 @@ export class AffichagePrescriComponent implements OnInit {
      //maka par detail
      this.AffichageService.getBrouillonbyId(this.id).subscribe(response=> {
        this.brouillons = response;
-       this.demande.is_regularisation = this.brouillons.is_regularisation?.toString() ?? "";
-       this.demande.titre = this.brouillons.titre ?? "";
-       
-       this.demande.type_reference = this.brouillons.type_reference ?? "";
-       this.type=this.demande.type_reference;
-       this.demande.nom_reference = this.brouillons.reference ?? "";
+       this.demande.estRegularisation = this.brouillons.estRegularisation?.toString() ?? "";
+        
+       this.demande.typeReference= this.brouillons.typeReference ?? "";
+       this.type=this.demande.typeReference;
+       this.demande.nomReference = this.brouillons.reference ?? "";
        this.demande.motif = this.brouillons.motif ?? "";
-       this.demande.type_devise = this.brouillons.devise ?? "";
-       this.devise=this.demande.type_devise ;
-       this.demande.coms_prescripteur = this.brouillons.coms_prescripteur ?? "";
+       this.demande.typeDevise = this.brouillons.devise ?? "";
+       this.devise=this.demande.typeDevise ;
+       this.demande.comsPrescripteur = this.brouillons.comsPrescripteur ?? "";
        this.demande.fournisseur = this.brouillons.fournisseur ?? "";
-       this.demande.montant_ht = this.brouillons.montant_ht?.toString() ?? "";
+       this.demande.montantHt = this.brouillons.montantHt?.toString() ?? "";
        this.demande.periode = this.brouillons.periode ?? ""; 
-       this.demande.id_periode = this.brouillons.id_periode?.toString() ?? ""; 
-       this.demande.id_direction = this.brouillons.id_direction?.toString() ?? ""; 
-       this.demande.id_fournisseur = this.brouillons.id_fournisseur?.toString() ?? ""; 
-       this.demande.id_titre_depense = this.brouillons.id_titre?.toString() ?? ""; 
-       this.demande.id_rubrique = this.brouillons.id_rubrique?.toString() ??"";
-      this.demande.rubrique=this.brouillons.rubrique?.toString() ??"";
-      this.demande.sousrubrique=this.brouillons.sousrubrique?.toString()?? "";
-       this.setSelected(this.demande.id_titre_depense);
+       this.demande.idPeriode = this.brouillons.idPeriode?.toString() ?? ""; 
+       this.demande.idDirection = this.brouillons.idDirection?.toString() ?? ""; 
+       this.demande.idFournisseur = this.brouillons.idFournisseur?.toString() ?? ""; 
+       this.demande.idTitreDepense = this.brouillons.idTitre?.toString() ?? ""; 
+       this.demande.idRubrique= this.brouillons.idRubrique?.toString() ??"";
+      this.demande.rubrique=this.brouillons.nomRubrique?.toString() ??"";
+      this.demande.SousRubrique=this.brouillons.sousRubrique?.toString()?? "";
+       this.setSelected(this.demande.idTitreDepense);
    });
    }
  
@@ -143,7 +138,7 @@ export class AffichagePrescriComponent implements OnInit {
              console.log("TEHAKA",id);
              
              unOption.selected = true;
-             this.demande.id_titre_depense = unOption.value; 
+             this.demande.idTitreDepense= unOption.value; 
            }
          }
      };
@@ -161,12 +156,12 @@ export class AffichagePrescriComponent implements OnInit {
        {
          selectelement.appendChild(newOpt);
          newOpt.selected = true;
-         this.demande.id_titre_depense = id;
+         this.demande.idTitreDepense = id;
        };
   }
  
  valider():void{
-   this.demande.is_valdby_pres = true;
+   this.demande.validationPrescripteur = true;
    this.AffichageService.update(this.id,this.demande).subscribe(Response=>{
      console.log(Response);
  
@@ -201,30 +196,30 @@ export class AffichagePrescriComponent implements OnInit {
     this.ajout =! this.ajout;
   }
   ajout=false;
-  nouveau(){
-    this.demande.is_regularisation = "";
-       this.demande.titre = "";
-       this.demande.id_titre="";
-       this.demande.type_reference =   "";
-       this.type="";
-       this.demande.nom_reference =  "";
-       this.demande.motif = "";
-       this.demande.type_devise = "";
-       this.devise="";
-       this.demande.coms_prescripteur = "";
-       this.demande.fournisseur = "";
-       this.demande.montant_ht = "";
-       this.demande.periode =""; 
-       this.demande.id_periode =""; 
-       this.demande.id_direction = ""; 
-       this.demande.id_fournisseur = ""; 
-       this.demande.id_titre_depense = ""; 
-       this.demande.id_rubrique="";
-       this.demande.rubrique="";
-       this.demande.Sousrubrique="";
-       console.log("vide");
-       this.ajout =! this.ajout;
-  }
+  // nouveau(){
+  //   this.demande.is_regularisation = "";
+  //      this.demande.titre = "";
+  //      this.demande.id_titre="";
+  //      this.demande.type_reference =   "";
+  //      this.type="";
+  //      this.demande.nom_reference =  "";
+  //      this.demande.motif = "";
+  //      this.demande.type_devise = "";
+  //      this.devise="";
+  //      this.demande.coms_prescripteur = "";
+  //      this.demande.fournisseur = "";
+  //      this.demande.montant_ht = "";
+  //      this.demande.periode =""; 
+  //      this.demande.id_periode =""; 
+  //      this.demande.id_direction = ""; 
+  //      this.demande.id_fournisseur = ""; 
+  //      this.demande.id_titre_depense = ""; 
+  //      this.demande.id_rubrique="";
+  //      this.demande.rubrique="";
+  //      this.demande.Sousrubrique="";
+  //      console.log("vide");
+  //      this.ajout =! this.ajout;
+  // }
   
   //suppression
  //  delete():void{
@@ -247,7 +242,7 @@ export class AffichagePrescriComponent implements OnInit {
  Ajouttitre() {
    
  
-   this.AffichageService.posttitre(this.titre_depense)
+   this.AffichageService.posttitre(this.Titredepense)
    .subscribe(response => {
                    console.log( response);
                    this.ajoutOpt(response.id , response.designation);

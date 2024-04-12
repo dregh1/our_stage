@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuService } from './menu.service';
 import { Brouillon } from 'src/app/models/Brouillon';
-import { Active_dmd } from 'src/app/models/Active_dmd';
+import { Active } from 'src/app/models/Active';
 import { AuthenticationService } from '../authentication copy/authentication.service';
 @Component({
   selector: 'app-menu',
@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
   token : string | null = '' ;
 
   brouillons : Brouillon [] = [];
-  actives: Active_dmd[]=[];
+  actives: Active[]=[];
 // brouillons={
 //   titre : '',
 //    motif : '',

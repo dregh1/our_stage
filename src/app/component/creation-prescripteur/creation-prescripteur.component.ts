@@ -3,7 +3,7 @@ import { CreationPrescripteurService } from './creation-prescripteur.service';
 import { Fournisseur } from 'src/app/models/Fournisseur';
 import { Periode } from 'src/app/models/Periode';
 import { Brouillon } from 'src/app/models/Brouillon';
-import { Titre } from 'src/app/models/titre';
+import { Titre } from 'src/app/models/TitreDepense';
 import { Rubrique } from 'src/app/models/Rubrique';
 import { Route, Router } from '@angular/router';
 @Component({
@@ -30,34 +30,34 @@ designation:string='';
 texte:string='';
 // valeur
 periode:any;
-isregularisation : boolean;  
-id_session : any = 3351;
-id_titre_depense : any =  1;
+estregularisation : boolean;  
+idSession : any = 3351;
+idTitredepense : any =  1;
 motif : any;
-montant_ht : any;
+montantHt : any;
 
 demande
 ={
-is_regularisation    :'',
+estregularisation    :'',
 
-type_reference : '',
-id_rubrique:'',
-sousrubrique : '',
+typeReference : '',
+idRubrique:'',
+Sousrubrique : '',
 motif               : '',
-type_devise : '',
-coms_prescripteur :'',
+typeDevise : '',
+comsPrescripteur :'',
 
-id_titre_depense    : '',
-nom_reference : '',
+idTitreDepense    : '',
+nomReference : '',
 
-id_fournisseur      :'',
-montant_ht          :'',
+idFournisseur      :'',
+montantHt          :'',
 
-id_periode          : '',
+idPeriode          : '',
 
 }
 
-titre_depense =
+TitreDepense =
 {
  designation :'',
 }
@@ -68,7 +68,7 @@ errorMessage : string='';
 commentairesAch : string = '';
 constructor(private CreationPrescripteurService : CreationPrescripteurService,private router:Router)
  {
-    this.isregularisation = false;
+    this.estregularisation = false;
    }
  
  
@@ -131,16 +131,16 @@ creerDemande()
 {
    // TEST SI LES VALEURS SONT PRETES
     console.log( 
-     "periode : "+this.demande.id_periode + "\n " + 
+     "periode : "+this.demande.idPeriode + "\n " + 
      //  "sousrubrique : "+this.demande.id_sousrubrique + "\n " + 
-     "fournisseur : "+this.demande.id_fournisseur + "\n " + 
-     "isregularisation : "+this.demande.is_regularisation  + "\n " +
-     "devise" + this.demande.type_devise + " \n"+
-     "id_titre_depense :  " + this.demande.id_titre_depense + " \n"+
-     "motif" + this.demande.motif + " \n"+"ref" + this.demande.type_reference + " \n"+
-     "commentaire" + this.demande.coms_prescripteur + " \n"+
-     "montant_ht" + this.demande.montant_ht + " \n"+"ree" + this.demande.nom_reference + " \n"
-     +"demande.id_titre_depense"+this.demande.id_titre_depense
+     "fournisseur : "+this.demande.idFournisseur + "\n " + 
+     "isregularisation : "+this.demande.estregularisation  + "\n " +
+     "devise" + this.demande.typeDevise + " \n"+
+     "idTitreDepense :  " + this.demande.idTitreDepense + " \n"+
+     "motif" + this.demande.motif + " \n"+"ref" + this.demande.typeReference + " \n"+
+     "commentaire" + this.demande.comsPrescripteur + " \n"+
+     "montantHt" + this.demande.montantHt + " \n"+"rerence" + this.demande.nomReference + " \n"
+     +"idtitrdepense"+this.demande.idTitreDepense
    
   
     
@@ -181,7 +181,7 @@ ajoutOpt(id : any, text : string){
      {
        selectelement.appendChild(newOpt);
        newOpt.selected = true;
-       this.demande.id_titre_depense = id;
+       this.demande.idTitreDepense = id;
      };
 }
 // set coms achat
@@ -194,9 +194,9 @@ setComsAchat(){
 //Ajout titre
 Ajouttitre() {
 
- console.log(this.titre_depense.designation);
+ console.log(this.TitreDepense.designation);
 
- this.CreationPrescripteurService.posttitre(this.titre_depense)
+ this.CreationPrescripteurService.posttitre(this.TitreDepense)
  .subscribe(response => {
                  console.log( response);
                  this.ajoutOpt(response.id , response.designation);

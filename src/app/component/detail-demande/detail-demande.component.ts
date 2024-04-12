@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute ,Router} from '@angular/router';
-import { Personnel } from 'src/app/models/Personnel';
-import { LogService } from '../../services/log.service';
 import { Demande } from 'src/app/models/Demande';
-import { Titre } from 'src/app/models/titre';
+import { Titre } from 'src/app/models/TitreDepense';
 import { DetailDemandeService } from './detail-demande.service';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Periode } from 'src/app/models/Periode';
@@ -26,31 +24,27 @@ export class DetailDemandeComponent implements OnInit {
   item:any;errorMessage:string='';
   periodes: Periode[]=[];errorStatus = false;errorStatus1 = false;errorStatus2 = false;
   demande
-    ={
-        is_valdby_pres:false,
-        is_regularisation    :'',
-        type_reference : '',
-        id_rubrique:'',
-        sousrubrique : '',
-        motif               : '',
-        type_devise : '',
-        coms_prescripteur :'',
+={
+estregularisation    :'',
+periode:'',
+typeReference : '',
+idRubrique:'',
+Sousrubrique : '',
+motif               : '',
+typeDevise : '',
+comsPrescripteur :'',
+idDirection:'',
+idTitreDepense    : '',
+nomReference : '',
+titre:'',
+idFournisseur      :'',
+montantHt          :'',
+fournisseur:'',
+idPeriode          : '',
+validationPrescripteur:false
 
-        id_titre_depense    : '',
-        reference : '',
-
-        id_fournisseur      :'',
-        montant_ht          :'',
-      
-        id_periode          : '',
-          titre:'',
-          id_direction:'',
-          id_titre:'',
-          fournisseur:'',
-          periode:'',
-          nom_reference:''
-        }  
-  titre_depense =
+}
+titredepense =
   {
     designation :'',
   }
@@ -61,7 +55,7 @@ id:number;type:string='';devise:string='';
   demandes=new Demande();rubriques :Rubrique[]=[];
  message:string='';
   constructor( private DetailDemandeService:DetailDemandeService,private autheticationServ:AuthenticationService,private activatedRoute: ActivatedRoute,private router:Router) {
-   
+    
     this.id = this.activatedRoute.snapshot.params['id'];
     this.token = sessionStorage.getItem("token");
     if(this.token !== null )
@@ -101,26 +95,26 @@ id:number;type:string='';devise:string='';
     //maka par detail
     this.DetailDemandeService.getActiveId(this.id).subscribe(response=> {
       this.brouillons = response;
-      this.demande.is_regularisation = this.brouillons.is_regularisation?.toString() ?? "";
+      this.demande.estregularisation = this.brouillons.estRegularisation?.toString() ?? "";
       this.demande.titre = this.brouillons.titre ?? "";
       
-      this.demande.type_reference = this.brouillons.type_reference ?? "";
-      this.type=this.demande.type_reference;
-      this.demande.nom_reference = this.brouillons.reference ?? "";
+      this.demande.typeReference = this.brouillons.typeReference ?? "";
+      this.type=this.demande.typeReference;
+      this.demande.nomReference = this.brouillons.reference ?? "";
       this.demande.motif = this.brouillons.motif ?? "";
-      this.demande.type_devise = this.brouillons.devise ?? "";
-      this.devise=this.demande.type_devise ;
-      this.demande.coms_prescripteur = this.brouillons.coms_prescripteur ?? "";
+      this.demande.typeDevise = this.brouillons.devise ?? "";
+      this.devise=this.demande.typeDevise ;
+      this.demande.comsPrescripteur = this.brouillons.comsPrescripteur ?? "";
       this.demande.fournisseur = this.brouillons.fournisseur ?? "";
-      this.demande.montant_ht = this.brouillons.montant_ht?.toString() ?? "";
+      this.demande.montantHt = this.brouillons.montantHt?.toString() ?? "";
       this.demande.periode = this.brouillons.periode ?? ""; 
-      this.demande.id_periode = this.brouillons.id_periode?.toString() ?? ""; 
-      this.demande.id_direction = this.brouillons.id_direction?.toString() ?? ""; 
-      this.demande.id_fournisseur = this.brouillons.id_fournisseur?.toString() ?? ""; 
-      this.demande.id_titre_depense = this.brouillons.id_titre?.toString() ?? ""; 
-      this.demande.sousrubrique=this.brouillons.rubrique?.toString() ?? ""; 
-      this.demande.id_rubrique=this.brouillons.id_rubrique?.toString() ?? "";
-      this.setSelected(this.demande.id_titre_depense);
+      this.demande.idPeriode = this.brouillons.idPeriode?.toString() ?? ""; 
+      this.demande.idDirection = this.brouillons.idDirection?.toString() ?? ""; 
+      this.demande.idFournisseur = this.brouillons.idFournisseur?.toString() ?? ""; 
+      this.demande.idTitreDepense = this.brouillons.idTitre?.toString() ?? ""; 
+      this.demande.Sousrubrique=this.brouillons.sousRubrique?.toString() ?? ""; 
+      this.demande.idRubrique=this.brouillons.idRubrique?.toString() ?? "";
+      this.setSelected(this.demande.idTitreDepense);
   });
   }
 
@@ -152,7 +146,7 @@ id:number;type:string='';devise:string='';
             console.log("TEHAKA",id);
             
             unOption.selected = true;
-            this.demande.id_titre_depense = unOption.value; 
+            this.demande.idTitreDepense = unOption.value; 
           }
         }
     };
@@ -170,12 +164,12 @@ id:number;type:string='';devise:string='';
       {
         selectelement.appendChild(newOpt);
         newOpt.selected = true;
-        this.demande.id_titre_depense = id;
+        this.demande.idTitreDepense = id;
       };
  }
 
 valider():void{
-  this.demande.is_valdby_pres = true;
+  this.demande.validationPrescripteur = true;
   this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
     console.log(Response);
 
@@ -228,7 +222,7 @@ valider():void{
 Ajouttitre() {
   
 
-  this.DetailDemandeService.posttitre(this.titre_depense)
+  this.DetailDemandeService.posttitre(this.titredepense)
   .subscribe(response => {
                   console.log( response);
                   this.ajoutOpt(response.id , response.designation);
@@ -241,7 +235,15 @@ Ajouttitre() {
             this.errorMessage = '';    // Optionally, clear the error message
           }, 3000); 
 }
+/////enregistrer cdg
+enregistrerCdg(){
+  console.log("mbola tsy mandeh ny url");
+    // this.DetailDemandeService.postCdg(this.id,this.demande).subscribe(Response=>{
+  //   console.log(Response);
 
+  //   this.message='updat!';
+  // });
+}
 
 
 ////////////////////

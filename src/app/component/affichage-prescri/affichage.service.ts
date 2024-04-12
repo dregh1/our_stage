@@ -5,10 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { Periode } from 'src/app/models/Periode';
 import { Rubrique } from 'src/app/models/Rubrique';
 import { Fournisseur } from 'src/app/models/Fournisseur';
-import { Sousrubrique } from 'src/app/models/Sousrubrique';
 import { Brouillon } from 'src/app/models/Brouillon';
-import { Active_dmd } from 'src/app/models/Active_dmd';
-import { Titre } from 'src/app/models/titre';
+import { Titre } from 'src/app/models/TitreDepense';
 @Injectable({
   providedIn: 'root'
 })
