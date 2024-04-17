@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { groupBy} from 'rxjs';
+import { CommonModule } from '@angular/common';
 import { MenuService } from './menu.service';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Active } from 'src/app/models/Active';
@@ -8,16 +10,12 @@ import { AuthenticationService } from '../authentication copy/authentication.ser
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
-  heure:Date=new Date();
-  
-    
+export class MenuComponent implements OnInit{
   role : string | null='';
   token : string | null = '' ;
-
   brouillons : Brouillon [] = [];
   actives: Active[]=[];
-// brouillons={
+// brouillon={
 //   titre : '',
 //    motif : '',
 //  montant_ht : '',
@@ -28,6 +26,7 @@ export class MenuComponent implements OnInit {
 //  devise : '',
 //   fournisseur :'',
 // }
+
   constructor(private MenuSerice:MenuService,private autheticationServ : AuthenticationService){
     this.token = sessionStorage.getItem("token");
     if(this.token !== null )
@@ -37,9 +36,13 @@ export class MenuComponent implements OnInit {
       // sessionStorage.removeItem("role");
       // window.location.reload();
     }
+    
+    //getbytitre
+    
   }
- 
+
   ngOnInit(): void {
+    
    ///maka brouillon
     this.MenuSerice.getBrouillon().subscribe(brouillons => {
       this.brouillons = brouillons;
@@ -49,16 +52,17 @@ export class MenuComponent implements OnInit {
       this.actives = Response;
     });
 }
+
 getIdOfDirection (nomDirection  : string ) 
     {
       const nomDirectionn  : string = "DTI";
       
-      this.autheticationServ.getIdDirectionByName(nomDirection)
+      this.autheticationServ.getDirectionByName(nomDirection)
               .subscribe(response => {
                               console.log( response);
                             }
                         ); 
       console.log(nomDirection);
-
     }
+    
 }

@@ -42,7 +42,7 @@
                                                         </select>
                                                     </div> 
                                                      
-                                                     <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.motif">
+                                                     <input type="text" class="form-control mb-2" placeholder="motif" aria-label="motif" aria-describedby="basic-addon1" [(ngModel)]="this.demande.motif">
                                                      <div class="input-group mb-2">
                                                         <select class="form-select" [(ngModel)]="this.demande.typeDevise" id="inputGroupSelect04" aria-label="Example select with button addon">
                                                           <option *ngIf="this.devise === 'EUR'"  [ngValue]="'EUR'" selected>EUR</option>
@@ -52,7 +52,7 @@
                                                         </select>
                                                     </div>
                                                     <!-- <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.type_devise">-->
-                                                     <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.comsPrescripteur"> 
+                                                     <input type="text" class="form-control mb-2" placeholder="commentaire Prescripteur" aria-label="commentaire Prescripteur" aria-describedby="basic-addon1" [(ngModel)]="this.demande.comsPrescripteur"> 
                                                   </div>
                                               </div>
                                               <div class="d-flex">
@@ -79,7 +79,7 @@
                                                 
                                                     </select>
                                                    </div>                                             
-                                                   <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"[(ngModel)]="this.demande.montantHt">
+                                                   <input type="text" class="form-control mb-2" placeholder="montant HT" aria-label="montant HT" aria-describedby="basic-addon1"[(ngModel)]="this.demande.montantHt">
                                                    <!-- <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"[(ngModel)]="this.demande.periode"> -->
                                                     <div class="input-group mb-2">
                                                         <select class="form-select"  [(ngModel)]="this.demande.idPeriode"id="inputGroupSelect04" aria-label="Example select with button addon">
@@ -120,14 +120,14 @@
                                 </div>
                               </div>
                               <!--bouton valider-->
-                              <div *ngIf="role === 'prescripteur' " class="bt p-3 d-flex justify-content-end" >
+                              <!-- <div *ngIf="role === 'PRS' " class="bt p-3 d-flex justify-content-end" >
                                 <div class="error-message">
                                   <p class="text-warning">{{ errorMessage }}</p>
                                 </div>
                                 <button type="button" class="btn btn-primary mx-3" routerLink="creationprescripteur">Nouveau</button> 
                                 <button type="button" class="btn btn-primary mx-3"(click)="update()">Enregistrer</button> 
                                 <button type="button" class="btn btn-primary "(click)="valider()">Valider</button>  
-                              </div>
+                              </div> -->
                       </fieldset>
                       <!--partie cdg-->
                       <div *ngIf="role === 'CDG' || role === 'ACH' ">
@@ -153,8 +153,8 @@
                                                 
                                                     </select>
                                                    </div>
-                                                   <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                                   <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                   <input type="number" step="any" class="form-control mb-2" placeholder="Montant Budget Mensuel" aria-label="Montant Budget Mensuel" aria-describedby="basic-addon1"[(ngModel)]="this.AvisCdg.montantBudgetMensuel"(ngModelChange)="calculerResultat()">
+                                                   <span  class="form-control mb-2"aria-describedby="basic-addon1">{{this.reliquat}}</span>
                                               </div>
                                         
                                           <div class="d-flex">
@@ -164,9 +164,9 @@
                                                 <span class="input-group-text mb-2" id="basic-addon1">Commentaire CDG</span>
                                                 </div>
                                               <div class="mx-3">
-                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.Sousrubrique">
-                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Sous Rubrique" [(ngModel)]="this.demande.sousRubrique" aria-describedby="basic-addon1">
+                                                <input type="number" step="any" class="form-control mb-2" placeholder="Montant Engage" aria-label="Montant Engage" aria-describedby="basic-addon1" [(ngModel)]="this.AvisCdg.montantEngage" (ngModelChange)="calculerResultat()">
+                                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="commentaire CDG" aria-describedby="basic-addon1"[(ngModel)]="this.AvisCdg.commentaire">
                                               </div>
                                         </div>
                                       </div>
@@ -177,8 +177,9 @@
                             <div class="error-message">
                               <p class="text-warning">{{ errorMessage }}</p>
                             </div>
-                            <button type="button" class="btn btn-primary mx-3">Enregistrer</button> 
-                            <button type="button" class="btn btn-primary ">Valider</button>  
+                            <button type="button" class="btn btn-primary mx-3"(click)="enregistrerCdg()" >Enregistrer</button> 
+                            <button type="button" class="btn btn-primary mx-3" (click)="modificationCdg()" >Modifier</button> 
+                            <button type="button" class="btn btn-primary" >Valider</button>  
                           </div>
                       </div>
                         <!--partie Achat-->
@@ -194,7 +195,7 @@
                                     
                                     <div class="d-flex p-1">
                                       <span class="input-group-text mb-2" id="basic-addon1">Commentaire Achat</span>
-                                      <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                      <input type="text" class="form-control mb-2" placeholder="Username" aria-label="commentaire Achat" aria-describedby="basic-addon1" [(ngModel)]="this.AvisAchat.commentaire">
                                     </div> 
                                 </div>
                               </div>
@@ -203,8 +204,8 @@
                           <div class="error-message">
                             <p class="text-warning">{{ errorMessage }}</p>
                           </div>
-                          <button type="button" class="btn btn-primary mx-3">Enregistrer</button> 
-                          <button type="button" class="btn btn-primary ">Valider</button>  
+                          <button type="button" class="btn btn-primary " (click)="EnregistrerAchat()">Enregistrer</button>  
+                          <button type="button" class="btn btn-primary " (click)="validationAchat()">Valider</button>  
                         </div> 
                       
                      </div>

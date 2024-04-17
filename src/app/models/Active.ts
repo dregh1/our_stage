@@ -14,8 +14,8 @@ export class Active {
         public   idDirection?: number,
         public   devise?: string,
         public   idFournisseur?: number,
-        public idRubriqu?: number,
-        public SousRubrique?: string,
+        public  idRubrique?: number,
+        public  sousRubrique?: string,
         public   fournisseur?: string  
     ){}
   }

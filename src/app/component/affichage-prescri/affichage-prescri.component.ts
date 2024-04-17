@@ -28,7 +28,6 @@ export class AffichagePrescriComponent implements OnInit {
          estRegularisation    :'',
          typeReference : '',
          idRubrique:'',
-         SousRubrique : '',
          motif               : '',
          typeDevise : '',
          comsPrescripteur :'',
@@ -37,10 +36,10 @@ export class AffichagePrescriComponent implements OnInit {
          idFournisseur      :'',
          montantHt          :'',
        rubrique:'',
-       Sousrubrique:'',
+       sousRubrique:'',
          idPeriode          : '',
            idDirection:'',
-           
+           nomRubrique:'',
            fournisseur:'',
            periode:'',
            nomReference:''
@@ -105,7 +104,7 @@ export class AffichagePrescriComponent implements OnInit {
        this.demande.idTitreDepense = this.brouillons.idTitre?.toString() ?? ""; 
        this.demande.idRubrique= this.brouillons.idRubrique?.toString() ??"";
       this.demande.rubrique=this.brouillons.nomRubrique?.toString() ??"";
-      this.demande.SousRubrique=this.brouillons.sousRubrique?.toString()?? "";
+      this.demande.sousRubrique=this.brouillons.sousRubrique?.toString()?? "";
        this.setSelected(this.demande.idTitreDepense);
    });
    }

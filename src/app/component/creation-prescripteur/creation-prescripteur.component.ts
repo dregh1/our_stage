@@ -6,12 +6,19 @@ import { Brouillon } from 'src/app/models/Brouillon';
 import { Titre } from 'src/app/models/TitreDepense';
 import { Rubrique } from 'src/app/models/Rubrique';
 import { Route, Router } from '@angular/router';
+import { AuthenticationService } from '../authentication copy/authentication.service';
+import { Direction } from 'src/app/models/Direction';
 @Component({
   selector: 'app-creation-prescripteur',
   templateUrl: './creation-prescripteur.component.html',
   styleUrls: ['./creation-prescripteur.component.scss']
 })
 export class CreationPrescripteurComponent implements OnInit {
+  token : string | null ;
+  nomDirection : string | null ='';
+  idDirection? : Number ;
+  //CREATION SESSION
+  direction = new Direction();
 // donnee PRESCRIPTEUR
 periodes: Periode[]=[];
 fournisseurs : Fournisseur[] = [];
@@ -42,14 +49,13 @@ estregularisation    :'',
 
 typeReference : '',
 idRubrique:'',
-Sousrubrique : '',
+sousRubrique : '',
 motif               : '',
 typeDevise : '',
 comsPrescripteur :'',
-
+idDirection:'',
 idTitreDepense    : '',
 nomReference : '',
-
 idFournisseur      :'',
 montantHt          :'',
 
@@ -66,12 +72,33 @@ errorStatus = false;
 errorMessage : string='';
 //  données ACHAT
 commentairesAch : string = '';
-constructor(private CreationPrescripteurService : CreationPrescripteurService,private router:Router)
+constructor(private CreationPrescripteurService : CreationPrescripteurService,private router:Router,private AuthenticationService:AuthenticationService)
  {
     this.estregularisation = false;
+    this.token = sessionStorage.getItem("token");
+    // this.idDirection = authServ.getIdDirectionByName();
+
+  //RECUPERATION IdDirection                
+    if(this.token !== null )
+    {
+    
+    
+      /*  ajout nom direction dans la sessionStorage */
+        this.AuthenticationService.getUserInfo(this.token);
+
+      /* recuperation de l'id direction */
+        this.nomDirection = sessionStorage.getItem('direction');
+        
+        if(this.nomDirection !== null)
+        {
+          this.AuthenticationService.getDirectionByName(this.nomDirection).subscribe(response =>{ this.direction = response});
+        }
+    
+    }
    }
  
- 
+   // submit bouton ouvrir session
+
 ngOnInit(): void {
  //maka titre
  this.CreationPrescripteurService.getTitre().subscribe(data => {
@@ -96,26 +123,6 @@ ngOnInit(): void {
  });
  
 
-  //maka ny reference
-  this.CreationPrescripteurService.getReference().subscribe(data => {
-    this.refences = data;
-
-    console.log("references"); // ["Team Building", "sans titre"]
-   
-    console.log(this.refences); // ["Team Building", "sans titre"]
-    
-  });
-
-   //maka ny devise
-   this.CreationPrescripteurService.getDevise().subscribe(data => {
-    this.devises = data;
-
-    console.log("devises"); // ["Team Building", "sans titre"]
-   
-    console.log(this.devises); // ["Team Building", "sans titre"]
-    
-  });
-
   //  CREATE DEMANDE
   this.CreationPrescripteurService.createDemande(this.demande);
 
@@ -132,7 +139,6 @@ creerDemande()
    // TEST SI LES VALEURS SONT PRETES
     console.log( 
      "periode : "+this.demande.idPeriode + "\n " + 
-     //  "sousrubrique : "+this.demande.id_sousrubrique + "\n " + 
      "fournisseur : "+this.demande.idFournisseur + "\n " + 
      "isregularisation : "+this.demande.estregularisation  + "\n " +
      "devise" + this.demande.typeDevise + " \n"+
@@ -145,6 +151,9 @@ creerDemande()
   
     
     );
+    this.demande.idDirection = this.direction.id?.toString() ?? "";  
+
+    console.log(this.demande.idDirection,"ito n id direction ");
     // INSERTION DEMANDE
     this.CreationPrescripteurService.createDemande(this.demande)
     .subscribe(

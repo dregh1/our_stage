@@ -4,118 +4,92 @@ import { Personnel } from 'src/app/models/Personnel';
 import { PersonnelService } from 'src/app/services/personnel.service';
 import { CreationSession1Service } from './creation-session1.service';
 import { NumberSymbol } from '@angular/common';
+import { AuthenticationService } from '../authentication copy/authentication.service';
+import { Direction } from 'src/app/models/Direction';
+import { SessionCd } from 'src/app/models/SessionCd';
 @Component({
   selector: 'app-creation-session1',
   templateUrl: './creation-session1.component.html',
   styleUrls: ['./creation-session1.component.scss']
 })
 export class CreationSession1Component implements OnInit {
-
-  
-
+  token : string | null ;
+  nomDirection : string | null ='';
+  idDirection? : Number ;
   //CREATION SESSION
+  direction = new Direction();
+
+  session = new SessionCd();
   formData ={
-    ref : "",
-    date_cloture : Date,
-    id_direction : Number,
-    taux_eur : Number,
-    taux_usd : Number,
-    taux_gbp  : Number,
-    taux_mga  : Number,
-    
-  }
+        ref : "",
+          dateCloture : Date,
+          idDirection : Number,
+          tauxEur : Number,
+          tauxUsd : Number,
+          tauxGbp  : Number,
+          tauxMga  : Number,
+       }
 
 
   userName='';
-  // personnels: Personnel[] = []; 
   
   showPassword=false;
   showmesg = false; 
-
-  personnel = {
-    id: '' ,
-    nom: '',
-    prenom: '',
-    age: ''
-  };
  
 
+  constructor(
+                private CreationSession1Service: CreationSession1Service,
+                private personnelService: PersonnelService,
+                private http: HttpClient,
+                private authServ : AuthenticationService
+            )
+  
+              {
+                this.token = sessionStorage.getItem("token");
+                // this.idDirection = authServ.getIdDirectionByName();
 
+              //RECUPERATION IdDirection                
+                if(this.token !== null )
+                {
+                
+                
+                  /*  ajout nom direction dans la sessionStorage */
+                    this.authServ.getUserInfo(this.token);
 
-  constructor(private CreationSession1Service: CreationSession1Service,private personnelService: PersonnelService,private http: HttpClient) {}
-  ngOnInit(): void {
-    // this.personnelService.get().subscribe(data => {
-    //   this.personnels = data;
-    // });
-
-    var token = sessionStorage.getItem('token');
-    // maka ny momba azy
-    if(token !== null)
-    {
-          const body = new HttpParams()
-          .set('token', token )
-          .set('client_id', 'angular-client')
-          .set('client_secret', 'eIRXkLaEnLubyFr1mqwv6bu862oHIIn9');
-      
-            this.http.post('http://localhost:8081/realms/oma/protocol/openid-connect/token/introspect', body.toString(), {
-            headers: new HttpHeaders()
-              .set('Content-Type', 'application/x-www-form-urlencoded')
-              
-           }).subscribe(
-              (data) => {
-                // Traiter la réponse du serveur
-                console.log('Utilisateur connecté:', data);
-              },
-              (error) => {
-                // Gérer l'erreur
-                console.error('Erreur de connexion:', error);
+                  /* recuperation de l'id direction */
+                    this.nomDirection = sessionStorage.getItem('direction');
+                    
+                    if(this.nomDirection !== null)
+                    {
+                      
+                      this.authServ.getDirectionByName(this.nomDirection).subscribe(response =>{ this.direction = response})
+                      this.session.idDirection = this.direction.id;                      
+                    }
+                
+                }
               }
-          );
-          }
+  
+ngOnInit(): void {                
+                
 
-  }
-  // deletePersonnel(id: number): void {
-  //   this.personnelService.delete(id).subscribe(response => {
-  //     console.log(response);
-  //     window.location.reload();
-  //   });
-  // }
+              }
 
-  // updateRecord(id: any, newData: any): void {
-  //   this.personnelService.update(id, newData).subscribe(response => {
-  //     console.log(response);
-  //     window.location.reload();
-  //   });
-  // }
 
   // submit bouton ouvrir session
   openSession(){
 
-    // envoie donnee de session vers quarkus
-    
-    console.log(this.formData);
-
-      var dateString  = this.formData.date_cloture.toString();
-        var parts = dateString.split("T");
-        var formatDate = parts[0];
-        var date = formatDate.split("-");  
-        var ref = "CD-"+date[2]+date[1]+date[0] ;
-      
-      this.formData.ref=ref;
-      // this.formData.id_direction = "1".toString();
-      
-        console.log("ty le ref: " + this.formData.ref);
-      
-      console.log("ty le formData");
-      console.log(this.formData);
-
-      
-        // creation session
-    this.CreationSession1Service.post(this.formData).subscribe
-    (response => {
-      console.log(response);
-      window.location.reload();
-    });
-    
-  }
+               
+                  this.session.idDirection = this.direction.id;
+                  
+                  console.log("SSESESSESESE"+this.session.idDirection);
+                  console.log(this.session);
+                  
+                  // creation session
+                this.CreationSession1Service.post(this.session).subscribe
+                (response => {
+                  console.log(response);
+                  window.location.reload();
+                });
+                
+              }
 }

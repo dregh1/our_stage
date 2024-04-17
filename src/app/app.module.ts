@@ -16,6 +16,7 @@ import { MainComponent } from './component/main/main.component';
 import { CreationPrescripteurComponent } from './component/creation-prescripteur/creation-prescripteur.component';
 import { CreationSession1Component } from './component/creation-session1/creation-session1.component';
 import { DetailDemandeComponent } from './component/detail-demande/detail-demande.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { DetailDemandeComponent } from './component/detail-demande/detail-demand
     MainComponent,
     CreationPrescripteurComponent,
     CreationSession1Component,
-    DetailDemandeComponent
+    DetailDemandeComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,

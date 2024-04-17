@@ -1,12 +1,5 @@
 import { Component, OnInit, Renderer2, ElementRef, AfterViewInit ,ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Personnel } from 'src/app/models/Personnel';
-import { PersonnelService } from 'src/app/services/personnel.service';
-import { LogService } from 'src/app/services/log.service';
-//import { KeycloakService } from 'keycloak-angular';
-//import Keycloak from 'keycloak-js';
-import * as qs from 'qs';
-//import jwtDecode from 'jwt-decode';
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
 @Component({
@@ -19,7 +12,6 @@ export class AuthenticationComponent implements OnInit {
   public errorStatus = false;
   errorMessage ='Identifiant ou mot de passe incorrect' ;
   
-  personnels: Personnel[] = []; 
   showPassword: boolean = false;
   showmesg = false; 
 
@@ -40,7 +32,7 @@ export class AuthenticationComponent implements OnInit {
   password: any;
   
 
-  constructor(private http: HttpClient,private authenticationService: AuthenticationService,private logService: LogService, private router: Router ,private personnelService: PersonnelService, private renderer: Renderer2, private el: ElementRef) {}
+  constructor(private http: HttpClient,private authenticationService: AuthenticationService, private router: Router, private renderer: Renderer2, private el: ElementRef) {}
  
 
 // NG ON INIT
@@ -50,30 +42,7 @@ export class AuthenticationComponent implements OnInit {
 
           
 
-          // getInfo(token :  string)
-          // {
 
-          //   var headers = {
-          //     'Authorization': 'bearer '+token,
-          //     'Content-Type': 'application/x-www-form-urlencoded'
-          //   };
-          //   var request = this.http.('GET', Uri.parse('http://localhost:8081/realms/oma/protocol/openid-connect/userinfo'));
-          //   request.bodyFields = {
-          //     'grant_type': 'password',
-          //     'client_id': 'angular-client',
-          //     'client_secret': 'eIRXkLaEnLubyFr1mqwv6bu862oHIIn9'
-          //   };
-          //   request.headers.addAll(headers);
-            
-          //   http.StreamedResponse response = await request.send();
-            
-          //   if (response.statusCode == 200) {
-          //     print(await response.stream.bytesToString());
-          //   }
-          //   else {
-          //     print(response.reasonPhrase);
-          //   }
-          // }
 
 
 //ENVOYE LOGIN & MDP > KEYCLOAK
@@ -135,37 +104,22 @@ export class AuthenticationComponent implements OnInit {
             });
           }
 
-    getIdOfDirection ( ) 
-    {
-      const nomDirection  : string = "DTI";
-      
-      this.authenticationService.getIdDirectionByName(nomDirection)
-              .subscribe(response => {
-                              console.log( response);
-                            }
-                        ); 
-      console.log("GGGGGGGGGGGGGG");
 
-    }
+    // getIdOfDirection ( ) 
+    // {
+    //   const nomDirection  : string = "DTI";
+      
+    //   this.authenticationService.getIdDirectionByName(nomDirection)
+    //           .subscribe(response => {
+    //                           console.log( response);
+    //                         }
+    //                     ); 
+    //   console.log("GGGGGGGGGGGGGG");
+
+    // }
 
     
-    
-
-
-    isCdg(tableRole : string[])
-    {
-      
-    }
-
-      getRole(donne: string){
-//        donne =  {"sub":"29dc3d39-b477-4c3a-a403-34fd9f7dbf80","upn":"charlesandrea","email_verified":false,"name":"charles andrea","groups":["CDG"],"preferred_username":"charlesandrea","given_name":"charles","family_name":"andrea","email":"charles_andrea@gmail.com"};
-      }
-
-
-
-
-
-       
+         
 
           logError()  : void
           {
@@ -174,73 +128,20 @@ export class AuthenticationComponent implements OnInit {
           }
         // VERIFIER LOGIN  //
 
-        verifierLogin(): void {
-              
-          // Rediriger l'utilisateur vers l'URL d'authentification de Keycloak
-          // window.location.href = 'http://localhost:8081/realms/oma/protocol/openid-connect/token';
-          
-          //  vers keycloak  an' i Toky
-          //  window.location.href = 'http://localhost:8081/auth/realms/quarkus/protocol/openid-connect/auth?response_type=code&client_id=quarkus-app&redirect_uri=http://localhost:8080/redirect';
-              
-          // ETAPE VERS QUARKUS
-          this.logService.post(this.logindata)
-            .subscribe((response: any)  => {
-              
-              // Traitez la réponse du backend si nécessaire
-              
-              // condition si l'utisateur est autorisé 
-              if (response.message === 'Authentification réussie') {
-                // Rediriger l'utilisateur vers la page d'accueil
-                this.router.navigate(['/home']);
-            }else{
-              // Afficher un message d'erreur à l'utilisateur
-              console.log("DISO A");
-              this.errorStatus = true;
-              this.errorMessage = 'Identifiants incorrects';
-          }
+       
+          // onSubmit(): void {
+          //   this.personnelService.post(this.personnel).subscribe(response => {
+          //     console.log(response);
+          //     this.showmesg = true;
 
-          // VERS KEYCLOAK
-
-
-              console.log(response);
-              
-              this.showmesg=true;
-              
-              
-            });
-        }
-          onSubmit(): void {
-            this.personnelService.post(this.personnel).subscribe(response => {
-              console.log(response);
-              this.showmesg = true;
-
-              setTimeout(() => {
-                this.showmesg = false;
-              }, 2000);
-              window.location.reload();
-            });
-          }
+          //     setTimeout(() => {
+          //       this.showmesg = false;
+          //     }, 2000);
+          //     window.location.reload();
+          //   });
+          // }
 
           
-
-         
-          ///////////////////////////Animation slide///////////////////////////////////////
-          // ngAfterViewInit() {
-          //   const signup = this.el.nativeElement.querySelector('.signup');
-          //   const login = this.el.nativeElement.querySelector('.login');
-          //   //const slider = this.el.nativeElement.querySelector('.slider');
-          //   const formSection = this.el.nativeElement.querySelector('.form-section');
-
-          //   signup.addEventListener('click', () => {
-          //   //  this.renderer.addClass(slider, 'moveslider');
-          //     this.renderer.addClass(formSection, 'form-section-move');
-          //   });
-
-          //   login.addEventListener('click', () => {
-          //     //this.renderer.removeClass(slider, 'moveslider');
-          //     this.renderer.removeClass(formSection, 'form-section-move');
-          //   });
-          //  }
 
 }
 

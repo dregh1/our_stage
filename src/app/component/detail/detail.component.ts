@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute ,Router} from '@angular/router';
 import { Demande } from 'src/app/models/Demande';
 import { Titre } from 'src/app/models/TitreDepense';
-import { DetailDemandeService } from './detail-demande.service';
+import { DetailService } from './detail.service';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
 import { AuthenticationService } from '../authentication copy/authentication.service';
 import { Rubrique } from 'src/app/models/Rubrique';
-import { AvisCdg } from 'src/app/models/AvisCdg';
+import { AvisCdgModel } from 'src/app/models/AvisCdg';
 import { AvisAchat } from 'src/app/models/AvisAchat';
+import { demande } from './demande';
+import { AvisCdg } from './AvisCdg';
 @Component({
-  selector: 'app-detail-demande',
-  templateUrl: './detail-demande.component.html',
-  styleUrls: ['./detail-demande.component.scss']
+  selector: 'app-detail',
+  templateUrl: './detail.component.html',
+  styleUrls: ['./detail.component.scss']
 })
-export class DetailDemandeComponent implements OnInit {
+export class DetailComponent implements OnInit {
   role : string | null='';
   token : string | null = '' ;
   isUp1 = false; // Initial state for first button
@@ -23,34 +25,9 @@ export class DetailDemandeComponent implements OnInit {
   isUp3 = false;
   item:any;errorMessage:string='';
   periodes: Periode[]=[];errorStatus = false;errorStatus1 = false;errorStatus2 = false;
-  demande
-={
-    estregularisation    :'',
-    periode:'',
-    typeReference : '',
-    idRubrique:'',
-    sousRubrique : '',
-    motif               : '',
-    typeDevise : '',
-    comsPrescripteur :'',
-    idDirection:'',
-    idTitreDepense    : '',
-    nomReference : '',
-    titre:'',
-    idFournisseur      :'',
-    montantHt          :'',
-    fournisseur:'',
-    idPeriode          : '',
-    validationPrescripteur:false,
-    validationAchat:false,
-    validationCdg:false,
-}
-AvisCdg = {
-  idDemande:'',
-  commentaire:'',
-  montantBudgetMensuel:'',
-  montantEngage:'',
-}
+@Input() demande!:demande;
+@Input() AvisCdg!:AvisCdg;
+
 AvisAchat = {
   idDemande:'',
   commentaire:''
@@ -63,10 +40,10 @@ id:number;  reliquat:number=0;
 type:string='';devise:string='';
   titres : Titre[] = [];  fournisseurs : Fournisseur[] = [];
   brouillons = new Brouillon();
-  demandes=new Demande();rubriques :Rubrique[]=[];aviscdg=new AvisCdg();
+  demandes=new Demande();rubriques :Rubrique[]=[];aviscdg=new AvisCdgModel();
   avisAchat=new AvisAchat();
  message:string='';
-  constructor( private DetailDemandeService:DetailDemandeService,private autheticationServ:AuthenticationService,private activatedRoute: ActivatedRoute,private router:Router) {
+  constructor( private DetailService:DetailService,private autheticationServ:AuthenticationService,private activatedRoute: ActivatedRoute,private router:Router) {
     
     this.id = this.activatedRoute.snapshot.params['id'];
     this.token = sessionStorage.getItem("token");
@@ -75,6 +52,8 @@ type:string='';devise:string='';
       this.autheticationServ.getUserInfo(this.token);
       this.role = sessionStorage.getItem("role");
      }
+     this.demande.validationAchat = false;
+     this.demande.validationCdg=false;
   }
   //calcul sur le reliquat
   calculerResultat() {
@@ -82,23 +61,23 @@ type:string='';devise:string='';
   }
   ngOnInit(): void {
     //maka titre
-    this.DetailDemandeService.getTitre().subscribe(data => {
+    this.DetailService.getTitre().subscribe(data => {
       this.titres = data;
     });
      // maka ny periode
-     this.DetailDemandeService.getPeriode().subscribe(data => {
+     this.DetailService.getPeriode().subscribe(data => {
       this.periodes = data;
     });
     // maka ny fournisseur
-    this.DetailDemandeService.getFournisseur().subscribe(data => {
+    this.DetailService.getFournisseur().subscribe(data => {
       this.fournisseurs = data;
     });
     //maka rubrique
-    this.DetailDemandeService.getRubrique().subscribe(data => {
+    this.DetailService.getRubrique().subscribe(data => {
       this.rubriques = data;
     });
    // maka aviscdg
-     this.DetailDemandeService.getCdgById(this.id).subscribe(response=> {
+     this.DetailService.getCdgById(this.id).subscribe(response=> {
     this.aviscdg = response;
     this.AvisCdg.commentaire=this.aviscdg.commentaire?? "";
     this.AvisCdg.montantBudgetMensuel=this.aviscdg.montantBudgetMensuel??"";
@@ -106,13 +85,13 @@ type:string='';devise:string='';
     this.reliquat=parseFloat(this.AvisCdg.montantBudgetMensuel)-parseFloat(this.AvisCdg.montantEngage);
     });
     // maka avisAchat
-    this.DetailDemandeService.getAchatById(this.id).subscribe(response=> {
+    this.DetailService.getAchatById(this.id).subscribe(response=> {
       this.avisAchat = response;
       this.AvisAchat.commentaire=this.avisAchat.commentaire?? "";
       });
       //  //maka titre
     //maka par detail
-    this.DetailDemandeService.getActiveId(this.id).subscribe(response=> {
+    this.DetailService.getActiveId(this.id).subscribe(response=> {
       this.brouillons = response;
       console.log(response,"////////////////");
       this.demande.estregularisation = this.brouillons.estRegularisation?.toString() ?? "";
@@ -188,7 +167,7 @@ type:string='';devise:string='';
 //validation prescripteur
 valider():void{
   this.demande.validationPrescripteur = true;
-  this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
+  this.DetailService.update(this.id,this.demande).subscribe(Response=>{
     console.log(Response);
     this.message='updat!';
   });
@@ -203,7 +182,7 @@ valider():void{
  update():void{
   console.log("moulle");
   console.log(this.demande);
-        this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
+        this.DetailService.update(this.id,this.demande).subscribe(Response=>{
           console.log(Response);
           this.message='modié!';
         });
@@ -217,7 +196,7 @@ valider():void{
  }
  //suppression
 //  delete():void{
-//   this.DetailDemandeService.delete(this.id,this.demande).subscribe(Response=>{
+//   this.DetailService.delete(this.id,this.demande).subscribe(Response=>{
 //     console.log(Response);
 //     this.router.navigate(['/main/menu']);
 //     this.message='delete!';
@@ -234,7 +213,7 @@ valider():void{
 
 //Ajout titre demande
 Ajouttitre() {
-  this.DetailDemandeService.posttitre(this.titredepense)
+  this.DetailService.posttitre(this.titredepense)
   .subscribe(response => {
                   console.log( response);
                   this.ajoutOpt(response.id , response.designation);      
@@ -251,7 +230,7 @@ enregistrerCdg(){
   //maka ID 
   this.AvisCdg.idDemande=this.id?.toString() ?? "";
   console.log(this.AvisCdg);
-  this.DetailDemandeService.postCdg(this.AvisCdg).subscribe(Response=>{
+  this.DetailService.postCdg(this.AvisCdg).subscribe(Response=>{
     console.log(Response);
   this.errorMessage='Demande enregistré!';
   });
@@ -263,7 +242,7 @@ enregistrerCdg(){
 }
 ///modificationcdg
 modificationCdg(){
-  this.DetailDemandeService.updateCdg(this.id,this.AvisCdg).subscribe(Response=>{
+  this.DetailService.updateCdg(this.id,this.AvisCdg).subscribe(Response=>{
     console.log(Response);
   this.errorMessage='Demande modifié!';
   });
@@ -277,7 +256,7 @@ modificationCdg(){
 //validationcdg
 validationCdg() {
   this.demande.validationCdg = true;
-  this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
+  this.DetailService.update(this.id,this.demande).subscribe(Response=>{
     console.log(Response);
 
     this.message='validé cdg!';
@@ -293,7 +272,7 @@ validationCdg() {
 EnregistrerAchat(){
   this.AvisAchat.idDemande=this.id?.toString() ?? "";
   console.log(this.AvisAchat);
-  this.DetailDemandeService.postAchat(this.AvisAchat).subscribe(Response=>{
+  this.DetailService.postAchat(this.AvisAchat).subscribe(Response=>{
     console.log(Response); console.log("ok");
     
     this.errorMessage='Demande enregistré!';
@@ -307,7 +286,7 @@ EnregistrerAchat(){
 ///validation Achat
 validationAchat(){
   this.demande.validationAchat=true;
-  this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
+  this.DetailService.update(this.id,this.demande).subscribe(Response=>{
     console.log(Response);
     this.message='validdé achat!';
   });

@@ -1,0 +1,21 @@
+export interface demande{
+    estregularisation :string,
+    periode:string,
+    typeReference : string,
+    idRubrique:string,
+    sousRubrique : string,
+    motif: string,
+    typeDevise : string,
+    comsPrescripteur :string,
+    idDirection:string,
+    idTitreDepense : string,
+    nomReference : string,
+    titre:string,
+    idFournisseur :string,
+    montantHt :string,
+    fournisseur:string,
+    idPeriode : string,
+    validationPrescripteur:boolean ,
+    validationAchat:boolean,
+    validationCdg:boolean 
+}

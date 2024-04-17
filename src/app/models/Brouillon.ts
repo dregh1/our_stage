@@ -16,9 +16,8 @@ export class Brouillon {
         public  devise ?: string,
         public  idFournisseur ?: number,
         public idRubrique? : number,
-        public idSousRubrique ?:number,
        public sousRubrique?:string,
-        public nomRubrique?: string,
+       public nomRubrique?:string,
         public  fournisseur?: string,
        
       // Autres propriétés de votre modèle de données personnel

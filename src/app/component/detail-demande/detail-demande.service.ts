@@ -8,7 +8,8 @@ import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
 import { Active } from 'src/app/models/Active';
 import { Rubrique } from 'src/app/models/Rubrique';
-
+import {AvisCdg} from 'src/app/models/AvisCdg';
+import { AvisAchat } from 'src/app/models/AvisAchat';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +17,8 @@ export class DetailDemandeService {
   private url = 'http://localhost:8080';
 
   private baseUrl = 'http://localhost:8080/teste';
+  private baseUrl4 = 'http://localhost:8080/achat';
+  private baseUrl3 = 'http://localhost:8080/cdg';
   private baseUrl2 = 'http://localhost:8080/prescripteur';
  
   constructor(private http: HttpClient) { }
@@ -65,8 +68,32 @@ searchByName(name:any):Observable<any>{
 getRubrique(): Observable<Rubrique[]> {
   return this.http.get<Rubrique[]>(this.baseUrl2+'/rubrique/get');
 }
-//avis cdg
-postCdg(id:number,formData: any): Observable<any> {
-  return this.http.post<any>(this.baseUrl2+'/titre/create',formData);
+
+
+//////////// CDG/////////////////
+ // maka ny coms cdg
+  getCdgById(id:number):  Observable<AvisCdg> {
+    return this.http.get<AvisCdg>(`${this.baseUrl3}/avisCdg/${id}`);
+  }
+  //avis cdg
+postCdg(formData: any): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl3}/avisCdg/create/`,formData);
 }
+updateCdg(id:number,data:any):Observable<any>{
+  return this.http.put<any>(`${this.baseUrl2}/demande/${id}`,data);
+}
+ 
+///////////////Achat/////////
+  // maka ny coms achat
+  getAchatById(id:number):  Observable<AvisAchat> {
+    return this.http.get<AvisAchat>(`${this.baseUrl4}/avisAchatByIdDemande/${id}`);
+  }
+   //avis achat
+  postAchat(formData: any): Observable<any> {
+  return this.http.post<any>(`${this.baseUrl4}/avisAchat/create`,formData);
+  }
+  //modication demande
+  updateAchat(id:number,data:any):Observable<any>{
+  return this.http.put<any>(`${this.baseUrl2}/avisCdg/${id}`,data);
+  }
 }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { Direction } from 'src/app/models/Direction';
 import { Personnel } from 'src/app/models/Personnel';
 
 @Injectable({
@@ -15,9 +16,7 @@ export class AuthenticationService {
   //   return this.http.get<Personnel[]>(this.baseUrl+'/all');
   // }
  
-  getIdDirectionByName(texte: string) {
-    return this.http.get<number>(this.baseUrl+'/getIdDir?nom='+texte);
-  } 
+  
 
   //POSTMAN
   getUserInfo(token : string){
@@ -96,9 +95,19 @@ export class AuthenticationService {
                                           console.log("ilay direction: "+direction);
                                         
                                           
-                                          //this.authenticationService.getIdDirectionByName("ODC");
+                                          // this.authenticationService.getIdDirectionByName("ODC");
 
                                   }else console.log("tsy misy DIRECTION");
+                        //MITADY NOM
+                                if(data.hasOwnProperty('given_name'))
+                                {
+                                  const tableNOM = data.given_name;
+                                  console.log('NOM: '+tableNOM);
+
+                              //Metraka nom anaty session
+                                  
+                                  sessionStorage.setItem("nom",tableNOM); 
+                                }
                 }
               });
 
@@ -120,4 +129,53 @@ export class AuthenticationService {
   post(formData: any): Observable<any> {
     return this.http.post<any>(this.baseUrl+'/c', formData);
   }
+
+  getDirectionByName(texte: string) :  Observable<Direction> {
+    return this.http.get<any>(this.baseUrl+'/getIdDir?nom='+texte);
+    } 
+
+
+  //  getIdDirectionByName(   ){
+  //   const token = sessionStorage.getItem("token");
+  //   var direction = new Direction();
+  //   var nomDirection : string | null ;
+  //   var idDirection ;
+  //   if(token !== null )
+  //   {
+    
+  //   //RECUPERATION IdDirection
+    
+  //     /*  ajout nom direction dans la sessionStorage */
+  //       this.getUserInfo(token);
+
+  //     /* recuperation de l'id direction */
+  //       nomDirection = sessionStorage.getItem('direction');
+        
+  //       if(nomDirection !== null)
+  //       {
+  //         console.log("ATOYYYYYYYYYYYYYYYYY");
+          
+  //         return this.getDirectionByName(nomDirection).toPromise()
+  //         // .then(response =>{ 
+  //         //     direction = response ; 
+  //         //     console.log("rrrrrrrrrrrrrrrrr");
+  //         //     console.log(response.id); 
+  //         //     idDirection = response.id;
+  //         //   });
+  //         // .subscribe(response =>{ 
+  //         //   direction = response ; 
+  //         //   console.log("rrrrrrrrrrrrrrrrr");
+  //         //   console.log(response.id); 
+  //         //   idDirection = response.id;
+  //         // });
+
+  //         console.log("sssssssssssss")  ;
+  //         console.log("tttttttttttt " +idDirection);
+          
+  //         return idDirection;                
+  //       }
+    
+  //   }
+  //   return undefined;
+  // }
 }

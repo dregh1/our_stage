@@ -15,6 +15,7 @@ const routes: Routes = [
   {path:'',component:AuthenticationComponent},
   {path:'main',component:MainComponent,
         children:[
+          {path:'',redirectTo:'menu',pathMatch:'full'},
             {path:'header',component:HeaderComponent},
             {path:'menu',component:MenuComponent},
             {path:'auth',component:AuthenticationComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
             {path:'notification',component:NotificationComponent},
             {path:'creationsession',component:CreationSession1Component},
             {path:'detaildemande/:id',component:DetailDemandeComponent},
-            {path:'creationprescripteur',component:CreationPrescripteurComponent}
+            {path:'creationprescripteur',component:CreationPrescripteurComponent},
+            {path:'detail',component:CreationPrescripteurComponent}
             // {path:'detail/:type',children[{path:':id',component:pagecomponent}]}
         ]
   },
