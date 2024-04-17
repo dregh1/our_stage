@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { groupBy} from 'rxjs';
-import { CommonModule } from '@angular/common';
 import { MenuService } from './menu.service';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Active } from 'src/app/models/Active';
 import { AuthenticationService } from '../authentication copy/authentication.service';
 @Component({
   selector: 'app-menu',
-  templateUrl: './menu.component.html',
+  templateUrl:'./menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit{
