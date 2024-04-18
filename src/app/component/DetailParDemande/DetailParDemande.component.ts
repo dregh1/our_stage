@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute ,Router} from '@angular/router';
 import { Demande } from 'src/app/models/Demande';
 import { Titre } from 'src/app/models/TitreDepense';
-import { DetailDemandeService } from './detail-demande.service';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
@@ -10,12 +9,15 @@ import { AuthenticationService } from '../authentication copy/authentication.ser
 import { Rubrique } from 'src/app/models/Rubrique';
 import { AvisCdg } from 'src/app/models/AvisCdg';
 import { AvisAchat } from 'src/app/models/AvisAchat';
+import { DetailDemande } from 'src/app/models/DetailDemande';
+import { TesteService } from './DetailParDemande.service';
+
 @Component({
-  selector: 'app-detail-demande',
-  templateUrl: './detail-demande.component.html',
-  styleUrls: ['./detail-demande.component.scss']
+  selector: 'app-test',
+  templateUrl: './DetailParDemande.component.html',
+  styleUrls: ['./DetailParDemande.component.scss']
 })
-export class DetailDemandeComponent implements OnInit {
+export class TestComponent implements OnInit {
   role : string | null='';
   token : string | null = '' ;
   isUp1 = false; // Initial state for first button
@@ -25,12 +27,12 @@ export class DetailDemandeComponent implements OnInit {
   periodes: Periode[]=[];errorStatus = false;errorStatus1 = false;errorStatus2 = false;
   demande
 ={
-    estregularisation    :'',
+    estRegularisation    :false,
     periode:'',
-    typeReference : '',
     idRubrique:'',
     sousRubrique : '',
     motif               : '',
+    devise : '',
     typeDevise : '',
     comsPrescripteur :'',
     idDirection:'',
@@ -44,8 +46,10 @@ export class DetailDemandeComponent implements OnInit {
     validationPrescripteur:false,
     validationAchat:false,
     validationCdg:false,
+    typeReference: '',
 }
 AvisCdg = {
+  id:'',
   idDemande:'',
   commentaire:'',
   montantBudgetMensuel:'',
@@ -62,11 +66,11 @@ titredepense =
 id:number;  reliquat:number=0;
 type:string='';devise:string='';
   titres : Titre[] = [];  fournisseurs : Fournisseur[] = [];
-  brouillons = new Brouillon();
-  rubriques :Rubrique[]=[];aviscdg=new AvisCdg();
+  DetailDemande= new DetailDemande();
+  rubriques :Rubrique[]=[];aviscdgs=new AvisCdg();
   avisAchat=new AvisAchat();
  message:string='';
-  constructor( private DetailDemandeService:DetailDemandeService,private autheticationServ:AuthenticationService,private activatedRoute: ActivatedRoute,private router:Router) {
+  constructor( private TesteService:TesteService,private autheticationServ:AuthenticationService,private activatedRoute: ActivatedRoute,private router:Router) {
     
     this.id = this.activatedRoute.snapshot.params['id'];
     this.token = sessionStorage.getItem("token");
@@ -81,62 +85,72 @@ type:string='';devise:string='';
     this.reliquat = parseFloat(this.AvisCdg.montantBudgetMensuel)- parseFloat(this.AvisCdg.montantEngage);
   }
   ngOnInit(): void {
+    
     //maka titre
-    this.DetailDemandeService.getTitre().subscribe(data => {
+    this.TesteService.getTitre().subscribe(data => {
       this.titres = data;
     });
      // maka ny periode
-     this.DetailDemandeService.getPeriode().subscribe(data => {
+     this.TesteService.getPeriode().subscribe(data => {
       this.periodes = data;
     });
     // maka ny fournisseur
-    this.DetailDemandeService.getFournisseur().subscribe(data => {
+    this.TesteService.getFournisseur().subscribe(data => {
       this.fournisseurs = data;
     });
     //maka rubrique
-    this.DetailDemandeService.getRubrique().subscribe(data => {
+    this.TesteService.getRubrique().subscribe(data => {
       this.rubriques = data;
     });
-   // maka aviscdg
-     this.DetailDemandeService.getCdgById(this.id).subscribe(response=> {
-    this.aviscdg = response;
-    this.AvisCdg.commentaire=this.aviscdg.commentaire?? "";
-    //this.AvisCdg.montantBudgetMensuel=this.aviscdg.montantBudgetMensuel??"";
-    //this.AvisCdg.montantEngage=this.aviscdg.montantEngage??"";
-    this.reliquat=parseFloat(this.AvisCdg.montantBudgetMensuel)-parseFloat(this.AvisCdg.montantEngage);
-    });
+   
     // maka avisAchat
-    this.DetailDemandeService.getAchatById(this.id).subscribe(response=> {
+    this.TesteService.getAchatById(this.id).subscribe(response=> {
       this.avisAchat = response;
       this.AvisAchat.commentaire=this.avisAchat.commentaire?? "";
       });
       //  //maka titre
     //maka par detail
-    this.DetailDemandeService.getActiveId(this.id).subscribe(response=> {
-      this.brouillons = response;
+    this.TesteService.getDetailDemandebyId(this.id).subscribe(response=> {
+      this.DetailDemande = response;
       console.log(response,"////////////////");
-      this.demande.estregularisation = this.brouillons.estRegularisation?.toString() ?? "";
-      this.demande.titre = this.brouillons.titre ?? "";
-      this.demande.typeReference = this.brouillons.typeReference ?? "";
-      this.type=this.demande.typeReference;
-      this.demande.nomReference = this.brouillons.reference ?? "";
-      this.demande.motif = this.brouillons.motif ?? "";
-      this.demande.typeDevise = this.brouillons.devise ?? "";
-      this.devise=this.demande.typeDevise ;
-      this.demande.comsPrescripteur = this.brouillons.comsPrescripteur ?? "";
-      this.demande.fournisseur = this.brouillons.fournisseur ?? "";
-      this.demande.montantHt = this.brouillons.montantHt?.toString() ?? "";
-      this.demande.periode = this.brouillons.periode ?? ""; 
-      this.demande.idPeriode = this.brouillons.idPeriode?.toString() ?? ""; 
-      this.demande.idDirection = this.brouillons.idDirection?.toString() ?? ""; 
-      this.demande.idFournisseur = this.brouillons.idFournisseur?.toString() ?? ""; 
-      this.demande.idTitreDepense = this.brouillons.idTitre?.toString() ?? ""; 
-      this.demande.sousRubrique=this.brouillons.sousRubrique?.toString()?? "";
-      this.demande.idRubrique=this.brouillons.idRubrique?.toString() ?? "";
+      this.demande.estRegularisation = Boolean(this.DetailDemande.estregularisation ?? "");
+      this.demande.titre = this.DetailDemande.titre ?? "";
+      this.demande.typeReference= this.DetailDemande.typereference?? "";
+      // this.demande.typereference=this.demande.typereference;
+      this.demande.nomReference = this.DetailDemande.reference?? "";
+      this.demande.motif = this.DetailDemande.motif ?? "";
+      this.demande.typeDevise = this.DetailDemande.devise ?? "";
+      this.demande.devise=this.DetailDemande.devise ?.toString() ?? "";
+      this.demande.comsPrescripteur = this.DetailDemande.comsprescripteur ?? "";
+      this.demande.fournisseur = this.DetailDemande.fournisseur ?? "";
+      this.demande.montantHt = this.DetailDemande.montantht?.toString() ?? "";
+      this.demande.periode = this.DetailDemande.periode ?? ""; 
+      this.demande.idPeriode = this.DetailDemande.idperiode?.toString() ?? ""; 
+      this.demande.idDirection = this.DetailDemande.iddirection?.toString() ?? ""; 
+      this.demande.idFournisseur = this.DetailDemande.idfournisseur?.toString() ?? ""; 
+      this.demande.idTitreDepense = this.DetailDemande.idtitre?.toString() ?? ""; 
+      this.demande.sousRubrique=this.DetailDemande.sousrubrique?.toString()?? "";
+      this.demande.idRubrique=this.DetailDemande.idrubrique?.toString() ?? "";
+      this.demande.validationPrescripteur=Boolean(this.DetailDemande.validationprescripteur??"");
+      this.demande.validationCdg=Boolean(this.DetailDemande.validationcdg??"");
+      this.demande.validationAchat=Boolean(this.DetailDemande.validationachat??"");
+      console.log(this.DetailDemande);
       this.setSelected(this.demande.idTitreDepense);
-      console.log(this.brouillons.sousRubrique,"io brouilon");
-      console.log(this.demande.fournisseur,"ourin");
+      console.log(this.DetailDemande.sousrubrique,"io brouilon");
+      console.log(this.demande.fournisseur,"ourinisseurs");
   });
+     //////////Affichage du commentaire Cdg
+     this.TesteService.getCdgById(this.id).subscribe(response=> {
+      this.aviscdgs = response;
+      console.log(response,"/:///.////././");
+      
+    console.log(this.aviscdgs);
+    this.AvisCdg.id=this.aviscdgs.id?.toString() ?? "";
+    this.AvisCdg.commentaire = this.aviscdgs.commentaire?? "";
+    this.AvisCdg.montantBudgetMensuel=this.aviscdgs.montantBudgetMensuel?.toString() ?? "";
+    this.AvisCdg.montantEngage=this.aviscdgs.montantEngage?.toString() ?? "";
+    this.reliquat=parseFloat(this.AvisCdg.montantBudgetMensuel)-parseFloat(this.AvisCdg.montantEngage);
+    });
   }
 //toggle ieldsetprescripteur 
   toggleUp() {
@@ -188,26 +202,18 @@ type:string='';devise:string='';
 //validation prescripteur
 valider():void{
   this.demande.validationPrescripteur = true;
-  this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
-    console.log(Response);
-    this.message='updat!';
-  });
-  this.errorMessage='Demande validé!';
-  setTimeout(() => {
-    this.errorStatus1 = false; // Hide the message by setting errorStatus to false
-    this.errorMessage = '';    // Optionally, clear the error message
-  }, 3000);
-  console.log(this.message);
+  console.log(this.demande.validationPrescripteur);
+  this.update();
 }
  //modication prescripteur
  update():void{
   console.log("moulle");
   console.log(this.demande);
-        this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
+        this.TesteService.update(this.id,this.demande).subscribe(Response=>{
           console.log(Response);
           this.message='modié!';
         });
-        this.errorMessage='Demande enregistré!';
+        this.errorMessage='Demande modié!';
         setTimeout(() => {
           this.errorStatus1 = false; // Hide the message by setting errorStatus to false
           this.errorMessage = '';    // Optionally, clear the error message
@@ -217,7 +223,7 @@ valider():void{
  }
  //suppression
 //  delete():void{
-//   this.DetailDemandeService.delete(this.id,this.demande).subscribe(Response=>{
+//   this.TesteService.delete(this.id,this.demande).subscribe(Response=>{
 //     console.log(Response);
 //     this.router.navigate(['/main/menu']);
 //     this.message='delete!';
@@ -234,7 +240,7 @@ valider():void{
 
 //Ajout titre demande
 Ajouttitre() {
-  this.DetailDemandeService.posttitre(this.titredepense)
+  this.TesteService.posttitre(this.titredepense)
   .subscribe(response => {
                   console.log( response);
                   this.ajoutOpt(response.id , response.designation);      
@@ -246,12 +252,13 @@ Ajouttitre() {
             this.errorMessage = '';    // Optionally, clear the error message
           }, 3000); 
 }
+
 /////enregistrer cdg
 enregistrerCdg(){
   //maka ID 
   this.AvisCdg.idDemande=this.id?.toString() ?? "";
   console.log(this.AvisCdg);
-  this.DetailDemandeService.postCdg(this.AvisCdg).subscribe(Response=>{
+  this.TesteService.postCdg(this.AvisCdg).subscribe(Response=>{
     console.log(Response);
   this.errorMessage='Demande enregistré!';
   });
@@ -263,7 +270,8 @@ enregistrerCdg(){
 }
 ///modificationcdg
 modificationCdg(){
-  this.DetailDemandeService.updateCdg(this.id,this.AvisCdg).subscribe(Response=>{
+  this.AvisCdg.idDemande=this.id?.toString() ?? "";
+  this.TesteService.updateCdg(parseFloat(this.AvisCdg.id),this.AvisCdg).subscribe(Response=>{
     console.log(Response);
   this.errorMessage='Demande modifié!';
   });
@@ -277,23 +285,13 @@ modificationCdg(){
 //validationcdg
 validationCdg() {
   this.demande.validationCdg = true;
-  this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
-    console.log(Response);
-
-    this.message='validé cdg!';
-  });
-  this.errorMessage='Demande validé!';
-  setTimeout(() => {
-    this.errorStatus1 = false; // Hide the message by setting errorStatus to false
-    this.errorMessage = '';    // Optionally, clear the error message
-  }, 3000);
-  console.log(this.message);
+  this.update();
 }
 //enregistrement achat
 EnregistrerAchat(){
   this.AvisAchat.idDemande=this.id?.toString() ?? "";
   console.log(this.AvisAchat);
-  this.DetailDemandeService.postAchat(this.AvisAchat).subscribe(Response=>{
+  this.TesteService.postAchat(this.AvisAchat).subscribe(Response=>{
     console.log(Response); console.log("ok");
     
     this.errorMessage='Demande enregistré!';
@@ -307,15 +305,6 @@ EnregistrerAchat(){
 ///validation Achat
 validationAchat(){
   this.demande.validationAchat=true;
-  this.DetailDemandeService.update(this.id,this.demande).subscribe(Response=>{
-    console.log(Response);
-    this.message='validdé achat!';
-  });
-  this.errorMessage='Demande validé!';
-  setTimeout(() => {
-    this.errorStatus1 = false; // Hide the message by setting errorStatus to false
-    this.errorMessage = '';    // Optionally, clear the error message
-  }, 3000);
-  console.log(this.message);
+  this.update();
 }
 }

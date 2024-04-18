@@ -1,0 +1,15 @@
+
+body{
+    background-color: #ddd;
+}
+     .scrollspy-example {
+      height: 250px;
+      overflow: auto;
+      position: relative;
+      }
+      .icon{font-size: 30px;}
+      @media (max-width: 768px) {
+        .icon{
+            font-size: 8px;
+        }
+}

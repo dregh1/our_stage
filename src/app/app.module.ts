@@ -13,9 +13,11 @@ import { MainComponent } from './component/main/main.component';
 import { CreationPrescripteurComponent } from './component/creation-prescripteur/creation-prescripteur.component';
 import { CreationSession1Component } from './component/creation-session1/creation-session1.component';
 import { DetailDemandeComponent } from './component/detail-demande/detail-demande.component';
-import { ValidationComponent } from './component/validation/validation.component';
 import { HeaderComponent } from './component/header/header.component';
 import { MenuComponent } from './component/menu/menu.component';
+import { TestComponent } from './component/DetailParDemande/DetailParDemande.component';
+import { MenuDemandeComponent } from './component/MenuDemande/menu-demande.component';
+import { ValidationComponent } from './component/validation/validation.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { MenuComponent } from './component/menu/menu.component';
     MainComponent,
     CreationPrescripteurComponent,
     CreationSession1Component,
-    DetailDemandeComponent
+    DetailDemandeComponent,
+    TestComponent,
+    MenuDemandeComponent
   //  DetailComponent
   ],
   imports: [

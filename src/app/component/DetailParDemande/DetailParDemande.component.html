@@ -1,0 +1,242 @@
+
+<body>
+  
+
+    <section class="mx-3">
+      <div class="main mx-2">
+        
+                      <!--partie Prescripteur-->
+                      <fieldset class="form-group border border-1 p-2">
+                              <!--titre du Prescripteur-->  
+                              <legend class="w-auto px-2">Prescripteur
+                                        <button  (click)="toggleUp()" class="btn" data-bs-toggle="collapse" href="#collapseExample"  aria-expanded="false" aria-controls="collapseExample">
+                                            <i class="fa" [ngClass]="{'fa-chevron-up': isUp1, 'fa-chevron-down': !isUp1}"></i>
+                                          </button>
+                                </legend>
+                                
+                              <!-- les attributs du  prescripteur -->
+                                <div class="collapse show" id="collapseExample" >
+                                    <div class="card card-body" >
+                                        <div class="mx-4">
+                                            <div class=" justify-content-around d-flex form-group" >
+                                              <div class="d-flex">
+                                                  <div class="label">
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Regularisation</span>
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Réference</span>
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Motif Besoin</span> 
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Devise</span>
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Rubrique</span>
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Commentaire prescripteur</span>
+                                                  </div>
+                                                  <div class="mx-3">
+                                                    <div class="form-check mb-2 form-switch">
+                                                      <input class="form-check-input" [(ngModel)]="this.demande.estRegularisation"type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
+                                                     </div>
+                                                      <!-- <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.type_reference">-->
+                                                
+                                                      <div class="input-group mb-2"> 
+                                                        <select class="form-select" [(ngModel)]="this.demande.typeReference" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                                          <option *ngIf="this.demande.typeReference === 'DED'"  [ngValue]="'DED'" selected>DED</option>
+                                                          <option *ngIf="this.demande.typeReference === 'BC'"  [ngValue]="'BC'" selected>BC</option>
+                                                          <option *ngIf="this.demande.typeReference === 'DED'"[ngValue]="'BC'">BC</option>
+                                                          <option *ngIf="this.demande.typeReference === 'BC'"  [ngValue]="'DED'">DED</option>
+                                                        </select>
+                                                    </div> 
+                                                     
+                                                     <input type="text" class="form-control mb-2" placeholder="motif" aria-label="motif" aria-describedby="basic-addon1" [(ngModel)]="this.demande.motif">
+                                                     <div class="input-group mb-2">
+                                                        <select class="form-select" [(ngModel)]="this.demande.typeDevise" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                                          <option *ngIf="this.demande.devise === 'EUR'"  [ngValue]="'EUR'" selected>EUR</option>
+                                                          <option *ngIf="this.demande.devise  === 'USD'"  [ngValue]="'USD'" selected>USD</option>
+                                                          <option *ngIf="this.demande.devise  === 'EUR'">USD</option>
+                                                          <option *ngIf="this.demande.devise  === 'USD'">EUR</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group mb-2">
+                                                      <select class="form-select" [(ngModel)]="this.demande.idRubrique" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                                        <option *ngFor="let item of this.rubriques" [value]="item.id"> {{item.designation}}  </option>
+                                                  
+                                                      </select>
+                                                     </div>
+                                                    <!-- <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.type_devise">-->
+                                                     <input type="text" class="form-control mb-2" placeholder="" aria-label="commentaire Prescripteur" aria-describedby="basic-addon1" [(ngModel)]="this.demande.comsPrescripteur"> 
+                                                  </div>
+                                              </div>
+                                              <div class="d-flex">
+                                                <div class="label">
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Titre</span>
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Réference</span>
+                                                    <span class="input-group-text mb-2" id="basic-addon1">fournisseurs</span>
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Montant HT</span>
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Sous rubrique</span>
+                                                   
+                                                    <span class="input-group-text mb-2" id="basic-addon1">Période prestation</span>
+                                                  </div>
+                                                  <div class="mx-3">
+                                                    <!--CREATION TITRE-->
+                                                    <div class="input-group mb-2">
+                                                      <select class="form-select" [(ngModel)]="this.demande.idTitreDepense"  id="idtitre" aria-label="Example select with button addon">
+                                                        <option *ngFor="let item of this.titres " [value]="item.id"> {{item.designation}}  </option>
+                                                         </select>
+                                                     <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">+</button>
+                                                   </div>
+                                                   <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"  [(ngModel)]="this.demande.nomReference">
+                                                   
+                                                   <div class="input-group mb-2">
+                                                    <select class="form-select" [(ngModel)]="this.demande.idFournisseur" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                                      <option *ngFor="let item of this.fournisseurs" [value]="item.id"> {{item.nom}}  </option>
+                                                
+                                                    </select>
+                                                   </div>                                             
+                                                   <input type="text" class="form-control mb-2" placeholder="montant HT" aria-label="montant HT" aria-describedby="basic-addon1"[(ngModel)]="this.demande.montantHt">
+                                                   <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"[(ngModel)]="this.demande.sousRubrique">
+                                                    <div class="input-group mb-2">
+                                                        <select class="form-select"  [(ngModel)]="this.demande.idPeriode"id="inputGroupSelect04" aria-label="Example select with button addon">
+                                                          <option *ngFor="let item of this.periodes" [value]="item.id"> {{item.designation}}  </option>
+                                                        </select>
+                                                     </div> 
+                                                  </div>
+                                              </div>
+                                            </div>
+                                          
+                                        </div>
+                                                
+                                      </div>
+                                      <div class="d-flex justify-content-end" *ngIf="this.demande.validationPrescripteur === true" >
+                                        <p class="text-success p-2">validé</p>
+                                    </div>
+                                  </div>
+                                
+                              <!--    popu titre-->
+                              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title h5" id="exampleModalLabel">Titre</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form>
+                                        <div class="mb-3">
+                                          <label for="recipient-name" class="col-form-label">Ajout titre:</label>
+                                          <input type="text" class="form-control" [(ngModel)]="titredepense.designation" [ngModelOptions]="{standalone:true}" id="recipient-name">
+                                          
+                                        </div>
+                                        
+                                      </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                     <button type="button" class="btn btn-primary" (click)="Ajouttitre()" data-bs-dismiss="modal">Enregistrer</button>
+                                      </div>
+                                  </div>
+                                </div>
+                                
+                              </div>
+                              <!--bouton valider-->
+                              <div *ngIf="role === 'PRS' && this.demande.validationPrescripteur === false " class="bt p-3 d-flex justify-content-end" >
+                                <div class="error-message">
+                                  <p class="text-warning">{{ errorMessage }}</p>
+                                </div>
+                                <p>{{this.demande.validationPrescripteur}}</p>
+                                <!-- <button type="button" class="btn btn-primary mx-3" routerLink="../../creationprescripteur">Nouveau</button>  -->
+                                <button type="button" class="btn btn-primary mx-3" data-bs-toggle="collapse" href="#collapsebouton" id="collapsebouton2"  aria-expanded="false" aria-controls="collapsebouton">Nouveau</button> 
+                                <button type="button" class="btn btn-primary mx-3"(click)="update()">Modifier</button> 
+                                <button type="button" class="btn btn-primary "(click)="valider()">Valider</button>  
+                             </div>
+                      </fieldset>
+                      <!--partie cdg-->
+                      <div *ngIf="role === 'CDG' || role === 'ACH' ">
+                          <fieldset class="form-group border border-1 p-2">
+                            <legend class="w-auto px-2">CDG
+                                    <button  (click)="toggleDown()" class="btn"data-bs-toggle="collapse" href="#collapseExample1"  aria-expanded="false" aria-controls="collapseExample1">
+                                        <i class="fa" [ngClass]="{'fa-chevron-up': isUp2, 'fa-chevron-down': !isUp2}"></i>
+                                      </button>
+                            </legend>
+                            <div class="collapse show" id="collapseExample1">
+                                <div class="card card-body " >
+                                      <div class=" justify-content-around d-flex">
+                                          <div class="d-flex">
+                                              <div class="label">
+                                                <span class="input-group-text mb-2" id="basic-addon1">Rubrique Budgetaire</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Montant budget mensuel KMGA</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Reliquat KMGA</span>
+                                              </div>
+                                                <div class="mx-3">
+                                                  <div class="input-group mb-2">
+                                                    <select class="form-select" [(ngModel)]="this.demande.idRubrique" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                                      <option *ngFor="let item of this.rubriques" [value]="item.id"> {{item.designation}}  </option>
+                                                
+                                                    </select>
+                                                   </div>
+                                                   <input type="number" step="any" class="form-control mb-2" placeholder="Montant Budget Mensuel" aria-label="Montant Budget Mensuel" aria-describedby="basic-addon1"[(ngModel)]="this.AvisCdg.montantBudgetMensuel"(ngModelChange)="calculerResultat()">
+                                                   <span  class="form-control mb-2"aria-describedby="basic-addon1">{{this.reliquat}}</span>
+                                              </div>
+                                        
+                                          <div class="d-flex">
+                                            <div class="label">
+                                                <span class="input-group-text mb-2" id="basic-addon1">Sous Rubrique</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Montant engagé KMGA</span>
+                                                <span class="input-group-text mb-2" id="basic-addon1">Commentaire CDG</span>
+                                                </div>
+                                              <div class="mx-3">
+                                                <input type="text" class="form-control mb-2"  aria-label="Sous Rubrique" [(ngModel)]="this.demande.sousRubrique" aria-describedby="basic-addon1">
+                                                <input type="number" step="any" class="form-control mb-2" placeholder="Montant Engage" aria-label="Montant Engage" aria-describedby="basic-addon1" [(ngModel)]="this.AvisCdg.montantEngage" (ngModelChange)="calculerResultat()">
+                                                <input type="text" class="form-control mb-2"  aria-label="commentaire CDG" aria-describedby="basic-addon1"[(ngModel)]="this.AvisCdg.commentaire">
+                                              </div>
+                                        </div>
+                                      </div>
+                                </div>
+                              </div>
+                              <div class="d-flex justify-content-end" *ngIf="this.demande.validationCdg === true" >
+                                <p class="text-success p-2">validé</p>
+                            </div>
+                            </div>
+                          </fieldset>
+                          
+                          <div *ngIf="role === 'CDG' && this.demande.validationCdg === false" class="bt p-3 d-flex justify-content-end" >
+                            <div class="error-message">
+                              <p class="text-warning">{{ errorMessage }}</p>
+                            </div>
+                            <button type="button" class="btn btn-primary mx-3"(click)="enregistrerCdg()" >Enregistrer</button> 
+                            <button type="button" class="btn btn-primary mx-3" (click)="modificationCdg()" >Modifier</button> 
+                            <button type="button" class="btn btn-primary" (click)="validationCdg()">Valider</button>  
+                          </div>
+                      </div>
+                        <!--partie Achat-->
+                      <div *ngIf="role === 'ACH'">
+                        <fieldset class="form-group border border-1 p-2">
+                            <legend class="w-auto px-2">Achat
+                                    <button  (click)="toggleIcon()" class="btn"data-bs-toggle="collapse" href="#collapseExample2"  aria-expanded="false" aria-controls="collapseExample2">
+                                        <i class="fa"[ngClass]="{'fa-chevron-up': isUp3, 'fa-chevron-down': !isUp3}"></i>
+                                      </button>
+                            </legend>
+                            <div class="collapse show" id="collapseExample2">
+                                <div class="card card-body " >
+                                    
+                                    <div class="d-flex p-1">
+                                      <span class="input-group-text mb-2" id="basic-addon1">Commentaire Achat</span>
+                                      <input type="text" class="form-control mb-2" placeholder="Username" aria-label="commentaire Achat" aria-describedby="basic-addon1" [(ngModel)]="this.AvisAchat.commentaire">
+                                    </div> 
+                                </div>
+                                <div class="d-flex justify-content-end" *ngIf="this.demande.validationAchat === true" >
+                                    <p class="text-success p-2">validé</p>
+                                </div>
+                              </div>
+                        </fieldset>
+                        
+                        <div class="bt p-3 d-flex justify-content-end" *ngIf="this.demande.validationAchat === false" >
+                          <div class="error-message">
+                            <p class="text-warning">{{ errorMessage }}</p>
+                          </div>
+                          <button type="button" class="btn btn-primary " (click)="EnregistrerAchat()">Enregistrer</button>  
+                          <button type="button" class="btn btn-primary " (click)="validationAchat()">Valider</button>  
+                        </div> 
+                      
+                     </div>
+               
+              
+            </div>
+       
+    </section>
+    
+  </body>

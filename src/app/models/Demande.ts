@@ -20,7 +20,7 @@ export class Demande {
         public typeReference? :String,
         public nomReference? :String,
         public typeDevise? :String,
-
+        public devise?:string,
         public validationAchat? :boolean,
         public validationPrescripteur? :boolean,
         public validationCdg? :boolean,
