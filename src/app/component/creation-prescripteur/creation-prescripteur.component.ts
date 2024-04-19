@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CreationPrescripteurService } from './creation-prescripteur.service';
 import { Fournisseur } from 'src/app/models/Fournisseur';
 import { Periode } from 'src/app/models/Periode';
-import { Brouillon } from 'src/app/models/Brouillon';
 import { Titre } from 'src/app/models/TitreDepense';
 import { Rubrique } from 'src/app/models/Rubrique';
 import { Route, Router } from '@angular/router';
 import { AuthenticationService } from '../authentication copy/authentication.service';
 import { Direction } from 'src/app/models/Direction';
+import { Demande } from 'src/app/models/Demande';
 @Component({
   selector: 'app-creation-prescripteur',
   templateUrl: './creation-prescripteur.component.html',
@@ -18,15 +18,13 @@ export class CreationPrescripteurComponent implements OnInit {
   nomDirection : string | null ='';
   idDirection? : Number ;
   //CREATION SESSION
-  direction = new Direction();
+  direction = new Direction() ;// Valeur par défaut (ajuster selon vos besoins)
 // donnee PRESCRIPTEUR
 periodes: Periode[]=[];
 fournisseurs : Fournisseur[] = [];
-titres : Titre[] = [];
-brouillons : Brouillon [] = [];
+titres : Titre[]=[]; 
 rubriques: Rubrique [] = [];
 
-active_dmds : Brouillon [] = [];
 titresBr : any [] = [];
 titresAct : any [] = [];
 selectedTitleBr: string | undefined;
@@ -66,6 +64,7 @@ idPeriode          : '',
 TitreDepense =
 {
  designation :'',
+ idDirection:''
 }
 
 errorStatus = false;
@@ -73,16 +72,14 @@ errorMessage : string='';
 //  données ACHAT
 commentairesAch : string = '';
 constructor(private CreationPrescripteurService : CreationPrescripteurService,private router:Router,private AuthenticationService:AuthenticationService)
- {
+ {  
     this.estregularisation = false;
     this.token = sessionStorage.getItem("token");
     // this.idDirection = authServ.getIdDirectionByName();
-
+    this.direction.id=-1;
   //RECUPERATION IdDirection                
     if(this.token !== null )
     {
-    
-    
       /*  ajout nom direction dans la sessionStorage */
         this.AuthenticationService.getUserInfo(this.token);
 
@@ -95,6 +92,15 @@ constructor(private CreationPrescripteurService : CreationPrescripteurService,pr
         }
     
     }
+    this.nomDirection = sessionStorage.getItem('direction');
+                    
+    if(this.nomDirection !== null)
+    {
+      
+      this.AuthenticationService.getDirectionByName(this.nomDirection).subscribe(response =>{ this.direction = response})
+      this.direction.id = this.direction.id;    
+    }
+    
    }
  
    // submit bouton ouvrir session
@@ -128,6 +134,14 @@ ngOnInit(): void {
 
 
 }
+getDirectionId(): number | undefined {
+  if (this.direction) { // Check if direction exists
+    return this.direction.id;
+  } else {
+    return undefined; // Or a default value (e.g., -1) for filtering
+  }
+}
+
 showDetailsBr(title: string) {
   this.selectedTitleBr = title;
 }
@@ -152,7 +166,6 @@ creerDemande()
     
     );
     this.demande.idDirection = this.direction.id?.toString() ?? "";  
-
     console.log(this.demande.idDirection,"ito n id direction ");
     // INSERTION DEMANDE
     this.CreationPrescripteurService.createDemande(this.demande)
@@ -204,7 +217,9 @@ setComsAchat(){
 Ajouttitre() {
 
  console.log(this.TitreDepense.designation);
-
+  this.TitreDepense.idDirection=this.direction.id?.toString() ?? "";
+  console.log(this.TitreDepense.idDirection);
+  console.log(this.TitreDepense.idDirection,"id direction ooooo");
  this.CreationPrescripteurService.posttitre(this.TitreDepense)
  .subscribe(response => {
                  console.log( response);

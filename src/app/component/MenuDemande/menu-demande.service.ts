@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Active } from 'src/app/models/Active';
 import { DetailDemande } from 'src/app/models/DetailDemande';
 
 @Injectable({
@@ -17,8 +16,5 @@ export class MenuDemandeService {
   // maka ny brouillon
 getBrouillon():  Observable<DetailDemande[]> {
   return this.http.get<DetailDemande[]>(this.baseUrl+'/detailDemande/get');
-}
-getdmdactive():  Observable<Active[]> {
-  return this.http.get<Active[]>(this.baseUrl2+'/active_dmd/get');
 }
 }

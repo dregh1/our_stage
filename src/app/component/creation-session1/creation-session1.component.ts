@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpParams, HttpHeaders, HttpClient,HttpResponse } from '@angular/common/http';
-import { Personnel } from 'src/app/models/Personnel';
-import { PersonnelService } from 'src/app/services/personnel.service';
 import { CreationSession1Service } from './creation-session1.service';
 import { NumberSymbol } from '@angular/common';
 import { AuthenticationService } from '../authentication copy/authentication.service';
@@ -39,7 +37,7 @@ export class CreationSession1Component implements OnInit {
 
   constructor(
                 private CreationSession1Service: CreationSession1Service,
-                private personnelService: PersonnelService,
+               // private personnelService: PersonnelService,
                 private http: HttpClient,
                 private authServ : AuthenticationService
             )

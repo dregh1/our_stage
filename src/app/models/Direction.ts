@@ -1,6 +1,6 @@
 export class Direction {
     constructor(
-        public id? :    Number,
+        public id? :   number,
         public designation? :String 
       // Autres propriétés de votre modèle de données personnel
     ) {}

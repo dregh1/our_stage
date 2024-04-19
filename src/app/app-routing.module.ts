@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './component/header/header.component';
-import { MenuComponent } from './component/menu/menu.component';
 import { AuthenticationComponent } from './component/authentication copy/authentication.component';
 import { ConsultationComponent } from './component/consultation/consultation.component';
 import { ValidationComponent } from './component/validation/validation.component';
-import { AffichagePrescriComponent } from './component/affichage-prescri/affichage-prescri.component';
 import { NotificationComponent } from './component/notification/notification.component';
 import { MainComponent } from './component/main/main.component';
 import { CreationSession1Component } from './component/creation-session1/creation-session1.component';
-import { DetailDemandeComponent } from './component/detail-demande/detail-demande.component';
 import { CreationPrescripteurComponent } from './component/creation-prescripteur/creation-prescripteur.component';
 import { TestComponent } from './component/DetailParDemande/DetailParDemande.component';
 import { MenuDemandeComponent } from './component/MenuDemande/menu-demande.component';
@@ -19,11 +16,8 @@ const routes: Routes = [
         children:[
           {path:'',redirectTo:'menu',pathMatch:'full'},
             {path:'header',component:HeaderComponent},
-            {path:'menu',component:MenuComponent},
             {path:'auth',component:AuthenticationComponent},
             {path:'consultation',component:ConsultationComponent},
-            {path:'aff/:id',component:AffichagePrescriComponent},
-            {path:'detaildemande/:id',component:DetailDemandeComponent},
             {path:'MenuDemande',component:MenuDemandeComponent},
             
             {path:'notification',component:NotificationComponent},

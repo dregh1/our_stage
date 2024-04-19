@@ -75,9 +75,11 @@
                                                   <div class="mx-3">
                                                     <!--CREATION TITRE-->
                                                     <div class="input-group mb-2">
-                                                      <select class="form-select" [(ngModel)]="this.demande.idTitreDepense"  id="idtitre" aria-label="Example select with button addon">
-                                                        <option *ngFor="let item of this.titres " [value]="item.id"> {{item.designation}}  </option>
-                                                         </select>
+                                                      <select class="form-select" [(ngModel)]="this.demande.idTitreDepense" id="titreDepense" aria-label="Liste déroulante des titres de dépenses">
+                                                        <ng-container *ngFor="let titre of titres">
+                                                          <option *ngIf="titre.idDirection === this.direction.id" [value]="titre.id">{{ titre.designation }}</option>
+                                                        </ng-container>
+                                                      </select>
                                                      <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">+</button>
                                                    </div>
                                                    <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"  [(ngModel)]="this.demande.nomReference">

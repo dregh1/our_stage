@@ -4,8 +4,6 @@ import { Observable, timestamp } from 'rxjs';
 import { Periode } from 'src/app/models/Periode';
 import { Rubrique } from 'src/app/models/Rubrique';
 import { Fournisseur } from 'src/app/models/Fournisseur';
-import { Brouillon } from 'src/app/models/Brouillon';
-import { Active} from 'src/app/models/Active';
 import { Titre } from 'src/app/models/TitreDepense';
 import { Demande } from 'src/app/models/Demande';
 @Injectable({
@@ -59,14 +57,9 @@ getRubrique(): Observable<Rubrique[]> {
 
 
 // maka ny brouillon
-getBrouillon():  Observable<Brouillon[]> {
-  return this.http.get<Brouillon[]>(this.baseUrl2+'/brouillon/get');
-}
 
 // maka ny brouillon
-getActive():  Observable<Active[]> {
-  return this.http.get<Active[]>(this.baseUrl2+'/active_dmd/get');
-}
+
 
   //  CREATE DEMANDE
 createDemande(formData: any): Observable<any> {

@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { Titre } from 'src/app/models/TitreDepense';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Brouillon } from 'src/app/models/Brouillon'; 
 import { Demande } from 'src/app/models/Demande';
 import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
-import { Active } from 'src/app/models/Active';
 import { Rubrique } from 'src/app/models/Rubrique';
 import {AvisCdg} from 'src/app/models/AvisCdg';
 import { AvisAchat } from 'src/app/models/AvisAchat';
@@ -39,7 +37,7 @@ posttitre(formData: any): Observable<any> {
 }
   // maka ny brouillon
 getDetailDemandebyId(id:number):  Observable<DetailDemande> {
-  return this.http.get<DetailDemande>(`${this.baseUrl3}/detailDemande/${id}`);
+  return this.http.get<DetailDemande>(`${this.baseUrl}/detailDemande/${id}`);
 }
   // maka ny brouillon
   getActiveId(id:number):  Observable<DetailDemande> {
@@ -50,9 +48,6 @@ update(id:number,data:any):Observable<any>{
   return this.http.put<any>(`${this.baseUrl2}/demande/${id}`,data);
 }
 //suppression
-delete(id:number):Observable<any>{
-  return this.http.delete<Brouillon>(`${this.baseUrl2}/brouillon/${id}`);
-}
 //recherche
 searchByName(name:any):Observable<any>{
   return this.http.get<any>(`${this.baseUrl2}/brouillon/?name=${name}`);

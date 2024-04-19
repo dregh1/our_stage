@@ -15,12 +15,7 @@ export class AuthenticationComponent implements OnInit {
   showPassword: boolean = false;
   showmesg = false; 
 
-  personnel = {
-    id: '' ,
-    nom: '',
-    prenom: '',
-    age: ''
-  };
+  
   logindata = {
    
     username: '',

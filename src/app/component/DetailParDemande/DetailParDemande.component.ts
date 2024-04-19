@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute ,Router} from '@angular/router';
 import { Demande } from 'src/app/models/Demande';
 import { Titre } from 'src/app/models/TitreDepense';
-import { Brouillon } from 'src/app/models/Brouillon';
 import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
 import { AuthenticationService } from '../authentication copy/authentication.service';
@@ -11,7 +10,7 @@ import { AvisCdg } from 'src/app/models/AvisCdg';
 import { AvisAchat } from 'src/app/models/AvisAchat';
 import { DetailDemande } from 'src/app/models/DetailDemande';
 import { TesteService } from './DetailParDemande.service';
-
+import { Direction } from 'src/app/models/Direction';
 @Component({
   selector: 'app-test',
   templateUrl: './DetailParDemande.component.html',
@@ -63,6 +62,9 @@ titredepense =
   {
     designation :'',
   }
+
+  direction = new Direction();
+  nomDirection : string | null ='';
 id:number;  reliquat:number=0;
 type:string='';devise:string='';
   titres : Titre[] = [];  fournisseurs : Fournisseur[] = [];
@@ -78,6 +80,14 @@ type:string='';devise:string='';
     {
       this.autheticationServ.getUserInfo(this.token);
       this.role = sessionStorage.getItem("role");
+     }
+     this.nomDirection = sessionStorage.getItem('direction');
+                    
+     if(this.nomDirection !== null)
+     {
+       
+       this.autheticationServ.getDirectionByName(this.nomDirection).subscribe(response =>{ this.direction = response})
+       this.direction.id = this.direction.id;    
      }
   }
   //calcul sur le reliquat
