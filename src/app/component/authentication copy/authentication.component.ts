@@ -91,7 +91,7 @@ export class AuthenticationComponent implements OnInit {
                 // console.log(this.getUserInfo(token));
                 // redirection
                 // this.getUserInfo(token)
-                this.router.navigate(['/main/menu']);
+                this.router.navigate(['/main/MenuDemande']);
 
 
                 

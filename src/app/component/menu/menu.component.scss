@@ -1,6 +1,9 @@
 
 body{
-    background-color: #ddd;
+    background-color:white;
+}
+.card,.card-header{
+    background-color: #eee;
 }
      .scrollspy-example {
       height: 250px;
@@ -12,4 +15,4 @@ body{
         .icon{
             font-size: 8px;
         }
-}
+    }

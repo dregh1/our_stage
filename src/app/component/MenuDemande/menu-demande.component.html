@@ -5,47 +5,65 @@
     <section class="mx-3 p-1">
       <div class="main  pt-3">
            
+        <input type="text" class="form-control" id="email" aria-labelledby="emaillabel emailfeedback" autocomplete="email" required>
+        <label for="email" id="emaillabel" class="form-label is-required"></label>
+        <div id="emailfeedback" class="invalid-feedback">please provide a valid email</div>
           <div *ngIf="role === 'PRS'">
               <div class="card">
-                  <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
+                  <div class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
                   <p> Brouillon liste des demandes </p>
                   <button type="button" class="btn" [routerLink]="'/main/creationprescripteur'" >+</button>
                   </div>
                   <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
-                      <ul class="list-group list-group-flush">
-                          <!-- <li class="list-group-item justify-content-between d-flex " *ngFor="let detail of this.DetailDemande">
-                            <div>
-                              <h6 >{{this.detail.titre}} <p>{{this.detail.motif}}</p></h6>
-                            </div>
-                              <div>
-                                  <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/teste/', this.detail.id]" ></i></button> 
-                              </div>
-                          </li> -->
-                          <li class="list-group-item justify-content-between d-flex"
+                      <ul class="list-group list-group-flush list-inline">
+                          <li class="mb-2"
                                     *ngFor="let detail of this.DetailDemande">
-                                <span *ngIf="!detail.validationprescripteur" class="text-danger"></span>
-                                     {{this.detail.titre}}{{this.detail.motif}}
-                        </li>
+                                    <a [routerLink]="['/main/teste/', detail.id]" *ngIf="!detail.validationprescripteur" class="list-group-item list-group-item-action active" aria-current="true">
+                                          <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">{{detail.titre}}</h5>
+                                            <small>{{detail.periode}}</small>
+                                          </div>
+                                          <p class="mb-1">{{detail.motif}}</p>
+                                          <small>{{detail.reference}}</small>
+                                    </a>
+                          </li>
                         </ul>
-            
-  
-  
-                              
-  
-  
-  
                   </div>
-  
-  
-  
-  
-  
               </div>
               <br> <br>
           </div>
-         
+          <!-- active -->
+          <div class="card">
+            <div class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
+              <div><p> Listes des demandes CD Active </p></div>
+              <div>
+                  <div *ngIf="role === 'CDG' || role === 'ACH'">
+                    <div class="d-flex justify-content-end" >
+                        <button type="button" class="btn btn-primary p-1 mx-2" routerLink="/validation">Validation</button> 
+                         <button type="button" class="btn btn-primary p-1">Extraction</button>  
+                    </div> 
+                  </div> 
+              </div>
+             
+              </div>
+              <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
+                <ul class="list-group list-group-flush list-inline">
+                  <li class="mb-2"
+                            *ngFor="let detail of this.DetailDemande">
+                            <a [routerLink]="['/main/teste/', detail.id]" *ngIf="detail.validationprescripteur" class="list-group-item list-group-item-action active" aria-current="true">
+                                  <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{detail.titre}}</h5>
+                                    <small>{{detail.periode}}</small>
+                                  </div>
+                                  <p class="mb-1">{{detail.motif}}</p>
+                                  <small>{{detail.reference}}</small>
+                            </a>
+                  </li>
+                </ul>
+          </div>
+          </div>
           
-            <div class="card">
+            <!-- <div class="card">
               <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
                 <div><p> Listes des demandes CD Active </p></div>
                 <div>
@@ -66,12 +84,12 @@
                       </div>
                         <div>
                             <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/teste/', active.id]" ></i></button>
-                            <!-- detaildemande -->
+                            
                           </div>
                     </li>
                   </ul>
             </div>
-        </div>
+            </div> -->
       </div>
   </section>
   </body>
