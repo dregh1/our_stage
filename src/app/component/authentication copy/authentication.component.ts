@@ -46,7 +46,7 @@ export class AuthenticationComponent implements OnInit {
             .set('username', this.logindata.username)
             .set('password', this.logindata.password)
             .set('grant_type', 'password')
-            .set('client_id', 'angular-client')
+            .set('client_id', 'quarkus-client')
             .set('client_secret', 'diNdyU2iGksempOMKqs5gZlA2UkwngCJ');
         
             return this.http.post('http://localhost:8082/realms/oma/protocol/openid-connect/token', body.toString(), {

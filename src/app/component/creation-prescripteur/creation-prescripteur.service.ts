@@ -6,6 +6,7 @@ import { Rubrique } from 'src/app/models/Rubrique';
 import { Fournisseur } from 'src/app/models/Fournisseur';
 import { Titre } from 'src/app/models/TitreDepense';
 import { Demande } from 'src/app/models/Demande';
+import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,17 @@ export class CreationPrescripteurService {
   private baseUrl2 = 'http://localhost:8080/prescripteur';
  
   constructor(private http: HttpClient) { }
+ //maka authorization
+ private getHeaders(): HttpHeaders {
+  const token = sessionStorage.getItem('token');  // Replace with your token retrieval logic
 
+  if (token) {
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
+  } else {
+    // Handle the case where no token is found (e.g., throw an error or redirect to login)
+    throw new Error('No authorization token found');
+  }
+}
   // maka ny _ periode_demande
   // session_cd = {
   //   id   : Number,
@@ -33,26 +44,31 @@ export class CreationPrescripteurService {
   
 // maka titre
  getTitre(): Observable<Titre[]> {
-   return this.http.get<Titre[]>(this.baseUrl2+'/titre/get');
+  const headers = this.getHeaders();
+   return this.http.get<Titre[]>(this.baseUrl2+'/titre/get',{headers});
  }
 //Ajout titre
 
 posttitre(formData: any): Observable<any> {
-  return this.http.post<any>(this.baseUrl2+'/titre/create',formData);
+  const headers = this.getHeaders();
+  return this.http.post<any>(this.baseUrl2+'/titre/create',formData,{headers});
 }
 
 // maka periode
   getPeriode(): Observable<Periode[]> {
-    return this.http.get<Periode[]>(this.baseUrl+'/periode/get');
+    const headers = this.getHeaders();
+    return this.http.get<Periode[]>(this.baseUrl+'/periode/get',{headers});
   }
   
 // maka rubrique
 getRubrique(): Observable<Rubrique[]> {
-  return this.http.get<Rubrique[]>(this.baseUrl2+'/rubrique/get');
+  const headers = this.getHeaders();
+  return this.http.get<Rubrique[]>(this.baseUrl2+'/rubrique/get',{headers});
 }
 // maka periode
   getFournisseur(): Observable<Fournisseur[]> {
-  return this.http.get<Fournisseur[]>(this.baseUrl+'/fournisseur/get');
+    const headers = this.getHeaders();
+  return this.http.get<Fournisseur[]>(this.baseUrl+'/fournisseur/get',{headers});
 }
 
 
@@ -63,17 +79,19 @@ getRubrique(): Observable<Rubrique[]> {
 
   //  CREATE DEMANDE
 createDemande(formData: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl+'/demande/create', formData);
+  const headers = this.getHeaders();
+    return this.http.post<any>(this.baseUrl+'/demande/create', formData,{headers});
   }
   
   post(formData: any): Observable<any> {
-    // console.log()    
-    return this.http.get<any>(this.baseUrl+'/get');
+      const headers = this.getHeaders();
+    return this.http.get<any>(this.baseUrl+'/get',{headers});
   }
 
   // set commentaire achat
   setComsAchat(formData: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl2+'/achat/commentaire/create', formData);
+    const headers = this.getHeaders();
+    return this.http.post<any>(this.baseUrl2+'/achat/commentaire/create', formData,{headers});
   }
  
 
@@ -83,14 +101,17 @@ createDemande(formData: any): Observable<any> {
   //  }
    //maj demande
    updateDemande(demande:Demande):Observable<Demande[]>{
-    return this.http.put<Demande[]>(this.baseUrl2+'/achat/commentaire/create', demande.id);
+    const headers = this.getHeaders();
+    return this.http.put<Demande[]>(this.baseUrl2+'/achat/commentaire/create', demande.id,{headers});
    }
    //delete demad
    deleteDemande(DemandeId:number):Observable<void>{
-    return this.http.delete<void>(this.baseUrl2+'/achat/commentaire/create'+ DemandeId);
+    const headers = this.getHeaders();
+    return this.http.delete<void>(this.baseUrl2+'/achat/commentaire/create'+ DemandeId,{headers});
    }
    //aiche par detail
    getDemandeById(DemandeId:number):Observable<Demande>{
-    return this.http.get<Demande>(this.baseUrl2+'/achat/commentaire/create'+ DemandeId);
+    const headers = this.getHeaders();
+    return this.http.get<Demande>(this.baseUrl2+'/achat/commentaire/create'+ DemandeId,{headers});
    }
 }

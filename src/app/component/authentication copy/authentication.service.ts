@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Direction } from 'src/app/models/Direction';
-
+import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,12 +14,22 @@ export class AuthenticationService {
   // get(): Observable<Personnel[]> {
   //   return this.http.get<Personnel[]>(this.baseUrl+'/all');
   // }
- 
+   //maka authorization
+   private getHeaders(): HttpHeaders {
+    const token = sessionStorage.getItem('token');  // Replace with your token retrieval logic
+
+    if (token) {
+      return new HttpHeaders({ Authorization: `Bearer ${token}` });
+    } else {
+      // Handle the case where no token is found (e.g., throw an error or redirect to login)
+      throw new Error('No authorization token found');
+    }
+  }
   
 
   //POSTMAN
   getUserInfo(token : string){
-    var data = "grant_type=password&client_id=angular-client&client_secret=eIRXkLaEnLubyFr1mqwv6bu862oHIIn9";
+    var data = "grant_type=password&client_id=quarkus-client&client_secret=eIRXkLaEnLubyFr1mqwv6bu862oHIIn9";
 
               var xhr = new XMLHttpRequest();
               xhr.withCredentials = true;
@@ -128,9 +138,10 @@ export class AuthenticationService {
   post(formData: any): Observable<any> {
     return this.http.post<any>(this.baseUrl+'/c', formData);
   }
-
+//maka iddirection anle user
   getDirectionByName(texte: string) :  Observable<Direction> {
-    return this.http.get<any>(this.baseUrl+'/getIdDir?nom='+texte);
+    const headers = this.getHeaders();
+    return this.http.get<any>(this.baseUrl+'/getIdDir?nom='+texte,{headers});
     } 
 
 

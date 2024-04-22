@@ -61,7 +61,7 @@
                                 <div class="mx-3">
                                       <!--creation titre-->
                                       <div class="input-group mb-2" >
-                                        <select class="form-select" [(ngModel)]="this.demande.idTitreDepense" id="titreDepense" aria-label="Liste déroulante des titres de dépenses">
+                                        <select class="form-select" [(ngModel)]="this.demande.idTitreDepense" id="idtitre" aria-label="Liste déroulante des titres de dépenses">
                                           <ng-container *ngFor="let titre of this.titres">
                                             <option *ngIf="titre.idDirection === this.direction.id" [value]="titre.id">{{ titre.designation }}</option>
                                           </ng-container>

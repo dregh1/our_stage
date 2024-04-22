@@ -131,8 +131,6 @@ ngOnInit(): void {
 
   //  CREATE DEMANDE
   this.CreationPrescripteurService.createDemande(this.demande);
-
-
 }
 getDirectionId(): number | undefined {
   if (this.direction) { // Check if direction exists
