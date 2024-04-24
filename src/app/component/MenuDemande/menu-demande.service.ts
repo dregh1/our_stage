@@ -7,10 +7,7 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class MenuDemandeService {
-  private url = 'http://localhost:8080';
-
   private baseUrl = 'http://localhost:8080/cdg';
-  private baseUrl2 = 'http://localhost:8080/prescripteur';
  
   constructor(private http: HttpClient) { }
     //maka authorization

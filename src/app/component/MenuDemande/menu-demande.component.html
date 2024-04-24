@@ -2,23 +2,21 @@
 
 
 <body>
+  
     <section class="mx-3 p-1">
       <div class="main  pt-3">
-          <!-- <button (click)="oup()"></button> 
-        <input type="text" class="form-control" id="email" aria-labelledby="emaillabel emailfeedback" autocomplete="email" required>
-        <label for="email" id="emaillabel" class="form-label is-required"></label>
-        <div id="emailfeedback" class="invalid-feedback">please provide a valid email</div> -->
-          <div *ngIf="role === 'PRS'">
+      <div *ngIf="role === 'PRS'">
               <div class="card">
                   <div class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
                   <p> Brouillon liste des demandes </p>
                   <button type="button" class="btn" [routerLink]="'/main/creationprescripteur'" >+</button>
                   </div>
                   <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
-                      <ul class="list-group list-group-flush list-inline">
+                      <ul class="list-group list-inline">
                           <li class="mb-2"
                                     *ngFor="let detail of this.DetailDemande">
-                                    <a [routerLink]="['/main/teste/', detail.id]" *ngIf="!detail.validationprescripteur && detail.iddirection === this.direction.id" class="list-group-item list-group-item-action active" aria-current="true">
+                                    <a [routerLink]="['/main/teste/', detail.id]"
+                                    *ngIf="!detail.validationprescripteur && detail.iddirection === this.direction.id" class="list-group-item list-group-item-action" aria-current="true">
                                       <div class="d-flex w-100 justify-content-between">
                                         <div>
                                           <h5 class="mb-1">{{detail.titre}}</h5> 
@@ -50,10 +48,13 @@
              
               </div>
               <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
-                <ul class="list-group list-group-flush list-inline">
+                <ul class="list-group list-inline">
                   <li class="mb-2"
                             *ngFor="let detail of this.DetailDemande">
-                            <a [routerLink]="['/main/teste/', detail.id]" *ngIf="detail.validationprescripteur && detail.iddirection === this.direction.id" class="list-group-item list-group-item-action active" aria-current="true">
+                            <a [routerLink]="['/main/teste/', detail.id]"
+                            [ngClass]="{'list-group-item list-group-item-action': true, 'active': detail.validationcdg, classePrecedente: true}"
+                            aria-current="true"
+                            *ngIf="detail.validationprescripteur && detail.iddirection === this.direction.id" class="list-group-item list-group-item-action" aria-current="true">
                                   <div class="d-flex w-100 justify-content-between">
                                     <div>
                                       <h5 class="mb-1">{{detail.titre}}</h5> 
@@ -97,7 +98,8 @@
             </div>
             </div> -->
       </div>
-  </section>
+    </section>
+    
   </body>
               
   

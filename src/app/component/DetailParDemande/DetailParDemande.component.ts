@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute ,Router} from '@angular/router';
-import { Demande } from 'src/app/models/Demande';
+//import { DemandeModel } from 'src/app/models/Demande';
 import { Titre } from 'src/app/models/TitreDepense';
 import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
@@ -11,6 +11,7 @@ import { AvisAchat } from 'src/app/models/AvisAchat';
 import { DetailDemande } from 'src/app/models/DetailDemande';
 import { TesteService } from './DetailParDemande.service';
 import { Direction } from 'src/app/models/Direction';
+import { Demande } from 'src/app/models/Demande';
 @Component({
   selector: 'app-test',
   templateUrl: './DetailParDemande.component.html',
@@ -24,7 +25,8 @@ export class TestComponent implements OnInit {
   isUp3 = false;
   item:any;errorMessage:string='';
   periodes: Periode[]=[];errorStatus = false;errorStatus1 = false;errorStatus2 = false;
-  demande
+
+    demande
 ={
     estRegularisation    :false,
     periode:'',
@@ -155,6 +157,7 @@ type:string='';devise:string='';
       console.log(response,"/:///.////././");
       
     console.log(this.aviscdgs);
+    ////aichage aviscdg
     this.AvisCdg.id=this.aviscdgs.id?.toString() ?? "";
     this.AvisCdg.commentaire = this.aviscdgs.commentaire?? "";
     this.AvisCdg.montantBudgetMensuel=this.aviscdgs.montantBudgetMensuel?.toString() ?? "";
@@ -193,7 +196,6 @@ type:string='';devise:string='';
           }
         }
     };
-   
   }
  //ajout option
  ajoutOpt(id : any, text : string){
@@ -265,22 +267,50 @@ Ajouttitre() {
 
 /////enregistrer cdg
 enregistrerCdg(){
-  //maka ID 
-  this.AvisCdg.idDemande=this.id?.toString() ?? "";
-  console.log(this.AvisCdg);
-  this.TesteService.postCdg(this.AvisCdg).subscribe(Response=>{
-    console.log(Response);
-  this.errorMessage='Demande enregistré!';
-  });
+  let missingField: keyof Demande | null = null;; // Type for the missing field name
+
+  if (!this.demande.typeDevise){
+    missingField = 'typeDevise' as keyof Demande; // Type assertion
+  }
+  if (!this.demande.motif){
+    missingField = 'motif' as keyof Demande;
+  }
+    if (!this.demande.idRubrique){
+      missingField = 'rubrique' as keyof Demande; // Type assertion
+  }
+    if (!this.demande.montantHt){
+      missingField = 'montantHt' as keyof Demande;
+  }
+      if (!this.demande.idPeriode){
+      missingField = 'periode' as keyof Demande;
+  }
+ 
+if (missingField) {
+  this.errorMessage = `Veuillez remplir le champ ${missingField}`; // More specific error message
   setTimeout(() => {
-    this.errorStatus1 = false; // Hide the message by setting errorStatus to false
-    this.errorMessage = '';    // Optionally, clear the error message
+    this.errorMessage = ''; // Clear the error message after 3 seconds
   }, 3000);
-  console.log(this.message);
+}else{
+
+        //maka ID 
+      this.AvisCdg.idDemande=this.id?.toString() ?? "";
+      console.log(this.AvisCdg);
+      this.TesteService.postCdg(this.AvisCdg).subscribe(Response=>{
+        console.log(Response);
+      
+      this.errorMessage='Demande enregistré!';
+      });
+      setTimeout(() => {
+        this.errorStatus1 = false; // Hide the message by setting errorStatus to false
+        this.errorMessage = '';    // Optionally, clear the error message
+      }, 3000);
+      console.log(this.message);
+    }
 }
 ///modificationcdg
 modificationCdg(){
   this.AvisCdg.idDemande=this.id?.toString() ?? "";
+  
   this.TesteService.updateCdg(parseFloat(this.AvisCdg.id),this.AvisCdg).subscribe(Response=>{
     console.log(Response);
   this.errorMessage='Demande modifié!';
@@ -299,6 +329,30 @@ validationCdg() {
 }
 //enregistrement achat
 EnregistrerAchat(){
+  let missingField: keyof Demande | null = null;; // Type for the missing field name
+
+  if (!this.demande.typeDevise){
+    missingField = 'typeDevise' as keyof Demande; // Type assertion
+  }
+  if (!this.demande.motif){
+    missingField = 'motif' as keyof Demande;
+  }
+    if (!this.demande.idRubrique){
+      missingField = 'rubrique' as keyof Demande; // Type assertion
+  }
+    if (!this.demande.montantHt){
+      missingField = 'montantHt' as keyof Demande;
+  }
+      if (!this.demande.idPeriode){
+      missingField = 'periode' as keyof Demande;
+  }
+ 
+if (missingField) {
+  this.errorMessage = `Veuillez remplir le champ ${missingField}`; // More specific error message
+  setTimeout(() => {
+    this.errorMessage = ''; // Clear the error message after 3 seconds
+  }, 3000);
+}else{
   this.AvisAchat.idDemande=this.id?.toString() ?? "";
   console.log(this.AvisAchat);
   this.TesteService.postAchat(this.AvisAchat).subscribe(Response=>{
@@ -311,6 +365,7 @@ EnregistrerAchat(){
     this.errorMessage = '';    // Optionally, clear the error message
   }, 3000);
   console.log(this.message);
+}
 }
 ///validation Achat
 validationAchat(){

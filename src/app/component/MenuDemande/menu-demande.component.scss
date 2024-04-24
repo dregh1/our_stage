@@ -5,6 +5,10 @@ body{
 .card-header,.card{
     background-color: #eee;
 }
+.list-group-item:hover{
+    border-left:  #ff7900 ;
+    background-color: #ddd;
+}
      .scrollspy-example {
       height: 250px;
       overflow: auto;

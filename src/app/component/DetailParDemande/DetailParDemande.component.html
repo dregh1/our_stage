@@ -48,6 +48,8 @@
                                                         <select class="form-select" [(ngModel)]="this.demande.typeDevise" id="inputGroupSelect04" aria-label="Example select with button addon">
                                                           <option *ngIf="this.demande.devise === 'EUR'"  [ngValue]="'EUR'" selected>EUR</option>
                                                           <option *ngIf="this.demande.devise  === 'USD'"  [ngValue]="'USD'" selected>USD</option>
+                                                          <option *ngIf="this.demande.devise  === 'MGA'"  [ngValue]="'MGA'" selected>MGA</option>
+                                                          <option *ngIf="this.demande.devise == 'EUR' || this.demande.devise == 'USD'">MGA</option>
                                                           <option *ngIf="this.demande.devise  === 'EUR'">USD</option>
                                                           <option *ngIf="this.demande.devise  === 'USD'">EUR</option>
                                                         </select>

@@ -1,3 +1,22 @@
-// export inte demande{
-
-// }
+export interface Demande{
+    estRegularisation :boolean;
+    periode:string,
+    idRubrique:string,
+    sousRubrique : string,
+    motif               : string,
+    devise : string,
+    typeDevise : string,
+    comsPrescripteur :string,
+    idDirection:string,
+    idTitreDepense    :string,
+    nomReference : string,
+    titre:string,
+    idFournisseur      :string,
+    montantHt          :string,
+    fournisseur:string,
+    idPeriode          :string,
+    validationPrescripteur:boolean,
+    validationAchat:boolean,
+    validationCdg:boolean,
+    typeReference: string,
+}
