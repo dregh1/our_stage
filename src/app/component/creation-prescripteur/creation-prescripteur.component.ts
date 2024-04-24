@@ -165,7 +165,6 @@ creerDemande()
     );
     let missingField: keyof Demande | null = null;; // Type for the missing field name
 
-
   if (!this.demande.typeDevise){
     missingField = 'typeDevise' as keyof Demande; // Type assertion
   }
@@ -202,7 +201,7 @@ if (missingField) {
        window.location.reload();
        this.errorMessage='Demande Enregistré!';
        setTimeout(() => { // Hide the message by setting errorStatus to false
-        this.errorMessage = '';    // Optionally, clear the error message
+        this.errorMessage = '';// Optionally, clear the error message
       }, 3000);
       },
      error => {

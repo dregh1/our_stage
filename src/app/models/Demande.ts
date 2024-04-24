@@ -25,6 +25,7 @@ export class Demande {
         public validationPrescripteur? :boolean,
         public validationCdg? :boolean,
         public etatFinal? :boolean,
+        public comsCd? :string,
       // Autres propriétés de votre modèle de données personnel
     ) {}
   }

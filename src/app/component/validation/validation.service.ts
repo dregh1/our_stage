@@ -47,24 +47,29 @@ getPeriode(): Observable<Periode[]> {
   const headers = this.getHeaders();
   return this.http.get<Periode[]>(this.baseUrl+'/periode/get',{headers});
 }
+//modication demande
+update(id:number,data:any):Observable<any>{
+  const headers = this.getHeaders();
+  return this.http.put<any>(`${this.baseUrl2}/demande/${id}`,data,{headers});
+}
 // maka commentaire cd
-getcomsCdByid(id:number):  Observable<DetailDemande> {
-  const headers = this.getHeaders();
-  return this.http.get<Decision>(`${this.baseUrl4}/decision/${id}`,{headers});
-}
-// maka commentaire cd all
-getcomsCd():  Observable<DetailDemande> {
-  const headers = this.getHeaders();
-  return this.http.get<DetailDemande>(`${this.baseUrl4}/decision/get`,{headers});
-}
+// getcomsCdByid(id:number):  Observable<DetailDemande> {
+//   const headers = this.getHeaders();
+//   return this.http.get<Decision>(`${this.baseUrl4}/decision/${id}`,{headers});
+// }
+// // maka commentaire cd all
+// getcomsCd():  Observable<DetailDemande> {
+//   const headers = this.getHeaders();
+//   return this.http.get<DetailDemande>(`${this.baseUrl4}/decision/get`,{headers});
+// }
   //post commentaire
-  postCd(formData: any): Observable<any> {
-    const headers = this.getHeaders();
-    return this.http.post<any>(`${this.baseUrl4}/decision/create/`,formData,{headers});
-  }
+  // postCd(formData: any): Observable<any> {
+  //   const headers = this.getHeaders();
+  //   return this.http.post<any>(`${this.baseUrl4}/decision/create/`,formData,{headers});
+  // }
   //modication demande
-  updateCd(id:number,data:any):Observable<any>{
-    const headers = this.getHeaders();
-  return this.http.put<any>(`${this.baseUrl4}/decision/${id}`,data,{headers});
-  }
+  // updateCd(id:number,data:any):Observable<any>{
+  //   const headers = this.getHeaders();
+  // return this.http.put<any>(`${this.baseUrl4}/decision/${id}`,data,{headers});
+  // }
 }

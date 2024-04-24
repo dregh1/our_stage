@@ -95,6 +95,7 @@
                         </select>
                       </div>
                     </div>
+                    
                     <div class="">
                       <span class="input-group-text" id="basic-addon1">{{this.detail.titre}}</span>
                     </div>
@@ -108,7 +109,7 @@
                       <span class="input-group-text " id="basic-addon1">{{this.detail.fournisseur}}</span>
                     </div>
                     <div class="p-2">
-                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [ngModel]="this.demande.commentaireCd">
                     </div>
                     <div>
                         <div class="input-group p-2">

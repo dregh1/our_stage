@@ -5,11 +5,7 @@ import { ValidationService } from './validation.service';
 import { Periode } from 'src/app/models/Periode';
 import { Titre } from 'src/app/models/TitreDepense';
 import { DetailDemande } from 'src/app/models/DetailDemande';
-import { AvisAchat } from 'src/app/models/AvisAchat';
-import { AvisCdg } from 'src/app/models/AvisCdg';
 import { Fournisseur } from 'src/app/models/Fournisseur';
-import { Rubrique } from 'src/app/models/Rubrique';
-import { Decision } from 'src/app/models/decision';
 @Component({
   selector: 'app-validation',
   templateUrl: './validation.component.html',
@@ -20,14 +16,13 @@ export class ValidationComponent implements OnInit {
   role : string | null='';
   token : string | null = '' ;
   DetailDemande : DetailDemande [] = [];
-  Decision :Decision[]=[];
   direction = new Direction();
   nomDirection : string | null ='';
-  titres : Titre[] = [];  fournisseurs : Fournisseur[] = [];
-  aviscdg:AvisCdg [] = [];
-  avisAchat:AvisCdg [] = [];periodes: Periode[]=[];
-  decision={
+  fournisseurs : Fournisseur[] = [];
+  periodes: Periode[]=[];
+  demande={
     idDemande:'',
+    idperiode:'',
     idetatfinal:'',
     commentaireCd:''
   }
@@ -35,6 +30,7 @@ export class ValidationComponent implements OnInit {
   toggleUp() {
     this.isUp1 = !this.isUp1;
   }
+  
   constructor(private autheticationServ:AuthenticationService,private ValidationService:ValidationService) { 
     this.token = sessionStorage.getItem("token");
     if(this.token !== null )
@@ -65,12 +61,12 @@ export class ValidationComponent implements OnInit {
      this.ValidationService.getPeriode().subscribe(data => {
       this.periodes = data;
     });
-    ///mpost commentaire
-    this.ValidationService.postCd(this.Decision).subscribe(Response=>{
-      console.log(Response); console.log("ok");
-      
-      this.errorMessage='Demande enregistré!';
-    });
+   ///maka decision
+    // this.ValidationService.getcomsCdByid(this.id).subscribe(response=> {
+    //   this.Decision = response;
+    //   console.log(response,"////////////////");
+    //   this.decision.commentaireCd = this.Decision ;
+  
     //////////Affichage du commentaire Cdg
   //   this.ValidationService.getCdgById(this.DetailDemande.).subscribe(response=> {
   //     this.aviscdgs = response;
@@ -82,4 +78,11 @@ export class ValidationComponent implements OnInit {
   // }
 
     }
+    enregistrer(){
+      //miupdate demande session 
+      // this.ValidationService.update(this.id,this.demande).subscribe(Response=>{
+      //   console.log(Response);
+      // });
+    }
 }
+

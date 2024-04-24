@@ -8,7 +8,7 @@
       <div *ngIf="role === 'PRS'">
               <div class="card">
                   <div class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
-                  <p> Brouillon liste des demandes </p>
+                  <p class="text-primary"> Brouillon liste des demandes </p>
                   <button type="button" class="btn" [routerLink]="'/main/creationprescripteur'" >+</button>
                   </div>
                   <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
@@ -28,7 +28,7 @@
                                       </div>
                                   </a>
                           </li>
-                        </ul>
+                      </ul>
                   </div>
               </div>
               <br> <br>
@@ -36,7 +36,7 @@
           <!-- active -->
           <div class="card">
             <div class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
-              <div><p> Listes des demandes CD Active </p></div>
+              <div><p class="text-primary"> Listes des demandes CD Active </p></div>
               <div>
                   <div *ngIf="role === 'CDG' || role === 'ACH'">
                     <div class="d-flex justify-content-end" >
