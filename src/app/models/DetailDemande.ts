@@ -22,7 +22,7 @@ export class DetailDemande{
         public validationachat ?:boolean,
         public  idfournisseur ?:number,
         public comsAchat?:string,
-        
+        public comsCd?:string,
     ){}
     }
        

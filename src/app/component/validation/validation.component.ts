@@ -3,6 +3,7 @@ import { AuthenticationService } from '../authentication copy/authentication.ser
 import { Direction } from 'src/app/models/Direction';
 import { ValidationService } from './validation.service';
 import { Periode } from 'src/app/models/Periode';
+import { Demande } from 'src/app/models/Demande';
 import { Titre } from 'src/app/models/TitreDepense';
 import { DetailDemande } from 'src/app/models/DetailDemande';
 import { Fournisseur } from 'src/app/models/Fournisseur';
@@ -20,17 +21,40 @@ export class ValidationComponent implements OnInit {
   nomDirection : string | null ='';
   fournisseurs : Fournisseur[] = [];
   periodes: Periode[]=[];
-  demande={
-    idDemande:'',
+  demandes= new Demande();
+  donnee=new Demande();   texte:String='';
+  demande
+  ={
+    id:'',
+      estRegularisation    :false,
+      periode:'',
+      idRubrique:'',
+      sousRubrique : '',
+      motif               : '',
+      devise : '',
+      typeDevise : '',
+      comsPrescripteur :'',
+      idDirection:'',
+      idTitreDepense    : '',
+      nomReference : '',
+      titre:'',
+      idFournisseur      :'',
+      montantHt          :'',
+      fournisseur:'',
+      idPeriode          : '',
+      validationPrescripteur:false,
+      validationAchat:false,
+      validationCdg:false,
+      typeReference: '',
+     idDemande:'',
     idperiode:'',
     idetatfinal:'',
-    commentaireCd:''
+    comsCd:''
   }
   errorMessage:string='';
   toggleUp() {
     this.isUp1 = !this.isUp1;
   }
-  
   constructor(private autheticationServ:AuthenticationService,private ValidationService:ValidationService) { 
     this.token = sessionStorage.getItem("token");
     if(this.token !== null )
@@ -48,12 +72,16 @@ export class ValidationComponent implements OnInit {
       }
     }
     
+
+    this.ajoutOpt(1,"m");
+
   }
 
   ngOnInit(): void {
     ///maka detaildemande
     this.ValidationService.getBrouillon().subscribe(DetailDemande => {
       this.DetailDemande = DetailDemande;
+      //maka par detail
       console.log(DetailDemande);
     });
 
@@ -61,6 +89,7 @@ export class ValidationComponent implements OnInit {
      this.ValidationService.getPeriode().subscribe(data => {
       this.periodes = data;
     });
+    
    ///maka decision
     // this.ValidationService.getcomsCdByid(this.id).subscribe(response=> {
     //   this.Decision = response;
@@ -78,11 +107,49 @@ export class ValidationComponent implements OnInit {
   // }
 
     }
-    enregistrer(){
+    enregistrer(de:any){
       //miupdate demande session 
-      // this.ValidationService.update(this.id,this.demande).subscribe(Response=>{
-      //   console.log(Response);
-      // });
+       //maka demande
+     this.ValidationService.getdemande(de).subscribe(data => {
+      this.demandes= data;
+      this.donnee =this.demandes;
+      console.log(de);
+      
+    });
+   
+
+      this.donnee.comsCd=this.demande.comsCd;
+      this.donnee.idPeriode=parseInt(this.demande.idPeriode);
+      console.log("aizoooooo",this.demande.comsCd);
+      
+      console.log(this.donnee);
+       this.ValidationService.update(parseFloat(de),this.donnee).subscribe(Response=>{
+        console.log(Response);
+       });
+
     }
+    ajoutOpt(id : any, text : string){
+      const selectelement = document.getElementById("idtitre");
+      const listOption = selectelement?.children ;
+      console.log("-----------------------------------------");
+      
+      console.log(listOption);
+      
+      
+        // for(const option of listOption )
+        //   {
+
+        //   }
+        //   const newOpt = document.createElement("option");
+        //   newOpt.value = id;
+        //   newOpt.text = text;
+     
+        //   if(selectelement!==null)
+        //   {
+        //     selectelement.appendChild(newOpt);
+        //     newOpt.selected = true;
+        //     this.demande.idTitreDepense = id;
+        //   };
+        }
 }
 

@@ -25,7 +25,7 @@ export class TestComponent implements OnInit {
   isUp3 = false;
   item:any;errorMessage:string='';
   periodes: Periode[]=[];errorStatus = false;errorStatus1 = false;errorStatus2 = false;
-
+    
     demande
 ={
     estRegularisation    :false,
@@ -322,6 +322,11 @@ modificationCdg(){
   console.log(this.message);
 
 }
+//refuser cdg
+refuserCdg(){
+  this.demande.validationCdg = false;
+  this.update();
+}
 //validationcdg
 validationCdg() {
   this.demande.validationCdg = true;
@@ -370,6 +375,11 @@ if (missingField) {
 ///validation Achat
 validationAchat(){
   this.demande.validationAchat=true;
+  this.update();
+}
+//refuser Achat
+refuserAchat(){
+  this.demande.validationAchat = false;
   this.update();
 }
 }

@@ -10,7 +10,6 @@ import {AvisCdg} from 'src/app/models/AvisCdg';
 import { AvisAchat } from 'src/app/models/AvisAchat';
 import { DetailDemande } from 'src/app/models/DetailDemande';
 import { HttpHeaders } from '@angular/common/http';
-import { Decision } from 'src/app/models/decision';
 @Injectable({
   providedIn: 'root'
 })
@@ -51,6 +50,11 @@ getPeriode(): Observable<Periode[]> {
 update(id:number,data:any):Observable<any>{
   const headers = this.getHeaders();
   return this.http.put<any>(`${this.baseUrl2}/demande/${id}`,data,{headers});
+}
+//maka demande
+getdemande(id:number): Observable<Demande> {
+  const headers = this.getHeaders();
+  return this.http.get<Demande>(`${this.baseUrl2}/demande/${id}`,{headers});
 }
 // maka commentaire cd
 // getcomsCdByid(id:number):  Observable<DetailDemande> {

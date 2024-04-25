@@ -25,7 +25,10 @@
       </div>
 </div>
 <div class="d-flex">
-    <button class="btn btn-primary " type="button">Cloture session</button>
+  <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+    Cloture session
+  </button>
+                                      
     <button class="btn btn-primary mx-2" type="button">Enregistrer</button>
     <button class="btn btn-primary mx-2" routerLink="/main/MenuDemande">
      <i class="icon fas fa-close"></i>
@@ -81,7 +84,7 @@
             <div style="height: 300px;" data-offset="50">    
               <ul class="list-group list-inline">
                 <li *ngFor="let detail of this.DetailDemande">
-                  <ng-container *ngIf="detail.validationprescripteur && detail.validationachat">
+                  <ng-container *ngIf="detail.validationcdg && detail.validationachat">
                    <!-- <ng-container *ngFor="let comspres of this.aviscdg">
                     <ng-container *ngFor="let comsachat of this.avisAchat">
                         -->
@@ -107,13 +110,16 @@
                     </div>
                     <div>
                       <span class="input-group-text " id="basic-addon1">{{this.detail.fournisseur}}</span>
+
                     </div>
                     <div class="p-2">
-                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [ngModel]="this.demande.commentaireCd">
+                      <!-- <a [ngModel]="this.demande.id">{{this.detail.id}}</a> -->
+                      <button (click)="enregistrer(this.detail.id)">ok</button>
+                      <input type="text"type="text"  [(ngModel)]="this.demande.comsCd" [placeholder]="this.detail.comsCd" class="form-control mb-2" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                     <div>
                         <div class="input-group p-2">
-                          <select class="form-select"  [(ngModel)]="this.detail.idperiode"id="inputGroupSelect04" aria-label="Example select with button addon">
+                          <select class="form-select"  [(ngModel)]="this.detail.idperiode"  id="idtitre" aria-label="Example select with button addon">
                             <option *ngFor="let item of this.periodes" [value]="item.id"> {{item.designation}}  </option>
                           </select>
                       </div> 
@@ -167,7 +173,7 @@
           </div>
           <div>
               <div class="input-group p-2">
-                <select class="form-select"  [(ngModel)]="this.detail.idperiode"id="inputGroupSelect04" aria-label="Example select with button addon">
+                <select class="form-select"  [(ngModel)]="this.demande.idperiode" id="{{this.detail.idperiode}}" aria-label="Example select with button addon">
                   <option *ngFor="let item of this.periodes" [value]="item.id"> {{item.designation}}  </option>
                 </select>
             </div> 
@@ -187,7 +193,34 @@
       </div>
 </div>
  
-
+ <!--POP UP TITRTE-->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title h5" id="exampleModalLabel">Cloture session</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="label d-flex">
+            <div class="p-2">
+              <span class="input-group-text mb-2 " id="basic-addon1">Reference</span>
+            <span class="input-group-text  mb-2" id="basic-addon1">Date</span>
+            </div>
+              <div class="input-group p-2">
+                 <input type="text" class="form-control mb-2" placeholder="Reference" aria-label="Username" aria-describedby="basic-addon1">
+                 <input type="datetime-local" class="form-control mb-2" placeholder="Date" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+       <button type="button" class="btn btn-primary"  data-bs-dismiss="modal">Cloture</button>
+        </div>
+    </div>
+  </div>
+</div>
 
 
 </section>
