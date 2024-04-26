@@ -51,29 +51,53 @@ update(id:number,data:any):Observable<any>{
   const headers = this.getHeaders();
   return this.http.put<any>(`${this.baseUrl2}/demande/${id}`,data,{headers});
 }
+
 //maka demande
 getdemande(id:number): Observable<Demande> {
   const headers = this.getHeaders();
   return this.http.get<Demande>(`${this.baseUrl2}/demande/${id}`,{headers});
 }
-// maka commentaire cd
-// getcomsCdByid(id:number):  Observable<DetailDemande> {
-//   const headers = this.getHeaders();
-//   return this.http.get<Decision>(`${this.baseUrl4}/decision/${id}`,{headers});
-// }
-// // maka commentaire cd all
-// getcomsCd():  Observable<DetailDemande> {
-//   const headers = this.getHeaders();
-//   return this.http.get<DetailDemande>(`${this.baseUrl4}/decision/get`,{headers});
-// }
-  //post commentaire
-  // postCd(formData: any): Observable<any> {
-  //   const headers = this.getHeaders();
-  //   return this.http.post<any>(`${this.baseUrl4}/decision/create/`,formData,{headers});
-  // }
-  //modication demande
-  // updateCd(id:number,data:any):Observable<any>{
-  //   const headers = this.getHeaders();
-  // return this.http.put<any>(`${this.baseUrl4}/decision/${id}`,data,{headers});
-  // }
+//modication demande
+updatexhr(id:number,dataa:  any ){
+  var data = JSON.stringify(
+  dataa
+  );
+  
+  var xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
+  
+  xhr.addEventListener("readystatechange", function() {
+    if(this.readyState === 4) {
+      console.log(this.responseText);
+    }
+  });
+  
+  xhr.open("PUT", "http://localhost:8080/prescripteur/demande/34");
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.setRequestHeader("Authorization", "Bearer "+ sessionStorage.getItem("token"));
+  
+  xhr.send(data);
+}
+getUserInfo(token : string){
+  var data = "grant_type=password&client_id=quarkus-client&client_secret=eIRXkLaEnLubyFr1mqwv6bu862oHIIn9";
+
+            var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
+            var direction = "";
+            xhr.addEventListener("readystatechange", function() {
+              if(this.readyState === 4 && this.status === 200) {
+                console.log(this.responseText);
+                const data = JSON.parse(xhr.responseText);
+
+
+              }
+            });
+
+            xhr.open("GET", "http://localhost:8082/realms/oma/protocol/openid-connect/userinfo");
+            xhr.setRequestHeader("Authorization", "bearer "+token);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.send(data);
+}
+
 }

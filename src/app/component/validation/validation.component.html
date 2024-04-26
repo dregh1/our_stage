@@ -91,10 +91,14 @@
                   <div class="d-flex">
                     <div class="">
                       <div class="input-group p-2">
-                        <select class="form-select" id="inputGroupSelect02">
-                          <option selected>OK</option>
-                          <option value="1">NOK</option>
-                          <option value="2">Stand By</option>
+                        <select class="form-select"  [(ngModel)]="this.demande.idetatfinal">
+                          <option value="OK">OK</option>
+                          <option value="NOK">NOK</option>
+                          <option value="En attente">En attente</option>
+                          <!-- <option *ngIf="this.demande.etatFinal  === 'OK'"  [ngValue]="'OK'" selected>OK</option>
+                          <option *ngIf="this.demande.etatFinal  === 'NOK'"  [ngValue]="'NOK'" selected>NOK</option>
+                          <option *ngIf="this.demande.etatFinal  === 'NOK'"  [ngValue]="'NOK'" selected>En attente</option> -->
+
                         </select>
                       </div>
                     </div>
@@ -115,11 +119,11 @@
                     <div class="p-2">
                       <!-- <a [ngModel]="this.demande.id">{{this.detail.id}}</a> -->
                       <button (click)="enregistrer(this.detail.id)">ok</button>
-                      <input type="text"type="text"  [(ngModel)]="this.demande.comsCd" [placeholder]="this.detail.comsCd" class="form-control mb-2" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+                      <input type="text"type="text"  [(ngModel)]="this.demande.comsCd" [placeholder]="this.detail.comsCd" class="form-control mb-2" (ngModelChange)="enregistrer(this.detail.id)"placeholder="" aria-label="Username" aria-describedby="basic-addon1">
                     </div>
                     <div>
                         <div class="input-group p-2">
-                          <select class="form-select"  [(ngModel)]="this.detail.idperiode"  id="idtitre" aria-label="Example select with button addon">
+                          <select class="form-select"  [(ngModel)]="this.demande.idPeriode"  id="idPeriode" (ngModelChange)="getid(this.detail.idperiode)" aria-label="Example select with button addon">
                             <option *ngFor="let item of this.periodes" [value]="item.id"> {{item.designation}}  </option>
                           </select>
                       </div> 
@@ -149,7 +153,7 @@
         <div class="d-flex">
           <div class="">
             <div class="input-group p-2">
-              <select class="form-select" id="inputGroupSelect02">
+              <select class="form-select" >
                 <option selected>OK</option>
                 <option value="1">NOK</option>
                 <option value="2">Stand By</option>
@@ -167,29 +171,25 @@
           </div>
           <div>
             <span class="input-group-text " id="basic-addon1">{{this.detail.fournisseur}}</span>
-          </div>
-          <div class="p-2">
-            <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+            
           </div>
           <div>
               <div class="input-group p-2">
-                <select class="form-select"  [(ngModel)]="this.demande.idperiode" id="{{this.detail.idperiode}}" aria-label="Example select with button addon">
+                <select class="form-select"  [(ngModel)]="this.detail.idperiode" id="{{this.detail.idperiode}}" aria-label="Example select with button addon">
                   <option *ngFor="let item of this.periodes" [value]="item.id"> {{item.designation}}  </option>
-                </select>
+                  </select>
             </div> 
-            </div>
-            <div class="p-2">
+          </div>
+          <div class="p-2">
               <span class="input-group-text " id="basic-addon1">{{this.detail.comsprescripteur}}</span>
-            </div>
-            <div class="p-2">
-              <span class="input-group-text " id="basic-addon1">{{this.detail.comsAchat}}</span>
-            </div>
+          </div>
+          <div class="p-2">
+            <span class="input-group-text " id="basic-addon1">{{this.detail.comsAchat}}</span>
+          </div>
         </div>
         </ng-container>
       </li>
     </ul>
-   
-
       </div>
 </div>
  

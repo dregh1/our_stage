@@ -198,7 +198,7 @@ if (missingField) {
        // Gérer la réponse du jeton avec succès
        console.log(' reçu:', response);
        console.log('\n\n\n\n\n\n');
-       window.location.reload();
+       //window.location.reload();
        this.errorMessage='Demande Enregistré!';
        setTimeout(() => { // Hide the message by setting errorStatus to false
         this.errorMessage = '';// Optionally, clear the error message

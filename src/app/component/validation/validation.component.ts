@@ -23,6 +23,7 @@ export class ValidationComponent implements OnInit {
   periodes: Periode[]=[];
   demandes= new Demande();
   donnee=new Demande();   texte:String='';
+   d = new Demande ();
   demande
   ={
     id:'',
@@ -50,6 +51,9 @@ export class ValidationComponent implements OnInit {
     idperiode:'',
     idetatfinal:'',
     comsCd:''
+  }
+  detail={
+    comsCd:'',
   }
   errorMessage:string='';
   toggleUp() {
@@ -106,27 +110,93 @@ export class ValidationComponent implements OnInit {
   //     });
   // }
 
+  //set selected option
+  setTimeout(()=>{
+    this.setSelected("13", "idPeriode");
+  }, 1000);
     }
+getid(idperiode:any){
+
+
+}
+    //set SELECTED OPTION
+    setSelected(id : string,idHtml : string)
+  {
+    console.log("ato!");
+
+    const selectelement = document.getElementById(idHtml);
+    if(selectelement!==null)
+    {
+    console.log("Ito!");
+
+      
+      const lesOptions = selectelement?.querySelectorAll('option');
+        for(let i = 0 ; i < lesOptions.length ; i++)
+        {
+          const unOption =  lesOptions[i];
+          if(unOption.value === id) 
+          {
+            console.log("TEHAKA",id);
+            unOption.selected = true;
+            // this.demande.idTitreDepense = unOption.value; 
+          }
+        }
+    };
+  }
     enregistrer(de:any){
       //miupdate demande session 
        //maka demande
-     this.ValidationService.getdemande(de).subscribe(data => {
-      this.demandes= data;
-      this.donnee =this.demandes;
-      console.log(de);
+    //  this.ValidationService.getdemande(de).subscribe(data => {
+    //   this.demandes= data;
+    //   this.donnee =this.demandes;
+    //   console.log(de);
+    //   console.log(this.donnee);
       
-    });
+    // });
    
 
-      this.donnee.comsCd=this.demande.comsCd;
-      this.donnee.idPeriode=parseInt(this.demande.idPeriode);
-      console.log("aizoooooo",this.demande.comsCd);
+    //   this.donnee.comsCd=this.demande.comsCd;
+    //  // this.donnee.idPeriode=parseInt(this.demande.idPeriode);
+    //   console.log("aizoooooo",this.demande.comsCd);
+    
       
-      console.log(this.donnee);
-       this.ValidationService.update(parseFloat(de),this.donnee).subscribe(Response=>{
-        console.log(Response);
-       });
+    //   console.log(this.donnee);
+    //    this.ValidationService.update(parseFloat(de),this.donnee).subscribe(Response=>{
+    //     console.log(Response);
+    //    });
 
+ setTimeout(() => {   // Optionally, clear the error message
+         //maka par detail
+    this.ValidationService.getdemande(de).subscribe(response=> {
+      this.demandes= response;
+      //console.log(response,"////////////////");
+      this.demande.estRegularisation = Boolean(this.demandes.estRegularisation ?? "");
+      this.demande.idTitreDepense = this.demandes.idTitreDepense ?.toString() ??"";
+      this.demande.typeReference= this.demandes.typeReference?? "";
+      // this.demande.typereference=this.demande.typereference;
+      this.demande.nomReference = this.demandes.nomReference??"" ;
+      this.demande.motif = this.demandes.motif ?? "";
+      this.demande.typeDevise = this.demandes.typeDevise ?? "";
+      this.demande.comsPrescripteur = this.demandes.comsPrescripteur??"" ;
+      this.demande.idFournisseur = this.demandes.idFournisseur?.toString() ??"" ;
+      this.demande.montantHt = this.demandes.montantHt?.toString() ??"" ;
+      this.demande.idDirection = this.demandes.idDirection?.toString() ?? "";  
+      this.demande.sousRubrique=this.demandes.sousRubrique?.toString()?? "";
+      this.demande.idRubrique=this.demandes.idRubrique?.toString() ?? "";
+      this.demande.validationPrescripteur=Boolean(this.demandes.validationPrescripteur??"");
+      this.demande.validationCdg=Boolean(this.demandes.validationCdg??"");
+      this.demande.validationAchat=Boolean(this.demandes.validationAchat??"");
+      this.setSelected(this.demandes.idPeriode?.toString() ?? "", "idPeriode");
+      //console.log(this.demandes);
+      //this.setSelected(this.demande.idTitreDepense);
+      
+      // this.d =  this.demande;
+     console.log(this.demande);
+      this.ValidationService.updatexhr(parseFloat(de),this.demande);
+  });
+       
+}, 3000);
+   
     }
     ajoutOpt(id : any, text : string){
       const selectelement = document.getElementById("idtitre");
