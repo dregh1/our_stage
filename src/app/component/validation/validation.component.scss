@@ -1,0 +1,33 @@
+
+
+.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+  }
+  .scrollspy-example {
+    overflow: auto;
+    position: relative;
+    }
+  
+    div.scrollmenu span {
+      display: inline-block;
+      width: 200px;
+      text-align: center;
+      padding: 14px;
+      text-decoration: none;
+    }
+    section{
+      background-color: #ddd;
+    }
+   .input-group,.form-control{
+    width: 200px;
+   }
+   .icon{font-size: 30px;}
+   @media (max-width: 768px) {
+    .input-group,.form-control{
+      width: 100px;
+     }
+    .icon{
+      font-size: 18px;
+    }
+   }

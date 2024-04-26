@@ -1,0 +1,168 @@
+
+<body>
+  <section class="mx-3">
+    <div class="main">
+                    <div class=" justify-content-around d-flex p-3">
+                      <div class="d-flex">
+                          <div class="label">
+                            <span class="input-group-text mb-2" id="basic-addon1">Direction</span>
+                            <span class="input-group-text mb-2" id="basic-addon1">Statut</span>
+                            </div>
+                          <div class="mx-3">
+                            <div class="input-group mb-2">
+                                <select class="form-select" id="inputGroupSelect02">
+                                  <option  value="1">OK</option>
+                                  <option value="2">NOK</option>
+                                  <option value="3">Stand By</option>
+                                </select>
+                              </div>
+                              <div class="input-group mb-2">
+                                <select class="form-select" id="inputGroupSelect02">
+                                  <option value="1">OK</option>
+                                  <option value="2">NOK</option>
+                                  <option value="3">Stand By</option>
+                                </select>
+                              </div>
+                            </div>
+                      </div>
+                      <div class="d-flex">
+                         <div class="label">
+                            <span class="input-group-text mb-2" id="basic-addon1">session CD</span>
+                            <span class="input-group-text mb-2" id="basic-addon1">fournisseurs</span>
+                            <span class="input-group-text mb-2" id="basic-addon1" >Motif</span>
+                        </div>
+                          <div class="mx-3">
+                            <div class="input-group mb-2 ">
+                                <select class="form-select" id="inputGroupSelect02">
+                                  <option value="1">OK</option>
+                                  <option value="2">NOK</option>
+                                  <option value="3">Stand By</option>
+                                </select>
+                              </div>
+                              <div class="input-group mb-2">
+                                <select class="form-select" [(ngModel)]="this.demande.idFournisseur" id="inputGroupSelect04" aria-label="Example select with button addon">
+                                  <option *ngFor="let item of this.fournisseurs" [value]="item.id"> {{item.nom}}  </option>
+                                </select>
+                               </div> 
+                                <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"[(ngModel)]="demande.motif">
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="label">
+                          <span class="input-group-text mb-2" id="basic-addon1">Date debut</span>
+                          <span class="input-group-text mb-2" id="basic-addon1">Date fin</span>
+                          
+                         </div>
+                        <div class="mx-3">
+                            <input type="date" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"[(ngModel)]="demande.datedebut">
+                            <input type="date" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="demande.datefin">
+                        <div class="d-flex">
+                              <button class="btn btn-primary mb-2 p-2 mx-3" type="button">
+                                <i class="icon fas fa-search" ></i>
+                              </button>
+                              <button class="btn btn-primary mb-2 p-2" type="button" (click)="supprimer()">
+                                  <i class="icon fas fa-close" ></i>
+                              </button>
+                         </div>
+                        </div>
+                    </div>
+                    
+                    </div>
+                     <!-- <fieldset class="form-group border border-primary p-1">
+                        <legend class="bg-transparent w-auto px-2  navbar-static p-2">Listes des demandes d'engagement
+                               
+                         </legend>
+                        
+                          <div class="card-body scrollspy-example bg-white" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
+                              <ul class="list-group list-group-flush">
+                                  <li class="list-group-item p-3 justify-content-between d-flex">
+                                      <p>yitjuojuyklujuk</p>
+                                      <div>
+                                          <i class="icon fas fa-chevron-circle-right" ></i>
+                                      </div>
+                                  </li>
+                                  <li class="list-group-item p-3 justify-content-between d-flex">
+                                      <p>yitjuojuyklujuk</p>
+                                      <div>
+                                          <i class="icon fas fa-chevron-circle-right" ></i>
+                                      </div>
+                                  </li>
+                                  <li class="list-group-item p-3 justify-content-between d-flex">
+                                      <p>yitjuojuyklujuk</p>
+                                      <div>
+                                          <i class="icon fas fa-chevron-circle-right" ></i>
+                                      </div>
+                                  </li>
+                                </ul>
+                          </div>
+              
+                       
+                    </fieldset>  -->
+                     <fieldset class="form-group border border-end-0">
+                            <legend class="w-auto p-2">Prescripteur
+                          </legend>
+                          
+                          <div class="scrollmenu">
+                            <div  id="navbarExample" class="scrollspy-example p-3 entete "data-spy="scroll" data-target="#navbarExample">
+                            
+                                      <div style="height: 300px;" data-offset="50">    
+                                        <div class=" d-flex">
+                                                <div>
+                                                      <div class="input-group p-2">
+                                                        <select class="form-select" id="inputGroupSelect02">
+                                                          <option selected>OK</option>
+                                                          <option value="1">NOK</option>
+                                                          <option value="2">Stand By</option>
+                                                        </select>
+                                                      </div>
+                                                </div>
+                                                <div>
+                                                  <span class="input-group-text " id="basic-addon1">Demande1 </span>
+                                                </div>
+                                                <div>
+                                                  <span class="input-group-text " id="basic-addon1">4800.00</span>
+                                                </div>
+                                                <div>
+                                                  <span class="input-group-text " id="basic-addon1">10 000,00 </span>
+                                              </div>
+                                                <div>
+                                                      <div class="input-group p-2">
+                                                        <select class="form-select" id="inputGroupSelect02">
+                                                          <option selected>OK</option>
+                                                          <option value="1">NOK</option>
+                                                          <option value="2">Stand By</option>
+                                                        </select>
+                                                      </div>
+                                                </div>
+                                                <div class="p-2">
+                                                  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                                <div>
+                                                    <div class="input-group p-2">
+                                                      <select class="form-select" id="inputGroupSelect02">
+                                                        <option selected>Mois</option>
+                                                        <option value="1">Année</option>
+                                                        <option value="2">Trimestre</option>
+                                                        <option value="2">Q1</option>
+                                                      </select>
+                                                    </div>
+                                                </div>
+                                                <div class="p-2">
+                                                  <input type="text" class="form-control " placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                                <div class="p-2">
+                                                  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                                                </div>
+                                        </div>
+                                    
+                                    </div>
+                              </div>
+                            </div>
+                    </fieldset> 
+
+    </div> 
+    <div class="bt p-3 d-flex justify-content-end" >
+        <button type="button" class="btn btn-primary p-2">Exporter</button>  
+    </div> 
+</section>
+</body>

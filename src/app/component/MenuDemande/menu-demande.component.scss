@@ -1,0 +1,26 @@
+
+body{
+    background-color: #eee;
+    height: 770px;
+}
+header{
+    background-color: #eee;
+}
+.card-header,.card{
+    background-color: #ddd;
+}
+.list-group-item:hover{
+    border-left:  #ff7900 ;
+    background-color: #999;
+}
+     .scrollspy-example {
+      height: 250px;
+      overflow: auto;
+      position: relative;
+      }
+      .icon{font-size: 30px;}
+      @media (max-width: 768px) {
+        .icon{
+            font-size: 8px;
+        }
+}
