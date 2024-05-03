@@ -1,109 +1,200 @@
-
-
-
 <body>
-  
-    <section class="mx-3 p-1">
-      <div class="main ">
+  <section class="mx-3 p-1">
+    <div class="main">
       <div *ngIf="role === 'PRS'">
-              <div class="card">
-                  <div class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
-                    <p class="text-primary"> Brouillon Liste des Demandes </p>
-                    <button type="button" class="btn" [routerLink]="'/main/creationprescripteur'" >+</button>
-                  </div>
-                  <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
-                      <ul class="list-group list-inline">
-                          <li class="mb-2"
-                                    *ngFor="let detail of this.DetailDemande">
-                                    <a [routerLink]="['/main/teste/', detail.id]"
-                                    *ngIf="!detail.validationprescripteur && detail.iddirection === this.direction.id" class="list-group-item list-group-item-action" aria-current="true">
-                                      <div class="d-flex w-100 justify-content-between">
-                                        <div>
-                                          <h5 class="mb-1">{{detail.titre}}</h5> 
-                                          <p class="mb-1">{{detail.motif}}</p>
-                                        </div>
-                                        <div>
-                                          <small >{{detail.periode}}</small> <br>
-                                          <small>{{detail.reference}}</small></div>
-                                      </div>
-                                  </a>
-                          </li>
-                      </ul>
-                  </div>
-              </div>
-              <br> <br>
+        <div class="card">
+          <div
+            class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between"
+            id="navbarExample"
+          >
+            <p class="text-primary">Brouillon Liste des Demandes</p>
+            <button
+              type="button"
+              class="btn"
+              [routerLink]="'/main/creationprescripteur'"
+            >
+              +
+            </button>
           </div>
-          <!-- active -->
-          <div class="card">
-            <div class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
-              <div><p class="text-primary"> Listes des Demandes CD Active </p></div>
+          <div
+            class="card-body scrollspy-example"
+            data-spy="scroll"
+            data-target="#navbarExample"
+            data-offset="50"
+          >
+            <ul class="list-group list-inline">
+              <li class="mb-2" *ngFor="let detail of this.DetailDemande">
+                <a
+                  [routerLink]="['/main/teste/', detail.id]"
+                  *ngIf="
+                    !detail.validationprescripteur &&
+                    detail.iddirection === this.direction.id
+                  "
+                  class="list-group-item list-group-item-action"
+                  aria-current="true"
+                >
+                  <div class="d-flex w-100 justify-content-between">
+                    <div>
+                      <h5 class="mb-1">{{ detail.titre }}</h5>
+                      <p class="mb-1">{{ detail.motif }}</p>
+                    </div>
+                    <div>
+                      <small>{{ detail.periode }}</small> <br />
+                      <small>{{ detail.reference }}</small>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+        <br />
+        <br />
+      </div>
+      <!-- active -->
+      <div class="card">
+        <div
+          class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between"
+          id="navbarExample"
+        >
+          <div><p class="text-primary">Listes des Demandes CD Active</p></div>
+          <div>
+            <div *ngIf="role === 'CDG' || role === 'ACH'">
+              <div class="d-flex justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-primary p-2 mx-2"
+                  routerLink="/validation"
+                >
+                  Validation
+                </button>
+                <button type="button" class="btn btn-primary p-2" (click)="exportToExcel()">
+                  <i class="fa-solid fa-file-xls"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="card-body scrollspy-example"
+          data-spy="scroll"
+          data-target="#navbarExample"
+          data-offset="50"
+        >
+          <ul class="list-group list-inline">
+            <li class="mb-2" *ngFor="let detail of this.DetailDemande">
+              <a
+                [routerLink]="['/main/teste/', detail.id]"
+                [ngClass]="{
+                  'list-group-item list-group-item-action': true,
+                  active: detail.validationcdg,
+                  classePrecedente: true
+                }"
+                aria-current="true"
+                *ngIf="
+                  detail.validationprescripteur &&
+                  detail.iddirection === this.direction.id
+                "
+                class="list-group-item list-group-item-action"
+                aria-current="true"
+              >
+                <div class="d-flex w-100 justify-content-between">
+                  <div>
+                    <h5 class="mb-1">{{ detail.titre }}</h5>
+                    <p class="mb-1">{{ detail.motif }}</p>
+                  </div>
+                  <div>
+                    <small>{{ detail.periode }}</small> <br />
+                    <small>{{ detail.reference }}</small>
+                  </div>
+                </div>
+              </a>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+
+
+
+      <div
+      class="card-body scrollspy-example"
+      data-spy="scroll"
+      data-target="#navbarExample"
+      data-offset="50"
+    >
+   
+    <table class="table" id="montable">
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Motif</th>
+          <th>Periode</th>
+          <th>Reference</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of this.DetailDemande">
+          <ng-container *ngIf="
+          detail.validationprescripteur &&
+          detail.iddirection === this.direction.id
+        ">
+          <td  [routerLink]="['/main/teste/', detail.id]"
+          [ngClass]="{
+            'active': detail.validationcdg,
+            'classePrecedente': true
+          }"
+          aria-current="true"
+          
+          class="list-group-item list-group-item-action"
+          aria-current="true">
+            
+             
+            
+              {{ detail.titre }}
+          
+          </td>
+          <td>{{ detail.motif }}</td>
+          <td>{{ detail.periode }}</td>
+          <td>{{ detail.reference }}</td>
+        </ng-container>
+        </tr>
+      </tbody>
+    </table>
+
+    </div>
+      
+     
+      <!-- <div class="card">
+            <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
+              <div><p> Listes des demandes CD Active </p></div>
               <div>
                   <div *ngIf="role === 'CDG' || role === 'ACH'">
                     <div class="d-flex justify-content-end" >
-                        <button type="button" class="btn btn-primary p-2 mx-2" routerLink="/validation">Validation</button> 
-                         <button type="button" class="btn btn-primary p-2 ">Extraction</button>  
+                        <button type="button" class="btn btn-primary p-1 mx-2" routerLink="/validation">Validation</button> 
+                         <button type="button" class="btn btn-primary p-1">Extraction</button>  
                     </div> 
                   </div> 
               </div>
              
               </div>
               <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
-                <ul class="list-group list-inline">
-                  <li class="mb-2"
-                            *ngFor="let detail of this.DetailDemande">
-                            <a [routerLink]="['/main/teste/', detail.id]"
-                            [ngClass]="{'list-group-item list-group-item-action': true, 'active': detail.validationcdg, classePrecedente: true}"
-                            aria-current="true"
-                            *ngIf="detail.validationprescripteur && detail.iddirection === this.direction.id" class="list-group-item list-group-item-action" aria-current="true">
-                                  <div class="d-flex w-100 justify-content-between">
-                                    <div>
-                                      <h5 class="mb-1">{{detail.titre}}</h5> 
-                                      <p class="mb-1">{{detail.motif}}</p>
-                                    </div>
-                                    <div>
-                                      <small >{{detail.periode}}</small> <br>
-                                      <small>{{detail.reference}}</small></div>
-                                  </div>
-                            </a>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item justify-content-between d-flex " *ngFor="let active of actives">
+                    <div>
+                      <h6 >{{active.titre}} <p>{{active.motif}}</p></h6>
+                    </div>
+                      <div>
+                          <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/teste/', active.id]" ></i></button>
+                          
+                        </div>
                   </li>
                 </ul>
           </div>
-          </div>
-          
-            <!-- <div class="card">
-              <div class="card-header bg-transparent border-primary text-body p-3 navbar navbar-static d-flex justify-content-between" id="navbarExample">
-                <div><p> Listes des demandes CD Active </p></div>
-                <div>
-                    <div *ngIf="role === 'CDG' || role === 'ACH'">
-                      <div class="d-flex justify-content-end" >
-                          <button type="button" class="btn btn-primary p-1 mx-2" routerLink="/validation">Validation</button> 
-                           <button type="button" class="btn btn-primary p-1">Extraction</button>  
-                      </div> 
-                    </div> 
-                </div>
-               
-                </div>
-                <div class="card-body scrollspy-example" data-spy="scroll" data-target="#navbarExample" data-offset="50">    
-                  <ul class="list-group list-group-flush">
-                    <li class="list-group-item justify-content-between d-flex " *ngFor="let active of actives">
-                      <div>
-                        <h6 >{{active.titre}} <p>{{active.motif}}</p></h6>
-                      </div>
-                        <div>
-                            <button type="button" class="btn"><i class="icon fas fa-chevron-circle-right" [routerLink]="['/main/teste/', active.id]" ></i></button>
-                            
-                          </div>
-                    </li>
-                  </ul>
-            </div>
-            </div> -->
-      </div>
-    </section>
+          </div> -->
+    </div>
     
-  </body>
-              
-  
-  
-  
-  
-  
+  </section>
+</body>

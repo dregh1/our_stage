@@ -1,0 +1,83 @@
+<body>
+  <section class="mx-3">
+    <div class="main">
+      <div class="main row justify-content-around">
+        <div class="card mb-3 p-4" style="width: 650px">
+          <div class="row">
+            <div class="col-md text-center">
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3"
+                  >Date cloture</span
+                >
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  [(ngModel)]="this.session.dateCloture"
+                  aria-describedby="basic-addon1"
+                />
+              </div>
+              <span class="input-group-text mb-3" id="basic-addon3"
+                >Taux Devise(EUR/USD/MGA):
+              </span>
+              <div class="d-flex">
+                <div class="label">
+                  <span class="input-group-text mb-2" id="basic-addon1"
+                    >EUR</span
+                  >
+                  <span class="input-group-text mb-2" id="basic-addon1"
+                    >USD</span
+                  >
+                </div>
+                <div class="mx-3">
+                  <!-- [(ngModel)]="this.session.taux_eur" -->
+                  <!-- [(ngModel)]="this.session.taux_usd"  -->
+                  <input
+                    type="number"
+                    step="any"
+                    class="form-control mb-2"
+                    [(ngModel)]="this.session.tauxEur"
+                    placeholder="eur"
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                  />
+                  <input
+                    type="number"
+                    step="any"
+                    class="form-control mb-2"
+                    [(ngModel)]="this.session.tauxUsd"
+                    placeholder="usd"
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                  />
+                </div>
+              </div>
+              
+              <button
+                type="button"
+                (click)="openSession()"
+                class="btn btn-primary p-2"
+              >
+                Ouverture de session
+              </button>
+
+            </div>
+            <div class="col-md text-center">
+              <img
+                src="assets/image/tyerr.jpg"
+                class="bd-placeholder-img img-fluid position-relative"
+                width="100%"
+                height="100%"
+                alt=""
+              />
+              <div>
+                {{this.errorMessage}}
+              </div>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+

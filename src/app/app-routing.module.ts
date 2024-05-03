@@ -6,7 +6,7 @@ import { ConsultationComponent } from './component/consultation/consultation.com
 import { ValidationComponent } from './component/validation/validation.component';
 import { NotificationComponent } from './component/notification/notification.component';
 import { MainComponent } from './component/main/main.component';
-import { CreationSession1Component } from './component/creation-session1/creation-session1.component';
+import { CreationSession1Component } from './component/CreationSession/creation-session1.component';
 import { CreationPrescripteurComponent } from './component/creation-prescripteur/creation-prescripteur.component';
 import { TestComponent } from './component/DetailParDemande/DetailParDemande.component';
 import { MenuDemandeComponent } from './component/MenuDemande/menu-demande.component';

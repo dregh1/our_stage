@@ -141,13 +141,15 @@
                               <!--bouton valider-->
                               <div *ngIf="role === 'PRS' && this.demande.validationPrescripteur === false " class="bt p-3 d-flex justify-content-end" >
                                 <div class="error-message">
-                                  <p class="text-warning">{{ errorMessage }}</p>
+                                  <p class="text-success">{{ errorMessage }}</p>
                                 </div>
                                 <button type="button" class="btn btn-primary mx-3" routerLink="../../creationprescripteur">Nouveau</button> 
                                 <button type="button" class="btn btn-primary mx-3"(click)="update()">Modifier</button>
                                 <button type="button" class="btn btn-primary mx-3"(click)="refuserCdg()">Refuser</button>  
-                                <button type="button" class="btn btn-primary "(click)="valider()">Valider</button>  
-                             </div>
+                                <div *ngIf="existanceSession===true">
+                                  <button type="button" class="btn btn-primary "(click)="valider()">Valider</button>  
+                                </div>
+                              </div>
                       </fieldset>
                       <!--partie cdg-->
                       <div *ngIf="role === 'CDG' || role === 'ACH' ">
@@ -212,7 +214,9 @@
                             <button type="button" class="btn btn-primary mx-3"(click)="enregistrerCdg()" >Enregistrer</button> 
                             <button type="button" class="btn btn-primary mx-3" (click)="modificationCdg()" >Modifier</button> 
                             <button type="button" class="btn btn-primary mx-3"(click)="refuserAchat()">Refuser</button>  
-                            <button type="button" class="btn btn-primary" (click)="validationCdg()">Valider</button>  
+                            
+                              <button type="button" class="btn btn-primary" (click)="validationCdg()">Valider</button>  
+                            
                           </div>
                       </div>
                         <!--partie Achat-->
