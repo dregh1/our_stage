@@ -1,0 +1,71 @@
+
+
+table .tbody{
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+tr,td{
+  position: relative;
+}
+.table-fixed tbody {
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.table-fixed thead,
+.table-fixed tbody,
+.table-fixed tr,
+.table-fixed td,
+.table-fixed th {
+  display: block;
+}
+
+.table-fixed tbody td,
+.table-fixed tbody th,
+.table-fixed thead > tr > th {
+  float: left;
+  position: relative;
+
+}
+
+
+
+
+// body {
+//   background-color: #eee;
+//   height: 770px;
+// }
+header,.titre {
+  background-color: #eee;
+}
+.card-header,
+.card {
+  background-color: #ddd;
+}
+tr:hover {
+  border-left: #ff7900;
+  background-color: #999;
+}
+.scrollspy-example {
+  overflow: auto;
+  position: relative;
+}
+.icon {
+  font-size: 30px;
+}
+svg {
+  width: 23px;
+  height: 23px;
+}
+
+@media (max-width: 768px) {
+  .icon {
+    font-size: 8px;
+  }
+svg { 
+  width: 10px;
+  height: 10px;
+}
+}

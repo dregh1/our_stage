@@ -1,22 +1,22 @@
 .icon {
-  font-size: 30px;
+  font-size: 23px;
 }
-header {
-  background-color: #eee;
-}
+// header {
+//   background-color: #eee;
+// }
 svg {
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
 }
-nav{
-  background-color: #eee;
-}
+// nav{
+//   background-color: #eee;
+// }
 @media (max-width: 768px) {
   .icon {
-    font-size: 18px;
+    font-size: 10px;
   }
-  svg {
-    width: 20px;
-    height: 20px;
+  svg { 
+    width: 10px;
+    height: 10px;
   }
 }

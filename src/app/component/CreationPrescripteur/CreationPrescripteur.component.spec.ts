@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreationPrescripteurComponent } from './creation-prescripteur.component';
+import { CreationPrescripteurComponent } from './CreationPrescripteur.component';
 
 describe('CreationPrescripteurComponent', () => {
   let component: CreationPrescripteurComponent;

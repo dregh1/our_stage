@@ -1,17 +1,17 @@
 <section class="mx-3">
   <div class="main mx-2 pt-5">
     <div class="main row justify-content-around pt-5">
-      <div class="card" style="width: 22rem; height: 20rem">
+      <div class="card" style="width: 22rem; height: 22rem">
         <div class="card-body">
           <div class="container d-flex p-1">
             <div class="me-auto me-lg-4">
-              <a class="stretched-link" href="#">
+              
                 <img
                   src="/assets/image/org.png"
                   alt="Boosted - Back to Home"
                   loading="lazy"
                 />
-              </a>
+             
             </div>
             <h2 class="card-title p-3">Authentification</h2>
           </div>
@@ -63,24 +63,25 @@
             <button type="button" class="btn btn-primary" (click)="sendToKc()">
               Connexion
             </button>
+            <div class="error-message p-2" >
+              <p style="color: red">{{ this.errorMessage }}</p>
+            </div>
           </div>
+          <div class="text-center" *ngIf="spinnershow===true">
+            <div class="spinner-grow text-primary mx-1" style="width: 10px;height: 10px;" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="spinner-grow text-secondary mx-1"style="width: 10px;height: 10px;" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>  
+            <div class="spinner-grow text-secondary mx-1" style="width: 10px;height: 10px;" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+         </div>
         </div>
-
-       <div class="text-center" *ngIf="spinnershow===true">
-          <div class="spinner-grow text-primary mx-1" style="width: 10px;height: 10px;" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <div class="spinner-grow text-secondary mx-1"style="width: 10px;height: 10px;" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>  
-          <div class="spinner-grow text-secondary mx-1" style="width: 10px;height: 10px;" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-       </div>
-        <p class="p-2">eto {{ this.errorMessage }}</p>
-        <div class="error-message" *ngIf="errorStatus">
-          <p style="color: red">{{ errorMessage }}</p>
-        </div>
+        
+       
+       
       </div>
     </div>
   </div>

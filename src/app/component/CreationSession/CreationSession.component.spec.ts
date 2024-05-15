@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreationSession1Component } from './creation-session1.component';
+import { CreationSession1Component } from './CreationSession.component';
 
 describe('CreationSession1Component', () => {
   let component: CreationSession1Component;

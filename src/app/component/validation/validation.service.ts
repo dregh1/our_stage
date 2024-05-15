@@ -61,6 +61,28 @@ export class ValidationService {
       headers,
     });
   }
+   //filtre DETAILDEMANDE
+   getFiltreDetailDemande(idDirection : string , sessionCd : string): Observable<DetailDemande[]> {
+    const headers = this.getHeaders();
+    // search(idDirection : string | '' , statut: string | '', motif : string | '', datedebut :string | '', datefin :string | '', session : string | '' , idfournisseur : string | '' ): Observable<DetailDemande[]>{
+
+      const queryParams = new URLSearchParams();
+      queryParams.append('idDirection', idDirection ? encodeURIComponent(idDirection) : ''); // Handle empty strings and special characters
+      queryParams.append('session', sessionCd ? encodeURIComponent(sessionCd) : '');
+    
+
+      
+      const url = `${this.baseUrl}/detailDemande/search?${queryParams.toString()}`; // Build URL with encoded params
+
+      return this.http.get<DetailDemande[]>(url, { headers });
+    //  return this.http.get<DetailDemande[]>(this.baseUrl+`/search?idDirection=${idDirection}&statut=${statut}&motif=${motif}&dateDebut=${datedebut}&dateFin=${datefin}&session=${session}&idFournisseur=${idfournisseur}`,{headers});
+    
+    
+    // return this.http.get<DetailDemande[]>(this.baseUrl + '/detailDemande/get', {
+    //   headers,
+    // });
+    
+  }
   //modication demande
   // updatexhr(id:number,dataa:  any ){
   //   var data = JSON.stringify(
@@ -96,7 +118,7 @@ export class ValidationService {
   //               }
   //             });
 
-  //             xhr.open("GET", "http://localhost:8082/realms/oma/protocol/openid-connect/userinfo");
+  //             xhr.open("GET", "http://localhost:8081/realms/oma/protocol/openid-connect/userinfo");
   //             xhr.setRequestHeader("Authorization", "bearer "+token);
   //             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 

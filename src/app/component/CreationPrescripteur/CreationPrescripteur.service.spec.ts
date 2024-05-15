@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CreationPrescripteurService } from './creation-prescripteur.service';
+import { CreationPrescripteurService } from './CreationPrescripteur.service';
 
 describe('CreationPrescripteurService', () => {
   let service: CreationPrescripteurService;

@@ -94,7 +94,7 @@
                     [(ngModel)]="this.demande.comsPrescripteur"
                     class="form-control mb-2"
                     placeholder=""
-                    aria-label="Username"
+                    aria-label=""
                     aria-describedby="basic-addon1"
                   />
                 </div>
@@ -131,12 +131,12 @@
                       aria-label="Liste déroulante des titres de dépenses"
                     >
                       <ng-container *ngFor="let titre of this.titres">
-                        <option
-                          *ngIf="titre.idDirection === this.direction.id"
-                          [value]="titre.id"
-                        >
-                          {{ titre.designation }}
-                        </option>
+                            <option
+                            *ngIf="titre.idDirection === this.direction.id && titre.designation!='sans titre' "
+                            [value]="titre.id"
+                          >
+                            {{ titre.designation }}
+                          </option>
                       </ng-container>
                     </select>
 
@@ -159,7 +159,7 @@
                     [(ngModel)]="this.demande.nomReference"
                     class="form-control mb-2"
                     placeholder=""
-                    aria-label="Username"
+                    aria-label=""
                     aria-describedby="basic-addon1"
                   />
                   <div class="input-group mb-2">
@@ -183,14 +183,14 @@
                     [(ngModel)]="this.demande.montantHt"
                     class="form-control mb-2"
                     placeholder=""
-                    aria-label="Username"
+                    aria-label=""
                     aria-describedby="basic-addon1"
                   />
                   <input
                     type="text"
                     class="form-control mb-2"
                     placeholder=""
-                    aria-label="Username"
+                    aria-label=""
                     [(ngModel)]="this.demande.sousRubrique"
                     aria-describedby="basic-addon1"
                   />
@@ -219,13 +219,15 @@
         <div class="error-message">
           <p class="text-success">{{ errorMessage }}</p>
         </div>
-        <button
-          type="button"
-          class="btn btn-primary p-2 mx-2"
-          (click)="creerDemande()"
-        >
-          Ajouter
-        </button>
+       
+              <button
+              type="button"
+              class="btn btn-primary p-2 mx-2"
+              (click)="creerDemande()"
+            >
+              Soumettre
+            </button>
+        
       </div>
     </div>
   </section>

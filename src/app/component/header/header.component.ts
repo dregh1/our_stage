@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../authentication copy/authentication.service';
+import { AuthenticationService } from '../Authentication/authentication.service';
 import { Direction } from 'src/app/models/Direction';
 @Component({
   selector: 'app-header',

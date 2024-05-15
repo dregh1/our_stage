@@ -108,7 +108,7 @@ export class AuthenticationService {
 
   //   xhr.open(
   //     'GET',
-  //     'http://localhost:8082/realms/oma/protocol/openid-connect/userinfo'
+  //     'http://localhost:8081/realms/oma/protocol/openid-connect/userinfo'
   //   );
   //   xhr.setRequestHeader('Authorization', 'bearer ' + token);
   //   xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -143,7 +143,7 @@ export class AuthenticationService {
     const params = new HttpParams()
     .set('grant_type', 'password')
     .set('client_id', 'quarkus-client')
-    .set('client_secret', 'eIRXkLaEnLubyFr1mqwv6bu862oHIIn9');
+    .set('client_secret', 'diNdyU2iGksempOMKqs5gZlA2UkwngCJ');
 
 
     const headers = this.getHeaders();

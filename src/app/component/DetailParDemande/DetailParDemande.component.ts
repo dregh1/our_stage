@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Titre } from 'src/app/models/TitreDepense';
 import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
-import { AuthenticationService } from '../authentication copy/authentication.service';
+import { AuthenticationService } from '../Authentication/authentication.service';
 import { Rubrique } from 'src/app/models/Rubrique';
 import { AvisCdg } from 'src/app/models/AvisCdg';
 import { AvisAchat } from 'src/app/models/AvisAchat';
@@ -12,6 +12,8 @@ import { DetailDemande } from 'src/app/models/DetailDemande';
 import { TesteService } from './DetailParDemande.service';
 import { Direction } from 'src/app/models/Direction';
 import { Demande } from 'src/app/models/Demande';
+import { UtilitaireService } from 'src/app/service/utilitaire.service';
+import { SessionCd } from 'src/app/models/SessionCd';
 @Component({
   selector: 'app-test',
   templateUrl: './DetailParDemande.component.html',
@@ -45,13 +47,20 @@ export class TestComponent implements OnInit {
     titre: '',
     idFournisseur: '',
     montantHt: '',
+    idSession:'',
     fournisseur: '',
     idPeriode: '',
     validationPrescripteur: false,
     validationAchat: false,
     validationCdg: false,
     typeReference: '',
+    estRefuseAchat:false,
+    estRefuseCdg:false
   };
+  
+  titre = new Titre();
+
+
   AvisCdg = {
     id: '',
     idDemande: '',
@@ -60,6 +69,7 @@ export class TestComponent implements OnInit {
     montantEngage: '',
   };
   AvisAchat = {
+    id:'',
     idDemande: '',
     commentaire: '',
   };
@@ -83,8 +93,8 @@ export class TestComponent implements OnInit {
   aviscdgs = new AvisCdg();
   avisAchat = new AvisAchat();
   message: string = '';
-
-
+  idsession:string='';
+session=new SessionCd();
   ///variable maka session
   existanceSession : boolean= false;
 
@@ -93,7 +103,8 @@ export class TestComponent implements OnInit {
     private TesteService: TesteService,
     private autheticationServ: AuthenticationService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private utilitaire:UtilitaireService
   ) {
     this.id = this.activatedRoute.snapshot.params['id'];
     
@@ -114,13 +125,27 @@ export class TestComponent implements OnInit {
                 this.direction.id = response.id;  
                 console.log('blaoohi!!!!!!!!!!!!!!!!!',response);
     
-               ///maka session
-     this.TesteService.checkSession(this.direction.id).subscribe((data) => {
-      this.existanceSession= data;
-      console.log('existendjjgjg',this.existanceSession);
-      
-    });
+                          ///recuperation session
+                          this.TesteService.checkSession(this.direction.id).subscribe((data) => {
+                            console.log("------------ session ------------");
+                            console.log(data);
+                            
+                            this.existanceSession= data;
+                            console.log('existendjjgjg',this.existanceSession);
+                            
+                                      //this.idsession = this.direction.id?.toString() ?? '';
+                                      //maka id session
+                                      this.utilitaire.getSessionByDirection(this.direction.id?.toString() ?? '').subscribe((data) => {
+                                        this.session = data;
+                                        this.idsession=data.id?.toString() ?? '';
+                                        console.log(this.idsession,'sessionnnnnnnnnnnnnnnnnn');
+                                        
+                                      });
+
+                          });
+
               });
+             
             
           }
 
@@ -138,8 +163,8 @@ export class TestComponent implements OnInit {
       parseFloat(this.AvisCdg.montantEngage);
   }
   ngOnInit(): void {
-
     
+
     //maka titre
     this.TesteService.getTitre().subscribe((data) => {
       this.titres = data;
@@ -157,12 +182,8 @@ export class TestComponent implements OnInit {
       this.rubriques = data;
     });
    
-    // maka avisAchat
-    this.TesteService.getAchatById(this.id).subscribe((response) => {
-      this.avisAchat = response;
-      this.AvisAchat.commentaire = this.avisAchat.commentaire ?? '';
-    });
     //  //maka titre
+
     //maka par detail
     this.TesteService.getDetailDemandebyId(this.id).subscribe((response) => {
       this.DetailDemande = response;
@@ -182,14 +203,11 @@ export class TestComponent implements OnInit {
       this.demande.montantHt = this.DetailDemande.montantht?.toString() ?? '';
       this.demande.periode = this.DetailDemande.periode ?? '';
       this.demande.idPeriode = this.DetailDemande.idperiode?.toString() ?? '';
-      this.demande.idDirection =
-        this.DetailDemande.iddirection?.toString() ?? '';
-      this.demande.idFournisseur =
-        this.DetailDemande.idfournisseur?.toString() ?? '';
+      this.demande.idDirection =this.DetailDemande.iddirection?.toString() ?? '';
+      this.demande.idSession=this.DetailDemande.idSession?.toString() ?? '';
+      this.demande.idFournisseur =this.DetailDemande.idfournisseur?.toString() ?? '';
       this.demande.idTitreDepense = this.DetailDemande.idtitre?.toString() ?? '';
-
-      this.demande.sousRubrique =
-        this.DetailDemande.sousrubrique?.toString() ?? '';
+      this.demande.sousRubrique =this.DetailDemande.sousrubrique?.toString() ?? '';
       this.demande.idRubrique = this.DetailDemande.idrubrique?.toString() ?? '';
       this.demande.validationPrescripteur = Boolean(
         this.DetailDemande.validationprescripteur ?? ''
@@ -206,24 +224,49 @@ export class TestComponent implements OnInit {
       console.log(this.demande.fournisseur, 'ourinisseurs');
     });
     
-    //////////Affichage du commentaire Cdg
-    this.TesteService.getCdgById(this.id).subscribe((response) => {
-      this.aviscdgs = response;
-      console.log(response, '/:///.////././');
-
-      console.log(this.aviscdgs);
-      ////aichage aviscdg
+   //////////Affichage du commentaire Cdg
+   
+   this.TesteService.getCdgById(this.id).subscribe((response) => {
+    this.aviscdgs = response;
+   // console.log(this.aviscdgs.id,'ito id cdg');
+    //  console.log(this.AvisCdg.id, 'ID null');
+      try{
       this.AvisCdg.id = this.aviscdgs.id?.toString() ?? '';
+   // if (this.AvisCdg.id !==null) {
       this.AvisCdg.commentaire = this.aviscdgs.commentaire ?? '';
-      this.AvisCdg.montantBudgetMensuel =
-        this.aviscdgs.montantBudgetMensuel?.toString() ?? '';
-      this.AvisCdg.montantEngage =
-        this.aviscdgs.montantEngage?.toString() ?? '';
-      this.reliquat =
-        parseFloat(this.AvisCdg.montantBudgetMensuel) -
-        parseFloat(this.AvisCdg.montantEngage);
-    });
+      this.AvisCdg.montantBudgetMensuel = this.aviscdgs.montantBudgetMensuel?.toString() ?? '';
+      this.AvisCdg.montantEngage = this.aviscdgs.montantEngage?.toString() ?? '';
+      this.reliquat = parseFloat(this.AvisCdg.montantBudgetMensuel) - parseFloat(this.AvisCdg.montantEngage);
+    console.log(this.AvisCdg.id,'ito id');
+  }catch(error){console.log(error);
   }
+    //}
+     //else{
+      
+      
+    //}
+    ////aichage aviscdg
+    
+  },
+   error=>{
+    console.log(error);
+    });
+
+  // maka avisAchat
+  this.TesteService.getAchatById(this.id).subscribe((response) => {
+    this.avisAchat = response;
+    try {
+    this.AvisAchat.id= this.avisAchat.id?.toString() ?? '';
+    this.AvisAchat.commentaire = this.avisAchat.commentaire ?? '';
+  }catch(error){console.log(error);
+    }
+  },
+  error=>{
+      console.log(error);
+      
+  });
+}
+
   //toggle ieldsetprescripteur
   toggleUp() {
     this.isUp1 = !this.isUp1;
@@ -267,14 +310,42 @@ export class TestComponent implements OnInit {
   }
   //validation prescripteur
   valider(): void {
-    
+    console.log(this.idsession,'+///////////sessionnnn///////////////');
+    this.demande.idSession=this.idsession;
     this.demande.validationPrescripteur = true;
+    this.updatetitre();
     console.log(this.demande.validationPrescripteur);
     this.update();
   }
   //modication prescripteur
+  updatetitre(): void { 
+    console.log(this.demande.idTitreDepense,'titredepense');
+    console.log(this.idsession,'idsessionjjjjjj');
+    
+    //maka titre by id
+    this.TesteService.gettitreById(parseInt(this.demande.idTitreDepense)).subscribe((data) => {
+      this.titre = data;
+    console.log(this.titre,'ito ');
+    this.titredepense.idDirection=this.titre.idDirection?.toString() ?? '';;
+    this.titredepense.designation=this.titre.designation?.toString() ?? '';;
+    this.titredepense.idSession = this.idsession ??"";
+    console.log(this.titredepense,'juu');
+            ///modication titre
+            this.TesteService.updatetitredepense(parseInt(this.demande.idTitreDepense), this.titredepense).subscribe((Response) => {
+              console.log(Response);
+              this.message = 'modié!';
+            });
+  });
+    
+    
+   }
+  
+
+  //modication prescripteur
   update(): void {
     console.log('moulle');
+    console.log(this.demande.idSession,'idsesssinkk');
+    
     console.log(this.demande);
     this.TesteService.update(this.id, this.demande).subscribe((Response) => {
       console.log(Response);
@@ -288,13 +359,20 @@ export class TestComponent implements OnInit {
     console.log(this.message);
     // window.location.reload();
   }
+  //annuation prescripteur
+  annulationprescripteur(){
+    //this.enregistrerCdg();
+    this.demande.validationPrescripteur = false;
+    console.log(this.demande.validationPrescripteur);
+    this.update();
+  }
   
 
 
 
   //Ajout titre demande
   Ajouttitre() {
-    this.titredepense.idSession = this.DetailDemande.idsession ??"";
+    this.titredepense.idSession = this.DetailDemande.idSession ??"";
     
     this.TesteService.posttitre(this.titredepense).subscribe((response) => {
       console.log(response);
@@ -307,123 +385,130 @@ export class TestComponent implements OnInit {
     }, 3000);
   }
 
-  /////enregistrer cdg
-  enregistrerCdg() {
-    let missingField: keyof Demande | null = null; // Type for the missing field name
+   /////enregistrer cdg
+   enregistrerCdg() {
+   
 
-    if (!this.demande.typeDevise) {
-      missingField = 'typeDevise' as keyof Demande; // Type assertion
-    }
-    if (!this.demande.motif) {
-      missingField = 'motif' as keyof Demande;
-    }
-    if (!this.demande.idRubrique) {
-      missingField = 'rubrique' as keyof Demande; // Type assertion
-    }
-    if (!this.demande.montantHt) {
-      missingField = 'montantHt' as keyof Demande;
-    }
-    if (!this.demande.idPeriode) {
-      missingField = 'periode' as keyof Demande;
-    }
-
-    if (missingField) {
-      this.errorMessage = `Veuillez remplir le champ ${missingField}`; // More specific error message
-      setTimeout(() => {
-        this.errorMessage = ''; // Clear the error message after 3 seconds
-      }, 3000);
-    } else {
-      //maka ID
-      this.AvisCdg.idDemande = this.id?.toString() ?? '';
-      console.log(this.AvisCdg);
-      this.TesteService.postCdg(this.AvisCdg).subscribe((Response) => {
-        console.log(Response);
-
-        this.errorMessage = 'Demande enregistré!';
-      });
-      setTimeout(() => {
-        this.errorStatus1 = false; // Hide the message by setting errorStatus to false
-        this.errorMessage = ''; // Optionally, clear the error message
-      }, 3000);
-      console.log(this.message);
-    }
-  }
-  ///modificationcdg
-  modificationCdg() {
-    this.AvisCdg.idDemande = this.id?.toString() ?? '';
-
-    this.TesteService.updateCdg(
-      parseFloat(this.AvisCdg.id),
-      this.AvisCdg
-    ).subscribe((Response) => {
-      console.log(Response);
-      this.errorMessage = 'Demande modifié!';
-    });
     setTimeout(() => {
-      this.errorStatus1 = false; // Hide the message by setting errorStatus to false
-      this.errorMessage = ''; // Optionally, clear the error message
-    }, 3000);
-    console.log(this.message);
-  }
-  //refuser cdg
-  refuserCdg() {
-    this.demande.validationCdg = false;
-    this.update();
-  }
-  //validationcdg
-  validationCdg() {
-    this.demande.validationCdg = true;
-    this.update();
-  }
-  //enregistrement achat
-  EnregistrerAchat() {
-    let missingField: keyof Demande | null = null; // Type for the missing field name
+       this.errorMessage = ''; // Clear the error message after 3 seconds
+     }, 3000);
+  
+     //maka ID
+     this.AvisCdg.idDemande = this.id?.toString() ?? '';
+     console.log(this.AvisCdg);
+     this.TesteService.postCdg(this.AvisCdg).subscribe((Response) => {
+       console.log(Response);
+        this.AvisCdg.id = Response.id;
+        //manova id cdg
+         this.AvisCdg.commentaire = Response.commentaire ;
+         this.AvisCdg.montantBudgetMensuel =Response.montantBudgetMensuel;
+         this.AvisCdg.montantEngage = Response.montantEngage;
+         this.reliquat = parseFloat(this.AvisCdg.montantBudgetMensuel) - parseFloat(this.AvisCdg.montantEngage);
+           this.errorMessage = 'Demande enregistré!';
+         });
+     setTimeout(() => {
+       this.errorStatus1 = false; // Hide the message by setting errorStatus to false
+       this.errorMessage = ''; // Optionally, clear the error message
+     }, 3000);
+     console.log(this.message);
+   
+ }
+ ///modificationcdg
+ modificationCdg() {
+   this.AvisCdg.idDemande = this.id?.toString() ?? '';
+  console.log(this.AvisCdg.idDemande);
+  
+   console.log(this.AvisCdg.id,"io id");
+   
+   this.TesteService.updateCdg(
+     parseFloat(this.AvisCdg.id),
+     this.AvisCdg
+   ).subscribe((Response) => {
+     console.log(Response);
+     this.errorMessage = 'Demande modifié!';
+   });
+   setTimeout(() => {
+     this.errorStatus1 = false; // Hide the message by setting errorStatus to false
+     this.errorMessage = ''; // Optionally, clear the error message
+   }, 3000);
+   console.log(this.message);
+ }
+ //refuser cdg
+ refuserCdg() {
+   this.demande.estRefuseCdg = true;
+   this.update();
+   console.log(this.demande,'demaande reusé');
+   
+ }
+ //validationcdg
+ validationCdg() {
+   this.demande.validationCdg = true;
+  // this.update();
+ }
+  //annuation prescripteur
+  annulationCdg(){
+   //this.enregistrerCdg();
+   this.demande.validationCdg = false;
+  // this.update();
+ }
+ //enregistrement achat
+ EnregistrerAchat() {
+  
+     setTimeout(() => {
+       this.errorMessage = ''; // Clear the error message after 3 seconds
+     }, 3000);
+ 
+     this.AvisAchat.idDemande = this.id?.toString() ?? '';
+     console.log(this.AvisAchat);
+     this.TesteService.postAchat(this.AvisAchat).subscribe((Response) => {
+       console.log(Response);
+       console.log('ok');
+       this.AvisAchat.id= Response.id;
+       this.AvisAchat.commentaire = Response.commentaire;
+       this.errorMessage = 'Demande enregistré!';
+     });
+     setTimeout(() => {
+       this.errorStatus1 = false; // Hide the message by setting errorStatus to false
+       this.errorMessage = ''; // Optionally, clear the error message
+     }, 3000);
+     console.log(this.message);
+   
+ }
+  ///modificationachat
+  modificationAchat() {
+   this.AvisAchat.idDemande = this.id?.toString() ?? '';
 
-    if (!this.demande.typeDevise) {
-      missingField = 'typeDevise' as keyof Demande; // Type assertion
-    }
-    if (!this.demande.motif) {
-      missingField = 'motif' as keyof Demande;
-    }
-    if (!this.demande.idRubrique) {
-      missingField = 'rubrique' as keyof Demande; // Type assertion
-    }
-    if (!this.demande.montantHt) {
-      missingField = 'montantHt' as keyof Demande;
-    }
-    if (!this.demande.idPeriode) {
-      missingField = 'periode' as keyof Demande;
-    }
-
-    if (missingField) {
-      this.errorMessage = `Veuillez remplir le champ ${missingField}`; // More specific error message
-      setTimeout(() => {
-        this.errorMessage = ''; // Clear the error message after 3 seconds
-      }, 3000);
-    } else {
-      this.AvisAchat.idDemande = this.id?.toString() ?? '';
-      console.log(this.AvisAchat);
-      this.TesteService.postAchat(this.AvisAchat).subscribe((Response) => {
-        console.log(Response);
-        console.log('ok');
-
-        this.errorMessage = 'Demande enregistré!';
-      });
-      setTimeout(() => {
-        this.errorStatus1 = false; // Hide the message by setting errorStatus to false
-        this.errorMessage = ''; // Optionally, clear the error message
-      }, 3000);
-      console.log(this.message);
-    }
-  }
-  ///validation Achat
-  validationAchat() {
-    this.demande.validationAchat = true;
-    this.update();
-  }
-  //refuser Achat
-  refuserAchat() {
-    this.demande.validationAchat = false;
-    this.update();
-  }
-}
+   this.TesteService.updateAchat(
+     parseFloat(this.AvisAchat.id),
+     this.AvisAchat
+   ).subscribe((Response) => {
+     console.log(Response);
+     this.errorMessage = 'Demande modifié!';
+   });
+   setTimeout(() => {
+     this.errorStatus1 = false; // Hide the message by setting errorStatus to false
+     this.errorMessage = ''; // Optionally, clear the error message
+   }, 3000);
+   console.log(this.message);
+ }
+ ///validation Achat
+ validationAchat() {
+   this.demande.validationAchat = true;
+ //  this.update();
+ }
+ //refuser Achat
+ refuserAchat() {
+   this.demande.estRefuseAchat = true;
+   this.update();
+   console.log(this.demande,'demande reussé');
+   
+ }
+   //annuation prescripteur
+   annulationAchat(){
+     //this.enregistrerCdg();
+     this.demande.estRefuseAchat=false;
+      this.update();
+   console.log(this.demande,'demaande reusé');
+   }
+   //maka idsession 
+   }

@@ -26,6 +26,8 @@ export class DetailDemande {
     public comsCd?: string,
     public etatFinal?: string,
     public montantMga?: string,
-    public idsession?: string
+    public idSession?: string,
+    public estRefuseCdg?: boolean,
+    public  estRefuseAchat?:boolean
   ) {}
 }

@@ -5,15 +5,15 @@ import {
   HttpClient,
   HttpResponse,
 } from '@angular/common/http';
-import { CreationSession1Service } from './creation-session1.service';
+import { CreationSession1Service } from './CreationSession.service';
 import { DatePipe, NumberSymbol } from '@angular/common';
-import { AuthenticationService } from '../authentication copy/authentication.service';
+import { AuthenticationService } from '../Authentication/authentication.service';
 import { Direction } from 'src/app/models/Direction';
 import { SessionCd } from 'src/app/models/SessionCd';
 @Component({
   selector: 'app-creation-session1',
-  templateUrl: './creation-session1.component.html',
-  styleUrls: ['./creation-session1.component.scss'],
+  templateUrl: './CreationSession.component.html',
+  styleUrls: ['./CreationSession.component.scss'],
 })
 export class CreationSession1Component implements OnInit {
   token: string | null;
@@ -97,4 +97,5 @@ getormatdate(){
   
   );
   }
+  
 }

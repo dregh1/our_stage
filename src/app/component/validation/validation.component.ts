@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../authentication copy/authentication.service';
+import { AuthenticationService } from '../Authentication/authentication.service';
 import { Direction } from 'src/app/models/Direction';
 import { ValidationService } from './validation.service';
 import { Periode } from 'src/app/models/Periode';
@@ -8,129 +8,194 @@ import { DetailDemande } from 'src/app/models/DetailDemande';
 import { Fournisseur } from 'src/app/models/Fournisseur';
 import { DonneeExcel } from 'src/app/models/DonneExcel';
 import * as XLSX from 'xlsx';
+import { UtilitaireService } from 'src/app/service/utilitaire.service';
+import { SessionCd } from 'src/app/models/SessionCd';
+import { DetailDemandeParTitre } from 'src/app/models/DetailParTitre';
+import {Item}from 'src/app/models/Item';
 @Component({
   selector: 'app-validation',
   templateUrl: './validation.component.html',
   styleUrls: ['./validation.component.scss'],
 })
 export class ValidationComponent implements OnInit {
-  isUp1 = false; // Initial state for first button
-  errorStatus = false;
-  role: string | null = '';
-  token: string | null = '';
-  DetailDemande: DetailDemande[] = [];
-  direction = new Direction();
-  nomDirection: string | null = '';
-  fournisseurs: Fournisseur[] = [];
-  periodes: Periode[] = [];
-  demandes = new Demande();
-  donnee = new Demande();
-  texte: String = '';
-  d = new Demande();
-  DonneExcels: DonneeExcel[] = [];
-  demande = {
-    id: '',
-    estRegularisation: false,
-    periode: '',
-    idRubrique: '',
-    sousRubrique: '',
-    motif: '',
-    devise: '',
-    typeDevise: '',
-    comsPrescripteur: '',
-    idDirection: '',
-    idTitreDepense: '',
-    nomReference: '',
-    titre: '',
-    idFournisseur: '',
-    montantHt: '',
-    fournisseur: '',
-    idPeriode: '',
-    validationPrescripteur: false,
-    validationAchat: false,
-    validationCdg: false,
-    typeReference: '',
-    idDemande: '',
-    idperiode: '',
-    comsCd: '',
-    etatFinal: '',
-  };
-  detail = {
-    comsCd: '',
-    idperiode: '',
-  };
-  errorMessage: string = '';
-  toggleUp() {
-    this.isUp1 = !this.isUp1;
-  }
-  comsCd: string | null = '';
-  idPeriode: string | null = '';
-  etatfinal: string | null = '';
-  detaildemande = new DetailDemande();
+  [x: string]: any;
+    
+  // VALEURS PAR DEFAUT
+
+          isUp1 = false; // Initial state for first button
+          isUp2 = false; 
+          errorStatus = false;
+          role: string | null = '';
+          token: string | null = '';
+          DetailDemande: DetailDemande[] = [];
+          direction = new Direction();
+          nomDirection: string | null = '';
+          fournisseurs: Fournisseur[] = [];
+          periodes: Periode[] = [];
+          demandes = new Demande();
+          donnee = new Demande();
+          texte: String = '';
+          d = new Demande();
+          DonneExcels: DonneeExcel[] = [];
+
+          demande = {
+            id: '',
+            estRegularisation: false,
+            periode: '',
+            idRubrique: '',
+            sousRubrique: '',
+            motif: '',
+            devise: '',
+            typeDevise: '',
+            comsPrescripteur: '',
+            idDirection: '',
+            idTitreDepense: '',
+            nomReference: '',
+            titre: '',
+            idFournisseur: '',
+            montantHt: '',
+            fournisseur: '',
+            idPeriode: '',
+            validationPrescripteur: false,
+            validationAchat: false,
+            validationCdg: false,
+            typeReference: '',
+            idDemande: '',
+            idperiode: '',
+            comsCd: '',
+            etatFinal: '',
+          };
+          detail = {
+            comsCd: '',
+            idperiode: '',
+          };
+          errorMessage: string = '';
+          toggleUp() {
+            this.isUp1 = !this.isUp1;
+          }
+          toggleUp2() {
+            this.isUp2 = !this.isUp2;
+          }
+          comsCd: string | null = '';
+          idPeriode: string | null = '';
+          etatfinal: string | null = '';
+          detaildemande = new DetailDemande();
+
+          listeDirections :  Direction [] =[];             /* liste direction  */
+          listeSessions :  SessionCd [] =[];               /* liste sesssion  */
+          
+    //parametrage du filtre
+          filtre_Session : string ='23';
+          filtre_idDirection : string ='1';
+    
+    //session active
+          sessionActive  =  new SessionCd ()  ;
+          dateClotureSession!: Date;
+          groupedDemandes: { [key: string]: DetailDemande[] } = {};
+           items : Item[] = [DetailDemande];
+           groupedDetailDemandes: { [titre: string]: DetailDemande[] } = {};
   constructor(
-    private AuthenticationService: AuthenticationService,
-    private ValidationService: ValidationService
-  ) {
-    this.token = sessionStorage.getItem('token');
-    if(this.token !== null )
-      {
-        /*  ajout nom direction dans la sessionStorage */
-          this.AuthenticationService.getUserInformation().subscribe(response =>
-            {
-                /* recuperation de l'id direction */
-                
-                this.nomDirection = AuthenticationService.getDirection(response['groups'])  ;
-                if(this.nomDirection !== null)
-                  {
-                    this.AuthenticationService.getDirectionByName(this.nomDirection).subscribe(response =>{
-                       this.direction = response
-                        this.direction.id = response.id;  
-                        console.log('blaoohi',response);
-                      });
-                  }
-            });
-  
-  
-      
-      }
-  }
+      private authenticationService: AuthenticationService,
+      private ValidationService: ValidationService,
+      private utilitaires: UtilitaireService
+  ) { 
+   
+   }
 
   ngOnInit(): void {
-    ///maka detaildemande
-    this.ValidationService.getBrouillon().subscribe((DetailDemande) => {
-      this.DetailDemande = DetailDemande;
-      //maka par detail
-      console.log(DetailDemande);
-    });
-    // maka ny periode
-    this.ValidationService.getPeriode().subscribe((data) => {
-      this.periodes = data;
-    });
-    // this.detailvalues.forEach((detail) => {
-    //   this.detailvalues[detail.id]=detail.coms;
-    // });
-    ///maka decision
-    // this.ValidationService.getcomsCdByid(this.id).subscribe(response=> {
-    //   this.Decision = response;
-    //   console.log(response,"////////////////");
-    //   this.decision.commentaireCd = this.Decision ;
+    // const groupedItems = this.items.reduce((acc, item) => {
+    //   if (!acc[(item.titre as string)]) {
+    //     acc[(item.titre as string)] = [];
+    //   }
+    //   acc[(item.titre as string)].push(item);
+    //   return acc;
+    // }, {});
+    
+    //console.log(groupedItems,"//////////orde");
+  // initialisation des données par defaut
+        this.token = sessionStorage.getItem('token');
+        if(this.token !== null )
+          {
+            /*  ajout nom direction dans la sessionStorage */
+              this.authenticationService.getUserInformation().subscribe(response =>
+                {
 
-    //////////Affichage du commentaire Cdg
-    //   this.ValidationService.getCdgById(this.DetailDemande.).subscribe(response=> {
-    //     this.aviscdgs = response;
+                    /* recuperation de l'id direction */
+                    this.nomDirection = this.authenticationService.getDirection(response['direction'])  ;
+                    if(this.nomDirection !== null)
+                      {
+                        
+                              this.authenticationService.getDirectionByName(this.nomDirection).subscribe(response =>{
+                                this.direction = response;
+                                  this.direction.id = response.id;  
+                                  console.log('blaoohi',response);
+                  
 
-    //   // maka avisAchat
-    //   this.ValidationService.getAchatById(this.id).subscribe(response=> {
-    //     this.avisAchat = response;
-    //     });
-    // }
+                                              /* OBTENIR detaildemande getFiltreDetailDemande */
+                                              // this.ValidationService.getBrouillon().subscribe((DetailDemande) => {
+                                                this.ValidationService.getFiltreDetailDemande(this.direction.id?.toString()?? '',this.detaildemande.idSession?? '').subscribe((filtreDetailDemande) => {
+                                                  this.DetailDemande = filtreDetailDemande;
+                                                  
+                                                  
+                                                   this.groupedDetailDemandes = filtreDetailDemande.reduce((acc, item) => {
+                                                    if (item.titre) {
+                                                      if (!acc[item.titre]) {
+                                                        acc[item.titre] = [];
+                                                      }
+                                                      acc[item.titre].push(item);
+                                                    }
+                                                    return acc;
+                                                  }, {} as { [titre: string]: DetailDemande[] });
+                                              
+                                                  // Now you have groupedDetailDemandes which is an object with titles as keys and arrays of DetailDemande objects as values
+                                                  console.log(this.groupedDetailDemandes,'regroupenet detadeùande'); // Output: { "Titre 1": [...], "Titre 2": [...] } (depending on your data)
+                                                  
+                                                  //recuperation par detail
+                                                  // console.log("grr");
+                                                  
+                                                  // console.log(DetailDemande);
+                                                });             
+                                });
+                      }
+                });
+          }
+      
 
-    //setdemande
-    //set selected option
-    setTimeout(() => {
-      this.setSelected('13', 'idPeriode');
-    }, 1000);
-  }
+        /* recuperation de tous les direction */
+        this.utilitaires.getDirection().subscribe(  ( result ) => {this.listeDirections =  result;} );
+        
+        /* recuperation de tous les session */
+        this.utilitaires.getSession().subscribe(  ( result ) => {this.listeSessions =  result;} );
+   
+        // recuperation ny periode
+        this.ValidationService.getPeriode().subscribe((data) => {
+          this.periodes = data;
+        });
+
+
+        setTimeout(() => {
+          this.setSelected('13', 'idPeriode');
+        }, 1000);
+
+    this.groupedDemandes = this.groupByTitle(this.DetailDemande);
+        
+      }
+      // regroupement par titre des demandes 
+      groupByTitle(demandes: DetailDemande[]): { [key: string]: DetailDemande[] } {
+        const grouped: { [key: string]: DetailDemande[] } = {};
+        demandes.forEach(demande => {
+          const titre = demande.titre;
+          if (typeof titre === 'string') { // Vérification de type
+            if (!grouped[titre]) {
+              grouped[titre] = [];
+            }
+            grouped[titre].push(demande);
+          } else {
+            // Gérer le cas où titre n'est pas une chaîne de caractères
+          }
+        });
+        return grouped;
+      }
   getid(idperiode: any) {}
 
   //set SELECTED OPTION
@@ -173,7 +238,7 @@ export class ValidationComponent implements OnInit {
   }
   ///modication demande
   enregistrer(de: any) {
-    //maka par detail
+    //recuperation par detail
     this.ValidationService.getdemande(de).subscribe((response) => {
       this.demandes = response;
       //console.log(response,"////////////////");
@@ -247,4 +312,57 @@ export class ValidationComponent implements OnInit {
   //   }
   //   this.ValidationService.exportToExcel(this.DonneExcels, 'MyData.xlsx');
   // }
+
+
+  //FILTRATION ligne de validation
+  filtreValidation(){
+    
+    this.ValidationService.getFiltreDetailDemande(this.filtre_idDirection,this.filtre_Session).subscribe((resultatFiltre) => {
+      this.DetailDemande = resultatFiltre;
+
+    });
+  }
+
+  actualiser() {
+    this.filtre_Session = '';
+    this.filtre_idDirection = '';
+    this.filtreValidation();
+  }
+
+
+
+  //get de la session active
+  getActiveSession()  {
+
+    this.utilitaires.getSessionByDirection(this.direction.id?.toString() ?? '')
+    .subscribe(
+      (result) =>{
+        
+        console.log(result);
+
+        this.sessionActive = result;
+      });
+  }
+
+  updateSession(){
+    if(this.sessionActive.id !== undefined)
+    { 
+
+      this.utilitaires.updateSession(this.sessionActive.id ,this.sessionActive )  
+      .subscribe(
+        response => {
+          console.log('Mise à jour réussie:', response);
+        },
+        error => {
+          console.error('Erreur lors de la mise à jour:', error);
+        }
+      );   
+
+
+  }
+    
+
+
+  }
+
 }

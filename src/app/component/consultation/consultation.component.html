@@ -25,12 +25,15 @@
             <div class="input-group mb-2">
               <select
                 class="form-select"
-                [ngModel]="this.demande.statut"
-                id="inputGroupSelect02"
+                [(ngModel)]="this.demande.statut"
+                
               >
-                <option value="1">OK</option>
-                <option value="2">NOK</option>
-                <option value="3">Stand By</option>
+              <option *ngFor="let item of this.statut" [value]="item.value">
+                {{ item.item }}
+              </option>
+                <!-- <option >OK</option>
+                <option >NOK</option>
+                <option >En Attente</option> -->
               </select>
             </div>
           </div>
@@ -76,7 +79,7 @@
             <input
               type="text"
               class="form-control mb-2"
-              placeholder="Username"
+              placeholder=""
               aria-label=""
               aria-describedby="basic-addon1"
               [(ngModel)]="demande.motif"
@@ -96,16 +99,16 @@
             <input
               type="date"
               class="form-control mb-2"
-              placeholder="Username"
-              aria-label="Username"
+              placeholder=""
+              aria-label=""
               aria-describedby="basic-addon1"
               [(ngModel)]="demande.datedebut"
             />
             <input
               type="date"
               class="form-control mb-2"
-              placeholder="Username"
-              aria-label="Username"
+              placeholder=""
+              aria-label=""
               aria-describedby="basic-addon1"
               [(ngModel)]="demande.datefin"
             />
@@ -120,15 +123,17 @@
                     this.demande.motif,
                     this.demande.datedebut,
                     this.demande.datefin,
-                    this.demande.idsession,
-                    this.demande.idFournisseur
+                    this.demande.SessionCd,
+                    this.demande.idFournisseur,
+                    this.demande.idsession
+
                   )
                 "
               >
                 <i class="icon fas fa-search"></i>
               </button>
               <button
-                class="btn btn-primary mb-2 p-2"
+                class="btn btn-white mb-2 p-2"
                 type="button"
                 (click)="supprimer()"
               >
@@ -220,7 +225,7 @@
     <div class="bt p-3 d-flex justify-content-end">
       <button
         type="button"
-        class="btn btn-primary p-2"
+        class="btn btn-success text-white p-2"
         (click)="exportToExcel()"
       >
         Exporter

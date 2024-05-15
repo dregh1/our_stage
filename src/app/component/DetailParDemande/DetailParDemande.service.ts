@@ -144,7 +144,7 @@ export class TesteService {
   //modication demande
   updateAchat(id: number, data: any): Observable<any> {
     const headers = this.getHeaders();
-    return this.http.put<any>(`${this.baseUrl2}/avisCdg/${id}`, data, {
+    return this.http.put<any>(`${this.baseUrl4}/avisAchat/${id}`, data, {
       headers,
     });
   }
@@ -155,4 +155,22 @@ export class TesteService {
       headers,
     });
   }
+
+  // maka titre by id
+  gettitreById(id: number): Observable<Titre> {
+    const headers = this.getHeaders();
+    return this.http.get<Titre>(
+      `${this.baseUrl2}/titre/${id}`,
+      { headers }
+    );
+  }
+  //modication titredepense
+  updatetitredepense(id: number, data: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put<any>(`${this.baseUrl2}/titre/${id}`, data, {
+      headers,
+    });
+  }
+
+  
 }

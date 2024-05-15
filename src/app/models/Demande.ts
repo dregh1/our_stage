@@ -1,7 +1,7 @@
 export class Demande {
   constructor(
     public id?: number,
-    public idsession?: number,
+    public idSession?: number,
     public idTitreDepense?: number,
     public idDirection?: number,
     public motif?: string,
@@ -22,7 +22,9 @@ export class Demande {
     public validationPrescripteur?: boolean,
     public validationCdg?: boolean,
     public etatFinal?: boolean,
-    public comsCd?: string
+    public comsCd?: string,
+    public estRefuserCdg?:boolean,
+    public estRefuserAchat?:boolean
   ) // Autres propriétés de votre modèle de données personnel
   {}
 }

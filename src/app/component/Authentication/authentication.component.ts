@@ -17,7 +17,7 @@ import { AuthenticationService } from './authentication.service';
 export class AuthenticationComponent implements OnInit {
   public errorStatus = false;
   //errorMessage ='Identifiant ou mot de passe incorrect' ;
-  errorMessage: string = '';
+  errorMessage= '';
   spinnershow:boolean = false;
   showPassword: boolean = false;
   showmesg = false;
@@ -66,7 +66,7 @@ export class AuthenticationComponent implements OnInit {
         
         .subscribe((response: any) => {
           // Si la requête est réussie, le token est accessible ici
-          if (response.hasOwnProperty('access_token')) {
+          if (response.hasOwnProperty('access_token') ) {
             const token = response.access_token;
 
             // Stockez le token dans le stockage du navigateur ou utilisez-le directement
@@ -84,9 +84,13 @@ export class AuthenticationComponent implements OnInit {
             // Une erreur s'est produite
             console.error("Erreur lors de l'obtention du jeton:", response);
             this.logError();
-            this.errorMessage = 'mot de passe incorrect';
+            
           }
-        })
+        },
+      (error) => {
+          this.errorMessage='Identifiant incorrect';
+      }
+      )
     );
   }
 

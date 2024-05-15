@@ -1,9 +1,9 @@
-body{
-  background-color: #eee;
-  height: 770px;
-}
+// body{
+//   background-color: #eee;
+//   height: 770px;
+// }
 fieldset{
-  background-color: #ddd;
+  background-color: #eee;
 }
 .scrollmenu {
   overflow: auto;
@@ -25,10 +25,10 @@ fieldset{
 .input-group,.form-control{
       width: 200px;
    }
-.icon{font-size: 30px;}
+.icon{font-size: 20px;}
  @media (max-width: 768px) {
      .icon{
-         font-size: 18px;
+         font-size: 10dpx;
       } 
      .input-group,.form-control{
         width: 100px;

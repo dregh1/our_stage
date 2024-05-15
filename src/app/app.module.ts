@@ -4,15 +4,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { AuthenticationComponent } from './component/authentication copy/authentication.component';
+import { AuthenticationComponent } from './component/Authentication/authentication.component';
 import { ConsultationComponent } from './component/consultation/consultation.component';
 import { NotificationComponent } from './component/notification/notification.component';
 import { MainComponent } from './component/main/main.component';
-import { CreationPrescripteurComponent } from './component/creation-prescripteur/creation-prescripteur.component';
-import { CreationSession1Component } from './component/CreationSession/creation-session1.component';
+import { CreationPrescripteurComponent } from './component/CreationPrescripteur/CreationPrescripteur.component';
+import { CreationSession1Component } from './component/CreationSession/CreationSession.component';
 import { HeaderComponent } from './component/header/header.component';
 import { TestComponent } from './component/DetailParDemande/DetailParDemande.component';
-import { MenuDemandeComponent } from './component/MenuDemande/menu-demande.component';
+import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
 import { ValidationComponent } from './component/validation/validation.component';
 
 @NgModule({
@@ -27,17 +27,11 @@ import { ValidationComponent } from './component/validation/validation.component
     CreationPrescripteurComponent,
     CreationSession1Component,
     TestComponent,
-    MenuDemandeComponent
-  //  DetailComponent
+    MenuDemandeComponent,
+    //  DetailComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule ,
-    AppRoutingModule,
-    FormsModule
-  ],
-  providers: [
-  ],
-  bootstrap: [AppComponent]
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

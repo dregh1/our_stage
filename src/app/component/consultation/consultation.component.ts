@@ -24,6 +24,13 @@ export class ConsultationComponent implements OnInit {
     idsession: '',
   };
 
+  statut=
+  [
+    { value : "OK", item : "OK"},
+    { value : "NOK", item : "NOK"},
+    { value : "En Attente", item : "En Attente"},
+  ]
+
   DonneExcels: DonneeExcel[] = [];
   title = 'angular-excel-export';
   allDetails: DetailDemande[] = [];
@@ -33,82 +40,86 @@ export class ConsultationComponent implements OnInit {
   constructor(private consultationService: ConsultationService) {}
 
   ngOnInit(): void {
-    // maka ny fournisseur
-    this.consultationService.getFournisseur().subscribe((data) => {
-      this.fournisseurs = data;
+   // maka ny fournisseur
+   this.consultationService.getFournisseur().subscribe((data) => {
+    this.fournisseurs = data;
+  });
+  // maka ny direction
+  this.consultationService.getdirection().subscribe((data) => {
+    this.directions = data;
+  });
+  //maka session
+  this.consultationService.getsession().subscribe((data) => {
+    this.sessioncd = data;
+  });
+  //GET all CONSULTATION (detailDemande)
+  // this.consultationService.search("1","ok","on","2024-01-01","2024-08-01","CD-15121551","1").subscribe(data =>
+  this.consultationService
+    .search('', '', '', '', '', '', '','')
+    .subscribe((data) => {
+      this.allDetails = data;
     });
-    // maka ny direction
-    this.consultationService.getdirection().subscribe((data) => {
-      this.directions = data;
+}
+
+rechercher(
+  direction: string,
+  statut: string,
+  motif: string,
+  dateDebut: string,
+  dateFin: string,
+  session: string,
+  idFournisseur: string,
+  idsession: string,
+
+) {
+  this.consultationService
+    .search(
+      direction,
+      statut,
+      motif,
+      dateDebut,
+      dateFin,
+      session,
+      idFournisseur,
+      idsession
+
+    )
+    .subscribe((data) => {
+      this.allDetails = data;
     });
-    //maka session
-    this.consultationService.getsession().subscribe((data) => {
-      this.sessioncd = data;
+}
+
+supprimer() {
+  this.demande.idDirection = '';
+  this.demande.statut = '';
+  this.demande.idsession = '';
+  this.demande.idFournisseur = '';
+  this.demande.motif = '';
+  this.demande.datedebut = '';
+  this.demande.datefin = '';
+  this.rechercher('', '', '', '', '', '', '','');
+}
+
+//exporter excel
+exportToExcel(): void {
+  //aectation données eccdel
+  for (const detail of this.allDetails) {
+    this.DonneExcels.push({
+      Typereference: detail.typereference,
+      Motif: detail.motif,
+      Fournisseur: detail.fournisseur,
+      Devise: detail.devise,
+      MontantHt: detail.montantht,
+      Commentaireprescripteur: detail.comsprescripteur,
+      Periode: detail.periode,
+      Regularisation: detail.estregularisation,
+      commentaireCdg: detail.comsCdg,
+      commentaireAchat: detail.comsAchat,
+      Decision: detail.etatFinal,
+      commentaireCd: detail.comsCd,
+      MontantMga: detail.montantMga,
     });
-    //GET all CONSULTATION (detailDemande)
-    // this.consultationService.search("1","ok","on","2024-01-01","2024-08-01","CD-15121551","1").subscribe(data =>
-    this.consultationService
-      .search('', '', '', '', '', '', '')
-      .subscribe((data) => {
-        this.allDetails = data;
-      });
   }
-
-  rechercher(
-    direction: string,
-    statut: string,
-    motif: string,
-    dateDebut: string,
-    dateFin: string,
-    idsession: string,
-    idFournisseur: string
-  ) {
-    this.consultationService
-      .search(
-        direction,
-        statut,
-        motif,
-        dateDebut,
-        dateFin,
-        idsession,
-        idFournisseur
-      )
-      .subscribe((data) => {
-        this.allDetails = data;
-      });
-  }
-
-  supprimer() {
-    this.demande.idDirection = '';
-    this.demande.statut = '';
-    this.demande.idsession = '';
-    this.demande.idFournisseur = '';
-    this.demande.motif = '';
-    this.demande.datedebut = '';
-    this.demande.datefin = '';
-    this.rechercher('', '', '', '', '', '', '');
-  }
-
-  //exporter excel
-  exportToExcel(): void {
-    //aectation données eccdel
-    for (const detail of this.allDetails) {
-      this.DonneExcels.push({
-        Typereference: detail.typereference,
-        Motif: detail.motif,
-        Fournisseur: detail.fournisseur,
-        Devise: detail.devise,
-        MontantHt: detail.montantht,
-        Commentaireprescripteur: detail.comsprescripteur,
-        Periode: detail.periode,
-        Regularisation: detail.estregularisation,
-        commentaireCdg: detail.comsCdg,
-        commentaireAchat: detail.comsAchat,
-        Decision: detail.etatFinal,
-        commentaireCd: detail.comsCd,
-        MontantMga: detail.montantMga,
-      });
-    }
-    this.consultationService.exportToExcel(this.DonneExcels, 'MyData.xlsx');
-  }
+  this.consultationService.exportToExcel(this.DonneExcels, 'MyData.xlsx');
+}
 }
