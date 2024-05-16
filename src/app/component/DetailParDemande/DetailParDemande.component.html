@@ -78,9 +78,7 @@
                                                     <!--CREATION TITRE-->
                                                     <div class="input-group mb-2">
                                                       <select class="form-select" [(ngModel)]="this.demande.idTitreDepense" id="titreDepense" aria-label="Liste déroulante des titres de dépenses">
-                                                        <ng-container *ngFor="let titre of titres">
-                                                          <option *ngIf="titre.idDirection === this.direction.id && titre.designation!='sans titre'" [value]="titre.id">{{ titre.designation }}</option>
-                                                        </ng-container>
+                                                          <option *ngFor="let titre of titres" [value]="titre.id">{{ titre.designation }}</option>
                                                       </select>
                                                      <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">+</button>
                                                    </div>
@@ -202,7 +200,7 @@
                              <!-- messange validé ou non par le Cdg -->
                              <div class="d-flex justify-content-end">
                               <p class="text-success p-2">
-                                {{ this.demande.validationCdg ? 'validé' : 'Non validé' }}
+                                {{ this.demande.validationCdg ? 'validé' : this.demande.estRefuseCdg ? 'Refusé' : 'En attente' }}
                               </p>
                             </div>
                             </div>
@@ -211,13 +209,13 @@
                           <!-- <div  class="bt p-3 d-flex justify-content-end">
                             <button *ngIf="this.demande.validationCdg" class="btn btn-primary mx-3" (click)="annulationCdg()">Annuler</button>
                           </div> -->
-                          <div *ngIf="role === 'CDG' && this.demande.validationCdg === false" class="bt p-3 d-flex justify-content-end" >
+                          <div *ngIf="role === 'CDG' && this.demande.validationCdg === false && this.demande.estRefuseCdg === false" class="bt p-3 d-flex justify-content-end" >
                             <div class="error-message">
                               <p class="text-success">{{ errorMessage }}</p>
                             </div>
                             <button type="button" class="btn btn-primary mx-3"(click)="enregistrerCdg()" >Enregistrer</button> 
-                            <button type="button" class="btn btn-primary mx-3" (click)="modificationCdg()" >Modifier</button> 
-                            <button type="button" class="btn btn-primary mx-3"(click)="refuserAchat()">Refuser</button>  
+                            <button type="button" class="btn btn-primary mx-3" *ngIf="this.existanceAvisCdg === true" (click)="modificationCdg()" >Modifier</button> 
+                            <button type="button" class="btn btn-primary mx-3"(click)="refuserCdg()">Refuser</button>  
                             
                               <button type="button" class="btn btn-primary" (click)="validationCdg()">Valider</button>  
                             
@@ -245,7 +243,7 @@
                                 <!-- messange validé ou non par le Cdg -->
                                 <div class="d-flex justify-content-end">
                                   <p class="text-success p-2">
-                                    {{ this.demande.validationAchat ? 'validé' : 'Non validé' }}
+                                    {{ this.demande.validationAchat ? 'validé' : this.demande.estRefuseAchat ? 'Refusé' : 'En attente' }}
                                   </p>
                                 </div>
                               </div>
@@ -254,12 +252,13 @@
                         <!-- <div  class="bt p-3 d-flex justify-content-end">
                           <button *ngIf="this.demande.validationAchat" class="btn btn-primary mx-3" (click)="annulationAchat()">Annuler</button>
                         </div> -->
-                        <div class="bt p-3 d-flex justify-content-end" *ngIf="this.demande.validationAchat === false" >
+                        <div class="bt p-3 d-flex justify-content-end" *ngIf="this.demande.validationAchat === false && this.demande.estRefuseAchat === false " >
                           <div class="error-message">
                             <p class="text-success">{{ errorMessage }}</p>
                           </div>
                           <button type="button" class="btn btn-primary mx-3" (click)="EnregistrerAchat()">Enregistrer</button>  
-                          <button type="button" class="btn btn-primary mx-3" (click)="modificationAchat()">Modifier</button>   
+                          <button type="button" *ngIf="this.existanceAvisAchat === true" class="btn btn-primary mx-3" (click)="modificationAchat()">Modifier</button>   
+                          <button type="button" class="btn btn-primary mx-3"(click)="refuserAchat()">Refuser</button>  
                           <button type="button" class="btn btn-primary mx-3" (click)="validationAchat()">Valider</button>  
                         </div> 
                       

@@ -39,7 +39,7 @@ export class CreationPrescripteurComponent implements OnInit {
   // valeur
   periode: any;
   estregularisation: boolean;
-  idSession: any = 3351;
+  idSession: any = '';
   idTitredepense: any = 1;
   motif: any;
   montantHt: any;
@@ -90,7 +90,7 @@ session=new SessionCd();
       /*  ajout nom direction dans la sessionStorage */
         this.AuthenticationService.getUserInformation().subscribe(response =>
           {
-              //maka role
+              //recuperation role
               this.role = AuthenticationService.getRole(response['groups'])  ;
               console.log(this.role,"quel role");
               
@@ -109,14 +109,33 @@ session=new SessionCd();
                       
                       //this.idsession=this.direction.id?.toString()??'';
 
-                      //maka id session
+                      //recuperation id session
                       console.log("data---------------------");
+                      
                       this.utilitaire.getSessionByDirection(this.direction.id?.toString() ?? '').subscribe((data) => {
-                        console.log(data);
-                        
-                        this.session = data;
-                        this.idsession=data.id?.toString() ?? '';
-                        console.log(this.idsession,'sessionnnnnnnnnnnnnnnnnn////');
+                        // console.log(this.idSession);
+
+                          if(data !== null)
+                          {
+                            console.log(data);
+                            this.session = data;
+                            this.idsession=data.id?.toString() ?? '';
+                            console.log(this.idsession,'sessionnnnnnnnnnnnnnnnnn////');
+                          }
+                  
+                        //recuperation titre
+                          this.utilitaire.getTitres(this.direction.id?.toString() ?? '',this.idSession).subscribe(
+                            (resultAsTitres)=>{
+                                console.log("resultAsTitres");
+                              
+                                console.log(resultAsTitres);
+                                
+                                this.titres = resultAsTitres ;
+                            },
+                            (error)=>{
+                                error.log(error);
+                            }
+                            );
                         
                       });
                     });
@@ -131,21 +150,22 @@ session=new SessionCd();
   // submit bouton ouvrir session
 
   ngOnInit(): void {
-    //maka titre
-    this.CreationPrescripteurService.getTitre().subscribe((data) => {
-      this.titres = data;
-    });
+    //recuperation titre
+    
+    // this.utilitaire.getTitres().subscribe((data) => {
+    //   this.titres = data;
+    // });
 
-    // maka ny fournisseur
+    // recuperation ny fournisseur
     this.CreationPrescripteurService.getFournisseur().subscribe((data) => {
       this.fournisseurs = data;
     });
 
-    // maka ny periode
+    // recuperation ny periode
     this.CreationPrescripteurService.getPeriode().subscribe((data) => {
       this.periodes = data;
     });
-    //maka rubrique
+    //recuperation rubrique
     this.CreationPrescripteurService.getRubrique().subscribe((data) => {
       this.rubriques = data;
     });
@@ -197,10 +217,8 @@ session=new SessionCd();
       console.log(this.demande.idDirection, 'ito n id direction ');
       // INSERTION DEMANDE par role
     if(this.role=="ACH" || this.role=="CDG"){
-      console.log("/////////////////////////////////");
-      
       this.demande.validationPrescripteur=true;
-      console.log(this.idsession,"///session anidroany");
+      console.log(this.idsession,"session anidroany");
       
       this.demande.idSession=this.idsession;
       console.log("achat ou prescripteur zany",this.demande.validationPrescripteur);

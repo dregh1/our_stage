@@ -14,13 +14,12 @@ import { HeaderComponent } from './component/header/header.component';
 import { TestComponent } from './component/DetailParDemande/DetailParDemande.component';
 import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
 import { ValidationComponent } from './component/validation/validation.component';
-
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    AuthenticationComponent,
     ValidationComponent,
+    AuthenticationComponent,
     ConsultationComponent,
     NotificationComponent,
     MainComponent,

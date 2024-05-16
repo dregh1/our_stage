@@ -68,11 +68,11 @@ export class ValidationService {
 
       const queryParams = new URLSearchParams();
       queryParams.append('idDirection', idDirection ? encodeURIComponent(idDirection) : ''); // Handle empty strings and special characters
-      queryParams.append('session', sessionCd ? encodeURIComponent(sessionCd) : '');
+      queryParams.append('idSession', sessionCd ? encodeURIComponent(sessionCd) : '');
     
 
       
-      const url = `${this.baseUrl}/detailDemande/search?${queryParams.toString()}`; // Build URL with encoded params
+      const url = `${this.baseUrl}/getValidation?${queryParams.toString()}`; // Build URL with encoded params
 
       return this.http.get<DetailDemande[]>(url, { headers });
     //  return this.http.get<DetailDemande[]>(this.baseUrl+`/search?idDirection=${idDirection}&statut=${statut}&motif=${motif}&dateDebut=${datedebut}&dateFin=${datefin}&session=${session}&idFournisseur=${idfournisseur}`,{headers});

@@ -10,8 +10,9 @@ import { DonneeExcel } from 'src/app/models/DonneExcel';
 import * as XLSX from 'xlsx';
 import { UtilitaireService } from 'src/app/service/utilitaire.service';
 import { SessionCd } from 'src/app/models/SessionCd';
-import { DetailDemandeParTitre } from 'src/app/models/DetailParTitre';
-import {Item}from 'src/app/models/Item';
+
+// import { DetailDemandeParTitre } from 'src/app/models/DetailParTitre';
+// import {Item}from 'src/app/models/Item';
 @Component({
   selector: 'app-validation',
   templateUrl: './validation.component.html',
@@ -70,12 +71,16 @@ export class ValidationComponent implements OnInit {
             idperiode: '',
           };
           errorMessage: string = '';
-          toggleUp() {
-            this.isUp1 = !this.isUp1;
+          // toggleUp() {
+          //   this.isUp1 = !this.isUp1;
+          // }
+          toggleUp(groupTitleKey: string): void {
+            const collapseElement = document.getElementById(`collapseExample-${groupTitleKey}`);
+            if (collapseElement) {
+              collapseElement.classList.toggle('show');
+            }
           }
-          toggleUp2() {
-            this.isUp2 = !this.isUp2;
-          }
+         
           comsCd: string | null = '';
           idPeriode: string | null = '';
           etatfinal: string | null = '';
@@ -87,12 +92,13 @@ export class ValidationComponent implements OnInit {
     //parametrage du filtre
           filtre_Session : string ='23';
           filtre_idDirection : string ='1';
-    
+          session=new SessionCd();
+          idsession:string ='';
     //session active
           sessionActive  =  new SessionCd ()  ;
           dateClotureSession!: Date;
-          groupedDemandes: { [key: string]: DetailDemande[] } = {};
-           items : Item[] = [DetailDemande];
+          //groupedDemandes: { [key: string]: DetailDemande[] } = {};
+          
            groupedDetailDemandes: { [titre: string]: DetailDemande[] } = {};
   constructor(
       private authenticationService: AuthenticationService,
@@ -103,15 +109,15 @@ export class ValidationComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // const groupedItems = this.items.reduce((acc, item) => {
-    //   if (!acc[(item.titre as string)]) {
-    //     acc[(item.titre as string)] = [];
+    // this.groupedDetailDemandes.sort((a, b) => {
+    //   if (a.key === 'sans titre') {
+    //     return 1; // Move groups with 'sans titre' key to the end
+    //   } else if (b.key === 'sans titre') {
+    //     return -1; // Move groups with 'sans titre' key to the end
     //   }
-    //   acc[(item.titre as string)].push(item);
-    //   return acc;
-    // }, {});
-    
-    //console.log(groupedItems,"//////////orde");
+    //   return a.key.localeCompare(b.key); // Default alphabetical sorting for other keys
+    // });
+  
   // initialisation des données par defaut
         this.token = sessionStorage.getItem('token');
         if(this.token !== null )
@@ -130,12 +136,30 @@ export class ValidationComponent implements OnInit {
                                   this.direction.id = response.id;  
                                   console.log('blaoohi',response);
                   
+                                        
+                        //RECUPERATION id session
 
+
+                                      this.utilitaires.getSessionByDirection(this.direction.id?.toString() ??'' ).subscribe((data) => {
+                                        if(data !== null)
+                                        {
+                                              console.log("------------ session ------------");
+                                              console.log(data);
+                                              
+                                              this.session = data;
+                                              this.idsession = data.id?.toString() ?? '';
+                                            console.log(this.idsession,'sessionnnnnnnnnnnnnnnnnn');
+                                          
+                                
                                               /* OBTENIR detaildemande getFiltreDetailDemande */
                                               // this.ValidationService.getBrouillon().subscribe((DetailDemande) => {
-                                                this.ValidationService.getFiltreDetailDemande(this.direction.id?.toString()?? '',this.detaildemande.idSession?? '').subscribe((filtreDetailDemande) => {
+                                                this.ValidationService.getFiltreDetailDemande(this.direction.id?.toString()?? '',this.idsession?? '')
+                                                .subscribe((filtreDetailDemande) => {
+                                                  console.log(this.direction.id?.toString()?? '',this.idsession + '-----------------');
+                                                  
                                                   this.DetailDemande = filtreDetailDemande;
                                                   
+                                                  console.log(this.DetailDemande,'retookkggg');
                                                   
                                                    this.groupedDetailDemandes = filtreDetailDemande.reduce((acc, item) => {
                                                     if (item.titre) {
@@ -154,9 +178,13 @@ export class ValidationComponent implements OnInit {
                                                   // console.log("grr");
                                                   
                                                   // console.log(DetailDemande);
-                                                });             
+                                                  
+                                                }) ;    
+                                              }       
                                 });
-                      }
+                              // }
+                    });
+                  }
                 });
           }
       
@@ -173,11 +201,11 @@ export class ValidationComponent implements OnInit {
         });
 
 
-        setTimeout(() => {
-          this.setSelected('13', 'idPeriode');
-        }, 1000);
+        // setTimeout(() => {
+        //   this.setSelected('13', 'idPeriode');
+        // }, 1000);
 
-    this.groupedDemandes = this.groupByTitle(this.DetailDemande);
+   // this.groupedDemandes = this.groupByTitle(this.DetailDemande);
         
       }
       // regroupement par titre des demandes 
@@ -197,7 +225,18 @@ export class ValidationComponent implements OnInit {
         return grouped;
       }
   getid(idperiode: any) {}
-
+  // sortGroupsByKey(data: groupedDetailDemandes): groupedDetailDemandes {
+  //   const keyToFind = 'sans titre'; // Replace with your actual key
+  
+  //   const filteredIndex = data.findIndex(group => group.key === keyToFind);
+  
+  //   if (filteredIndex !== -1) {
+  //     const matchedGroup = data.splice(filteredIndex, 1)[0];
+  //     data.push(matchedGroup);
+  //   }
+  
+  //   return data;
+  // }
   //set SELECTED OPTION
   setSelected(id: string, idHtml: string) {
     console.log('ato!');
@@ -322,32 +361,24 @@ export class ValidationComponent implements OnInit {
 
     });
   }
-
   actualiser() {
     this.filtre_Session = '';
     this.filtre_idDirection = '';
     this.filtreValidation();
   }
-
-
-
   //get de la session active
   getActiveSession()  {
 
     this.utilitaires.getSessionByDirection(this.direction.id?.toString() ?? '')
     .subscribe(
       (result) =>{
-        
-        console.log(result);
-
+       console.log(result);
         this.sessionActive = result;
       });
   }
-
   updateSession(){
     if(this.sessionActive.id !== undefined)
     { 
-
       this.utilitaires.updateSession(this.sessionActive.id ,this.sessionActive )  
       .subscribe(
         response => {
@@ -357,12 +388,6 @@ export class ValidationComponent implements OnInit {
           console.error('Erreur lors de la mise à jour:', error);
         }
       );   
-
-
   }
-    
-
-
   }
-
 }

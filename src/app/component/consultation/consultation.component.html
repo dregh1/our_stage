@@ -114,7 +114,7 @@
             />
             <div class="d-flex">
               <button
-                class="btn btn-primary mb-2 p-2 mx-3"
+                class="btn btn-primary text-white mb-2 p-2 mx-3"
                 type="button"
                 (click)="
                   rechercher(
@@ -133,7 +133,7 @@
                 <i class="icon fas fa-search"></i>
               </button>
               <button
-                class="btn btn-white mb-2 p-2"
+                class="btn btn-primary text-white mb-2 p-2"
                 type="button"
                 (click)="supprimer()"
               >
@@ -186,35 +186,35 @@
             <div style="height: 300px" data-offset="50">
               <table class="table" id="montable">
                 <tr>
+                  <th class="p-3">REGULARISATION</th>
                   <th class="p-3">Type</th>
                   <th class="p-3">Motif</th>
                   <th class="p-3">Montant (HT)</th>
                   <th class="p-3">Devise</th>
                   <th class="p-3">Fournisseur</th>
+                  <th class="p-3">Montant MGA HT</th>
                   <th class="p-3">C/aire prs</th>
                   <th class="p-3">Periode</th>
-                  <th class="p-3">REGULARISATION</th>
                   <th class="p-3">C/aires CDG</th>
                   <th class="p-3">C/aires DASC</th>
                   <th class="p-3">Decision CD</th>
                   <th class="p-3">C/aires CD</th>
-                  <th class="p-3">Montant MGA HT</th>
                 </tr>
 
                 <tr *ngFor="let detail of this.allDetails">
+                  <td class="p-3">{{ this.detail.estregularisation }}</td>
                   <td class="p-3">{{ this.detail.typereference }}</td>
                   <td class="p-3">{{ this.detail.motif }}</td>
                   <td class="p-3">{{ this.detail.montantht }}</td>
                   <td class="p-3">{{ this.detail.devise }}</td>
                   <td class="p-3">{{ this.detail.fournisseur }}</td>
+                  <td class="p-3">{{ this.detail.montantMga }}</td>
                   <td class="p-3">{{ this.detail.comsprescripteur }}</td>
                   <td class="p-3">{{ this.detail.periode }}</td>
-                  <td class="p-3">{{ this.detail.estregularisation }}</td>
                   <td class="p-3">{{ this.detail.comsCdg }}</td>
                   <td class="p-3">{{ this.detail.comsAchat }}</td>
                   <td class="p-3">{{ this.detail.etatFinal }}</td>
                   <td class="p-3">{{ this.detail.comsCd }}</td>
-                  <td class="p-3">{{ this.detail.montantMga }}</td>
                 </tr>
               </table>
             </div>

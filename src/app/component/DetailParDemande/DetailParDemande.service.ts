@@ -37,7 +37,23 @@ export class TesteService {
   //maka titre
   getTitre(): Observable<Titre[]> {
     const headers = this.getHeaders();
-    return this.http.get<Titre[]>(this.baseUrl2 + '/titre/get', { headers });
+    return this.http.get<Titre[]>(this.baseUrl + '/titre/get', { headers });
+  }
+  //get titre par session et direction
+  GetTitreParSession(idDirection : string | '' , idsession :string | ''): Observable<Titre[]>{
+    const headers = this.getHeaders();
+    const queryParams = new URLSearchParams();
+
+    // if(idDirection !== '')
+    queryParams.append('idDirection', idDirection ? encodeURIComponent(idDirection) : ''); // Handle empty strings and special characters
+    
+    // if(idsession !== '')
+    queryParams.append('idSession', idsession ? encodeURIComponent(idsession) : '');
+    
+    const url = `${this.baseUrl}/titre/get?${queryParams.toString()}`; // Build URL with encoded params
+
+    return this.http.get<Titre[]>(url, { headers });
+  //  return this.http.get<DetailDemande[]>(this.baseUrl+`/search?idDirection=${idDirection}&statut=${statut}&motif=${motif}&dateDebut=${datedebut}&dateFin=${datefin}&session=${session}&idFournisseur=${idfournisseur}`,{headers});
   }
   //maka demande
   getdemande(id: number): Observable<Demande> {
@@ -111,6 +127,15 @@ export class TesteService {
       headers,
     });
   }
+
+  // checkComsCdgByIdDemande(id: number): Observable<boolean> {
+  //   const headers = this.getHeaders();
+  //   return this.http.get<boolean>(`${this.baseUrl3}/checkAvisCdgByIdDemande/${id}`, {
+  //     headers,
+  //   });
+  // }
+
+
   //avis cdg
   postCdg(formData: any): Observable<any> {
     const headers = this.getHeaders();

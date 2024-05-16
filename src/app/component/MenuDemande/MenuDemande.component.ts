@@ -19,6 +19,7 @@ export class MenuDemandeComponent implements OnInit {
   DetailDemande: DetailDemande[] = [];
   brouillon: Brouillon[]=[];
   nomDirection: string | null = '';
+  DonneExcels: DonneeExcel[] = [];
   //CREATION SESSION
   direction = new Direction();
   // brouillon={
@@ -33,8 +34,8 @@ export class MenuDemandeComponent implements OnInit {
   // }
 session=new SessionCd();
   idsession:string ='';
-  text: string = '';DonneExcels:DonneeExcel[]=[];
-  constructor(
+  text: string = '';
+    constructor(
     private MenuDemandeService: MenuDemandeService,
     private AuthenticationService: AuthenticationService,
     private utilitaire:UtilitaireService
@@ -63,40 +64,39 @@ session=new SessionCd();
               this.AuthenticationService.getDirectionByName(this.nomDirection).subscribe(response =>{
                  this.direction = response
                   this.direction.id = response.id;
-                  
-                  //this.idsession = this.direction.id?.toString() ?? '';
-                  
-                  
-                        
                     
                   
+
+
                         //RECUPERATION id session
+
+
                           this.utilitaire.getSessionByDirection(this.direction.id?.toString() ??'' ).subscribe((data) => {
-                            console.log("------------ session ------------");
-                            console.log(data);
-                            
-                                      if( data !== null)
-                                      {
-                                            this.session = data;
-                                            this.idsession = data.id?.toString() ?? '';
-                                            console.log('sessionnnnnnnnnnnnnnnnnn');
+                                    if(data !== null)
+                                    {
+                                          console.log("------------ session ------------");
+                                          console.log(data);
+                                          
+                                          this.session = data;
+                                          this.idsession = data.id?.toString() ?? '';
+                                        console.log(this.idsession,'sessionnnnnnnnnnnnnnnnnn');
+                                      }
                             
                                             //RECUPERATION active
-                                            this.MenuDemandeService.search(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((data) => {
-                                              this.DetailDemande = data;
+                                            this.MenuDemandeService.search(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((donnees) => {
+                                              this.DetailDemande = donnees;
                                               console.log(this.DetailDemande,"io data");
                                               
                                             });
-
-
+      
+      
                                             //RECUPERATION brouillon
-                                            this.MenuDemandeService.searchbrouillon(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((data) => {
-                                              this.brouillon = data;
+                                            this.MenuDemandeService.searchbrouillon(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((datas) => {
+                                              this.brouillon = datas;
                                               console.log(this.brouillon,"io brouillon");
                                               
                                             });
-                                      }
-                                      
+
                       
                           });
                    
@@ -142,24 +142,31 @@ session=new SessionCd();
 //exporter excel
 exportToExcel(): void {
   //aectation données eccdel
-  // for (const detail of this.DetailDemande) {
-  //   this.DonneExcels.push({
-  //     Typereference: detail.typereference,
-  //     Motif: detail.motif,
-  //     Fournisseur: detail.fournisseur,
-  //     Devise: detail.devise,
-  //     MontantHt: detail.montantht,
-  //     Commentaireprescripteur: detail.comsprescripteur,
-  //     Periode: detail.periode,
-  //     Regularisation: detail.estregularisation,
-  //     commentaireCdg: detail.comsCdg,
-  //     commentaireAchat: detail.comsAchat,
-  //     Decision: detail.etatFinal,
-  //     commentaireCd: detail.comsCd,
-  //     MontantMga: detail.montantMga,
-  //   });
-  // }
-  this.MenuDemandeService.exportToExcel('montable', 'MyData.xlsx');
+
+  for (const detail of this.DetailDemande) {
+    this.DonneExcels.push({
+      Typereference: detail.typereference,
+      Motif: detail.motif,
+      Fournisseur: detail.fournisseur,
+      Devise: detail.devise,
+      MontantHt: detail.montantht,
+      MontantMga: detail.montantMga,
+      Commentaireprescripteur: detail.comsprescripteur,
+      Periode: detail.periode,
+      Regularisation: detail.estregularisation,
+      commentaireCdg: detail.comsCdg,
+      commentaireAchat: detail.comsAchat,
+      Decision: detail.etatFinal,
+      commentaireCd: detail.comsCd,
+    });
+
+  }
+
+  this.MenuDemandeService.exportToExcel(this.DonneExcels, 'MyData.xlsx');
+
+
+
+ // this.MenuDemandeService.exportToExcel('montable', 'MyData.xlsx');
 }
   // getIdOfDirection (nomDirection  : string )
   //     {

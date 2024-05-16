@@ -23,8 +23,8 @@ export class Demande {
     public validationCdg?: boolean,
     public etatFinal?: boolean,
     public comsCd?: string,
-    public estRefuserCdg?:boolean,
-    public estRefuserAchat?:boolean
+    public estRefuseCdg?:boolean,
+    public estRefuseAchat?:boolean
   ) // Autres propriétés de votre modèle de données personnel
   {}
 }

@@ -39,14 +39,9 @@ export class MenuDemandeService {
   //   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
   //   XLSX.writeFile(wb, fileName);
   // }
-  exportToExcel(tableId: string, fileName: string): void {
-    const table = document.getElementById(tableId);
-    if (!table) {
-      console.error('La table avec l\'ID spécifié n\'existe pas.');
-      return;
-    }
-
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(table);
+  //exportetr donnees excel 
+  exportToExcel(data: any[], fileName: string): void {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     XLSX.writeFile(wb, fileName);
@@ -66,10 +61,10 @@ export class MenuDemandeService {
     const headers = this.getHeaders();
     const queryParams = new URLSearchParams();
 
-    if(idDirection !== '')
+    // if(idDirection !== '')
     queryParams.append('idDirection', idDirection ? encodeURIComponent(idDirection) : ''); // Handle empty strings and special characters
     
-    if(idsession !== '')
+    // if(idsession !== '')
     queryParams.append('idSession', idsession ? encodeURIComponent(idsession) : '');
     
     const url = `${this.baseUrl2}/active/s?${queryParams.toString()}`; // Build URL with encoded params
