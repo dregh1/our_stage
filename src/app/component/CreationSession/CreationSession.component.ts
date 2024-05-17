@@ -82,10 +82,11 @@ getormatdate(){
     this.session.idDirection =  this.idDirection;
    
     
-    this.session.dateDebut=this.getormatdate()?.toString() ?? '';
+    //this.session.dateDebut=this.getormatdate()?.toString() ?? '';
     console.log('SSESESSESESE' + this.session.idDirection);
     console.log(this.session);
-
+    console.log(this.session.dateDebut,'date debut');
+    
     // creation session
     
     this.CreationSession1Service.post(this.session).subscribe(

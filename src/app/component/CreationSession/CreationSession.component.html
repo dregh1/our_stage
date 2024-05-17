@@ -7,15 +7,16 @@
             <div class="col-md text-center">
               <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon3"
-                  >Date cloture</span
+                  >Date debut du</span
                 >
                 <input
                   type="datetime-local"
                   class="form-control"
-                  [(ngModel)]="this.session.dateCloture"
+                  [(ngModel)]="this.session.dateDebut"
                   aria-describedby="basic-addon1"
                 />
               </div>
+              
               <span class="input-group-text mb-3" id="basic-addon3"
                 >Taux Devise(EUR/USD/MGA):
               </span>
@@ -62,6 +63,17 @@
 
             </div>
             <div class="col-md text-center">
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3"
+                  >Date cloture</span
+                >
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  [(ngModel)]="this.session.dateCloture"
+                  aria-describedby="basic-addon1"
+                />
+              </div>
               <img
                 src="assets/image/tyerr.jpg"
                 class="bd-placeholder-img img-fluid position-relative"
