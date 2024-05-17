@@ -4,6 +4,7 @@ export class SessionCd {
     public ref?: string,
     public dateCloture?: Date,
     public dateDebut?: string,
+    public dateFermeture?: string,
     public idDirection?: Number,
     public estFerme?: boolean,
     public tauxEur?: Number,

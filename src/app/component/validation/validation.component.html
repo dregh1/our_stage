@@ -104,7 +104,7 @@
         (click)="getActiveSession()">
 
 
-        Cloture session
+        Cloture CD
       </button>
       <button class="btn btn-primary mx-2" routerLink="/main/MenuDemande">
         <i class="icon fas fa-close"></i>
@@ -530,7 +530,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title h5" id="exampleModalLabel">Cloture session</h1>
+          <h1 class="modal-title h5" id="exampleModalLabel">Cloture CD</h1>
           <button
             type="button"
             class="btn-close"
@@ -558,7 +558,7 @@
                 type="text"
                 class="form-control mb-2"
                 placeholder="Reference"
-                aria-label="Username"
+                aria-label="reference"
                 [(ngModel)]="this.sessionActive.ref"
                 [ngModelOptions]="{standalone: true}"
                 aria-describedby="basic-addon1"
@@ -566,7 +566,7 @@
 
               <input
                 type="datetime-local"
-                [(ngModel)]="this.sessionActive.dateCloture"
+                [(ngModel)]="this.sessionActive.dateFermeture"
                 [ngModelOptions]="{standalone: true}"
                 class="form-control mb-2"
                 placeholder="Date"

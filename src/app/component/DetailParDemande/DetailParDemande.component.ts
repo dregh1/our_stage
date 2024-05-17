@@ -349,6 +349,7 @@ session=new SessionCd();
     this.updatetitre();
     console.log(this.demande.validationPrescripteur);
     this.update();
+    this.utilitaire.getTokenAdmin();
   }
   //modication prescripteur
   updatetitre(): void { 
