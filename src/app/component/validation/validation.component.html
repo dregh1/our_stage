@@ -83,13 +83,9 @@
       </div>
       
       <div class="label d-flex">
-        <span class="input-group-text mx-2" id="basic-addon1">session CD</span>
+        <span class="input-group-text mx-2" id="basic-addon1">Seuil</span>
         <div class="input-group p-2">
-          <select [(ngModel)]="this.filtre_Session" class="form-select" id="inputGroupSelect02" (ngModelChange)="filtreValidation()">
-            <option *ngFor="let session of this.listeSessions" [value]="session.ref">
-                {{ session.ref }}
-            </option>
-          </select>
+            <input [(ngModel)]="this.montantSeuil" type="number" step="any" (ngModelChange)="filtreValidation()">
         </div>
       </div>
     </div>
@@ -516,10 +512,10 @@
         
       </fieldset> -->
       <!-- alert message -->
-      <div class="alert alert-success " role="alert">
+      <!-- <div class="alert alert-success " role="alert">
         <span class="alert-icon"><span class="visually-hidden">Success</span></span>
         <p>Success notification text goes here.</p>
-      </div>
+      </div> -->
     </div>
   </div>
 

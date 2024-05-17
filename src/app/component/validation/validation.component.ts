@@ -90,10 +90,12 @@ export class ValidationComponent implements OnInit {
           listeSessions :  SessionCd [] =[];               /* liste sesssion  */
           
     //parametrage du filtre
-          filtre_Session : string ='23';
-          filtre_idDirection : string ='1';
+          filtre_Session : string ='';
+          filtre_idDirection : string ='';
           session=new SessionCd();
           idsession:string ='';
+          montantSeuil : string ='5000000';
+
     //session active
           sessionActive  =  new SessionCd ()  ;
           dateClotureSession!: Date;
@@ -153,7 +155,7 @@ export class ValidationComponent implements OnInit {
                                 
                                               /* OBTENIR detaildemande getFiltreDetailDemande */
                                               // this.ValidationService.getBrouillon().subscribe((DetailDemande) => {
-                                                this.ValidationService.getFiltreDetailDemande(this.direction.id?.toString()?? '',this.idsession?? '')
+                                                this.ValidationService.getFiltreDetailDemande(this.direction.id?.toString()?? '',this.montantSeuil?? '')
                                                 .subscribe((filtreDetailDemande) => {
                                                   console.log(this.direction.id?.toString()?? '',this.idsession + '-----------------');
                                                   
@@ -356,14 +358,23 @@ export class ValidationComponent implements OnInit {
   //FILTRATION ligne de validation
   filtreValidation(){
     
-    this.ValidationService.getFiltreDetailDemande(this.filtre_idDirection,this.filtre_Session).subscribe((resultatFiltre) => {
+    this.ValidationService.getFiltreDetailDemande(this.filtre_idDirection,this.montantSeuil).subscribe((resultatFiltre) => {
       this.DetailDemande = resultatFiltre;
 
+      this.groupedDetailDemandes = resultatFiltre.reduce((acc, item) => {
+        if (item.titre) {
+          if (!acc[item.titre]) {
+            acc[item.titre] = [];
+          }
+          acc[item.titre].push(item);
+        }
+        return acc;
+      }, {} as { [titre: string]: DetailDemande[] });
     });
   }
   actualiser() {
-    this.filtre_Session = '';
     this.filtre_idDirection = '';
+    this.montantSeuil = '5000000';
     this.filtreValidation();
   }
   //get de la session active

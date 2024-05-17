@@ -62,13 +62,13 @@ export class ValidationService {
     });
   }
    //filtre DETAILDEMANDE
-   getFiltreDetailDemande(idDirection : string , sessionCd : string): Observable<DetailDemande[]> {
+   getFiltreDetailDemande(idDirection : string , montantMga : string): Observable<DetailDemande[]> {
     const headers = this.getHeaders();
     // search(idDirection : string | '' , statut: string | '', motif : string | '', datedebut :string | '', datefin :string | '', session : string | '' , idfournisseur : string | '' ): Observable<DetailDemande[]>{
 
       const queryParams = new URLSearchParams();
       queryParams.append('idDirection', idDirection ? encodeURIComponent(idDirection) : ''); // Handle empty strings and special characters
-      queryParams.append('idSession', sessionCd ? encodeURIComponent(sessionCd) : '');
+      queryParams.append('montantMga', montantMga ? encodeURIComponent(montantMga) : '');
     
 
       
@@ -105,7 +105,7 @@ export class ValidationService {
   //   xhr.send(data);
   // }
   // getUserInfo(token : string){
-  //   var data = "grant_type=password&client_id=quarkus-client&client_secret=eIRXkLaEnLubyFr1mqwv6bu862oHIIn9";
+  //   var data = "grant_type=password&client_id=angular-client&client_secret=eIRXkLaEnLubyFr1mqwv6bu862oHIIn9";
 
   //             var xhr = new XMLHttpRequest();
   //             xhr.withCredentials = true;

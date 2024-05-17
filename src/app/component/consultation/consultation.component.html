@@ -202,7 +202,7 @@
                 </tr>
 
                 <tr *ngFor="let detail of this.allDetails">
-                  <td class="p-3">{{ this.detail.estregularisation }}</td>
+                  <td class="p-3" >{{ this.detail.estregularisation? 'Oui' : 'Non' }}   </td>
                   <td class="p-3">{{ this.detail.typereference }}</td>
                   <td class="p-3">{{ this.detail.motif }}</td>
                   <td class="p-3">{{ this.detail.montantht }}</td>
