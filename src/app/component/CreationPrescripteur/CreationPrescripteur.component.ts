@@ -232,7 +232,20 @@ session=new SessionCd();
           console.log('\n\n\n\n\n\n');
           //window.location.reload();
           this.errorMessage = 'Demande Enregistré!';
+          
           setTimeout(() => {
+            this.demande.estregularisation= '';
+            this.demande.typeReference= '';
+            this.demande.idRubrique= '';
+            this.demande.sousRubrique= '';
+            this.demande.motif= '';
+            this.demande.typeDevise= '';
+            this.demande.comsPrescripteur= '';
+            this.demande.idTitreDepense= '';
+            this.demande.nomReference= '';
+            this.demande.idFournisseur= '';
+            this.demande.montantHt= '';
+           this.demande.idPeriode= '';
             // Hide the message by setting errorStatus to false
             this.errorMessage = ''; // Optionally, clear the error message
           }, 3000);

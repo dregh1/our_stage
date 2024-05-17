@@ -143,15 +143,21 @@ session=new SessionCd();
 
                                       this.utilitaire.getSessionByDirection(this.direction.id?.toString() ?? '').subscribe((data) => {
                                         this.session = data;
-                                        this.idsession=data.id?.toString() ?? '';
-                                        console.log(this.idsession,'sessionnnnnnnnnnnnnnnnnn');
-                                       
-                                        console.log('////////directiontitre',this.direction.id);
-                                        console.log('///////session titrz',this.idsession);
+                                        if(data!==null)
+                                        {
+                                          this.idsession=data.id?.toString() ?? '';
+                                          console.log(this.idsession,'sessionnnnnnnnnnnnnnnnnn');
+                                         
+                                          console.log('////////directiontitre',this.direction.id);
+                                          console.log('///////session titrz',this.idsession);
+  
+                                        }
                                         
                                           //RECUPERATION active
                                                 this.TesteService.GetTitreParSession(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((donnees) => {
+                                                  
                                                   this.titres = donnees;
+                                                  console.log("--------------vvvvvvvv---------------");
                                                   console.log(this.titres,"io titre");
                                                  
                                                   
@@ -336,6 +342,7 @@ session=new SessionCd();
   }
   //validation prescripteur
   valider(): void {
+    
     console.log(this.idsession,'+///////////sessionnnn///////////////');
     this.demande.idSession=this.idsession;
     this.demande.validationPrescripteur = true;
@@ -392,14 +399,9 @@ session=new SessionCd();
     console.log(this.demande.validationPrescripteur);
     this.update();
   }
-  
-
-
-
   //Ajout titre demande
   Ajouttitre() {
-    this.titredepense.idSession = this.DetailDemande.idSession ??"";
-    
+    this.titredepense.idSession = this.DetailDemande.idSession ??""; 
     this.TesteService.posttitre(this.titredepense).subscribe((response) => {
       console.log(response);
       this.ajoutOpt(response.id, response.designation);
@@ -410,19 +412,29 @@ session=new SessionCd();
       this.errorMessage = ''; // Optionally, clear the error message
     }, 3000);
   }
-
   /////enregistrer cdg
   enregistrerCdg() {
+    let missingField: keyof AvisCdg | null = null; // Type for the missing field name
+
+    if (!this.AvisCdg.montantBudgetMensuel) {
+      missingField = 'montant budget mensuel' as keyof AvisCdg; // Type assertion
+    }
+    if (!this.AvisCdg.montantEngage) {
+      missingField = 'montant engagé' as keyof AvisCdg;
+    }
     
+    if (missingField) {
+      this.errorMessage = `Veuillez remplir le champ ${missingField}`; // More specific error message
       setTimeout(() => {
         this.errorMessage = ''; // Clear the error message after 3 seconds
       }, 3000);
-    
+    } else {
+      setTimeout(() => {
+        this.errorMessage = ''; // Clear the error message after 3 seconds
+      }, 3000);
       //recuperation ID
       this.AvisCdg.idDemande = this.id?.toString() ?? '';
       console.log(this.AvisCdg);
-
-
       this.TesteService.postCdg(this.AvisCdg).subscribe((Response) => {
         console.log(Response);
         this.AvisCdg.id = Response.id;
@@ -431,7 +443,6 @@ session=new SessionCd();
         this.AvisCdg.montantBudgetMensuel =Response.montantBudgetMensuel;
         this.AvisCdg.montantEngage = Response.montantEngage;
         this.reliquat = parseFloat(this.AvisCdg.montantBudgetMensuel) - parseFloat(this.AvisCdg.montantEngage);
-
         this.errorMessage = 'Demande enregistré!';
       });
       setTimeout(() => {
@@ -443,8 +454,7 @@ session=new SessionCd();
         // Optionally, clear the error message
       }, 3000);
       console.log(this.message);
-
-    
+    }
   }
   ///modificationcdg
   modificationCdg() {
@@ -468,9 +478,11 @@ session=new SessionCd();
   }
   //refuser cdg
   refuserCdg() {
+   
     this.demande.estRefuseCdg = true;
     this.update();
     this.errorMessage='refusé';
+  
   }
   //validationcdg
   validationCdg() {
@@ -487,7 +499,17 @@ session=new SessionCd();
   }
   //enregistrement achat
   EnregistrerAchat() {
-    
+    let missingField: keyof AvisCdg | null = null; // Type for the missing field name
+
+    if (!this.AvisAchat.commentaire) {
+      missingField = 'montant budget mensuel' as keyof AvisCdg; // Type assertion
+    } 
+    if (missingField) {
+      this.errorMessage = `Veuillez remplir le champ ${missingField}`; // More specific error message
+      setTimeout(() => {
+        this.errorMessage = ''; // Clear the error message after 3 seconds
+      }, 3000);
+    } else {
       setTimeout(() => {
         this.errorMessage = ''; // Clear the error message after 3 seconds
       }, 3000);
@@ -511,6 +533,7 @@ session=new SessionCd();
         // Optionally, clear the error message
       }, 3000);
       console.log(this.message);
+    }
   }
    ///modificationachat
    modificationAchat() {
@@ -549,8 +572,6 @@ session=new SessionCd();
       this.errorMessage='';
     }
     //recuperation idsession 
-    
-  
   //validation prescripteur
     
   }

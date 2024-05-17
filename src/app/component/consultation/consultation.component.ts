@@ -30,8 +30,8 @@ export class ConsultationComponent implements OnInit {
     { value : "NOK", item : "NOK"},
     { value : "En Attente", item : "En Attente"},
   ]
-
-  DonneExcels: DonneeExcel[] = [];
+  seen = new Set();
+  DonneExcels: DonneeExcel[] = [];donneesSansDoublons = [];
   title = 'angular-excel-export';
   allDetails: DetailDemande[] = [];
   fournisseurs: Fournisseur[] = [];
@@ -57,6 +57,7 @@ export class ConsultationComponent implements OnInit {
   this.consultationService
     .search('', '', '', '', '', '', '','')
     .subscribe((data) => {
+      
       this.allDetails = data;
     });
 }
@@ -101,15 +102,42 @@ supprimer() {
 }
 
 //exporter excel
+// exportToExcel(): void {
+//   //aectation données eccdel
+//   for (const detail of this.allDetails) {
+//     this.DonneExcels.push({
+//       Typereference: detail.typereference,
+//       Motif: detail.motif,
+//       Fournisseur: detail.fournisseur,
+//       Devise: detail.devise,
+//       MontantHt: detail.montantht,
+//       MontantMga: detail.montantMga,
+//       Commentaireprescripteur: detail.comsprescripteur,
+//       Periode: detail.periode,
+//       Regularisation: detail.estregularisation,
+//       commentaireCdg: detail.comsCdg,
+//       commentaireAchat: detail.comsAchat,
+//       Decision: detail.etatFinal,
+//       commentaireCd: detail.comsCd,
+//     });
+//   }
+//   this.consultationService.exportToExcel(this.DonneExcels, 'MyData.xlsx');
+// }
+ 
 exportToExcel(): void {
-  //aectation données eccdel
+  // Créez un nouvel objet pour stocker les données uniques
+  const donneesUniques: any[] = [];
+
+  // Parcourez toutes les détails pour trouver les données uniques
   for (const detail of this.allDetails) {
-    this.DonneExcels.push({
+    // Créez un objet temporaire avec les données du détail
+    const tempObj = {
       Typereference: detail.typereference,
       Motif: detail.motif,
       Fournisseur: detail.fournisseur,
       Devise: detail.devise,
       MontantHt: detail.montantht,
+      MontantMga: detail.montantMga,
       Commentaireprescripteur: detail.comsprescripteur,
       Periode: detail.periode,
       Regularisation: detail.estregularisation,
@@ -117,9 +145,24 @@ exportToExcel(): void {
       commentaireAchat: detail.comsAchat,
       Decision: detail.etatFinal,
       commentaireCd: detail.comsCd,
-      MontantMga: detail.montantMga,
-    });
+    };
+
+    // Vérifiez si l'objet temporaire existe déjà dans donneesUniques
+    const exists = donneesUniques.find(obj => 
+      obj.Typereference === tempObj.Typereference &&
+      obj.Motif === tempObj.Motif &&
+      obj.Fournisseur === tempObj.Fournisseur
+    );
+
+    // Si l'objet n'existe pas dans donneesUniques, ajoutez-le
+    if (!exists) {
+      donneesUniques.push(tempObj);
+    }
   }
-  this.consultationService.exportToExcel(this.DonneExcels, 'MyData.xlsx');
+
+  // Exportez les données uniques vers Excel
+  this.consultationService.exportToExcel(donneesUniques, 'MyData.xlsx');
 }
+
+
 }
