@@ -40,7 +40,7 @@ export class TesteService {
     return this.http.get<Titre[]>(this.baseUrl + '/titre/get', { headers });
   }
   //get titre par session et direction
-  GetTitreParSession(idDirection : string | '' , idsession :string | ''): Observable<Titre[]>{
+  GetTitreParSession(idDirection : string | '' ): Observable<Titre[]>{
     const headers = this.getHeaders();
     const queryParams = new URLSearchParams();
 
@@ -48,7 +48,6 @@ export class TesteService {
     queryParams.append('idDirection', idDirection ? encodeURIComponent(idDirection) : ''); // Handle empty strings and special characters
     
     // if(idsession !== '')
-    queryParams.append('idSession', idsession ? encodeURIComponent(idsession) : '');
     
     const url = `${this.baseUrl}/titre/get?${queryParams.toString()}`; // Build URL with encoded params
 

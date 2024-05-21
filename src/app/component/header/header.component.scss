@@ -1,5 +1,5 @@
 .icon {
-  font-size: 23px;
+  font-size: 17px;
 }
 // header {
 //   background-color: #eee;
@@ -13,7 +13,10 @@ svg {
 // }
 @media (max-width: 768px) {
   .icon {
-    font-size: 10px;
+    font-size: 7px;
+  }
+  .deconnexion{
+    // padding: 5px;
   }
   svg { 
     width: 10px;

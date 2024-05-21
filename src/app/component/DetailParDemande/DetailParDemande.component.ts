@@ -154,7 +154,7 @@ session=new SessionCd();
                                         }
                                         
                                           //RECUPERATION active
-                                                this.TesteService.GetTitreParSession(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((donnees) => {
+                                                this.TesteService.GetTitreParSession(this.direction.id?.toString() ??'' ) .subscribe((donnees) => {
                                                   
                                                   this.titres = donnees;
                                                   console.log("--------------vvvvvvvv---------------");
