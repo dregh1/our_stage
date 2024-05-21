@@ -8,26 +8,31 @@
           <div class="mx-4 p-4">
             <div class="justify-content-around d-flex">
               
+
               <div class="d-flex">
+                
                 <div class="label">
                   <span class="input-group-text mb-2" id="basic-addon1"
                     >Regularisation *</span
                   >
                   <span class="input-group-text mb-2" id="basic-addon1"
-                    >Type</span
+                  >opax/capex</span
+                >
+                  <span class="input-group-text mb-2" id="basic-addon1"
+                    >Type Réference</span
                   >
-                  <span class="input-group-text mb-2" id="basic-addon1" 
+                  <!-- <span class="input-group-text mb-2" id="basic-addon1" 
                     >Réference</span
-                  >
+                  > -->
                   <span class="input-group-text mb-2" id="basic-addon1"
                     >Devise *</span
                   >
                   <span class="input-group-text mb-2" id="basic-addon1"
                     >Rubrique *</span
                   >
-                  <span class="input-group-text mb-2" id="basic-addon1"
+                  <!-- <span class="input-group-text mb-2" id="basic-addon1"
                     >Commentaire prescripteur</span
-                  >
+                  > -->
                 </div>
                 <div class="mx-3">
                   <!-- <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">-->
@@ -44,23 +49,39 @@
                   <div class="input-group mb-2">
                     <select
                       class="form-select"
-                      [(ngModel)]="this.demande.typeReference"
+
                       id="inputGroupSelect04"
                       aria-label="Example select with button addon"
                     >
-                      <option selected value="BC">Réference BC</option>
-                      <option value="DED">Réference DED</option>
+                      <option selected value="BC">OPAX</option>
+                      <option value="DED">CAPEX</option>
                     </select>
                   </div>
-                  <input
-                    type="text"
-                    step="any"
-                    [(ngModel)]="this.demande.nomReference"
-                    class="form-control mb-2"
-                    placeholder=""
-                    aria-label=""
-                    aria-describedby="basic-addon1"
-                  />
+                  <div class="input-group mb-2">
+                    <select
+                      class="form-select"
+                      [(ngModel)]="this.demande.typeReference"
+                      id="inputGroupSelect04"
+                      aria-label="Example select with button addon" (ngModelChange)="refencedemande()"
+                    >
+                      <option selected value="BC"> BC</option>
+                      <option value="DED"> DED</option>
+                    </select>
+                  
+                    <div *ngIf="nomrefence===true">
+                      <input
+                      type="text"
+                      step="any"
+                      [(ngModel)]="this.demande.nomReference"
+                      class="form-control mb-2 mx-2"
+                      placeholder=""
+                      aria-label=""
+                      aria-describedby="basic-addon1"
+                    />
+                    </div>
+                  
+                  </div>
+                 
                   
                   <!-- <span *ngIf="!this.demande.motif" class="text-danger fs-6"> champ vide</span> -->
                   <div class="input-group mb-2">
@@ -90,7 +111,7 @@
                       </option>
                     </select>
                   </div>
-                  <input
+                  <!-- <input
                     type="text"
                     type="text"
                     [(ngModel)]="this.demande.comsPrescripteur"
@@ -98,7 +119,7 @@
                     placeholder=""
                     aria-label=""
                     aria-describedby="basic-addon1"
-                  />
+                  /> -->
                 </div>
               </div>
 
@@ -107,9 +128,9 @@
                   <span class="input-group-text mb-2" id="basic-addon1"
                     >Titre</span
                   >
-                  <span class="input-group-text mb-4" id="basic-addon1"
+                  <!-- <span class="input-group-text mb-4" id="basic-addon1"
                     >Motif Besoin *</span
-                  >
+                  > -->
                   <span class="input-group-text mb-2" id="basic-addon1"
                     >fournisseurs</span
                   >
@@ -163,9 +184,9 @@
                     aria-describedby="basic-addon1"
                     required
                   /> -->
-                  <div class="input-group mb-2">
+                  <!-- <div class="input-group mb-2">
                     <textarea class="form-control" [(ngModel)]="this.demande.motif" ></textarea>
-                  </div>
+                  </div> -->
                   <div class="input-group mb-2">
                     <select
                       class="form-select"
@@ -215,8 +236,14 @@
                   </div>
                 </div>
               </div>
+              
             </div>
-          </div>
+            <label for="validationTextarea" class="form-label is-required">Motif<span class="visually-hidden"> (required)</span></label>
+            <textarea class="form-control" [(ngModel)]="this.demande.motif" ></textarea>
+            <label for="validationTextarea" class="form-label is-required">Commentaire<span class="visually-hidden"> (required)</span></label>
+            <textarea class="form-control" [(ngModel)]="this.demande.comsPrescripteur" ></textarea>
+         
+            </div>
         </div>
       </fieldset>
       <div class="bt p-3 d-flex justify-content-end">

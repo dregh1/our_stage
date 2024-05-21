@@ -6,10 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent implements OnInit {
-
-  constructor() { }
+nomrefence=false;
+constructor() { }
 
   ngOnInit(): void {
   }
-
+  refencedemande(){
+    this.nomrefence=true;
+}
 }

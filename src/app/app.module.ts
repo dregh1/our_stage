@@ -14,6 +14,7 @@ import { HeaderComponent } from './component/header/header.component';
 import { TestComponent } from './component/DetailParDemande/DetailParDemande.component';
 import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
 import { ValidationComponent } from './component/validation/validation.component';
+import { SuperAdminComponent } from './component/super-admin/super-admin.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { ValidationComponent } from './component/validation/validation.component
     CreationSession1Component,
     TestComponent,
     MenuDemandeComponent,
+    SuperAdminComponent
     //  DetailComponent
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],

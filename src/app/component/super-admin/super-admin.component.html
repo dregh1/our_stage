@@ -1,0 +1,118 @@
+
+
+  
+  <div class="input-group mb-3 p-3 d-flex justify-content-end recherche">
+    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+  </div>
+  <!-- table liste  users -->
+  <table class="table mx-2">
+    <caption class="visually-hidden">Boosted tables basic look</caption>
+    <thead>
+      <tr>
+        <th scope="col">Nom</th>
+        <th scope="col">Prenom</th>
+        <th scope="col">Groupes</th>
+        <th scope="col">Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>Deault</td>
+        <td>Achat</td>
+        <td><a  class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Assigner Role</a></td>
+        <td><a class="btn" data-bs-toggle="modal" data-bs-target="#joindregroupe">Joindre groupe</a></td>
+    </tr>
+      <tr>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>DTI</td>
+        <td>prescripteur</td>
+        <td><a  class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Assigner Role</a></td>
+        <td><a class="btn" data-bs-toggle="modal" data-bs-target="#joindregroupe">Joindre groupe</a></td>
+    </tr>
+      <tr>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>DTI</td>
+        <td>CDG</td>
+        <td><a  class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Assigner Role</a></td>
+        <td><a class="btn" data-bs-toggle="modal" data-bs-target="#joindregroupe">Joindre groupe</a></td>
+   
+       </tr>
+    </tbody>
+  </table>
+  
+  
+  <!-- Modal assigner role -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title h5" id="exampleModalLabel">Détail Utilisateur</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
+        </div>
+        <div class="modal-body">
+            <div class="">
+                <label for="validationDefault01" class="form-label is-required ">Assigner Role<span class="visually-hidden"> (required)</span></label>
+                <select
+                    class="form-select"
+                    id="inputGroupSelect04"
+                    aria-label="Example select with button addon" 
+                    >
+                    <option selected value="BC"> DTI</option>
+                    <option value="DED"> ODC</option>
+                    </select>
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- joindre Group -->
+   <div class="modal fade" id="joindregroupe" tabindex="-1" aria-labelledby="joindregroupe" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title h5" id="exampleModalLabel">Détail Utilisateur</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
+        </div>
+        <div class="modal-body">
+              <!-- table liste  users -->
+            <table class="table mx-2">
+                <caption class="visually-hidden">Boosted tables basic look</caption>
+               
+                <tbody>
+                <tr>
+                    <td>              
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">             
+                    </td>
+                    <td>DTI</td>
+                </tr>
+                <tr>
+                    <td>              
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">             
+                    </td>
+                    <td>ODC</td>
+                </tr>
+                <tr>
+                    <td>              
+                        <input class="form-check-input mt-0" type="checkbox" value="" aria-label="Checkbox for following text input">             
+                    </td>
+                    <td>DRH</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

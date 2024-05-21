@@ -1,7 +1,71 @@
 <body>
   <section class="mx-3 p-1">
     <div class="main">
-      <div *ngIf="role === 'PRS'">
+
+
+      <div class="card text-center" *ngIf="role === 'PRS'">
+          <div class="card-header border-primary text-body  d-flex justify-content-between">
+            <ul class="nav nav-tabs card-header-tabs ">
+              <li class="nav-item">
+                <button class="nav-link text-primary" aria-current="true" (click)="brouillonclique()" >Brouillon Liste des Demandes</button>
+                <!-- <a class="nav-link active" aria-current="true" href="active">Active</a> -->
+              </li>
+              <li class="nav-item text-primary">
+                <button class="nav-link" aria-current="true" (click)="brouilloncliqueactive()">Listes en attente de sousmission</button>
+              </li>
+              
+            </ul>
+            <div >
+              
+                <button
+                type="button"
+                class="btn "
+                [routerLink]="'/main/creationprescripteur'"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="solaris-icon si-add text-black" viewBox="0 0 1000 1000">
+                <path d="M850 400H600V150a50 50 0 0 0-50-50H450a50 50 0 0 0-50 50v250H150a50 50 0 0 0-50 50v100a50 50 0 0 0 50 50h250v250a50 50 0 0 0 50 50h100a50 50 0 0 0 50-50V600h250a50 50 0 0 0 50-50V450a50 50 0 0 0-50-50" style="fill-rule:evenodd"/>
+              </svg>
+              </button>
+              
+            </div>
+          </div>
+          <div class="" *ngIf="isbrouillon===true">
+              <table class="table table-fixed">
+                <thead>
+                  <tr class="titre">
+                    <th scope="col" class="col-3 titre">Titre</th>
+                    <th scope="col" class="col-3 titre">Motif</th>
+                    <th scope="col" class="col-3 titre">Periode</th>
+                    <th scope="col" class="col-3 titre">Reference</th>
+                  </tr>
+                </thead>
+                <tbody
+                >
+                  <tr *ngFor="let detail of this.brouillon" [routerLink]="['/main/teste/', detail.id]"
+                  class="mb-1 p-1 scrollspy-example"
+                  data-spy="scroll"
+                  data-target="#navbarExample"
+                  data-offset="50"
+                  
+                  >  
+                        <td class="col-3 ">{{ detail.titre }}</td>
+                        <td class="col-3 ">{{ detail.motif }}</td>
+                        <td class="col-3 ">{{ detail.periode }}</td>
+                        <td class="col-3 ">{{ detail.reference }}</td>
+                  </tr>
+                    
+                </tbody>
+              </table>
+          </div>
+          <div class="card-body" *ngIf="brouilloncliqueActive===true">
+            <h5 class="card-title">en attente</h5>
+          </div>
+      </div>
+
+
+
+
+      <!-- <div *ngIf="role === 'PRS'">
         <div class="card">
           <div
             class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between"
@@ -46,18 +110,9 @@
             </tbody>
         </table>
 
-          </div>
         </div>
-        <br />
-      
-      
-
-
-      
-
-
-      
-
+      </div> -->
+      <br />
 <!-- table active demande -->
  <div class="card">
   <div
@@ -67,7 +122,7 @@
     <div><p class="text-primary">Listes des Demandes CD Active</p></div>
     <div>
       <div *ngIf="role === 'PRS'">
-        <button type="button" class="btn btn-primary   "  (click)="exportToExcel()">
+        <button type="button" class="btn btn-primary"  (click)="exportToExcel()">
           Extraction
         </button>
       </div>
@@ -126,9 +181,6 @@
 </table>
     </div>        
   </div>
- 
-
-    
   </section>
 </body>
 

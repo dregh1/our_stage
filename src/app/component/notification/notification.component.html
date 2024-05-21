@@ -1,9 +1,66 @@
 
+<form class="row  pt-4 mx-3">
+    <div class="col-md-4">
+      <label for="validationDefault01" class="form-label is-required ">Regularisation<span class="visually-hidden"> (required)</span></label>
+      
+      <input
+                      class="form-check-input"
+                      type="checkbox"
+                      role="switch"
+                      id="flexSwitchCheckChecked"
+                      checked
+                    /> <br>
+      <label for="validationDefault01" class="form-label is-required ">opax/capex<span class="visually-hidden"> (required)</span></label>
+      <select
+      class="form-select"
+      id="inputGroupSelect04"
+      aria-label="Example select with button addon" 
+      >
+      <option selected value="BC"> OPAX</option>
+      <option value="DED"> capex</option>
+      </select>
+      <label  class="form-label is-required ">Reerence<span class="visually-hidden"> (required)</span></label>
+      <select
+      class="form-select"
+      aria-label="Example select with button addon" (ngModelChange)="refencedemande()"
+    >
+      <option selected value="BC"> BCcc</option>
+      <option value="DED"> DED</option>
+    </select>
+  
+    <div *ngIf="nomrefence === true">
+      <input
+      type="text"
+      step="any"
+      class="form-control mb-2 mx-2"
+      placeholder="ito"
+      aria-label=""
+      aria-describedby="basic-addon1"
+    />
+    </div>
+            <label for="validationDefault01" class="form-label is-required ">Devise<span class="visually-hidden"> (required)</span></label>
+            <input type="text" class="form-control mb-2" id="validationDefault01" value="Mark" required>
+            <label for="validationDefault01" class="form-label is-required ">Montant HT<span class="visually-hidden"> (required)</span></label>
+            <input type="text" class="form-control mb-2"   id="validationDefault01" value="Mark" required>
+            <label for="validationDefault01" class="form-label is-required ">Rubrique<span class="visually-hidden"> (required)</span></label>
+            <input type="text" class="form-control mb-2"   id="validationDefault01" value="Mark" required>
+        
+    </div>
+    <div class="col-md-4">
+        <label for="validationDefault01" class="form-label is-required ">Titre<span class="visually-hidden"> (required)</span></label>
+        <input type="text" class="form-control mb-2" id="validationDefault01" value="Mark" required>
+        <label for="validationDefault01" class="form-label is-required ">Fournisseurs<span class="visually-hidden"> (required)</span></label>
+        <input type="text" class="form-control mb-2"   id="validationDefault01" value="Mark" required>
+        <label for="validationDefault01" class="form-label is-required ">Periode Prestation<span class="visually-hidden"> (required)</span></label>
+        <input type="text" class="form-control mb-2" id="validationDefault01" value="Mark" required>
+        <label for="validationDefault01" class="form-label is-required ">Sous Rubrique<span class="visually-hidden"> (required)</span></label>
+        <input type="text" class="form-control mb-2"   id="validationDefault01" value="Mark" required>
+        <label for="validationDefault01" class="form-label is-required ">Commentaire<span class="visually-hidden"> (required)</span></label>
+        <input type="text" class="form-control mb-2"   id="validationDefault01" value="Mark" required>
+    
+    </div>
 
-<body>
-    <section class="mx-3">
-        <div class="main p-2">
-            <p>Monsieur a bla blabla</p>
-        </div>
-    </section>
-</body>
+    <div class="col-12">
+      <button class="btn btn-primary mt-2" type="submit">Submit form</button>
+    </div>
+  </form>

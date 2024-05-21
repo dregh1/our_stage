@@ -10,6 +10,7 @@ import { CreationSession1Component } from './component/CreationSession/CreationS
 import { CreationPrescripteurComponent } from './component/CreationPrescripteur/CreationPrescripteur.component';
 import { TestComponent } from './component/DetailParDemande/DetailParDemande.component';
 import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
+import { SuperAdminComponent } from './component/super-admin/super-admin.component';
 const routes: Routes = [
   { path: '', component: AuthenticationComponent },
   {
@@ -31,6 +32,7 @@ const routes: Routes = [
       { path: 'detail', component: CreationPrescripteurComponent },
       // {path:'detail/:type',children[{path:':id',component:pagecomponent}]}
       { path: 'teste/:id', component: TestComponent },
+      { path: 'superAdmin', component: SuperAdminComponent },
     ],
   },
   { path: 'validation', component: ValidationComponent },

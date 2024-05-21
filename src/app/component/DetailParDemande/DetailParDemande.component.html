@@ -22,6 +22,7 @@
                                               <div class="d-flex">
                                                   <div class="label">
                                                     <span class="input-group-text mb-2" id="basic-addon1">Regularisation</span>
+                                                    <span class="input-group-text mb-2" id="basic-addon1">opax/capex</span>
                                                     <span class="input-group-text mb-2" id="basic-addon1">typeRéference</span>
                                                     <span class="input-group-text mb-2" id="basic-addon1">Réference</span>
                                                     <span class="input-group-text mb-2" id="basic-addon1">Devise</span>
@@ -33,7 +34,17 @@
                                                       <input class="form-check-input" [(ngModel)]="this.demande.estRegularisation"type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                                                     </div>
                                                       <!-- <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.type_reference"> -->
-                                                
+                                                      <div class="input-group mb-2">
+                                                        <select
+                                                          class="form-select"
+                                    
+                                                          id="inputGroupSelect04"
+                                                          aria-label="Example select with button addon"
+                                                        >
+                                                          <option selected value="BC">OPAX</option>
+                                                          <option value="DED">CAPEX</option>
+                                                        </select>
+                                                      </div>
                                                       <div class="input-group mb-2"> 
                                                         <select class="form-select" [(ngModel)]="this.demande.typeReference" id="inputGroupSelect04" aria-label="Example select with button addon">
                                                           <option *ngIf="this.demande.typeReference === 'DED'"  [ngValue]="'DED'" selected>DED</option>
@@ -113,8 +124,8 @@
                                           {{ this.demande.validationPrescripteur ? 'validé' : 'non validé' }}
                                         </p>
                                       </div>
-                                  </div>
-                                
+                                </div>
+                            
                               <!--    popu titre-->
                               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -151,9 +162,9 @@
                                 <button type="button" class="btn btn-primary mx-3" routerLink="../../creationprescripteur">Nouveau</button> 
                                 <button type="button" class="btn btn-primary mx-3"(click)="update()">Enregistrer</button>
                                 <!-- <button type="button" class="btn btn-primary mx-3"(click)="refuserCdg()">Refuser</button>   -->
-                                <div *ngIf="existanceSession===true">
-                                  <button type="button" class="btn btn-primary "(click)="valider()">Soumis</button>  
-                                </div>
+                                <!-- <div *ngIf="existanceSession===true"> -->
+                                  <button type="button" class="btn btn-primary "(click)="valider()">Soumettre</button>  
+                                <!-- </div> -->
                               </div>
                       </fieldset>
                       <div *ngIf="role === 'CDG' || role === 'ACH' ">

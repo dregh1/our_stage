@@ -20,6 +20,7 @@ export class CreationPrescripteurComponent implements OnInit {
   token: string | null = '';
   nomDirection: string | null = '';
   idDirection?: Number;
+  nomrefence=false;
   //CREATION SESSION
   direction = new Direction(); // Valeur par défaut (ajuster selon vos besoins)
   // donnee PRESCRIPTEUR
@@ -245,9 +246,7 @@ session=new SessionCd();
           this.demande.montantHt= '';
          this.demande.idPeriode= '';
          console.log('mety vide');
-          setTimeout(() => {
-           
-           
+          setTimeout(() => {  
             // Hide the message by setting errorStatus to false
             this.errorMessage = ''; // Optionally, clear the error message
           }, 3000);
@@ -293,5 +292,7 @@ session=new SessionCd();
       }
     );
   }
-
+  refencedemande(){
+    this.nomrefence=true;
+}
 }

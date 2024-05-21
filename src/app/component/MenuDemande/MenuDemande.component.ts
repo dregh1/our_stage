@@ -20,6 +20,8 @@ export class MenuDemandeComponent implements OnInit {
   brouillon: Brouillon[]=[];
   nomDirection: string | null = '';
   DonneExcels: DonneeExcel[] = [];
+  isbrouillon=true;
+  brouilloncliqueActive=false;buttonTextColor = 'black';
   //CREATION SESSION
   direction = new Direction();
   // brouillon={
@@ -163,20 +165,14 @@ exportToExcel(): void {
   }
 
   this.MenuDemandeService.exportToExcel(this.DonneExcels, 'MyData.xlsx');
-
-
-
- // this.MenuDemandeService.exportToExcel('montable', 'MyData.xlsx');
 }
-  // getIdOfDirection (nomDirection  : string )
-  //     {
-  //       const nomDirectionn  : string = "DTI";
+brouillonclique(){
+  this.isbrouillon=true;
+  this.brouilloncliqueActive=false;
 
-  //       this.AuthenticationService.getDirectionByName(nomDirection)
-  //               .subscribe(response => {
-  //                               console.log( response);
-  //                             }
-  //                         );
-  //       console.log(nomDirection);
-  //     }
+  }
+  brouilloncliqueactive(){
+    this.brouilloncliqueActive=true;
+    this.isbrouillon=false;
+  }
 }
