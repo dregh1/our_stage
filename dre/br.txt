@@ -1,0 +1,117 @@
+    projet
+        consultation
+        refresh token
+        Logout rehefa expiré ny token
+OK        iddirection
+ok            insert iddirection à chaque session
+OK            insert iddirection à chaque demande
+ok            getAllbrouillon by iddirection
+ok            getAllactive by iddirection
+
+ok        idsession lié @ demande
+ok            mijery hoe misy session active ve
+ok        titre par session
+
+ok            misy idsession ny titre
+ok        detailDemande
+        notification
+        envoie mail
+
+    authorization
+    boky
+    debug ny variable d'env
+ok	debug ny autoincrement
+    bpmn.js
+
+
+    TODO 03/05/24
+    	AM
+    		PLUSIEUR MAILING
+    			liste USERS keycloak
+    				GET /admin/realms/{realm}/users
+
+    			filtre users apartir ROLE
+
+    		DEBUG
+
+    	PM
+
+to do list apres midi
+    PRS
+        ajout demande sans titre                            (ok)
+        gestion des erreurs
+            @champs obligatoire * en rouge
+            @notif kely "demande enregistré"                (ok)
+
+        ajout demande avec titre                            (ok)
+
+        ajout titre
+            @ izay titre anaty session mbola tsy mikatona, zay anaty direction ihany    (ok)
+
+        validation
+            @ => miandry session                                             (ok)
+                select count session < 0  POPUP SA RELOAD
+
+    CDG
+        creation session
+            @ mampiditra idDirection                                        (ok)
+            @ notification email PRS
+            @ tsy mety session maromaro
+
+        bouton refuser
+    PRS
+        validation = > ratachement session
+    ACH
+        validation achat
+        bouton refuser
+
+
+    VALIDATION CD
+        @rehefa validé daholo ny CDG ACH
+
+
+
+
+ROLE PRS
+
+
+autres:  - Atokana ny fonction utilitaire
+
+            cloture session 
+                get session active
+                set to true : est fermé
+    
+    
+    
+    
+            deconnexion 
+            debug validation update ny ligne rehetra    
+            refuser demande CDG 
+            refuser demande ACH 
+            refuser demande CD  
+
+
+list group (ok)         http://localhost:8081/admin/realms/oma/groups
+    => mahazo id group
+
+list user in group  {idGroupe}  http://localhost:8081/admin/realms/oma/groups/5bf0f311-b99e-4ed5-a2c3-48e81d25601e/members
+
+    => mahazo idUser
+
+Mitady role par user
+
+    => alefa amin' le role rehetra
+
+    => alefa amin izy rehetra
+
+
+
+
+
+
+1 Configuration du Process Engine
+2 Configuration du Job Executor :
+
+    person, organizationalPerson, user
+
+
