@@ -60,7 +60,9 @@ export class TestComponent implements OnInit {
     validationCdg: false,
     typeReference: '',
     estRefuseCdg:false,
-    estRefuseAchat:false
+    estRefuseAchat:false,
+    estSoumis:false,
+    depense:''
   };
   
   titre = new Titre();
@@ -251,7 +253,8 @@ session=new SessionCd();
       this.demande.validationAchat = Boolean(this.DetailDemande.validationachat ?? '' );
       this.demande.estRefuseCdg=Boolean(this.DetailDemande.estRefuseCdg ?? '' );
       this.demande.estRefuseAchat=Boolean(this.DetailDemande.estRefuseAchat ?? '' );
-
+      this.demande.estSoumis=Boolean(this.DetailDemande.estsoumis);
+      this.demande.depense=this.DetailDemande.depense??'';
        console.log(this.DetailDemande);
        console.log('LLLOOGKOJ');
        console.log(this.demande,'demande iioiooo');
@@ -343,13 +346,16 @@ session=new SessionCd();
   //validation prescripteur
   valider(): void {
     
-    console.log(this.idsession,'+///////////sessionnnn///////////////');
-    this.demande.idSession=this.idsession;
+   // console.log(this.idsession,'+///////////sessionnnn///////////////');
+    //this.demande.idSession=this.idsession;
     this.demande.validationPrescripteur = true;
+    this.demande.estSoumis=true;
+    console.log(this.demande,'demande vaovao');
+    
     this.updatetitre();
-    console.log(this.demande.validationPrescripteur);
+    console.log(this.demande.estSoumis,'soumission');
     this.update();
-    this.utilitaire.getTokenAdmin();
+    //this.utilitaire.getTokenAdmin();
   }
   //modication prescripteur
   updatetitre(): void { 

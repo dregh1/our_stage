@@ -37,12 +37,14 @@
                                                       <div class="input-group mb-2">
                                                         <select
                                                           class="form-select"
-                                    
+                                                          [(ngModel)]="this.demande.depense" 
                                                           id="inputGroupSelect04"
                                                           aria-label="Example select with button addon"
                                                         >
-                                                          <option selected value="BC">OPAX</option>
-                                                          <option value="DED">CAPEX</option>
+                                                          <option *ngIf="this.demande.depense === 'OPAX'"  [ngValue]="'OPAX'" selected>OPAX</option>
+                                                          <option *ngIf="this.demande.depense === 'CAPEX'"  [ngValue]="'CAPEX'" selected>CAPEX</option>
+                                                          <option *ngIf="this.demande.depense === 'CAPEX'" >OPAX</option>
+                                                          <option *ngIf="this.demande.depense === 'OPAX'" >CAPEX</option>
                                                         </select>
                                                       </div>
                                                       <div class="input-group mb-2"> 

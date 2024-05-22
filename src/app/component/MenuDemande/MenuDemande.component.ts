@@ -8,6 +8,7 @@ import { DonneeExcel } from 'src/app/models/DonneExcel';
 import { UtilitaireService } from 'src/app/service/utilitaire.service';
 import { SessionCd } from 'src/app/models/SessionCd';
 import { Brouillon } from 'src/app/models/Brouillon';
+import { Demande } from 'src/app/models/Demande';
 @Component({
   selector: 'app-menu-demande',
   templateUrl: './MenuDemande.component.html',
@@ -18,22 +19,41 @@ export class MenuDemandeComponent implements OnInit {
   token: string | null = '';
   DetailDemande: DetailDemande[] = [];
   brouillon: Brouillon[]=[];
+  AttenteSession: DetailDemande[]=[];
   nomDirection: string | null = '';
   DonneExcels: DonneeExcel[] = [];
   isbrouillon=true;
   brouilloncliqueActive=false;buttonTextColor = 'black';
   //CREATION SESSION
   direction = new Direction();
-  // brouillon={
-  //   titre : '',
-  //  montant_ht : '',
-  //  is_regularisation : '',
-  //   coms_prescripteur : '',
-  //    periode : '',
-  //   direction : '',
-  //  devise : '',
-  //   fournisseur :'',
-  // }
+  demande = {
+    estRegularisation: false,
+    periode:'',
+    idRubrique: '',
+    sousRubrique: '',
+    motif: '',
+    devise: '',
+    typeDevise: '',
+    comsPrescripteur: '',
+    idDirection: '',
+    idTitreDepense: '',
+    nomReference: '',
+    titre: '',
+    idFournisseur: '',
+    montantHt: '',
+    idSession:'',
+    fournisseur: '',
+    idPeriode: '',
+    validationPrescripteur: false,
+    validationAchat: false,
+    validationCdg: false,
+    typeReference: '',
+    estRefuseCdg:false,
+    estRefuseAchat:false,
+    estSoumis:false,
+    depense:''
+  };
+  demandes = new Demande();
 session=new SessionCd();
   idsession:string ='';
   text: string = '';
@@ -96,6 +116,12 @@ session=new SessionCd();
                                             this.MenuDemandeService.searchbrouillon(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((datas) => {
                                               this.brouillon = datas;
                                               console.log(this.brouillon,"io brouillon");
+                                              
+                                            });
+                                            //RECUPERATION ATTENTE sESSION
+                                            this.MenuDemandeService.getAttenteSession(this.direction.id?.toString() ??'').subscribe((datas) => {
+                                              this.AttenteSession = datas;
+                                              console.log(this.AttenteSession,"io   AttenteSession");
                                               
                                             });
 
@@ -174,5 +200,39 @@ brouillonclique(){
   brouilloncliqueactive(){
     this.brouilloncliqueActive=true;
     this.isbrouillon=false;
+  }
+  annulerdemande(id:any){
+    this.MenuDemandeService.getAttteneSessionById(id).subscribe((response)=>
+    {
+      this.demandes=response;
+      console.log(response,'itooooooo demande par id');
+      
+   this.demande.estRegularisation = Boolean(this.demandes.estregularisation);
+   this.demande.idRubrique=this.demandes.idrubrique?.toString() ?? '';
+   this.demande.sousRubrique=this.demandes.sousrubrique?.toString() ?? '';
+   this.demande.motif=this.demandes.motif?.toString() ?? '';
+   this.demande.typeDevise=this.demandes.devise?.toString() ?? '';
+   this.demande.comsPrescripteur=this.demandes.comsprescripteur?.toString() ?? '';
+   this.demande.idDirection=this.demandes.iddirection?.toString() ?? '';
+   this.demande.idTitreDepense=this.demandes.idtitre?.toString() ?? '';
+   this.demande.nomReference=this.demandes.reference?.toString() ?? '';
+   this.demande.idFournisseur=this.demandes.idfournisseur?.toString() ?? '';
+   this.demande.montantHt=this.demandes.montantht?.toString() ?? '';
+   this.demande.idPeriode=this.demandes.idperiode?.toString() ?? '';
+   this.demande.typeReference=this.demandes.typereference?.toString() ?? '';
+   this.demande.validationPrescripteur=Boolean(this.demandes.validationprescripteur);
+   this.demande.estSoumis=Boolean(this.demandes.estSoumis);
+   this.demande.depense=this.demandes.depense?.toString() ?? '';
+   
+   console.log(this.demande,'itodemande ');
+   this.demande.validationPrescripteur=false;
+     this.demande.estSoumis=false;
+    this.utilitaire.update(id, this.demande).subscribe((Response) => {
+      console.log(Response,'modication ooooooooo');
+     });
+    });
+    
+ 
+   
   }
 }

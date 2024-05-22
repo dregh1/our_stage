@@ -13,6 +13,7 @@ import { Titre } from '../models/TitreDepense';
 export class UtilitaireService {
   
   private baseUrl = 'http://localhost:8080/teste';
+  private baseUrl2='http://localhost:8080/prescripteur';
 
   constructor(private http: HttpClient) { }
 
@@ -70,7 +71,7 @@ export class UtilitaireService {
 
          getMailUser(idGroup : string , tokenAdmin : string)
          {
-           const url  = `http://localhost:8081/admin/realms/oma/groups/${idGroup}/members`;
+           const url  = `http://localhost:8082/admin/realms/oma/groups/${idGroup}/members`;
            const headers = new HttpHeaders({ Authorization: `Bearer ${tokenAdmin}` });
            return this.http.get<any[]>(url, { headers });
          }
@@ -78,7 +79,7 @@ export class UtilitaireService {
 
          getIdOfGroup(nomGroupe : string , tokenAdmin : string)
          {
-           const url  = 'http://localhost:8081/admin/realms/oma/groups?search='+nomGroupe;
+           const url  = 'http://localhost:8082/admin/realms/oma/groups?search='+nomGroupe;
            const headers = new HttpHeaders({ Authorization: `Bearer ${tokenAdmin}` });
            return this.http.get<any>(url, { headers });
          }
@@ -100,14 +101,14 @@ export class UtilitaireService {
            }
            const mails : MyMail []=[];
 
-           const url = 'http://localhost:8081/realms/oma/protocol/openid-connect/token';
+           const url = 'http://localhost:8082/realms/oma/protocol/openid-connect/token';
 
            const params = new HttpParams()
            .set('grant_type', 'password')
-           .set('client_id', 'angular-client')
-           .set('client_secret', 'F6ONL3ox63NBv1h1J5wmmibHlDhLA1MI')
-           .set('username', 'charlesandrea')
-           .set('password', 'password');
+           .set('client_id', 'quarkus-client')
+           .set('client_secret', 'diNdyU2iGksempOMKqs5gZlA2UkwngCJ')
+           .set('username', 'ash')
+           .set('password', 'ash');
 
        
 
@@ -223,5 +224,12 @@ export class UtilitaireService {
           });
 
         }
+         //modication demande
+  update(id: number, data: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put<any>(`${this.baseUrl2}/demande/${id}`, data, {
+      headers,
+    });
+  }
           
 }

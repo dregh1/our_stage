@@ -61,7 +61,8 @@ export class CreationPrescripteurComponent implements OnInit {
     montantHt: '',
     validationPrescripteur: false,
     idPeriode: '',
-    idSession:''
+    idSession:'',
+    depense:''
   };
 
   TitreDepense = {
@@ -190,6 +191,8 @@ session=new SessionCd();
     this.selectedTitleAct = title;
   }
   creerDemande() {
+    console.log(this.demande.depense);
+    
     let missingField: keyof Demande | null = null; // Type for the missing field name
 
     if (!this.demande.typeDevise) {
@@ -245,6 +248,7 @@ session=new SessionCd();
           this.demande.idFournisseur= '';
           this.demande.montantHt= '';
          this.demande.idPeriode= '';
+         this.demande.depense='';
          console.log('mety vide');
           setTimeout(() => {  
             // Hide the message by setting errorStatus to false

@@ -284,24 +284,24 @@ export class ValidationComponent implements OnInit {
       this.demandes = response;
       //console.log(response,"////////////////");
       this.demande.estRegularisation = Boolean(
-        this.demandes.estRegularisation ?? ''
+        this.demandes.estregularisation ?? ''
       );
       this.demande.idTitreDepense =
         this.demandes.idTitreDepense?.toString() ?? '';
-      this.demande.typeReference = this.demandes.typeReference ?? '';
+      this.demande.typeReference = this.demandes.typereference ?? '';
       // this.demande.typereference=this.demande.typereference;
       this.demande.nomReference = this.demandes.nomReference ?? '';
       this.demande.motif = this.demandes.motif ?? '';
       this.demande.typeDevise = this.demandes.typeDevise ?? '';
-      this.demande.comsPrescripteur = this.demandes.comsPrescripteur ?? '';
+      this.demande.comsPrescripteur = this.demandes.comsprescripteur ?? '';
       this.demande.idFournisseur =
-        this.demandes.idFournisseur?.toString() ?? '';
-      this.demande.montantHt = this.demandes.montantHt?.toString() ?? '';
-      this.demande.idDirection = this.demandes.idDirection?.toString() ?? '';
+        this.demandes.idfournisseur?.toString() ?? '';
+      this.demande.montantHt = this.demandes.montantht?.toString() ?? '';
+      this.demande.idDirection = this.demandes.iddirection?.toString() ?? '';
       this.demande.sousRubrique = this.demandes.sousRubrique?.toString() ?? '';
-      this.demande.idRubrique = this.demandes.idRubrique?.toString() ?? '';
+      this.demande.idRubrique = this.demandes.idrubrique?.toString() ?? '';
       this.demande.validationPrescripteur = Boolean(
-        this.demandes.validationPrescripteur ?? ''
+        this.demandes.validationprescripteur ?? ''
       );
       this.demande.validationCdg = Boolean(this.demandes.validationCdg ?? '');
       this.demande.validationAchat = Boolean(

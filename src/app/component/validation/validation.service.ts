@@ -118,7 +118,7 @@ export class ValidationService {
   //               }
   //             });
 
-  //             xhr.open("GET", "http://localhost:8081/realms/oma/protocol/openid-connect/userinfo");
+  //             xhr.open("GET", "http://localhost:/realms/oma/protocol/openid-connect/userinfo");
   //             xhr.setRequestHeader("Authorization", "bearer "+token);
   //             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
