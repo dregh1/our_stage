@@ -79,11 +79,14 @@ getormatdate(){
 }
   // submit bouton ouvrir session
   openSession() {
-    this.session.idDirection =  this.idDirection;
+    // this.session.idDirection =  this.idDirection;
+
+
+    
    
     
     //this.session.dateDebut=this.getormatdate()?.toString() ?? '';
-    console.log('SSESESSESESE' + this.session.idDirection);
+    // console.log('SSESESSESESE' + this.session.idDirection);
     console.log(this.session);
     console.log(this.session.dateDebut,'date debut');
     

@@ -27,9 +27,9 @@ export class TestComponent implements OnInit {
 
   role: string | null = '';
   token: string | null = '';
-  isUp1 = false; // Initial state for first button
-  isUp2 = false; // Initial state for second button
-  isUp3 = false;
+  isUp1 = true; // Initial state for first button
+  isUp2 = true; // Initial state for second button
+  isUp3 = true;
   item: any;
   errorMessage: string = '';
   periodes: Periode[] = [];
@@ -580,5 +580,8 @@ session=new SessionCd();
     }
     //recuperation idsession 
   //validation prescripteur
-    
+    test(){
+      console.log(this.demande,'demand vaovao');
+      
+    }
   }

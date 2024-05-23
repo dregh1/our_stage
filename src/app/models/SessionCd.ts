@@ -5,7 +5,7 @@ export class SessionCd {
     public dateCloture?: Date,
     public dateDebut?: string,
     public dateFermeture?: string,
-    public idDirection?: Number,
+    //public idDirection?: Number,
     public estFerme?: boolean,
     public tauxEur?: Number,
     public tauxUsd?: Number,

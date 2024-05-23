@@ -17,7 +17,286 @@
                               <!-- les attributs du  prescripteur -->
                                 <div class="collapse show" id="collapseExample" >
                                     <div class="card card-body">
-                                        <div class="mx-4">
+                                      <div class="col-sm-12 col-lg-3 offset-lg-1" style="width: 80%;">
+                 
+                                        <!-- <form class="needs-validation mb-5" novalidate> -->
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                           
+                                                <div class="col-sm-4 col-md-6 mb-3">
+                                                  <div class="mb-3">
+                                                    <label for="email" id="emailLabel" class="form-label is-required">Date de creation<span class="visually-hidden"> (required)</span></label>
+                                                    <input type="datetime-local" class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>
+                                                    
+                                                    <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="emailFeedback" class="invalid-feedback">
+                                                      date vide.
+                                                    </div>
+                                                  </div>
+                                                <!-- <span class="text-primary me-1">*</span>indicates required -->
+                                                <label for="selectTitle" id="selectTitleLabel" class="form-label is-required">Titre<span class="visually-hidden"> (required)</span></label>
+                                                <div class="input-group mb-2">
+                                                  <select
+                                                    class="form-select"
+                                                    [(ngModel)]="this.demande.idTitreDepense"
+                                                    id="idtitre"aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required
+                                                  >
+                                                    <ng-container *ngFor="let titre of this.titres">
+                                                      <option
+                                                        *ngIf="titre.idDirection === this.direction.id && titre.designation!='sans titre'"
+                                                        [value]="titre.id"
+                                                      >
+                                                        {{ titre.designation }}
+                                                      </option>
+                                                    </ng-container>
+                                                  </select>
+                              
+                                                  <button
+                                                    class="btn btn-outline-secondary"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModal"
+                                                    data-bs-whatever="@mdo"
+                                                  >
+                                                    +
+                                                  </button>
+                                                </div>
+                                               
+                                                  <div class="valid-feedback">
+                                                    Bien!
+                                                  </div>
+                                                  <div id="selectTitleFeedback" class="invalid-feedback">
+                                                    titre vide.
+                                                  </div>
+                                                </div>
+                                                <div class="col-12">
+                                                  <div class="mb-3">
+                                                    <label for="firstName" id="firstNameLabel" class="form-label is-required">OPEX/CAPEX<span class="visually-hidden"> (required)</span></label>
+                                                    <select class="form-select" id="country" [(ngModel)]="this.demande.depense" aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required>
+                                                        <!-- <option selected disabled value="" aria-hidden="true">Select a country</option> -->
+                                                        <option value="OPEX">OPEX</option>
+                                                        <option value="CAPEX">CAPEX</option>
+                                                      </select>
+                                                      <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="firstNameFeedback" class="invalid-feedback">
+                                                      selectionnez opex ou capex .
+                                                    </div>
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label for="firstName" id="firstNameLabel" class="form-label is-required">Type<span class="visually-hidden"> (required)</span></label>
+                                                    <select class="form-select" id="country" [(ngModel)]="this.demande.typeReference" aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required>
+                                                        <!-- <option selected disabled value="" aria-hidden="true">Select a country</option> -->
+                                                        <option value="BC">BC</option>
+                                                        <option value="DED">DED</option>
+                                                      </select>
+                                                      <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="firstNameFeedback" class="invalid-feedback">
+                                                      selectionnez une type de reference.
+                                                    </div>
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label for="email" id="emailLabel" class="form-label is-required">Devise<span class="visually-hidden"> (required)</span></label>
+                                                    <select class="form-select" id="country" [(ngModel)]="this.demande.typeDevise" aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required>
+                                                        <!-- <option selected disabled value="" aria-hidden="true">Select a country</option> -->
+                                                        <option value="MGA">MGA</option>
+                                                        <option value="USD">USD</option>
+                                                        <option value="EUR">EUR</option>
+                                
+                                                      </select>
+                                                    <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="emailFeedback" class="invalid-feedback">
+                                                      Selectionnez le devise.
+                                                    </div>
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label for="country" id="countryLabel" class="form-label is-required">Rubrique<span class="visually-hidden"> (required)</span></label>
+                                                    <select class="form-select" [(ngModel)]="this.demande.idRubrique" aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required>
+                                                      <option
+                                                          *ngFor="let item of this.rubriques"
+                                                          [value]="item.id"
+                                                        >
+                                                          {{ item.designation }}
+                                                      </option>
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="countryFeedback" class="invalid-feedback">
+                                                      selectionnez le rubrique.
+                                                    </div>
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label for="message" id="messageLabel" class="form-label is-required">Motif besoin<span class="visually-hidden"> (required)</span></label>
+                                                    <button type="button" class="form-helper" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Help for text area">
+                                                      <span class="visually-hidden">Helper for text area</span>
+                                                    </button>
+                                                    <textarea class="form-control" id="message"[(ngModel)]="this.demande.motif" rows="5" placeholder="votre motif" aria-labelledby="messageLabel messageFeedback" required></textarea>
+                                                    <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="messageFeedback" class="invalid-feedback">
+                                                        Motif vide.
+                                                    </div>
+                                                    
+                                                  </div>
+                                                </div>
+                                              </div>
+                                
+                                              <div class="col-md-6">
+                                               
+                                                <div class="col-sm-4 col-md-6 mb-3">
+                                                    <br>
+                                                    <label for="selectTitle" id="selectTitleLabel" class="form-label is-required">Regularisation<span class="visually-hidden"> (required)</span></label>
+                                                  <!-- [(ngModel)]="this.demande.estRegularisation" <input type="checkbox" class="form-control form-check-input" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required> -->
+                                                  <input class="form-control form-check-input" [(ngModel)]="this.demande.estRegularisation" type="checkbox"  role="switch" id="flexSwitchCheckChecked" checked>
+                                                  
+                                                  <div class="valid-feedback">
+                                                    Bien!
+                                                  </div>
+                                                  <div id="selectTitleFeedback" class="invalid-feedback">
+                                                    Regularisation vide.
+                                                  </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                  <label for="email" id="emailLabel" class="form-label is-required">Direction<span class="visually-hidden"> (required)</span></label>
+                                                  <select
+                                                        class="form-select"
+                                                        [(ngModel)]="this.demande.idPeriode"
+                                                        id="inputGroupSelect04"aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required
+                                                      >
+                                                        <option
+                                                          *ngFor="let item of this.periodes"
+                                                          [value]="item.id"
+                                                        >
+                                                          {{ item.designation }}
+                                                        </option>
+                                                  </select>
+                                                  <div class="valid-feedback">
+                                                    Bien!
+                                                  </div>
+                                                  <div id="emailFeedback" class="invalid-feedback">
+                                                    Periode vide.
+                                                  </div>
+                                                </div>
+                                                <div class="col-12">
+                                                  <div class="mb-3">
+                                                    <label for="firstName" id="firstNameLabel" class="form-label is-required">Fournisseurs<span class="visually-hidden"> (required)</span></label>
+                                                    <input type="text" class="form-control" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+                                                    <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="firstNameFeedback" class="invalid-feedback">
+                                                      Fournisseurs vide.
+                                                    </div>
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label for="lastName" id="lastNameLabel" class="form-label is-required">MontantHt<span class="visually-hidden"> (required)</span></label>
+                                                    <input type="number" class="form-control"[(ngModel)]="this.demande.montantHt" id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>
+                                                    <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="lastNameFeedback" class="invalid-feedback">
+                                                      MontantHt vide.
+                                                    </div>
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label for="email" id="emailLabel" class="form-label is-required">Periode<span class="visually-hidden"> (required)</span></label>
+                                                    <select
+                                                          class="form-select"
+                                                          [(ngModel)]="this.demande.idPeriode"
+                                                          id="inputGroupSelect04"aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required
+                                                        >
+                                                          <option
+                                                            *ngFor="let item of this.periodes"
+                                                            [value]="item.id"
+                                                          >
+                                                            {{ item.designation }}
+                                                          </option>
+                                                    </select>
+                                                    <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="emailFeedback" class="invalid-feedback">
+                                                      Periode vide.
+                                                    </div>
+                                                  </div>
+                                                  <div class="mb-3">
+                                                    <label for="country" id="countryLabel" class="form-label is-required">Sous Rubrique<span class="visually-hidden"> (required)</span></label>
+                                                    <input type="text" class="form-control" [(ngModel)]="this.demande.sousRubrique" id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>
+                                                    
+                                                    <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="countryFeedback" class="invalid-feedback">
+                                                      sous Rubrique vide.
+                                                    </div>
+                                                  </div>
+                                                
+                                                  
+                                                  <div class="mb-3">
+                                                    
+                                                    <label for="message" id="messageLabel" class="form-label is-required">Commentaire<span class="visually-hidden"> (required)</span></label>
+                                                    <button type="button" class="form-helper" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Help for text area">
+                                                      <span class="visually-hidden">Helper for text area</span>
+                                                    </button>
+                                                    <textarea class="form-control" id="message" [(ngModel)]="this.demande.comsPrescripteur" rows="5" placeholder="votre commentaire" aria-labelledby="messageLabel messageFeedback" required></textarea>
+                                                    <div class="valid-feedback">
+                                                      Bien!
+                                                    </div>
+                                                    <div id="messageFeedback" class="invalid-feedback">
+                                                      commentaire vide.
+                                                    </div>
+                                                  </div>
+                                                  <div *ngIf="role === 'PRS' && this.demande.validationPrescripteur === false " class=" p-3 d-flex justify-content-end" >
+                                                    <div class="error-message">
+                                                      <p class="text-success">{{ errorMessage }}</p>
+                                                    </div>
+                                                    <button type="button" class="btn btn-primary mx-3" >Supprimer</button> 
+                                                    <button type="button" class="btn btn-primary mx-3"(click)="update()">Enregistrer</button>
+                                                      <button type="button" class="btn btn-primary "(click)="valider()">Soumettre</button>  
+                                                  </div>
+                                                </div>
+                                              </div>
+                                        </div>
+                                        <!-- </form> -->
+                                      </div>
+
+                                    </div>
+                                  </div>
+                                  </fieldset>
+                                  <!-- pop up titre -->
+                                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h1 class="modal-title h5" id="exampleModalLabel">Titre</h1>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form>
+                                            <div class="mb-3">
+                                              <label for="recipient-name" class="col-form-label">Ajout titre:</label>
+                                              <input type="text" class="form-control" [(ngModel)]="titredepense.designation" [ngModelOptions]="{standalone:true}" id="recipient-name">
+                                              
+                                            </div>
+                                            
+                                          </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                         <button type="button" class="btn btn-primary" (click)="Ajouttitre()" data-bs-dismiss="modal">Enregistrer</button>
+                                          </div>
+                                      </div>
+                                    </div>
+                                    
+                                  </div>
+                                        <!-- <div class="mx-4">
                                             <div class=" justify-content-around d-flex form-group" >
                                               <div class="d-flex">
                                                   <div class="label">
@@ -33,7 +312,6 @@
                                                     <div class="form-check mb-2 form-switch">
                                                       <input class="form-check-input" [(ngModel)]="this.demande.estRegularisation"type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
                                                     </div>
-                                                      <!-- <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.type_reference"> -->
                                                       <div class="input-group mb-2">
                                                         <select
                                                           class="form-select"
@@ -76,7 +354,6 @@
                                                   
                                                       </select>
                                                      </div>
-                                                    <!-- <input type="text" class="form-control mb-2" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" [(ngModel)]="this.demande.type_devise">-->
                                                      <input type="text" class="form-control mb-2" placeholder="" aria-label="commentaire Prescripteur" aria-describedby="basic-addon1" [(ngModel)]="this.demande.comsPrescripteur"> 
                                                   </div>
                                               </div>
@@ -91,36 +368,13 @@
                                                     <span class="input-group-text mb-2" id="basic-addon1">Période prestation</span>
                                                   </div>
                                                   <div class="mx-3">
-                                                    <!--CREATION TITRE-->
                                                     <div class="input-group mb-2">
                                                       <select class="form-select" [(ngModel)]="this.demande.idTitreDepense" id="titreDepense" aria-label="Liste déroulante des titres de dépenses">
                                                           <option *ngFor="let titre of titres" [value]="titre.id">{{ titre.designation }}</option>
                                                       </select>
                                                      <button class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">+</button>
                                                    </div>
-                                                   <!-- <input type="text" class="form-control mb-2" placeholder="" aria-label="motif" aria-describedby="basic-addon1" [(ngModel)]="this.demande.motif"> -->
-                                                    <div class="input-group mb-2">
-                                                      <textarea class="form-control" [(ngModel)]="this.demande.motif" ></textarea>
-                                                    </div>
-                                                   <div class="input-group mb-2">
-                                                    <select class="form-select" [(ngModel)]="this.demande.idFournisseur" id="inputGroupSelect04" aria-label="Example select with button addon">
-                                                      <option *ngFor="let item of this.fournisseurs" [value]="item.id"> {{item.nom}}  </option>
-                                                
-                                                    </select>
-                                                   </div>                                             
-                                                   <input type="text" class="form-control mb-2" placeholder="" aria-label="montant HT" aria-describedby="basic-addon1"[(ngModel)]="this.demande.montantHt">
-                                                   <input type="text" class="form-control mb-2" placeholder="" aria-label="" aria-describedby="basic-addon1"[(ngModel)]="this.demande.sousRubrique">
-                                                    <div class="input-group mb-2">
-                                                        <select class="form-select"  [(ngModel)]="this.demande.idPeriode"id="inputGroupSelect04" aria-label="Example select with button addon">
-                                                          <option *ngFor="let item of this.periodes" [value]="item.id">{{item.designation}}</option>
-                                                        </select>
-                                                     </div> 
-                                                  </div>
-                                              </div>
-                                            </div>
-                                        </div> 
-                                      </div>
-                                      <!-- messange validé ou non par le prescripteur -->
+                                                 </div>
                                       <div class="d-flex justify-content-end">
                                         <p class="text-success p-2">
                                           {{ this.demande.validationPrescripteur ? 'validé' : 'non validé' }}
@@ -128,7 +382,6 @@
                                       </div>
                                 </div>
                             
-                              <!--    popu titre-->
                               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                   <div class="modal-content">
@@ -153,22 +406,16 @@
                                 </div>
                                 
                               </div>
-                              <!--bouton valider-->
-                                <!-- <div *ngIf="role === 'PRS'" class="bt p-3 d-flex justify-content-end">
-                                  <button *ngIf="this.demande.validationPrescripteur" (click)="annulationprescripteur()" class="btn btn-primary mx-3">Annuler</button>
-                                </div> -->
+                              
                                 <div *ngIf="role === 'PRS' && this.demande.validationPrescripteur === false " class="bt p-3 d-flex justify-content-end" >
                                 <div class="error-message">
                                   <p class="text-success">{{ errorMessage }}</p>
                                 </div>
                                 <button type="button" class="btn btn-primary mx-3" routerLink="../../creationprescripteur">Nouveau</button> 
                                 <button type="button" class="btn btn-primary mx-3"(click)="update()">Enregistrer</button>
-                                <!-- <button type="button" class="btn btn-primary mx-3"(click)="refuserCdg()">Refuser</button>   -->
-                                <!-- <div *ngIf="existanceSession===true"> -->
                                   <button type="button" class="btn btn-primary "(click)="valider()">Soumettre</button>  
-                                <!-- </div> -->
                               </div>
-                      </fieldset>
+                      </fieldset>-->
                       <div *ngIf="role === 'CDG' || role === 'ACH' ">
                       <!--partie cdg-->
                           <fieldset class="form-group border border-1 p-2">
@@ -178,67 +425,114 @@
                                     </button>
                             </legend>
                             <div class="collapse show" id="collapseExample1">
-                                <div class="card card-body " >
-                                      <div class=" justify-content-around d-flex">
-                                          <div class="d-flex">
-                                              <div class="label">
-                                                <span class="input-group-text mb-2" id="basic-addon1">Rubrique Budgetaire</span>
-                                                <span class="input-group-text mb-2" id="basic-addon1">Montant budget mensuel KMGA</span>
-                                                <span class="input-group-text mb-2" id="basic-addon1">Reliquat KMGA</span>
+                                
+
+
+
+                              
+
+                              
+
+
+
+
+
+
+
+
+                              <div class="card card-body">
+                                <div class="col-sm-12 col-lg-3 offset-lg-1" style="width: 80%;">
+                 
+                                  <!-- <form class="needs-validation mb-5" novalidate> -->
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                     
+                                          
+                                          <div class="col-12">
+                                            <div class="mb-3">
+                                              <label for="firstName" id="firstNameLabel" class="form-label is-required">montant ray<span class="visually-hidden"> (required)</span></label>
+                                              
+                                              <input type="number" step="any" class="form-control"[(ngModel)]="this.AvisCdg.montantBudgetMensuel"(ngModelChange)="calculerResultat()" id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>
+                                             
+                                                <div class="valid-feedback">
+                                                Bien!
                                               </div>
-                                                <div class="mx-3">
-                                                  <div class="input-group mb-2">
-                                                    <select class="form-select" [(ngModel)]="this.demande.idRubrique" id="inputGroupSelect04" aria-label="Example select with button addon">
-                                                      <option *ngFor="let item of this.rubriques" [value]="item.id"> {{item.designation}}  </option>
+                                              <div id="firstNameFeedback" class="invalid-feedback">
+                                                selectionnez opex ou capex .
+                                              </div>
+                                            </div>
+                                            <div class="mb-3">
+                                              <label for="firstName" id="firstNameLabel" class="form-label is-required">Reliquat<span class="visually-hidden"> (required)</span></label>
+                                              <span class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name">{{this.reliquat}}</span>
                                                 
-                                                    </select>
-                                                   </div>
-                                                   <input type="number" step="any" class="form-control mb-2" placeholder="" aria-label="Montant Budget Mensuel" aria-describedby="basic-addon1"[(ngModel)]="this.AvisCdg.montantBudgetMensuel"(ngModelChange)="calculerResultat()">
-                                                   <span  class="form-control mb-2"aria-describedby="basic-addon1">{{this.reliquat}}</span>
-                                              </div>
-                                        
-                                          <div class="d-flex">
-                                            <div class="label">
-                                                <span class="input-group-text mb-2" id="basic-addon1">Sous Rubrique</span>
-                                                <span class="input-group-text mb-2" id="basic-addon1">Montant engagé KMGA</span>
-                                                <span class="input-group-text mb-2" id="basic-addon1">Commentaire CDG</span>
-                                                </div>
-                                              <div class="mx-3">
-                                                <input type="text" class="form-control mb-2"  aria-label="Sous Rubrique" [(ngModel)]="this.demande.sousRubrique" aria-describedby="basic-addon1">
-                                                <input type="number" step="any" class="form-control mb-2" placeholder="" aria-label="Montant Engage" aria-describedby="basic-addon1" [(ngModel)]="this.AvisCdg.montantEngage" (ngModelChange)="calculerResultat()">
-                                                <input type="text" class="form-control mb-2"  aria-label="commentaire CDG" aria-describedby="basic-addon1"[(ngModel)]="this.AvisCdg.commentaire">
-                                              </div>
+                                            </div>
+                                            
+                                            
+                                          </div>
                                         </div>
-                                      </div>
+                          
+                                        <div class="col-md-6">
+                                         
+                                        
+                                          
+                                          <div class="col-12">
+                                            
+                                            
+                                            
+                                            <div class="mb-3">
+                                              <label for="country" id="countryLabel" class="form-label is-required">Montant engage<span class="visually-hidden"> (required)</span></label>
+                                              <input type="number" step="any" class="form-control"  [(ngModel)]="this.AvisCdg.montantEngage" (ngModelChange)="calculerResultat()" id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>
+                                              
+                                              <div class="valid-feedback">
+                                                Bien!
+                                              </div>
+                                              <div id="countryFeedback" class="invalid-feedback">
+                                                sous Rubrique vide.
+                                              </div>
+                                            </div>
+                                          
+                                            
+                                            <div class="mb-3">
+                                              
+                                              <label for="message" id="messageLabel" class="form-label is-required">Commentaire<span class="visually-hidden"> (required)</span></label>
+                                              <button type="button" class="form-helper" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Help for text area">
+                                                <span class="visually-hidden">Helper for text area</span>
+                                              </button>
+                                              <textarea class="form-control" id="message" [(ngModel)]="this.AvisCdg.commentaire" rows="5" placeholder="votre commentaire" aria-labelledby="messageLabel messageFeedback" required></textarea>
+                                              <div class="valid-feedback">
+                                                Bien!
+                                              </div>
+                                              <div id="messageFeedback" class="invalid-feedback">
+                                                commentaire vide.
+                                              </div>
+                                            </div>
+                                            
+                                          </div>
+                                        </div>
+                                        <!-- ANNULATION CDG -->
+                                        <div *ngIf="role === 'CDG'" class=" d-flex justify-content-end">
+                                          <button  class="btn btn-primary mx-3" *ngIf="this.demande.validationCdg===true || this.demande.estRefuseCdg===true" (click)="annulationCdg()">Annuler</button>
+                                        </div>
+                                        <div *ngIf="role === 'CDG' && this.demande.validationCdg === false && this.demande.estRefuseCdg === false" class=" p-3 d-flex justify-content-end" >
+                                          <div class="error-message">
+                                            <p class="text-success">{{ errorMessage }}</p>
+                                          </div>
+                                          <button type="button" class="btn btn-primary mx-3"(click)="enregistrerCdg()" >Enregistrer</button> 
+                                          <button type="button" class="btn btn-primary mx-3" *ngIf="this.existanceAvisCdg === true" (click)="modificationCdg()" >Modifier</button> 
+                                          <button type="button" class="btn btn-primary mx-3"(click)="refuserCdg()">Refuser</button>  
+                                          
+                                            <button type="button" class="btn btn-primary" (click)="validationCdg()">Valider</button>  
+                                          
+                                        </div>
+                                  </div>
+                                  <!-- </form> -->
                                 </div>
                               </div>
-                              <!-- <div class="d-flex justify-content-end" *ngIf="this.demande.validationCdg === true" >
-                                <p class="text-success p-2">validé</p>
-                             </div> -->
-                             <!-- messange validé ou non par le Cdg -->
-                             <div class="d-flex justify-content-end">
-                              <p class="text-success p-2">
-                                {{ this.demande.validationCdg ? 'validé' : this.demande.estRefuseCdg ? 'Refusé' : 'En attente' }}
-                              </p>
-                            </div>
                             </div>
                           </fieldset>
-                          <!-- ANNULATION CDG -->
-                          <div *ngIf="role === 'CDG'" class="bt p-3 d-flex justify-content-end">
-                            <button  class="btn btn-primary mx-3" *ngIf="this.demande.validationCdg===true || this.demande.estRefuseCdg===true" (click)="annulationCdg()">Annuler</button>
-                          </div>
-                          <div *ngIf="role === 'CDG' && this.demande.validationCdg === false && this.demande.estRefuseCdg === false" class="bt p-3 d-flex justify-content-end" >
-                            <div class="error-message">
-                              <p class="text-success">{{ errorMessage }}</p>
-                            </div>
-                            <button type="button" class="btn btn-primary mx-3"(click)="enregistrerCdg()" >Enregistrer</button> 
-                            <button type="button" class="btn btn-primary mx-3" *ngIf="this.existanceAvisCdg === true" (click)="modificationCdg()" >Modifier</button> 
-                            <button type="button" class="btn btn-primary mx-3"(click)="refuserCdg()">Refuser</button>  
-                            
-                              <button type="button" class="btn btn-primary" (click)="validationCdg()">Valider</button>  
-                            
-                          </div>
-                      </div>
+                      
+                          
+                      
                       <div *ngIf="role === 'ACH'">
                               <!--partie Achat-->
                               <fieldset class="form-group border border-1 p-2">
@@ -249,11 +543,38 @@
                                   </legend>
                                   <div class="collapse show" id="collapseExample2">
                                       <div class="card card-body " >
+                                        <div class="col-sm-12 col-lg-3 offset-lg-1" style="width: 80%;">
+                                          <div class="mb-3">
+                                              
+                                            <label for="message" id="messageLabel" class="form-label is-required">Commentaire<span class="visually-hidden"> (required)</span></label>
+                                            <button type="button" class="form-helper" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Help for text area">
+                                              <span class="visually-hidden">Helper for text area</span>
+                                            </button>
+                                            <textarea class="form-control" id="message" [(ngModel)]="this.AvisAchat.commentaire" rows="5" placeholder="votre commentaire" aria-labelledby="messageLabel messageFeedback" required></textarea>
+                                            <div class="valid-feedback">
+                                              Bien!
+                                            </div>
+                                            <div id="messageFeedback" class="invalid-feedback">
+                                              commentaire vide.
+                                            </div>
+                                          </div>
+                                           <!-- annulation achat -->
+                                            <div *ngIf="role === 'ACH'" class=" d-flex justify-content-end">
+                                              <button  class="btn btn-primary mx-3" *ngIf="this.demande.validationAchat===true || this.demande.estRefuseAchat===true" (click)="annulationAchat()">Annuler</button>
+                                            </div>
+                                            <div class="d-flex justify-content-end" *ngIf="this.demande.validationAchat === false && this.demande.estRefuseAchat === false " >
+                                                <!-- <div class="error-message">
+                                                  <p class="text-success">{{ errorMessage }}</p>
+                                                </div> -->
+                                                <div *ngIf="role === 'ACH'">
+                                                    <button type="button" class="btn btn-primary mx-3" (click)="EnregistrerAchat()">Enregistrer</button>  
+                                                    <button type="button" *ngIf="this.existanceAvisAchat === true" class="btn btn-primary mx-3" (click)="modificationAchat()">Modifier</button>   
+                                                    <button type="button" class="btn btn-primary mx-3"(click)="refuserAchat()">Refuser</button>  
+                                                    <button type="button" class="btn btn-primary mx-3" (click)="validationAchat()">Valider</button>  
+                                                </div>
+                                            </div> 
+                                        </div>
                                           
-                                          <div class="d-flex p-1">
-                                            <span class="input-group-text mb-2" id="basic-addon1">Commentaire Achat</span>
-                                            <input type="text" class="form-control mb-2" placeholder="" aria-label="commentaire Achat" aria-describedby="basic-addon1" [(ngModel)]="this.AvisAchat.commentaire">
-                                          </div> 
                                       </div>
                                       <!-- <div class="d-flex justify-content-end" *ngIf="this.demande.validationAchat === true" >
                                           <p class="text-success p-2">validé</p>
@@ -266,22 +587,9 @@
                                       </div>
                                     </div>
                               </fieldset>
-                              <!-- annulation achat -->
-                              <div *ngIf="role === 'ACH'" class="bt p-3 d-flex justify-content-end">
-                                <button  class="btn btn-primary mx-3" *ngIf="this.demande.validationAchat===true || this.demande.estRefuseAchat===true" (click)="annulationAchat()">Annuler</button>
-                              </div>
-                              <div class="bt p-3 d-flex justify-content-end" *ngIf="this.demande.validationAchat === false && this.demande.estRefuseAchat === false " >
-                                  <!-- <div class="error-message">
-                                    <p class="text-success">{{ errorMessage }}</p>
-                                  </div> -->
-                                  <div *ngIf="role === 'ACH'">
-                                      <button type="button" class="btn btn-primary mx-3" (click)="EnregistrerAchat()">Enregistrer</button>  
-                                      <button type="button" *ngIf="this.existanceAvisAchat === true" class="btn btn-primary mx-3" (click)="modificationAchat()">Modifier</button>   
-                                      <button type="button" class="btn btn-primary mx-3"(click)="refuserAchat()">Refuser</button>  
-                                      <button type="button" class="btn btn-primary mx-3" (click)="validationAchat()">Valider</button>  
-                                  </div>
-                              </div> 
+                             
                       </div>
+                    </div>
       </div>
                     
        

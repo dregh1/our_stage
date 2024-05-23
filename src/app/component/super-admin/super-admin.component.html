@@ -1,4 +1,5 @@
 
+
 <nav class="navbar">
   <div class="container-fluid">
     <div class="navbar-brand me-auto">
@@ -10,7 +11,11 @@
     </div>
   </div>
 </nav>
- 
+  
+  <!-- <div class="input-group mb-3 p-3 d-flex justify-content-end recherche">
+    <input [(ngModel)]="nomAchercher" type="text" class="form-control" placeholder="" aria-label="" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="rechercheUser()">Chercher</button>
+  </div> -->
   <!-- table liste  users -->
   <table class="table mx-2">
     <caption class="visually-hidden">Boosted tables basic look</caption>
@@ -23,24 +28,14 @@
       </tr>
     </thead>
     <tbody>
-      <!-- <tr *ngFor="let item of this.resultatRecherche">
+      <tr *ngFor="let item of this.resultatRecherche">
         <td>{{item.firstName}}</td>
         <td>{{item.lastName}}</td>
         <td></td>
         <td></td>
-        <td><a  class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Role</a></td>
-        <td><a class="btn" data-bs-toggle="modal" data-bs-target="#joindregroupe"> Groupe</a></td>
-    </tr> -->
-    <tr *ngFor="let item of this.listUserExistant">
-      <td>{{item.firstName}}</td>
-      <td>{{item.lastName}}</td>
-      <td></td>
-      <td></td>
-      <td><a  class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Role</a></td>
-      <td><a class="btn" data-bs-toggle="modal" data-bs-target="#joindregroupe"> Groupe</a></td>
-  </tr>
-    <tbody>
-      
+        <td><button  class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getIdUser(item.id)"> Role</button></td>
+        <td><a class="btn" data-bs-toggle="modal" data-bs-target="#joindregroupe" >Groupe</a></td>
+    </tr>
       <!-- <tr>
         <td>Mark</td>
         <td>Otto</td>
@@ -73,19 +68,20 @@
         <div class="modal-body">
             <div class="">
                 <label for="validationDefault01" class="form-label is-required ">Assigner Role<span class="visually-hidden"> (required)</span></label>
-                <select
+                <select [(ngModel)] ="this.rola"
                     class="form-select"
                     id="inputGroupSelect04"
                     aria-label="Example select with button addon" 
                     >
-                    <option selected value="BC"> DTI</option>
-                    <option value="DED"> ODC</option>
+                      <option selected value="ACH"> Achat</option>
+                      <option value="PRS"> Prescripteur</option>
+                      <option value="CDG"> CDG</option>
                     </select>
                 
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Enregistrer</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="assigneRole ()">Enregistrer </button>
         </div>
       </div>
     </div>

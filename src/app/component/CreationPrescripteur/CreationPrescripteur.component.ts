@@ -183,7 +183,10 @@ session=new SessionCd();
       return undefined; // Or a default value (e.g., -1) for filtering
     }
   }
-
+  test(){
+    console.log(this.demande,'reto demande');
+    
+  }
   showDetailsBr(title: string) {
     this.selectedTitleBr = title;
   }
