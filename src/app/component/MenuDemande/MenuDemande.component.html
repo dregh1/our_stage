@@ -2,41 +2,41 @@
   <section class="mx-3 p-1">
     <div class="main">
 
-
       <div class="card text-center" *ngIf="role === 'PRS'">
-          <div class="card-header   d-flex justify-content-between">
+          <div class="card-header  text-body bg-body  active d-flex justify-content-between">
             <ul class="nav nav-tabs card-header-tabs ">
               <li class="nav-item">
-                <button class="nav-link " aria-current="true" (click)="brouillonclique()" >Brouillon Liste des Demandes</button>
-                <!-- <a class="nav-link active" aria-current="true" href="active">Active</a> -->
+                <!-- <button class="nav-link " aria-current="true" (click)="brouillonclique()" >Brouillon Liste des Demandes</button> -->
+                <a class="nav-link " aria-current="true" [class.active]="brouillonActive" (click)="brouillonclique()">Brouillon Liste des Demandes</a>
               </li>
               <li class="nav-item ">
-                <button class="nav-link" aria-current="true" (click)="brouilloncliqueactive()">Listes en attente de sousmission</button>
+                <button class="nav-link" aria-current="true"[class.active]="listesessionActive" (click)="brouilloncliqueactive()">Listes en attente Session</button>
               </li>
-              
-            </ul>
-            <div >
-              
+              <li>
                 <button
                 type="button"
                 class="btn "
                 [routerLink]="'/main/creationprescripteur'"
               >
-              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="solaris-icon si-add text-white" viewBox="0 0 1000 1000">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="solaris-icon si-add text-black" viewBox="0 0 1000 1000">
                 <path d="M850 400H600V150a50 50 0 0 0-50-50H450a50 50 0 0 0-50 50v250H150a50 50 0 0 0-50 50v100a50 50 0 0 0 50 50h250v250a50 50 0 0 0 50 50h100a50 50 0 0 0 50-50V600h250a50 50 0 0 0 50-50V450a50 50 0 0 0-50-50" style="fill-rule:evenodd"/>
               </svg>
               </button>
-              
-            </div>
+              </li>
+            </ul>
+            
           </div>
           <div class="" *ngIf="isbrouillon===true">
               <table class="table table-fixed">
                 <thead>
                   <tr class="titre">
-                    <th scope="col" class="col-3 titre">Titre</th>
-                    <th scope="col" class="col-3 titre">Motif</th>
-                    <th scope="col" class="col-3 titre">Periode</th>
-                    <th scope="col" class="col-3 titre">Reference</th>
+                    <th scope="col" class="titre col-1">Identifiant</th>
+                    <th scope="col" class="titre col-1">Titre</th>
+                    <th scope="col" class=" titre col-2">Motif</th>
+                    <th scope="col" class="titre col-2">Devise</th>
+                    <th scope="col" class="titre col-2">Montant</th>
+                    <th scope="col" class="titre col-2">fournisseurs</th>
+                    <th scope="col" class="titre col-2">Date création</th>
                   </tr>
                 </thead>
                 <tbody
@@ -48,10 +48,13 @@
                   data-offset="50"
                   
                   >  
-                        <td class="col-3 ">{{ detail.titre }}</td>
-                        <td class="col-3 ">{{ detail.motif }}</td>
-                        <td class="col-3 ">{{ detail.periode }}</td>
-                        <td class="col-3 ">{{ detail.reference }}</td>
+                  <td class="col-1 ">{{ detail.id }}</td>
+                  <td class="col-1 ">{{ detail.titre }}</td>
+                  <td class="col-2 ">{{ detail.motif }}</td>
+                  <td class="col-2 ">{{ detail.devise }}</td>
+                  <td class="col-2 ">{{ detail.montantht }}</td>
+                  <td class="col-2 ">{{ detail.fournisseur }}</td>
+                  <td class="col-2 "> detail.date </td>
                   </tr>
                     
                 </tbody>
@@ -72,54 +75,7 @@
 
 
 
-      <!-- <div *ngIf="role === 'PRS'">
-        <div class="card">
-          <div
-            class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between"
-            id="navbarExample"
-          >
-            <p class="text-primary">Brouillon Liste des Demandes</p>
-            <button
-              type="button"
-              class="btn "
-              [routerLink]="'/main/creationprescripteur'"
-            >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="solaris-icon si-add text-black" viewBox="0 0 1000 1000">
-              <path d="M850 400H600V150a50 50 0 0 0-50-50H450a50 50 0 0 0-50 50v250H150a50 50 0 0 0-50 50v100a50 50 0 0 0 50 50h250v250a50 50 0 0 0 50 50h100a50 50 0 0 0 50-50V600h250a50 50 0 0 0 50-50V450a50 50 0 0 0-50-50" style="fill-rule:evenodd"/>
-            </svg>
-            </button>
-          </div>
-          
-          <table class="table table-fixed">
-            <thead>
-              <tr class="titre">
-                <th scope="col" class="col-3 titre">Titre</th>
-                <th scope="col" class="col-3 titre">Motif</th>
-                <th scope="col" class="col-3 titre">Periode</th>
-                <th scope="col" class="col-3 titre">Reference</th>
-              </tr>
-            </thead>
-            <tbody
-            >
-              <tr *ngFor="let detail of this.brouillon" [routerLink]="['/main/teste/', detail.id]"
-              class="mb-1 p-1 scrollspy-example"
-              data-spy="scroll"
-              data-target="#navbarExample"
-              data-offset="50"
-              
-              >  
-                    <td class="col-3 ">{{ detail.titre }}</td>
-                    <td class="col-3 ">{{ detail.motif }}</td>
-                    <td class="col-3 ">{{ detail.periode }}</td>
-                    <td class="col-3 ">{{ detail.reference }}</td>
-              </tr>
-                
-            </tbody>
-        </table>
-
-        </div>
-      </div> -->
-      <br />
+ <br />
 <!-- table active demande -->
  <div class="card">
   <div
@@ -163,10 +119,13 @@
   <table class="table table-fixed">
     <thead>
       <tr class="titre">
-        <th scope="col" class="titre col-3">Titre</th>
-        <th scope="col" class=" titre col-3">Motif</th>
-        <th scope="col" class="titre col-3">Periode</th>
-        <th scope="col" class="titre col-3">Reference</th>
+        <th scope="col" class="titre col-1">Identifiant</th>
+        <th scope="col" class="titre col-1">Titre</th>
+        <th scope="col" class=" titre col-2">Motif</th>
+        <th scope="col" class="titre col-2">Devise</th>
+        <th scope="col" class="titre col-2">Montant</th>
+        <th scope="col" class="titre col-2">fournisseurs</th>
+        <th scope="col" class="titre col-2">Date création</th>
       </tr>
     </thead>
     <tbody
@@ -176,12 +135,14 @@
       data-spy="scroll"
       data-target="#navbarExample"
       data-offset="50"
-      
       >  
-            <td class="col-3 ">{{ detail.titre }}</td>
-            <td class="col-3 ">{{ detail.motif }}</td>
-            <td class="col-3 ">{{ detail.periode }}</td>
-            <td class="col-3 ">{{ detail.reference }}</td>
+            <td class="col-1 ">{{ detail.id }}</td>
+            <td class="col-1 ">{{ detail.titre }}</td>
+            <td class="col-2 ">{{ detail.motif }}</td>
+            <td class="col-2 ">{{ detail.devise }}</td>
+            <td class="col-2 ">{{ detail.montantht }}</td>
+            <td class="col-2 ">{{ detail.fournisseur }}</td>
+            <td class="col-2 "> detail.date </td>
       </tr>
         
     </tbody>
@@ -237,7 +198,7 @@
 </div> 
 
 
-<!-- <ul class="list-group list-inline">
+ <ul class="list-group list-inline">
   <li class="mb-2" *ngFor="let detail of this.brouillon">
     <a
       [routerLink]="['/main/teste/', detail.id]"

@@ -63,8 +63,42 @@
                             <div id="selectTitleFeedback" class="invalid-feedback">
                               titre vide.
                             </div>
+
+
+                            
+                            
                           </div>
+                          
                           <div class="col-12">
+                            <div class="mb-3">
+                              <label for="email" id="emailLabel" class="form-label is-required">type<span class="visually-hidden"> (required)</span></label>
+                             <div class="d-flex ">
+                                  <select class="form-select" id="country" (ngModelChange)="refencedemande()" [(ngModel)]="this.demande.typeReference" aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required>
+                                    <!-- <option selected disabled value="" aria-hidden="true">Select a country</option> -->
+                                    <option value="BC">Reference BC</option>
+                                    <option value="DED">Reference DED</option>
+                                  </select>
+                                  <!-- <div *ngIf="nomrefence===true"> -->
+                                    <input
+                                    type="text"
+                                    step="any"
+                                    [(ngModel)]="this.demande.nomReference"
+                                    class="form-control mx-2"
+                                    value="{{ this.demande.typeReference }}-"
+                                    aria-label=""
+                                    aria-describedby="basic-addon1"
+                                  />
+                              <!-- </div> -->
+                             </div>
+                              
+                              <div class="valid-feedback">
+                              Bien!
+                              </div>
+                              <div id="firstNameFeedback" class="invalid-feedback">
+                                selectionnez une type de reference.
+                              </div>
+                            </div>
+                            
                             <div class="mb-3">
                               <label for="firstName" id="firstNameLabel" class="form-label is-required">OPEX/CAPEX<span class="visually-hidden"> (required)</span></label>
                               <select class="form-select" id="country" [(ngModel)]="this.demande.depense" aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required>
@@ -79,20 +113,7 @@
                                 selectionnez opex ou capex .
                               </div>
                             </div>
-                            <div class="mb-3">
-                              <label for="firstName" id="firstNameLabel" class="form-label is-required">Type<span class="visually-hidden"> (required)</span></label>
-                              <select class="form-select" id="country" [(ngModel)]="this.demande.typeReference" aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required>
-                                  <!-- <option selected disabled value="" aria-hidden="true">Select a country</option> -->
-                                  <option value="BC">BC</option>
-                                  <option value="DED">DED</option>
-                                </select>
-                                <div class="valid-feedback">
-                                Bien!
-                              </div>
-                              <div id="firstNameFeedback" class="invalid-feedback">
-                                selectionnez une type de reference.
-                              </div>
-                            </div>
+                           
                             <div class="mb-3">
                               <label for="email" id="emailLabel" class="form-label is-required">Devise<span class="visually-hidden"> (required)</span></label>
                               <select class="form-select" id="country" [(ngModel)]="this.demande.typeDevise" aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required>
@@ -466,13 +487,18 @@
             </div> -->
         </div>
       </fieldset>
+      <div *ngIf="this.alert===true" class="alert alert-success bg-white dropdown border-success dropup position-fixed bottom-0 end-0 me-5 bd-mode-toggle"style="width:300px; " role="alert">
+        <span class="alert-icon"><span class="visually-hidden">Success</span></span>
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div class="dropdown border-success dropup position-fixed bottom-0 end-0  me-5 bd-mode-toggle">
+        Demande enregistré
+      </div>
       <div class="bt p-3 d-flex justify-content-end">
         <div class="error-message">
           <p class="text-success">{{ errorMessage }}</p>
         </div>
-        <div class="dropdown border-success dropup position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle">
-          Demande enregistré
-        </div>
+       
               <button
               type="button"
               class="btn btn-primary "
@@ -538,16 +564,3 @@
     </div>
   </div>
 </div>
-<footer class="footer navbar" data-bs-theme="dark">
-  <h2 class="visually-hidden">Sitemap and information</h2>
-  <div class="container-xxl footer-terms">
-    <ul class="navbar-nav gap-md-3">
-      <li class="fw-bold">© Orange 2024</li>
-      <li><a class="nav-link" href="#">Terms and conditions</a></li>
-      <li><a class="nav-link" href="#">Privacy</a></li>
-      <li><a class="nav-link" href="#">Cookie policy</a></li>
-      <li><a class="nav-link" href="#">Accessibility statement</a></li>
-      <li><a class="nav-link active" id="test" href="#" aria-current="page">Become a reseller</a></li>
-    </ul>
-  </div>
-</footer>

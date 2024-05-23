@@ -20,7 +20,7 @@ export class CreationPrescripteurComponent implements OnInit {
   token: string | null = '';
   nomDirection: string | null = '';
   idDirection?: Number;
-  nomrefence=false;
+  nomrefence=false;alert=false;
   //CREATION SESSION
   direction = new Direction(); // Valeur par défaut (ajuster selon vos besoins)
   // donnee PRESCRIPTEUR
@@ -238,6 +238,7 @@ session=new SessionCd();
           console.log(' reçu:', response);
           console.log('\n\n\n\n\n\n');
           //window.location.reload();
+          this.alert=true;
           this.errorMessage = 'Demande Enregistré!';
           this.demande.estregularisation= '';
           this.demande.typeReference= '';
@@ -300,6 +301,9 @@ session=new SessionCd();
     );
   }
   refencedemande(){
-    this.nomrefence=true;
+    
+      this.nomrefence=true;
+   
+    
 }
 }

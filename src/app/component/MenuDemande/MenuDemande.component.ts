@@ -16,14 +16,16 @@ import { Demande } from 'src/app/models/Demande';
 })
 export class MenuDemandeComponent implements OnInit {
   role: string | null = '';
+  
   token: string | null = '';
   DetailDemande: DetailDemande[] = [];
   brouillon: Brouillon[]=[];
   AttenteSession: DetailDemande[]=[];
   nomDirection: string | null = '';
   DonneExcels: DonneeExcel[] = [];
-  isbrouillon=true;
-  brouilloncliqueActive=false;buttonTextColor = 'black';
+  isbrouillon=true;listesessionActive=false;
+  brouillonActive=true;buttonTextColor = 'black';
+  brouilloncliqueActive=false;
   //CREATION SESSION
   direction = new Direction();
   demande = {
@@ -194,12 +196,15 @@ exportToExcel(): void {
 }
 brouillonclique(){
   this.isbrouillon=true;
+  this.brouillonActive =true; 
+  this.listesessionActive=false;
   this.brouilloncliqueActive=false;
-
   }
   brouilloncliqueactive(){
     this.brouilloncliqueActive=true;
     this.isbrouillon=false;
+    this.listesessionActive=true;
+    this.brouillonActive =false; 
   }
   annulerdemande(id:any){
     this.MenuDemandeService.getAttteneSessionById(id).subscribe((response)=>
