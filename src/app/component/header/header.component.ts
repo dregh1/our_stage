@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../Authentication/authentication.service';
 import { Direction } from 'src/app/models/Direction';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -10,8 +11,9 @@ export class HeaderComponent implements OnInit {
   role: string | null = '';
   token: string | null = '';
   nom: string | null = '';
+  acceuil=true;consultation=false;creationsession=false;admin=false;
   nomDirection: string | null = '';direction = new Direction();
-  constructor(private AuthenticationService: AuthenticationService) {
+  constructor(private AuthenticationService: AuthenticationService,  private router: Router) {
     this.token = sessionStorage.getItem("token");
     // this.idDirection = authServ.getIdDirectionByName();
    // this.direction.id=-1;
@@ -38,4 +40,33 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit(): void {}
+  acceuilbtn(){
+    this.acceuil=true;
+    this.consultation=false;
+    this.creationsession=false;
+    this.admin=false;
+   this.router.navigate(['/main/MenuDemande']);
+  }
+  consultationbtn(){
+    this.acceuil=false;
+    this.consultation=true;
+    this.creationsession=false;
+    this.admin=false;
+    this.router.navigate(['/main/consultation']);
+  }
+  creationsessionbtn(){
+    this.acceuil=false;
+    this.consultation=false;
+    this.creationsession=true;
+    this.admin=false;
+    this.router.navigate(['/main/creationsession']);
+  }
+  adminbtn(){
+    this.admin=true;
+    this.acceuil=false;
+    this.consultation=false;
+    this.creationsession=false;
+    
+    this.router.navigate(['/main/superAdmin']);
+  }
 }

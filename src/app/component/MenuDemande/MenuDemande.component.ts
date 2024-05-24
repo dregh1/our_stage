@@ -41,7 +41,6 @@ export class MenuDemandeComponent implements OnInit {
     idTitreDepense: '',
     nomReference: '',
     titre: '',
-    idFournisseur: '',
     montantHt: '',
     idSession:'',
     fournisseur: '',
@@ -53,8 +52,11 @@ export class MenuDemandeComponent implements OnInit {
     estRefuseCdg:false,
     estRefuseAchat:false,
     estSoumis:false,
-    depense:''
+    depense:'',
+    dateCreation:'',
+    identifiant:''
   };
+  groupedDetailDemandes: { [titre: string]: DetailDemande[] } = {};
   demandes = new Demande();
 session=new SessionCd();
   idsession:string ='';
@@ -110,6 +112,19 @@ session=new SessionCd();
                                             this.MenuDemandeService.search(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((donnees) => {
                                               this.DetailDemande = donnees;
                                               console.log(this.DetailDemande,"io data");
+
+                                              ///aichage groupé
+                                              this.groupedDetailDemandes = donnees.reduce((acc, item) => {
+                                                if (item.titre) {
+                                                  if (!acc[item.titre]) {
+                                                    acc[item.titre] = [];
+                                                  }
+                                                  acc[item.titre].push(item);
+                                                }
+                                                return acc;
+                                              }, {} as { [titre: string]: DetailDemande[] });
+                                              console.log(this.groupedDetailDemandes,'laichage gorupé');
+                                              
                                               
                                             });
       
@@ -221,19 +236,21 @@ brouillonclique(){
    this.demande.idDirection=this.demandes.iddirection?.toString() ?? '';
    this.demande.idTitreDepense=this.demandes.idtitre?.toString() ?? '';
    this.demande.nomReference=this.demandes.reference?.toString() ?? '';
-   this.demande.idFournisseur=this.demandes.idfournisseur?.toString() ?? '';
+   this.demande.fournisseur=this.demandes.fournisseur?.toString() ?? '';
    this.demande.montantHt=this.demandes.montantht?.toString() ?? '';
    this.demande.idPeriode=this.demandes.idperiode?.toString() ?? '';
    this.demande.typeReference=this.demandes.typereference?.toString() ?? '';
    this.demande.validationPrescripteur=Boolean(this.demandes.validationprescripteur);
    this.demande.estSoumis=Boolean(this.demandes.estSoumis);
    this.demande.depense=this.demandes.depense?.toString() ?? '';
-   
+   this.demande.dateCreation=this.demandes.dateCreation?.toString() ?? '';
+   this.demande.identifiant=this.demandes.identifiant?.toString()??'';
    console.log(this.demande,'itodemande ');
    this.demande.validationPrescripteur=false;
      this.demande.estSoumis=false;
     this.utilitaire.update(id, this.demande).subscribe((Response) => {
       console.log(Response,'modication ooooooooo');
+      this.AttenteSession=Response;
      });
     });
     

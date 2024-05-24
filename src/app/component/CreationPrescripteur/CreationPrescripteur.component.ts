@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CreationPrescripteurService } from './CreationPrescripteur.service';
 import { Fournisseur } from 'src/app/models/Fournisseur';
+import { DatePipe } from '@angular/common';
 import { Periode } from 'src/app/models/Periode';
 import { Titre } from 'src/app/models/TitreDepense';
 import { Rubrique } from 'src/app/models/Rubrique';
@@ -28,7 +29,7 @@ export class CreationPrescripteurComponent implements OnInit {
   fournisseurs: Fournisseur[] = [];
   titres: Titre[] = [];
   rubriques: Rubrique[] = [];
-
+  departement:string|null='';
   titresBr: any[] = [];
   titresAct: any[] = [];
   selectedTitleBr: string | undefined;
@@ -47,7 +48,6 @@ export class CreationPrescripteurComponent implements OnInit {
 
   demande = {
     estregularisation: '',
-
     typeReference: '',
     idRubrique: '',
     sousRubrique: '',
@@ -57,18 +57,21 @@ export class CreationPrescripteurComponent implements OnInit {
     idDirection: '',
     idTitreDepense: '',
     nomReference: '',
-    idFournisseur: '',
+    fournisseur: '',
     montantHt: '',
     validationPrescripteur: false,
     idPeriode: '',
     idSession:'',
-    depense:''
+    depense:'',
+    dateCreation:''
   };
 
   TitreDepense = {
     designation: '',
     idDirection: '',
   };
+  
+datePipe:DatePipe;
 session=new SessionCd();
   errorStatus = false;
   errorMessage: string = '';
@@ -86,6 +89,8 @@ session=new SessionCd();
     this.token = sessionStorage.getItem("token");
     // this.idDirection = authServ.getIdDirectionByName();
     this.direction.id=-1;
+    ///initialisaaiton date
+    this.datePipe= new DatePipe('en-US');
   //RECUPERATION IdDirection                
     if(this.token !== null )
     {
@@ -107,8 +112,8 @@ session=new SessionCd();
                       console.log('blaoohi',response);
                       console.log(this.direction.id,"direction id");
                       console.log("MYRESPONSE----------------");
-                      console.log(response);
-                      
+                      console.log(response.designation);
+                      this.departement=response.designation?.toString()??'';
                       //this.idsession=this.direction.id?.toString()??'';
 
                       //recuperation id session
@@ -157,6 +162,7 @@ session=new SessionCd();
     // this.utilitaire.getTitres().subscribe((data) => {
     //   this.titres = data;
     // });
+    this.demande.dateCreation=this.getormatdate()?.toString() ?? '';
 
     // recuperation ny fournisseur
     this.CreationPrescripteurService.getFournisseur().subscribe((data) => {
@@ -194,6 +200,8 @@ session=new SessionCd();
     this.selectedTitleAct = title;
   }
   creerDemande() {
+      console.log(this.demande.dateCreation,'date creation');
+      
     console.log(this.demande.depense);
     
     let missingField: keyof Demande | null = null; // Type for the missing field name
@@ -249,12 +257,13 @@ session=new SessionCd();
           this.demande.comsPrescripteur= '';
           this.demande.idTitreDepense= '';
           this.demande.nomReference= '';
-          this.demande.idFournisseur= '';
+          this.demande.fournisseur= '';
           this.demande.montantHt= '';
          this.demande.idPeriode= '';
          this.demande.depense='';
          console.log('mety vide');
           setTimeout(() => {  
+            this.alert=false;
             // Hide the message by setting errorStatus to false
             this.errorMessage = ''; // Optionally, clear the error message
           }, 3000);
@@ -266,7 +275,10 @@ session=new SessionCd();
       );
     }
   }
-
+  getormatdate(){
+    const date= new Date();
+    return this.datePipe.transform(date,'yyyy-MM-dd');  
+  }
   //ajout option
   ajoutOpt(id: any, text: string) {
     const selectelement = document.getElementById('idtitre');

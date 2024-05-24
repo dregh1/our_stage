@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-//import { DemandeModel } from 'src/app/models/Demande';
+import { DatePipe } from '@angular/common';
 import { Titre } from 'src/app/models/TitreDepense';
 import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
@@ -62,9 +62,12 @@ export class TestComponent implements OnInit {
     estRefuseCdg:false,
     estRefuseAchat:false,
     estSoumis:false,
-    depense:''
+    depense:'',
+    dateCreation:'',
+    identifiant:'',
+    dateSoumission:''
   };
-  
+  departement:string | null='';
   titre = new Titre();
 
 
@@ -102,6 +105,7 @@ export class TestComponent implements OnInit {
   message: string = '';
   idsession:string='';
 session=new SessionCd();
+datePipe:DatePipe;
   ///variable recuperation session
   existanceSession : boolean= false;
 
@@ -113,6 +117,8 @@ session=new SessionCd();
     private router: Router,
     private utilitaire:UtilitaireService
   ) {
+    ///initialisaaiton date
+    this.datePipe= new DatePipe('en-US');
     this.id = this.activatedRoute.snapshot.params['id'];
     
     // RECUPERATION ROLE , DIRECTION , NOM utilisateur
@@ -129,7 +135,8 @@ session=new SessionCd();
           {
             this.autheticationServ.getDirectionByName(this.nomDirection).subscribe(response =>{
                this.direction = response
-                this.direction.id = response.id;  
+                this.direction.id = response.id;
+                this.departement=response.designation?.toString()??'';  
                 console.log('blaoohi!!!!!!!!!!!!!!!!!',response);
     
                           ///recuperation session
@@ -244,7 +251,6 @@ session=new SessionCd();
       this.demande.idPeriode = this.DetailDemande.idperiode?.toString() ?? '';
       this.demande.idDirection =this.DetailDemande.iddirection?.toString() ?? '';
       this.demande.idSession=this.DetailDemande.idSession?.toString() ?? '';
-      this.demande.idFournisseur =this.DetailDemande.idfournisseur?.toString() ?? '';
       this.demande.idTitreDepense = this.DetailDemande.idtitre?.toString() ?? '';
       this.demande.sousRubrique =this.DetailDemande.sousrubrique?.toString() ?? '';
       this.demande.idRubrique = this.DetailDemande.idrubrique?.toString() ?? '';
@@ -255,6 +261,8 @@ session=new SessionCd();
       this.demande.estRefuseAchat=Boolean(this.DetailDemande.estRefuseAchat ?? '' );
       this.demande.estSoumis=Boolean(this.DetailDemande.estsoumis);
       this.demande.depense=this.DetailDemande.depense??'';
+      this.demande.dateCreation=this.DetailDemande.dateCreation?.toString() ?? '';
+      this.demande.identifiant=this.DetailDemande.identifiant?.toString()??'';
        console.log(this.DetailDemande);
        console.log('LLLOOGKOJ');
        console.log(this.demande,'demande iioiooo');
@@ -315,6 +323,10 @@ session=new SessionCd();
   toggleIcon() {
     this.isUp3 = !this.isUp3;
   }
+  getormatdate(){
+    const date= new Date();
+    return this.datePipe.transform(date,'yyyy-MM-dd');  
+  }
   //ajout id titre
   setSelected(id: string) {
     const selectelement = document.getElementById('idtitre');
@@ -346,15 +358,25 @@ session=new SessionCd();
   //validation prescripteur
   valider(): void {
     
-   // console.log(this.idsession,'+///////////sessionnnn///////////////');
-    //this.demande.idSession=this.idsession;
-    this.demande.validationPrescripteur = true;
-    this.demande.estSoumis=true;
-    console.log(this.demande,'demande vaovao');
+    if(this.idsession===''){
+      console.log('vide session');
+    }else{
+      console.log(this.idsession,'+///////////sessionnnn///////////////');
+       this.demande.idSession=this.idsession;
+       this.demande.dateSoumission=this.getormatdate()?.toString() ?? '';
+
+       this.demande.validationPrescripteur = true;
+        this.demande.estSoumis=false;
+       console.log(this.demande,'demande vaovao');
+       
+       this.updatetitre();
+       console.log(this.demande.estSoumis,'soumission');
+       this.update();
+       console.log(this.demande,'e mis datepipe');
+      }
+  
     
-    this.updatetitre();
-    console.log(this.demande.estSoumis,'soumission');
-    this.update();
+    
     //this.utilitaire.getTokenAdmin();
   }
   //modication prescripteur

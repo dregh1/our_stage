@@ -15,6 +15,11 @@ import { TestComponent } from './component/DetailParDemande/DetailParDemande.com
 import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
 import { ValidationComponent } from './component/validation/validation.component';
 import { SuperAdminComponent } from './component/super-admin/super-admin.component';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr);
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +37,9 @@ import { SuperAdminComponent } from './component/super-admin/super-admin.compone
     //  DetailComponent
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'fr-FR' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

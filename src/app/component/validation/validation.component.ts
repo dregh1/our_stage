@@ -295,7 +295,7 @@ export class ValidationComponent implements OnInit {
       this.demande.typeDevise = this.demandes.typeDevise ?? '';
       this.demande.comsPrescripteur = this.demandes.comsprescripteur ?? '';
       this.demande.idFournisseur =
-        this.demandes.idfournisseur?.toString() ?? '';
+        //this.demandes.idfournisseur?.toString() ?? '';
       this.demande.montantHt = this.demandes.montantht?.toString() ?? '';
       this.demande.idDirection = this.demandes.iddirection?.toString() ?? '';
       this.demande.sousRubrique = this.demandes.sousRubrique?.toString() ?? '';

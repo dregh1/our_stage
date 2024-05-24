@@ -26,7 +26,10 @@ export class Brouillon {
       public comsCd?: string,
       public etatFinal?: string,
       public montantMga?: string,
-      public idSession?: string
+      public idSession?: string,
+      public identifiant?: string,
+      public dateCreation?: Date,
+      public dateSoumission?: Date,
     ) {}
   }
   

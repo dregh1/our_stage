@@ -20,7 +20,7 @@
                           <div class="col-sm-4 col-md-6 mb-3">
                             <div class="mb-3">
                               <label for="email" id="emailLabel" class="form-label is-required">Date de creation<span class="visually-hidden"> (required)</span></label>
-                              <input type="datetime-local" class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>
+                              <span  class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>{{this.demande.dateCreation}}</span>
                               
                               <div class="valid-feedback">
                                 Bien!
@@ -32,20 +32,9 @@
                           <!-- <span class="text-primary me-1">*</span>indicates required -->
                           <label for="selectTitle" id="selectTitleLabel" class="form-label is-required">Titre<span class="visually-hidden"> (required)</span></label>
                           <div class="input-group mb-2">
-                            <select
-                              class="form-select"
-                              [(ngModel)]="this.demande.idTitreDepense"
-                              id="idtitre"aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required
-                            >
-                              <ng-container *ngFor="let titre of this.titres">
-                                <option
-                                  *ngIf="titre.idDirection === this.direction.id && titre.designation!='sans titre'"
-                                  [value]="titre.id"
-                                >
-                                  {{ titre.designation }}
-                                </option>
-                              </ng-container>
-                            </select>
+                            <select class="form-select" [(ngModel)]="this.demande.idTitreDepense" id="titreDepense" aria-label="Liste déroulante des titres de dépenses">
+                              <option *ngFor="let titre of titres" [value]="titre.id">{{ titre.designation }}</option>
+                          </select>
         
                             <button
                               class="btn btn-outline-secondary"
@@ -166,12 +155,14 @@
           
                         <div class="col-md-6">
                          
-                          <div class="col-sm-4 col-md-6 mb-3">
-                              <br>
+                          <div class="col-sm-4 col-md-6 mb-4">
+                              
                               <label for="selectTitle" id="selectTitleLabel" class="form-label is-required">Regularisation<span class="visually-hidden"> (required)</span></label>
                             <!-- [(ngModel)]="this.demande.estRegularisation" <input type="checkbox" class="form-control form-check-input" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required> -->
-                            <input class="form-control form-check-input" [(ngModel)]="this.demande.estregularisation" type="checkbox"  role="switch" id="flexSwitchCheckChecked" checked>
-                            
+                            <!-- <input class="form-control form-check-input" [(ngModel)]="this.demande.estregularisation" type="checkbox"  role="switch" id="flexSwitchCheckChecked" checked> -->
+                            <div class="form-check form-switch">
+                              <input class=" form-control form-check-input" type="checkbox" [(ngModel)]="this.demande.estregularisation" role="switch" id="flexSwitchCheckDefault">
+                            </div>
                             <div class="valid-feedback">
                               Bien!
                             </div>
@@ -183,15 +174,15 @@
                             <label for="email" id="emailLabel" class="form-label is-required">Direction<span class="visually-hidden"> (required)</span></label>
                             <select
                                   class="form-select"
-                                  [(ngModel)]="this.demande.idPeriode"
                                   id="inputGroupSelect04"aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required
                                 >
-                                  <option
+                                <option selected>{{this.departement}}</option>
+                                  <!-- <option
                                     *ngFor="let item of this.periodes"
                                     [value]="item.id"
                                   >
                                     {{ item.designation }}
-                                  </option>
+                                  </option> -->
                             </select>
                             <div class="valid-feedback">
                               Bien!
@@ -203,7 +194,7 @@
                           <div class="col-12">
                             <div class="mb-3">
                               <label for="firstName" id="firstNameLabel" class="form-label is-required">Fournisseurs<span class="visually-hidden"> (required)</span></label>
-                              <input type="text" class="form-control" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+                              <input type="text" class="form-control"[(ngModel)]="this.demande.fournisseur" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
                               <div class="valid-feedback">
                                 Bien!
                               </div>
@@ -487,13 +478,11 @@
             </div> -->
         </div>
       </fieldset>
-      <div *ngIf="this.alert===true" class="alert alert-success bg-white dropdown border-success dropup position-fixed bottom-0 end-0 me-5 bd-mode-toggle"style="width:300px; " role="alert">
+      <div *ngIf="this.alert===true" class="alert alert-success z-3 bg-white dropdown border-success dropup position-fixed bottom-0 end-0 me-5 bd-mode-toggle"style="width:300px; " role="alert">
         <span class="alert-icon"><span class="visually-hidden">Success</span></span>
         <p>{{ errorMessage }}</p>
       </div>
-      <div class="dropdown border-success dropup position-fixed bottom-0 end-0  me-5 bd-mode-toggle">
-        Demande enregistré
-      </div>
+
       <div class="bt p-3 d-flex justify-content-end">
         <div class="error-message">
           <p class="text-success">{{ errorMessage }}</p>
@@ -501,7 +490,7 @@
        
               <button
               type="button"
-              class="btn btn-primary "
+              class="btn z-1 btn-primary "
               (click)="creerDemande()"
             >
               Enregistrer 

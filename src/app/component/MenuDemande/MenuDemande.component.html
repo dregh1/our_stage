@@ -35,7 +35,7 @@
                     <th scope="col" class=" titre col-2">Motif</th>
                     <th scope="col" class="titre col-2">Devise</th>
                     <th scope="col" class="titre col-2">Montant</th>
-                    <th scope="col" class="titre col-2">fournisseurs</th>
+                    <th scope="col" class="titre col-2">Fournisseurs</th>
                     <th scope="col" class="titre col-2">Date création</th>
                   </tr>
                 </thead>
@@ -48,13 +48,13 @@
                   data-offset="50"
                   
                   >  
-                  <td class="col-1 ">{{ detail.id }}</td>
+                  <td class="col-1 ">{{ detail.identifiant }}</td>
                   <td class="col-1 ">{{ detail.titre }}</td>
                   <td class="col-2 ">{{ detail.motif }}</td>
                   <td class="col-2 ">{{ detail.devise }}</td>
                   <td class="col-2 ">{{ detail.montantht }}</td>
                   <td class="col-2 ">{{ detail.fournisseur }}</td>
-                  <td class="col-2 "> detail.date </td>
+                  <td class="col-2 ">{{ detail.dateCreation | date:'EEEE dd MMMM yyyy HH:mm':'fr-FR' }} </td>
                   </tr>
                     
                 </tbody>
@@ -79,7 +79,7 @@
 <!-- table active demande -->
  <div class="card">
   <div
-    class="card-header  p-3 navbar navbar-static d-flex justify-content-between"
+    class="card-header p-3 navbar navbar-static d-flex justify-content-between"
     id="navbarExample"
   >
     <div><p class="">Listes des Demandes CD Active</p></div>
@@ -115,38 +115,52 @@
     </div>
   </div>
   
-    
-  <table class="table table-fixed">
-    <thead>
-      <tr class="titre">
-        <th scope="col" class="titre col-1">Identifiant</th>
-        <th scope="col" class="titre col-1">Titre</th>
-        <th scope="col" class=" titre col-2">Motif</th>
-        <th scope="col" class="titre col-2">Devise</th>
-        <th scope="col" class="titre col-2">Montant</th>
-        <th scope="col" class="titre col-2">fournisseurs</th>
-        <th scope="col" class="titre col-2">Date création</th>
-      </tr>
-    </thead>
-    <tbody
-    >
-      <tr *ngFor="let detail of this.DetailDemande" [routerLink]="['/main/teste/', detail.id]"
-      class="mb-1 p-1 scrollspy-example "
-      data-spy="scroll"
-      data-target="#navbarExample"
-      data-offset="50"
-      >  
-            <td class="col-1 ">{{ detail.id }}</td>
-            <td class="col-1 ">{{ detail.titre }}</td>
-            <td class="col-2 ">{{ detail.motif }}</td>
-            <td class="col-2 ">{{ detail.devise }}</td>
-            <td class="col-2 ">{{ detail.montantht }}</td>
-            <td class="col-2 ">{{ detail.fournisseur }}</td>
-            <td class="col-2 "> detail.date </td>
-      </tr>
+  <div *ngFor="let groupTitle of groupedDetailDemandes | keyvalue">
+    <fieldset class="form-group border border-end-0">
+      <legend class="px-2 d-flex justify-content-between">
+        <h5 class="p-2">{{ groupTitle.key }}</h5>
+        <!-- (click)="toggleUp(groupTitle.key)" -->
+        <a
+          class="fs-3 text fw-bold btn"
+          data-bs-toggle="collapse"
+          [attr.href]="'#collapseExample-' + groupTitle.key"
+          aria-expanded="false"
+          [attr.aria-controls]="'collapseExample-' + groupTitle.key"
+        >
+          +
+      </a>
+      </legend>
+      <div class="collapse" id="collapseExample-{{ groupTitle.key }}">  <div data-offset="50">
+                        <table class="table">
+                          <tr>
+                            <th class="p-3">Identifiant</th>
+                            <th class="p-3">Motif</th>
+                            <th class="p-3">Devise</th>
+                            <th class="p-3">Montant (HT)</th>
+                            <th class="p-3">Fournisseur</th>
+                            <th class="p-3">Date Creation</th>
+                            </tr>
+                          <tr *ngFor="let detailDemande of groupTitle.value;  let i = index"[routerLink]="['/main/teste/', detailDemande.id]" >
+                            <ng-container 
+                            >
+                              
+                              <td class="p-3 ">{{ this.detailDemande.identifiant }}</td>
+                              <td class="p-3 ">{{ this.detailDemande.motif }}</td>
+                              <td class="p-3 ">{{ this.detailDemande.devise }}</td>
+                              <td class="p-3">{{ this.detailDemande.montantht }}</td>
+                              <td class="p-3 ">{{ this.detailDemande.fournisseur }}</td>
+                              <td class="p-3">{{ this.detailDemande.dateCreation | date:'EEEE dd MMMM yyyy HH:mm':'fr-FR' }}</td>
+                             
+                              
+                                </ng-container>
+                          </tr>
+                        </table>
+                      </div>
+                </div>
         
-    </tbody>
-</table>
+    </fieldset>
+  </div>
+  
     </div>        
   </div>
   </section>
@@ -155,134 +169,86 @@
 
 
 
-<!-- <div class="container text-white">
-  <div class="container">
-      <div class="row">
-          <div class="bg-white rounded shadow">
-
-              <Fixed header table
-              <div class="table-responsive">
-                  <table class="table table-fixed">
-                      <thead>
-                        <tr>
-                          <th scope="col" class="col-3">Titre</th>
-                          <th scope="col" class="col-3">Motif</th>
-                          <th scope="col" class="col-3">Periode</th>
-                          <th scope="col" class="col-3">Reference</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let detail of this.DetailDemande" [routerLink]="['/main/teste/', detail.id]"
-                        [ngClass]="{
-                          'active': detail.validationcdg,
-                          'classePrecedente': true
-                        }" class="p-4">
-                            <ng-container *ngIf="
-                            detail.validationprescripteur &&
-                            detail.iddirection === this.direction.id 
-                          " >
-                              <td class="col-3">{{ detail.titre }}</td>
-                              <td class="col-3">{{ detail.motif }}</td>
-                              <td class="col-3">{{ detail.periode }}</td>
-                              <td class="col-3">{{ detail.reference }}</td>
-                            </ng-container>
-                          </tr>
-                          
-                      </tbody>
-                  </table>
-              </div>
-              
-          </div>
-      </div>
-  </div>
-</div> 
 
 
- <ul class="list-group list-inline">
-  <li class="mb-2" *ngFor="let detail of this.brouillon">
-    <a
-      [routerLink]="['/main/teste/', detail.id]"
-      class="list-group-item list-group-item-action"
-      aria-current="true"
-    >
-      <div class="d-flex w-100 justify-content-between">
-        <div>
-          <h5 class="mb-1">{{ detail.titre }}</h5>
-          <p class="mb-1">{{ detail.motif }}</p>
-        </div>
-        <div>
-          <small>{{ detail.periode }}</small> <br />
-          <small>{{ detail.reference }}</small>
-        </div>
-      </div>
-    </a>
-  </li>
-</ul> -->
-<!-- active -->
-<!-- <div class="card">
-  <div
-    class="card-header border-primary text-body p-3 navbar navbar-static d-flex justify-content-between"
-    id="navbarExample"
+
+
+
+
+<!-- version taloha -->
+<!-- <table class="table table-fixed">
+  <thead>
+    <tr class="titre">
+      <th scope="col" class="titre col-1">Identifiant</th>
+      <th scope="col" class="titre col-1">Titre</th>
+      <th scope="col" class=" titre col-2">Motif</th>
+      <th scope="col" class="titre col-2">Devise</th>
+      <th scope="col" class="titre col-2">Montant</th>
+      <th scope="col" class="titre col-2">Fournisseurs</th>
+      <th scope="col" class="titre col-2">Date création</th>
+    </tr>
+  </thead>
+  <tbody
   >
-    <div><p class="text-primary">Listes des Demandes CD Active</p></div>
-    <div>
-      <div *ngIf="role === 'PRS'">
-        <button type="button" class="btn btn-primary disabled p-2 "  (click)="exportToExcel()">
-          Extraction
-        </button>
-      </div>
-      <div *ngIf="role === 'CDG' || role === 'ACH'">
-        <div class="d-flex justify-content-end">
-          <button
-            type="button"
-            class="btn btn-primary p-2 text-white mx-2"
-            routerLink="/validation"
-          >
-            Validation
-          </button>
-          <button type="button" class="btn btn-primary disabled p-2" (click)="exportToExcel()">
-            Extraction
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="card-body scrollspy-example"
+    <tr *ngFor="let detail of this.DetailDemande" [routerLink]="['/main/teste/', detail.id]"
+    class="mb-1 p-1 scrollspy-example "
     data-spy="scroll"
     data-target="#navbarExample"
     data-offset="50"
-  >
-    <ul class="list-group list-inline">
-      <li class="mb-2" *ngFor="let detail of this.DetailDemande">
-        <a
-          [routerLink]="['/main/teste/', detail.id]"
-          [ngClass]="{
-            'list-group-item list-group-item-action': true,
-            active: detail.validationcdg,
-            classePrecedente: true
-          }"
-          aria-current="true"
-          *ngIf="
-            detail.validationprescripteur &&
-            detail.iddirection === this.direction.id
-          "
-          class="list-group-item list-group-item-action"
-          aria-current="true"
-        >
-          <div class="d-flex w-100 justify-content-between">
-            <div>
-              <h5 class="mb-1">{{ detail.titre }}</h5>
-              <p class="mb-1">{{ detail.motif }}</p>
-            </div>
-            <div>
-              <small>{{ detail.periode }}</small> <br />
-              <small>{{ detail.reference }}</small>
-            </div>
-          </div>
-        </a>
-      </li>
-    </ul>
+    >  
+          <td class="col-1 ">{{ detail.id }}</td>
+          <td class="col-1 ">{{ detail.titre }}</td>
+          <td class="col-2 ">{{ detail.motif }}</td>
+          <td class="col-2 ">{{ detail.devise }}</td>
+          <td class="col-2 ">{{ detail.montantht }}</td>
+          <td class="col-2 ">{{ detail.fournisseur }}</td>
+          <td class="col-2 "> detail.date </td>
+    </tr>
+      
+  </tbody>
+</table> -->
 
-  </div>
-</div> -->
+
+
+
+
+
+
+
+<!-- <table class="table table-fixed">
+  <thead>
+    <tr class="titre">
+      <th scope="col" class="titre col-1">Titre</th>
+      <th scope="col" class="titre col-1">Identifiant</th>
+      <th scope="col" class="titre col-2">Motif</th>
+      <th scope="col" class="titre col-2">Devise</th>
+      <th scope="col" class="titre col-2">Montant</th>
+      <th scope="col" class="titre col-2">Fournisseurs</th>
+      <th scope="col" class="titre col-2">Date création</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let groupTitle of groupedDetailDemandes | keyvalue">
+      <tr>
+        <td colspan="6" class="titre col-1">{{ groupTitle.key }}</td>
+      </tr>
+      <tr *ngFor="let detailDemande of groupTitle.value;">
+        <td class="col-1">{{detailDemande.identifiant}}</td>
+        <td class="titre col-2">{{detailDemande.motif}}</td>
+        <td class="titre col-2">{{detailDemande.devise}}</td>
+        <td class="titre col-2">{{detailDemande.montantht}}</td>
+        <td class="titre col-2">{{detailDemande.fournisseur}}</td>
+        <td class="titre col-2">{{detailDemande.dateCreation}}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table> -->
+
+
+
+
+
+
+
+
+

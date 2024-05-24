@@ -22,17 +22,18 @@
           <ul class="navbar-nav">
 
               <li class="nav-item mx-3">
-                <a class="nav-link" aria-current="page" routerLink="MenuDemande">Accueil</a>
+                <!-- <a class="nav-link" aria-current="page" routerLink="MenuDemande">Accueil</a> -->
+                <button class="nav-link" aria-current="page" [class.active]="acceuil" (click)="acceuilbtn()">Accueil</button>
               </li>
               <li class="nav-item mx-3">
-                <a class="nav-link" aria-current="page" routerLink="consultation">Consultation</a>
+                <button class="nav-link" aria-current="page" [class.active]="consultation" (click)="consultationbtn()">Consultation</button>
               </li>
               <li class="nav-item mx-3">
-                <a class="nav-link" aria-current="page" routerLink="superAdmin">Admin</a>
+                <button class="nav-link" aria-current="page" [class.active]="admin" (click)="adminbtn()">Admin</button>
               </li>
               <div *ngIf="role === 'CDG'">
                   <li class="nav-item mx-3">
-                    <a class="nav-link " aria-current="page"routerLink="creationsession">Création session CD</a>
+                    <button class="nav-link " aria-current="page"[class.active]="creationsession" (click)="creationsessionbtn()">Création session CD</button>
                   </li>
               </div>
               

@@ -1,12 +1,9 @@
-
 <body>
-  
-
     <section class="mx-3">
       <div class="main mx-2">
         
                       <!--partie Prescripteur-->
-                      <fieldset class="form-group border border-1 p-2">
+                      <fieldset class="form-group border border-1">
                               <!--titre du Prescripteur-->  
                               <legend class="w-auto px-2">Prescripteur
                                         <button  (click)="toggleUp()" class="btn" data-bs-toggle="collapse" href="#collapseExample"  aria-expanded="false" aria-controls="collapseExample">
@@ -26,8 +23,8 @@
                                                 <div class="col-sm-4 col-md-6 mb-3">
                                                   <div class="mb-3">
                                                     <label for="email" id="emailLabel" class="form-label is-required">Date de creation<span class="visually-hidden"> (required)</span></label>
-                                                    <input type="datetime-local" class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>
-                                                    
+                                                     <span  class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>{{this.demande.dateCreation| date:'dd MM yy HH:mm'}}</span>
+
                                                     <div class="valid-feedback">
                                                       Bien!
                                                     </div>
@@ -38,7 +35,7 @@
                                                 <!-- <span class="text-primary me-1">*</span>indicates required -->
                                                 <label for="selectTitle" id="selectTitleLabel" class="form-label is-required">Titre<span class="visually-hidden"> (required)</span></label>
                                                 <div class="input-group mb-2">
-                                                  <select
+                                                  <!-- <select
                                                     class="form-select"
                                                     [(ngModel)]="this.demande.idTitreDepense"
                                                     id="idtitre"aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required
@@ -51,8 +48,10 @@
                                                         {{ titre.designation }}
                                                       </option>
                                                     </ng-container>
-                                                  </select>
-                              
+                                                  </select> -->
+                                                  <select class="form-select" [(ngModel)]="this.demande.idTitreDepense" id="titreDepense" aria-label="Liste déroulante des titres de dépenses">
+                                                    <option *ngFor="let titre of titres" [value]="titre.id">{{ titre.designation }}</option>
+                                                </select>
                                                   <button
                                                     class="btn btn-outline-secondary"
                                                     data-bs-toggle="modal"
@@ -168,15 +167,15 @@
                                                   <label for="email" id="emailLabel" class="form-label is-required">Direction<span class="visually-hidden"> (required)</span></label>
                                                   <select
                                                         class="form-select"
-                                                        [(ngModel)]="this.demande.idPeriode"
                                                         id="inputGroupSelect04"aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required
                                                       >
-                                                        <option
+                                                      <option selected>{{this.departement}}</option>
+                                                         <!-- <option
                                                           *ngFor="let item of this.periodes"
                                                           [value]="item.id"
                                                         >
                                                           {{ item.designation }}
-                                                        </option>
+                                                        </option> -->
                                                   </select>
                                                   <div class="valid-feedback">
                                                     Bien!
@@ -188,7 +187,7 @@
                                                 <div class="col-12">
                                                   <div class="mb-3">
                                                     <label for="firstName" id="firstNameLabel" class="form-label is-required">Fournisseurs<span class="visually-hidden"> (required)</span></label>
-                                                    <input type="text" class="form-control" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+                                                    <input type="text" class="form-control" [(ngModel)]="this.demande.fournisseur" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
                                                     <div class="valid-feedback">
                                                       Bien!
                                                     </div>

@@ -113,7 +113,7 @@ export class SuperAdminComponent implements OnInit {
     });
 
     // Utilisation de HttpClient pour envoyer la requête POSt
-    this.http.post('http://localhost:8083/admin/realms/oma/users/'+this.iduser+'/role-mappings/realm', data, { headers })
+    this.http.post('http://localhost:8082/admin/realms/oma/users/'+this.iduser+'/role-mappings/realm', data, { headers })
      .subscribe(response => {
         console.log(response);
       }, error => {

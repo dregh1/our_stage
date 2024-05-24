@@ -30,6 +30,9 @@ export class DetailDemande {
     public idSession?: string,
     public estRefuseCdg?:boolean,
     public estRefuseAchat?:boolean,
-    public estsoumis?:boolean
+    public estsoumis?:boolean,
+    public identifiant?: string,
+    public dateCreation?: Date,
+    public dateSoumission?: Date,
   ) {}
 }
