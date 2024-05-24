@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SuperAdminService } from './super-admin.service';
 import { User } from 'src/app/models/User';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UtilitaireService } from 'src/app/service/utilitaire.service';
 
 @Component({
   selector: 'app-super-admin',
@@ -17,7 +18,7 @@ export class SuperAdminComponent implements OnInit {
   resultatRecherche : User[] = [];
 
   rola : string = 'ACH';
-  constructor(private superAdm : SuperAdminService, private http: HttpClient) { }
+  constructor(private superAdm : SuperAdminService, private http: HttpClient , private utilitaire : UtilitaireService) { }
 
   ngOnInit(): void {
     this.superAdm.getTokenAdmin();
@@ -113,7 +114,7 @@ export class SuperAdminComponent implements OnInit {
     });
 
     // Utilisation de HttpClient pour envoyer la requête POSt
-    this.http.post('http://localhost:8082/admin/realms/oma/users/'+this.iduser+'/role-mappings/realm', data, { headers })
+    this.http.post('http://localhost:8083/admin/realms/oma/users/'+this.iduser+'/role-mappings/realm', data, { headers })
      .subscribe(response => {
         console.log(response);
       }, error => {
@@ -128,5 +129,10 @@ export class SuperAdminComponent implements OnInit {
     console.log("------A------");
     console.log(this.iduser);
     
+  }
+
+  //teste envoye mail
+  envoyerMail(){
+    this.utilitaire.sendMail();
   }
 }

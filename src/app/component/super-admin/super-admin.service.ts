@@ -23,14 +23,14 @@ export class SuperAdminService {
   getTokenAdmin()
   {
 
-    const url = 'http://localhost:8082/realms/oma/protocol/openid-connect/token';
+    const url = 'http://localhost:8083/realms/oma/protocol/openid-connect/token';
 
     const params = new HttpParams()
     .set('grant_type', 'password')
-    .set('client_id', 'quarkus-client')
-    .set('client_secret', 'diNdyU2iGksempOMKqs5gZlA2UkwngCJ')
-    .set('username', 'ash')
-    .set('password', 'ash');
+    .set('client_id', 'angular-client')
+    .set('client_secret', 'F6ONL3ox63NBv1h1J5wmmibHlDhLA1MI')
+    .set('username', 'charlesandrea')
+    .set('password', 'password');
 
 
 
@@ -63,12 +63,19 @@ export class SuperAdminService {
   //GET ALL USERS
   getAllUser()
   {
-    const url = "http://localhost:8082/admin/realms/oma/users";
+    const url = "http://localhost:8083/admin/realms/oma/users";
   
     const headers = this.getHeadersAdmin();
     return this.http.get<any[]>(url,{headers});
     
   }
 
+  // les CDG
+  //http://localhost:8083/admin/realms/oma/users/13634f98-71b2-4122-b530-b258629fa7f5/groups
   
+  // les ACH
+  //http://localhost:8083/admin/realms/oma/roles/ACH/users
+  
+
+
 }

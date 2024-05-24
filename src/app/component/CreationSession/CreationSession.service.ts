@@ -1,13 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, concatMap } from 'rxjs';
+import { UtilitaireService } from 'src/app/service/utilitaire.service';
 @Injectable({
   providedIn: 'root',
 })
 export class CreationSession1Service {
   private baseUrl = 'http://localhost:8080/';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,  private utilitaire : UtilitaireService) {}
   //maka authorization
   private getHeaders(): HttpHeaders {
     const token = sessionStorage.getItem('token'); // Replace with your token retrieval logic
@@ -24,6 +25,10 @@ export class CreationSession1Service {
     const headers = this.getHeaders();
     return this.http.post<any>(this.baseUrl + 'cdg/session/create', formData, {
       headers,
-    });
+    }).pipe(
+      concatMap(async () => this.utilitaire.sendMail())
+    );
+    // .subscribe((response)=>{},(error)=>{}) 
+    ;
   }
 }

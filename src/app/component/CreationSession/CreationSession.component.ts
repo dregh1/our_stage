@@ -92,10 +92,14 @@ getormatdate(){
     
     // creation session
     
-    this.CreationSession1Service.post(this.session).subscribe(
+    this.CreationSession1Service.post(this.session)
+    .subscribe(
       (response) => {
-      console.log(response);
+        
       this.errorMessage="session enregistré";
+      console.log("session enregistré-----------------------------------------------");
+      console.log(response);
+      
       //window.location.reload();
     } 
   
