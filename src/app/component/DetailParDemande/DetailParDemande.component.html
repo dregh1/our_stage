@@ -253,14 +253,38 @@
                                                       commentaire vide.
                                                     </div>
                                                   </div>
+
                                                   <div *ngIf="role === 'PRS' && this.demande.validationPrescripteur === false " class=" p-3 d-flex justify-content-end" >
                                                     <div class="error-message">
                                                       <p class="text-success">{{ errorMessage }}</p>
                                                     </div>
-                                                    <button type="button" class="btn btn-primary mx-3" >Supprimer</button> 
+                                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >Supprimer</button> 
                                                     <button type="button" class="btn btn-primary mx-3"(click)="update()">Enregistrer</button>
                                                       <button type="button" class="btn btn-primary "(click)="valider()">Soumettre</button>  
+
+                                                    <!--/ Modal  de suppression -->
+
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                      <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                          <div class="modal-header">
+                                                            <h1 class="modal-title h5" id="exampleModalLabel">Modal title</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            <p>Etes vous sûr de vouloir supprimer cette demande ?</p>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+                                                            <button type="button" class="btn btn-primary" (click)="supprimationDemande()" data-bs-dismiss="modal">Supprimer</button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                    <!-- Modal  de suppression /-->
+
                                                   </div>
+
                                                 </div>
                                               </div>
                                         </div>

@@ -111,7 +111,7 @@ datePipe:DatePipe;
 
 
   constructor(
-    private TesteService: TesteService,
+    private testeService: TesteService,
     private autheticationServ: AuthenticationService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -140,7 +140,7 @@ datePipe:DatePipe;
                 console.log('blaoohi!!!!!!!!!!!!!!!!!',response);
     
                           ///recuperation session
-                          this.TesteService.checkSession(this.direction.id).subscribe((data) => {
+                          this.testeService.checkSession(this.direction.id).subscribe((data) => {
                             console.log("------------ session ------------");
                             console.log(data);
                             
@@ -163,7 +163,7 @@ datePipe:DatePipe;
                                         }
                                         
                                           //RECUPERATION active
-                                                this.TesteService.GetTitreParSession(this.direction.id?.toString() ??'' ) .subscribe((donnees) => {
+                                                this.testeService.GetTitreParSession(this.direction.id?.toString() ??'' ) .subscribe((donnees) => {
                                                   
                                                   this.titres = donnees;
                                                   console.log("--------------vvvvvvvv---------------");
@@ -210,27 +210,27 @@ datePipe:DatePipe;
        subscribe((result)=>{ this.existanceAvisAchat = result;
        });
     //recuperation titre
-    // this.TesteService.getTitre().subscribe((data) => {
+    // this.testeService.getTitre().subscribe((data) => {
     //   this.titres = data;
     // });
    
     // recuperation ny periode
-    this.TesteService.getPeriode().subscribe((data) => {
+    this.testeService.getPeriode().subscribe((data) => {
       this.periodes = data;
     });
     // recuperation ny fournisseur
-    this.TesteService.getFournisseur().subscribe((data) => {
+    this.testeService.getFournisseur().subscribe((data) => {
       this.fournisseurs = data;
     });
     //recuperation rubrique
-    this.TesteService.getRubrique().subscribe((data) => {
+    this.testeService.getRubrique().subscribe((data) => {
       this.rubriques = data;
     });
    
     //  //recuperation titre
 
     //recuperation par detail
-    this.TesteService.getDetailDemandebyId(this.id).subscribe((response) => {
+    this.testeService.getDetailDemandebyId(this.id).subscribe((response) => {
       this.DetailDemande = response;
       
      
@@ -275,7 +275,7 @@ datePipe:DatePipe;
     });
     
     //////////Affichage du commentaire Cdg
-    this.TesteService.getCdgById(this.id).subscribe((response) => {
+    this.testeService.getCdgById(this.id).subscribe((response) => {
       this.aviscdgs = response;
      // console.log(this.aviscdgs.id,'ito id cdg');
       //  console.log(this.AvisCdg.id, 'ID null');
@@ -301,7 +301,7 @@ datePipe:DatePipe;
 
 
       // recuperation avisAchat
-      this.TesteService.getAchatById(this.id).subscribe((response) => {
+      this.testeService.getAchatById(this.id).subscribe((response) => {
         this.avisAchat = response;
         try{
         this.AvisAchat.id= this.avisAchat.id?.toString() ?? '';
@@ -360,7 +360,7 @@ datePipe:DatePipe;
     
     if(this.idsession===''){
       console.log('vide session');
-    }
+    }else{
       console.log(this.idsession,'+///////////sessionnnn///////////////');
        this.demande.idSession=this.idsession;
        this.demande.dateSoumission=this.getormatdate()?.toString() ?? '';
@@ -373,7 +373,7 @@ datePipe:DatePipe;
        console.log(this.demande.estSoumis,'soumission');
        this.update();
        console.log(this.demande,'e mis datepipe');
-      
+      }
   
     
     
@@ -385,7 +385,7 @@ datePipe:DatePipe;
     console.log(this.idsession,'idsessionjjjjjj');
     
     //recuperation titre by id
-    this.TesteService.gettitreById(parseInt(this.demande.idTitreDepense)).subscribe((data) => {
+    this.testeService.gettitreById(parseInt(this.demande.idTitreDepense)).subscribe((data) => {
       this.titre = data;
     console.log(this.titre,'ito ');
     this.titredepense.idDirection=this.titre.idDirection?.toString() ?? '';;
@@ -393,7 +393,7 @@ datePipe:DatePipe;
     this.titredepense.idSession = this.idsession ??"";
     console.log(this.titredepense,'juu');
             ///modication titre
-            this.TesteService.updatetitredepense(parseInt(this.demande.idTitreDepense), this.titredepense).subscribe((Response) => {
+            this.testeService.updatetitredepense(parseInt(this.demande.idTitreDepense), this.titredepense).subscribe((Response) => {
               console.log(Response);
               this.message = 'modié!';
             });
@@ -409,7 +409,7 @@ datePipe:DatePipe;
     console.log(this.demande.idSession,'idsesssinkk');
     
     console.log(this.demande);
-    this.TesteService.update(this.id, this.demande).subscribe((Response) => {
+    this.testeService.update(this.id, this.demande).subscribe((Response) => {
       console.log(Response);
       this.message = 'modié!';
     });
@@ -431,7 +431,7 @@ datePipe:DatePipe;
   //Ajout titre demande
   Ajouttitre() {
     this.titredepense.idSession = this.DetailDemande.idSession ??""; 
-    this.TesteService.posttitre(this.titredepense).subscribe((response) => {
+    this.testeService.posttitre(this.titredepense).subscribe((response) => {
       console.log(response);
       this.ajoutOpt(response.id, response.designation);
     });
@@ -464,7 +464,7 @@ datePipe:DatePipe;
       //recuperation ID
       this.AvisCdg.idDemande = this.id?.toString() ?? '';
       console.log(this.AvisCdg);
-      this.TesteService.postCdg(this.AvisCdg).subscribe((Response) => {
+      this.testeService.postCdg(this.AvisCdg).subscribe((Response) => {
         console.log(Response);
         this.AvisCdg.id = Response.id;
         //manova id cdg
@@ -492,7 +492,7 @@ datePipe:DatePipe;
    
     console.log(this.AvisCdg.id,"io id");
     
-    this.TesteService.updateCdg(
+    this.testeService.updateCdg(
       parseFloat(this.AvisCdg.id),
       this.AvisCdg
     ).subscribe((Response) => {
@@ -545,7 +545,7 @@ datePipe:DatePipe;
     
       this.AvisAchat.idDemande = this.id?.toString() ?? '';
       console.log(this.AvisAchat);
-      this.TesteService.postAchat(this.AvisAchat).subscribe((Response) => {
+      this.testeService.postAchat(this.AvisAchat).subscribe((Response) => {
         console.log(Response);
         console.log('ok');
         this.AvisAchat.id= Response.id;
@@ -568,7 +568,7 @@ datePipe:DatePipe;
    modificationAchat() {
     this.AvisAchat.idDemande = this.id?.toString() ?? '';
 
-    this.TesteService.updateAchat(
+    this.testeService.updateAchat(
       parseFloat(this.AvisAchat.id),
       this.AvisAchat
     ).subscribe((Response) => {
@@ -606,4 +606,15 @@ datePipe:DatePipe;
       console.log(this.demande,'demand vaovao');
       
     }
+
+    //supprimer demande
+    supprimationDemande(){    
+    console.log(this.id);
+
+      this.testeService.supprimerDemande(this.id)
+      .subscribe((response)=>{},(error)=>{console.log(error);
+      });
+      
+    }
+
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Titre } from 'src/app/models/TitreDepense';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { Demande } from 'src/app/models/Demande';
 import { Periode } from 'src/app/models/Periode';
 import { Fournisseur } from 'src/app/models/Fournisseur';
@@ -196,5 +196,19 @@ export class TesteService {
     });
   }
 
+  //supprimer demande
+  supprimerDemande(id: number) :Observable<any> {
+    const headers = this.getHeaders();
+        
+    // return this.http.delete(
+    //   `${this.baseUrl}/supprimerDemande/${id}`,
+    //   { headers }
+    // ) .pipe(catchError(error => {
+    //   console.error('Erreur lors de la suppression de la demande:', error);
+    //   return throwError(() => new Error('Erreur lors de la suppression de la demande'));
+    // }));
+
+    return this.http.delete<any>(`${this.baseUrl}/supprimerDemande/${id}`, { headers, });
+  } 
   
 }
