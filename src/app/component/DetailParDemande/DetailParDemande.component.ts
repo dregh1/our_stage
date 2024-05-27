@@ -109,7 +109,7 @@ datePipe:DatePipe;
   ///variable recuperation session
   existanceSession : boolean= false;
 
-
+somme='+';
   constructor(
     private testeService: TesteService,
     private autheticationServ: AuthenticationService,
@@ -183,8 +183,6 @@ datePipe:DatePipe;
       });
       
     }
-    
-
     
   }
   precedent()
@@ -315,6 +313,7 @@ datePipe:DatePipe;
   }
   //toggle ieldsetprescripteur
   toggleUp() {
+    this.somme='-';
     this.isUp1 = !this.isUp1;
   }
   //toggle CDG
@@ -618,6 +617,18 @@ datePipe:DatePipe;
       .subscribe((response)=>{},(error)=>{console.log(error);
       });
       
+
+      this.demande.estRegularisation=false;
+      this.demande.idRubrique='';
+      this.demande.idTitreDepense='';
+      this.demande.comsPrescripteur='';
+      this.demande.devise='';
+      this.demande.idPeriode='';
+      this.demande.depense='';
+      this.demande.fournisseur='';
+      this.demande.sousRubrique='';
+      this.demande.typeDevise='';
+      this.demande.dateCreation='';
     }
 
   }

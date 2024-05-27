@@ -16,7 +16,7 @@ import { Demande } from 'src/app/models/Demande';
 })
 export class MenuDemandeComponent implements OnInit {
   role: string | null = '';
-  
+  isUp=false;
   token: string | null = '';
   DetailDemande: DetailDemande[] = [];
   brouillon: Brouillon[]=[];
@@ -276,5 +276,8 @@ brouillonclique(){
     
  
    
+  }
+  btnplus(){
+    this.isUp=true;
   }
 }
