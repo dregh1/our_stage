@@ -105,7 +105,7 @@ export class ValidationService {
   //   xhr.send(data);
   // }
   // getUserInfo(token : string){
-  //   var data = "grant_type=password&client_id=angular-client&client_secret=eIRXkLaEnLubyFr1mqwv6bu862oHIIn9";
+  //   var data = "grant_type=password&client_id=quarkus-client&client_secret=eIRXkLaEnLubyFr1mqwv6bu862oHIIn9";
 
   //             var xhr = new XMLHttpRequest();
   //             xhr.withCredentials = true;

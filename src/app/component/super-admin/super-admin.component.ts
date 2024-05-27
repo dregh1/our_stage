@@ -87,7 +87,7 @@ export class SuperAdminComponent implements OnInit {
   //     }
   //   });
     
-  //   xhr.open("POST", "http://localhost:8083/admin/realms/oma/users/13634f98-71b2-4122-b530-b258629fa7f5/role-mappings/realm");
+  //   xhr.open("POST", "http://localhost:8082/admin/realms/oma/users/13634f98-71b2-4122-b530-b258629fa7f5/role-mappings/realm");
   //   xhr.setRequestHeader("Content-Type", "application/json");
   //   xhr.setRequestHeader("Authorization", "Bearer "+token);
     
@@ -114,7 +114,7 @@ export class SuperAdminComponent implements OnInit {
     });
 
     // Utilisation de HttpClient pour envoyer la requête POSt
-    this.http.post('http://localhost:8083/admin/realms/oma/users/'+this.iduser+'/role-mappings/realm', data, { headers })
+    this.http.post('http://localhost:8082/admin/realms/oma/users/'+this.iduser+'/role-mappings/realm', data, { headers })
      .subscribe(response => {
         console.log(response);
       }, error => {

@@ -360,7 +360,7 @@ datePipe:DatePipe;
     
     if(this.idsession===''){
       console.log('vide session');
-    }else{
+    }
       console.log(this.idsession,'+///////////sessionnnn///////////////');
        this.demande.idSession=this.idsession;
        this.demande.dateSoumission=this.getormatdate()?.toString() ?? '';
@@ -373,7 +373,7 @@ datePipe:DatePipe;
        console.log(this.demande.estSoumis,'soumission');
        this.update();
        console.log(this.demande,'e mis datepipe');
-      }
+      
   
     
     

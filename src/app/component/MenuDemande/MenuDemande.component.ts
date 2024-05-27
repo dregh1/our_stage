@@ -56,7 +56,7 @@ export class MenuDemandeComponent implements OnInit {
     dateCreation:'',
     identifiant:''
   };
-  groupedDetailDemandes: { [titre: string]: DetailDemande[] } = {};
+  groupedDetailDemandes: { [titre: string]: { [iddirection: string]: DetailDemande[] } } = {};
   demandes = new Demande();
 session=new SessionCd();
   idsession:string ='';
@@ -114,20 +114,40 @@ session=new SessionCd();
                                               console.log(this.DetailDemande,"io data");
 
                                               ///aichage groupé
-                                              this.groupedDetailDemandes = donnees.reduce((acc, item) => {
-                                                if (item.titre) {
-                                                  if (!acc[item.titre]) {
-                                                    acc[item.titre] = [];
-                                                  }
-                                                  acc[item.titre].push(item);
-                                                }
-                                                return acc;
-                                              }, {} as { [titre: string]: DetailDemande[] });
-                                              console.log(this.groupedDetailDemandes,'laichage gorupé');
+                                            //   this.groupedDetailDemandes = donnees.reduce((acc, item) => {
+                                            //     if (item.titre) {
+                                            //       if (!acc[item.titre]) {
+                                            //         acc[item.titre] = [];
+                                            //       }
+                                            //       acc[item.titre].push(item);
+                                            //     }
+                                            //     return acc;
+                                            //   }, {} as { [titre: string]: DetailDemande[] });
+                                            //   console.log(this.groupedDetailDemandes,'laichage gorupé');
                                               
-                                              
+                                            //const listeOriginale= DetailDemande ;
+                                            donnees.forEach(demande => {
+                                              const titre = demande.titre?? '';
+                                              const iddirection = demande.iddirection?? '';
+                                            
+                                              // Si le titre n'est pas encore présent dans l'objet, initialisez-le
+                                              if (!(titre in this.groupedDetailDemandes)) {
+                                                this.groupedDetailDemandes[titre] = {};
+                                              }
+                                            
+                                              // Vérifiez si le tableau pour cette iddirection existe déjà
+                                              if (!this.groupedDetailDemandes[titre][iddirection]) {
+                                                // Si non, initialisez-le avec un tableau vide
+                                                this.groupedDetailDemandes[titre][iddirection] = [];
+                                              }
+                                            
+                                              // Ajoutez la demande au tableau correspondant
+                                              this.groupedDetailDemandes[titre][iddirection].push(demande);
                                             });
-      
+                                            
+                                            console.log(this.groupedDetailDemandes,'test groupe detaildemande');
+                                             });
+                                                
       
                                             //RECUPERATION brouillon
                                             this.MenuDemandeService.searchbrouillon(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((datas) => {

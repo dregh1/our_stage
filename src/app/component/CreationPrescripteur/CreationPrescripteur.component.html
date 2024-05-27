@@ -32,7 +32,7 @@
                           <!-- <span class="text-primary me-1">*</span>indicates required -->
                           <label for="selectTitle" id="selectTitleLabel" class="form-label is-required">Titre<span class="visually-hidden"> (required)</span></label>
                           <div class="input-group mb-2">
-                            <select class="form-select" [(ngModel)]="this.demande.idTitreDepense" id="titreDepense" aria-label="Liste déroulante des titres de dépenses">
+                            <select class="form-select" [(ngModel)]="this.demande.idTitreDepense" id="idtitre" aria-label="Liste déroulante des titres de dépenses">
                               <option *ngFor="let titre of titres" [value]="titre.id">{{ titre.designation }}</option>
                           </select>
         
@@ -160,8 +160,12 @@
                               <label for="selectTitle" id="selectTitleLabel" class="form-label is-required">Regularisation<span class="visually-hidden"> (required)</span></label>
                             <!-- [(ngModel)]="this.demande.estRegularisation" <input type="checkbox" class="form-control form-check-input" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required> -->
                             <!-- <input class="form-control form-check-input" [(ngModel)]="this.demande.estregularisation" type="checkbox"  role="switch" id="flexSwitchCheckChecked" checked> -->
-                            <div class="form-check form-switch">
-                              <input class=" form-control form-check-input" type="checkbox" [(ngModel)]="this.demande.estregularisation" role="switch" id="flexSwitchCheckDefault">
+                            <div class="">
+                              <!-- <input class=" form-control form-check-input" type="checkbox" [(ngModel)]="this.demande.estregularisation" role="switch" id="flexSwitchCheckDefault"> -->
+                              <label class="switch">
+                                <input type="checkbox" [(ngModel)]="this.demande.estregularisation">
+                                <span class="slider round"></span>
+                              </label>
                             </div>
                             <div class="valid-feedback">
                               Bien!
