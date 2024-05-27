@@ -115,22 +115,22 @@
     </div>
   </div>
   
-  <div *ngFor="let groupTitle of groupedDetailDemandes | keyvalue">
+   <div *ngFor="let titre of groupedDetailDemandes | keyvalue">
     <fieldset class="form-group border border-end-0">
       <legend class="px-2 d-flex justify-content-between">
-        <h5 class="p-2">{{ groupTitle.key }}</h5>
-        <!-- (click)="toggleUp(groupTitle.key)" -->
+        <h5 class="p-2">{{ titre.key }}</h5>
         <a
           class="fs-3 text fw-bold btn"
           data-bs-toggle="collapse"
-          [attr.href]="'#collapseExample-' + groupTitle.key"
+          [attr.href]="'#collapseExample-' + titre.key"
           aria-expanded="false"
-          [attr.aria-controls]="'collapseExample-' + groupTitle.key"
+          [attr.aria-controls]="'collapseExample-' + titre.key"
         >
           +
       </a>
       </legend>
-      <div class="collapse" id="collapseExample-{{ groupTitle.key }}">  <div data-offset="50">
+      <div class="collapse" id="collapseExample-{{ titre.key }}">  <div data-offset="50">
+        <div *ngFor="let direction of titre.value | keyvalue">
                         <table class="table">
                           <tr>
                             <th class="p-3">Identifiant</th>
@@ -140,28 +140,44 @@
                             <th class="p-3">Fournisseur</th>
                             <th class="p-3">Date Creation</th>
                             </tr>
-                          <!-- <tr *ngFor="let detailDemande of groupTitle.value;  let i = index" [routerLink]="['/main/teste/', detailDemande.id]" >
+                          <tr *ngFor="let demande of direction.value" [routerLink]="['/main/teste/', demande.id]" >
                             <ng-container 
                             >
                               
-                              <td class="p-3 ">{{ this.detailDemande.identifiant }}</td>
-                              <td class="p-3 ">{{ this.detailDemande.motif }}</td>
-                              <td class="p-3 ">{{ this.detailDemande.devise }}</td>
-                              <td class="p-3">{{ this.detailDemande.montantht }}</td>
-                              <td class="p-3 ">{{ this.detailDemande.fournisseur }}</td>
-                              <td class="p-3">{{ this.detailDemande.dateCreation | date:'EEEE dd MMMM yyyy HH:mm':'fr-FR' }}</td>
+                              <td class="p-3 ">{{ this.demande.identifiant }}</td>
+                              <td class="p-3 ">{{ this.demande.motif }}</td>
+                              <td class="p-3 ">{{ this.demande.devise }}</td>
+                              <td class="p-3">{{ this.demande.montantht }}</td>
+                              <td classq="p-3 ">{{ this.demande.fournisseur }}</td>
+                              <td class="p-3">{{ this.demande.dateCreation | date:'EEEE dd MMMM yyyy HH:mm':'fr-FR' }}</td>
                              
                               
                                 </ng-container>
-                          </tr> -->
+                          </tr>
                         </table>
                       </div>
                 </div>
+              </div>
+        
         
     </fieldset>
-  </div>
+  </div> 
   
-    </div>        
+  <!-- <div *ngFor="let titre of groupedDetailDemandes | keyvalue">
+    <h2>{{ titre.key }}</h2>
+    <div *ngFor="let direction of titre.value | keyvalue">
+       <h3>{{ direction.key }}</h3> 
+      <ul>
+        <li *ngFor="let demande of direction.value">
+          Demande ID: {{ demande.id }} {{demande.devise}}<br>
+          Titre: {{ demande.titre }}<br>
+          Direction: {{ demande.iddirection }}
+        </li>
+      </ul>
+    </div>
+  </div> -->
+  
+</div>        
   </div>
   </section>
 </body>

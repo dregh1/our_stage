@@ -154,8 +154,14 @@
                                                     <br>
                                                     <label for="selectTitle" id="selectTitleLabel" class="form-label is-required">Regularisation<span class="visually-hidden"> (required)</span></label>
                                                   <!-- [(ngModel)]="this.demande.estRegularisation" <input type="checkbox" class="form-control form-check-input" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required> -->
-                                                  <input class="form-control form-check-input" [(ngModel)]="this.demande.estRegularisation" type="checkbox"  role="switch" id="flexSwitchCheckChecked" checked>
-                                                  
+                                                  <!-- <input class="form-control form-check-input" [(ngModel)]="this.demande.estRegularisation" type="checkbox"  role="switch" id="flexSwitchCheckChecked" checked> -->
+                                                  <div class="">
+                                                    <!-- <input class=" form-control form-check-input" type="checkbox" [(ngModel)]="this.demande.estregularisation" role="switch" id="flexSwitchCheckDefault"> -->
+                                                    <label class="switch">
+                                                      <input type="checkbox" [(ngModel)]="this.demande.estRegularisation">
+                                                      <span class="slider round"></span>
+                                                    </label>
+                                                  </div>
                                                   <div class="valid-feedback">
                                                     Bien!
                                                   </div>
@@ -258,9 +264,10 @@
                                                     <div class="error-message">
                                                       <p class="text-success">{{ errorMessage }}</p>
                                                     </div>
+                                                    <button type="button" class="btn btn-primary mx-3" (click)="precedent()">Précedent</button>
                                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >Supprimer</button> 
                                                     <button type="button" class="btn btn-primary mx-3"(click)="update()">Enregistrer</button>
-                                                      <button type="button" class="btn btn-primary "(click)="valider()">Soumettre</button>  
+                                                    <button type="button" class="btn btn-primary "(click)="valider()">Soumettre</button>  
 
                                                     <!--/ Modal  de suppression -->
 

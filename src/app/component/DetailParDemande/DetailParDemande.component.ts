@@ -187,7 +187,10 @@ datePipe:DatePipe;
 
     
   }
-  //calcul sur le reliquat
+  precedent()
+{
+  this.router.navigate(['/main/MenuDemande']);
+}  //calcul sur le reliquat
   calculerResultat() {
     this.reliquat =
       parseFloat(this.AvisCdg.montantBudgetMensuel) -
