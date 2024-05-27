@@ -278,6 +278,7 @@ brouillonclique(){
    
   }
   btnplus(){
-    this.isUp=true;
+  
+    this.isUp=!this.isUp;
   }
 }

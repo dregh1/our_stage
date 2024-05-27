@@ -123,10 +123,10 @@
           class="fs-3 text fw-bold btn"
           data-bs-toggle="collapse"
           [attr.href]="'#collapseExample-' + titre.key"
-          aria-expanded="false" (click)="btnplus()"
+          aria-expanded="false" 
           [attr.aria-controls]="'collapseExample-' + titre.key"
-        >
-          {{ this.isUp ? '+' :   '-' }}
+        >+
+          <!-- {{ this.isUp ? '-' :   '+' }} -->
         
       </a>
       </legend>
