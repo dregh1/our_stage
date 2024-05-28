@@ -26,7 +26,7 @@ export class CreationSession1Component implements OnInit {
   datePipe:DatePipe;
 
   userName = '';
-
+alert=false;
   showPassword = false;
   showmesg = false;errorMessage:string='';
 
@@ -97,6 +97,7 @@ getormatdate(){
       (response) => {
         
       this.errorMessage="session enregistré";
+      this.alert=true;
       console.log("session enregistré-----------------------------------------------");
       console.log(response);
       

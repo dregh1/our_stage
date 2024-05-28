@@ -65,7 +65,7 @@ export class TestComponent implements OnInit {
     depense:'',
     dateCreation:'',
     identifiant:'',
-    dateSoumission:''
+    dateSoumission:'00:00:00'
   };
   departement:string | null='';
   titre = new Titre();
@@ -316,6 +316,7 @@ somme='+';
     this.somme='-';
     this.isUp1 = !this.isUp1;
   }
+  
   //toggle CDG
   toggleDown() {
     this.isUp2 = !this.isUp2;

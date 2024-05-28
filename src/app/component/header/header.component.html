@@ -31,6 +31,12 @@
               <li class="nav-item mx-3">
                 <button class="nav-link" aria-current="page" [class.active]="admin" (click)="adminbtn()">Admin</button>
               </li>
+              <div *ngIf="role === 'CDG' || role === 'ACH' "> 
+                 <li class="nav-item mx-3">
+                  <button class="nav-link" aria-current="page" [class.active]="validation" (click)="validationbtn()">Validation</button>
+                </li> 
+               </div>
+              
               <div *ngIf="role === 'CDG'">
                   <li class="nav-item mx-3">
                     <button class="nav-link " aria-current="page"[class.active]="creationsession" (click)="creationsessionbtn()">Création session CD</button>

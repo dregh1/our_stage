@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
   role: string | null = '';
   token: string | null = '';
   nom: string | null = '';
-  acceuil=true;consultation=false;creationsession=false;admin=false;
+  acceuil=true;consultation=false;creationsession=false;admin=false;validation=false;
   nomDirection: string | null = '';direction = new Direction();
   constructor(private AuthenticationService: AuthenticationService,  private router: Router) {
     this.token = sessionStorage.getItem("token");
@@ -44,6 +44,8 @@ export class HeaderComponent implements OnInit {
     this.acceuil=true;
     this.consultation=false;
     this.creationsession=false;
+    this.validation=false;
+    
     this.admin=false;
    this.router.navigate(['/main/MenuDemande']);
   }
@@ -52,6 +54,8 @@ export class HeaderComponent implements OnInit {
     this.consultation=true;
     this.creationsession=false;
     this.admin=false;
+    this.validation=false;
+    
     this.router.navigate(['/main/consultation']);
   }
   creationsessionbtn(){
@@ -59,6 +63,8 @@ export class HeaderComponent implements OnInit {
     this.consultation=false;
     this.creationsession=true;
     this.admin=false;
+    this.validation=false;
+    
     this.router.navigate(['/main/creationsession']);
   }
   adminbtn(){
@@ -66,7 +72,16 @@ export class HeaderComponent implements OnInit {
     this.acceuil=false;
     this.consultation=false;
     this.creationsession=false;
-    
+    this.validation=false;
     this.router.navigate(['/main/superAdmin']);
+  }
+  validationbtn(){
+    this.validation=true;
+    this.admin=false;
+    this.acceuil=false;
+    this.consultation=false;
+    this.creationsession=false;
+    
+    this.router.navigate(['../validation']);
   }
 }

@@ -23,9 +23,9 @@ export class MenuDemandeComponent implements OnInit {
   AttenteSession: DetailDemande[]=[];
   nomDirection: string | null = '';
   DonneExcels: DonneeExcel[] = [];
-  isbrouillon=true;listesessionActive=false;
-  brouillonActive=true;buttonTextColor = 'black';
-  brouilloncliqueActive=false;
+  listesessionActive=false;
+  buttonTextColor = 'black';
+  brouilloncliqueActive=false;Activedemande=false;Activedemandeclique=false;isbrouillon=false;brouillonActive=false;
   //CREATION SESSION
   direction = new Direction();
   demande = {
@@ -79,7 +79,11 @@ session=new SessionCd();
       
       //chercher ROLE 
           this.role = this.AuthenticationService.getRole(tableRole);
-    
+     if(this.role==='PRS'){
+      this.isbrouillon=true;this.brouillonActive=true;
+     }else{
+      this.Activedemande=true;this.Activedemandeclique=true;
+     }
       //chercher DIRECTION (groups) a partir du token
           const tableGROUPE = response['direction'];
   
@@ -234,11 +238,23 @@ brouillonclique(){
   this.brouillonActive =true; 
   this.listesessionActive=false;
   this.brouilloncliqueActive=false;
-  }
+  this.Activedemande=false;
+  this.Activedemandeclique=false;
+}
   brouilloncliqueactive(){
     this.brouilloncliqueActive=true;
     this.isbrouillon=false;
     this.listesessionActive=true;
+    this.brouillonActive =false; 
+    this.Activedemande=false;
+    this.Activedemandeclique=false;
+  }
+  brouilloncliqueactivedemande(){
+    this.Activedemande=true;
+    this.brouilloncliqueActive=false;
+    this.isbrouillon=false;
+    this.listesessionActive=false;
+    this.Activedemandeclique=true;
     this.brouillonActive =false; 
   }
   annulerdemande(id:any){

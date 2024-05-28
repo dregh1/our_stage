@@ -1,4 +1,103 @@
+
 <section class="mx-3">
+  <div class="main mx-2 pt-5">
+    <div class="main row justify-content-around pt-5">
+      <div class="card" style="width: 22rem;">
+        <div class="card-body">
+            <header data-bs-theme="">
+              <nav class="mb-3" aria-label="Global navigation - With one line title example">
+                <div class="">
+
+                  <!-- Orange brand logo -->
+                  <div class="navbar-brand me-auto me-lg-4">
+                    <a class="stretched-link" href="#">
+                      <img
+                      src="/assets/image/org.png"
+                      alt="Boosted - Back to Home"
+                      loading="lazy"
+                    />
+                    </a>
+                    <p class="mx-2">Authentiication</p>
+                  </div>
+
+                
+                </div>
+              </nav>
+            </header>    
+              <div class="row">
+                
+                
+                      <div class="">
+                        <div class="mb-3">
+                          <label for="email" id="emailLabel" class="form-label is-required">Utilisateur<span class="visually-hidden"> (required)</span></label>
+                          <input type="text" class="form-control"  [(ngModel)]="this.logindata.username" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="email" id="emailLabel" class="form-label is-required">Mot de passe<span class="visually-hidden"> (required)</span></label>
+                          <div class="input-group mb-2">
+                            <input
+                              type="password"
+                              [(ngModel)]="this.logindata.password"
+                              
+                              [type]="showPassword ? 'text' : 'password'"
+                              class="form-control"
+                              placeholder=""
+                              aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required
+                            />
+                            <button
+                              class="btn btn-outline-secondary border-start-0"
+                              type="button"
+                              id="button-addon2"
+                            >
+                              <i
+                                class="fas fa-eye fa-lg eye-show"
+                                *ngIf="!showPassword"
+                                (click)="showPassword = !showPassword"
+                              ></i>
+                              <i
+                                class="fas fa-eye-slash fa-lg eye-hide"
+                                *ngIf="showPassword"
+                                (click)="showPassword = !showPassword"
+                              ></i>
+                            </button>
+                          </div>
+                          
+                        </div>
+                        <div *ngIf="this.alert===true" class="alert alert-success" role="alert">
+                          <span class="alert-icon"><span class="visually-hidden">Success</span></span>
+                          <p>Success connexion.</p>
+                        </div>
+                        <div *ngIf="this.erreur===true" class="alert alert-danger" role="alert">
+                          <span class="alert-icon"><span class="visually-hidden">Error</span></span>
+                          <p>Identifiant incorrect!</p>
+                        </div>
+                          <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" (click)="sendToKc()">
+                              Connexion
+                            </button>
+                          </div>
+                      </div>
+                      <div class="text-center mb-1" *ngIf="spinnershow===true">
+                        <div class="spinner-grow text-primary mx-1" style="width: 10px;height: 10px;" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <div class="spinner-grow text-secondary mx-1"style="width: 10px;height: 10px;" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>  
+                        <div class="spinner-grow text-secondary mx-1" style="width: 10px;height: 10px;" role="status">
+                          <span class="visually-hidden">Loading...</span>
+                        </div>
+                     </div>
+          </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<!-- 
+  <section class="mx-3">
   <div class="main mx-2 pt-5">
     <div class="main row justify-content-around pt-5">
       <div class="card" style="width: 22rem; height: 22rem">
@@ -85,4 +184,4 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->

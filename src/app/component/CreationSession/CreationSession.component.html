@@ -1,4 +1,68 @@
-<body>
+
+<body >
+  <section class="pt-3 mx-3">
+    <div class="main">
+      <div class="main row justify-content-around">
+        <div class="card mb-3 p-4" style="width: 650px">
+          <div class="">
+            <div class="mb-3">
+              <label for="email" id="emailLabel" class="form-label is-required">Date debut du<span class="visually-hidden"> (required)</span></label>
+              <input type="datetime-local" class="form-control" [(ngModel)]="this.session.dateDebut"  id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" id="emailLabel" class="form-label is-required">Date cloture<span class="visually-hidden"> (required)</span></label>
+              <input type="datetime-local" class="form-control"     [(ngModel)]="this.session.dateCloture"   id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+            </div>
+            <div  class="mb-3">
+              <span id="basic-addon3"
+                >Taux Devise(EUR/USD/MGA):
+              </span>
+            </div>
+            <div class="mb-3">
+              <label for="email" id="emailLabel" class="form-label is-required">EUR<span class="visually-hidden"> (required)</span></label>
+              <input   type="number"step="any" class="form-control"  [(ngModel)]="this.session.tauxEur" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" id="emailLabel" class="form-label is-required">USD<span class="visually-hidden"> (required)</span></label>
+              <input  type="number"step="any" class="form-control" [(ngModel)]="this.session.tauxUsd"  id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+            </div>
+            <div *ngIf="this.alert===true" class="alert alert-success" role="alert">
+              <span class="alert-icon"><span class="visually-hidden">Success</span></span>
+              <p>session enregistrée.</p>
+            </div>
+            
+            <div class="d-flex justify-content-end"> 
+              <button
+                type="button"
+                (click)="openSession()"
+                class="btn btn-primary p-2"
+              >
+                Ouverture de session
+              </button>
+            </div>
+            <!-- <div *ngIf="this.alert===true" class="alert alert-success" role="alert">
+              <span class="alert-icon"><span class="visually-hidden">Success</span></span>
+              <p>Success connexion.</p>
+            </div>
+            <div *ngIf="this.erreur===true" class="alert alert-danger" role="alert">
+              <span class="alert-icon"><span class="visually-hidden">Error</span></span>
+              <p>Identifiant incorrect!</p>
+            </div> -->
+              <!-- <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" (click)="sendToKc()">
+                  Connexion
+                </button>
+              </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+
+
+
+<!-- <body>
   <section class="mx-3">
     <div class="main">
       <div class="main row justify-content-around">
@@ -30,9 +94,7 @@
                   >
                 </div>
                 <div class="mx-3">
-                  <!-- [(ngModel)]="this.session.taux_eur" -->
-                  <!-- [(ngModel)]="this.session.taux_usd"  -->
-                  <input
+                   <input
                     type="number"
                     step="any"
                     class="form-control mb-2"
@@ -74,13 +136,7 @@
                   aria-describedby="basic-addon1"
                 />
               </div>
-              <!-- <img
-                src="assets/image/tyerr.jpg"
-                class="bd-placeholder-img img-fluid position-relative"
-                width="100%"
-                height="100%"
-                alt=""
-              /> -->
+             
               <div>
                 {{this.errorMessage}}
               </div>
@@ -91,5 +147,8 @@
       </div>
     </div>
   </section>
-</body>
+</body> -->
+
+
+
 

@@ -9,6 +9,8 @@ import {
 import { Router } from '@angular/router';
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
+// Assurez-vous d'avoir importé boosted correctement
+
 @Component({
   selector: 'app-authentication',
   templateUrl: './authentication.component.html',
@@ -21,7 +23,7 @@ export class AuthenticationComponent implements OnInit {
   spinnershow:boolean = false;
   showPassword: boolean = false;
   showmesg = false;
-
+alert=false;erreur=false;
   logindata = {
     username: '',
     password: '',
@@ -80,6 +82,7 @@ export class AuthenticationComponent implements OnInit {
             this.router.navigate(['/main/MenuDemande']);
 
             this.errorMessage = 'Utilisateur connecté';
+            this.alert=true;
           } else {
             // Une erreur s'est produite
             console.error("Erreur lors de l'obtention du jeton:", response);
@@ -89,9 +92,11 @@ export class AuthenticationComponent implements OnInit {
         },
       (error) => {
           this.errorMessage='Identifiant incorrect';
+          this.erreur=true;
       }
       )
     );
+    
   }
 
   // getIdOfDirection ( )
@@ -124,4 +129,9 @@ export class AuthenticationComponent implements OnInit {
   //     window.location.reload();
   //   });
   // }
+ 
+
+
+
+  
 }
