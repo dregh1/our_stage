@@ -91,20 +91,26 @@ getormatdate(){
     console.log(this.session.dateDebut,'date debut');
     
     // creation session
+   
+          
     
     this.CreationSession1Service.post(this.session)
     .subscribe(
       (response) => {
-        
-      this.errorMessage="session enregistré";
+        try{
+      this.errorMessage="session enregistrée";
       this.alert=true;
-      console.log("session enregistré-----------------------------------------------");
+      console.log("session enregistrée-----------------------------------------------");
       console.log(response);
+    }catch(error){
+      console.log('erreur',error);
       
+    }
       //window.location.reload();
     } 
   
   );
   }
+
   
 }

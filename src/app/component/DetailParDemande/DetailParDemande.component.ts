@@ -65,7 +65,7 @@ export class TestComponent implements OnInit {
     depense:'',
     dateCreation:'',
     identifiant:'',
-    dateSoumission:'00:00:00'
+    dateSoumission:''
   };
   departement:string | null='';
   titre = new Titre();
@@ -107,7 +107,7 @@ export class TestComponent implements OnInit {
 session=new SessionCd();
 datePipe:DatePipe;
   ///variable recuperation session
-  existanceSession : boolean= false;
+  existanceSession : boolean= false;testsoumission: boolean= false;
 
 somme='+';
   constructor(
@@ -184,6 +184,13 @@ somme='+';
       
     }
     
+  }
+  testedatesoumission(){
+    if(this.demande.dateSoumission===''){
+      this.testsoumission=true;
+    }else{
+      this.testsoumission=false;
+    }
   }
   precedent()
 {
@@ -263,6 +270,7 @@ somme='+';
       this.demande.estSoumis=Boolean(this.DetailDemande.estsoumis);
       this.demande.depense=this.DetailDemande.depense??'';
       this.demande.dateCreation=this.DetailDemande.dateCreation?.toString() ?? '';
+      this.demande.dateSoumission=this.DetailDemande.dateSoumission?.toString()??'';
       this.demande.identifiant=this.DetailDemande.identifiant?.toString()??'';
        console.log(this.DetailDemande);
        console.log('LLLOOGKOJ');

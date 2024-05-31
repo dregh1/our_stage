@@ -7,6 +7,7 @@ import * as XLSX from 'xlsx';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { IfStmt } from '@angular/compiler';
 import { Demande } from 'src/app/models/Demande';
+import { Titre } from 'src/app/models/TitreDepense';
 @Injectable({
   providedIn: 'root',
 })
@@ -93,5 +94,33 @@ export class MenuDemandeService {
       headers,
     });
   }
-  
+    //supprimer demande
+    supprimerDemande(id: number) :Observable<any> {
+      const headers = this.getHeaders();
+      return this.http.delete<any>(`${this.baseUrl2}/supprimerDemande/${id}`, { headers, });
+    }
+  // maka titre by id
+  gettitreById(id: number): Observable<Titre> {
+    const headers = this.getHeaders();
+    return this.http.get<Titre>(
+      `${this.baseUrl}/titre/${id}`,
+      { headers }
+    );
+  }
+
+   //modication titredepense
+   updatetitredepense(id: number, data: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put<any>(`${this.baseUrl}/titre/${id}`, data, {
+      headers,
+    });
+  }
+  //modication demande
+  update(id: number, data: any): Observable<any> {
+    const headers = this.getHeaders();
+    return this.http.put<any>(`${this.baseUrl}/demande/${id}`, data, {
+      headers,
+    });
+  }
+ 
 }

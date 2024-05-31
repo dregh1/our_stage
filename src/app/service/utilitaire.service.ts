@@ -231,5 +231,11 @@ export class UtilitaireService {
       headers,
     });
   }
-          
+           // maka ny brouillon
+  getDetailDemandebyId(id: number): Observable<DetailDemande> {
+    const headers = this.getHeaders();
+    return this.http.get<DetailDemande>(`${this.baseUrl}/detailDemande/${id}`, {
+      headers,
+    });
+  }
 }

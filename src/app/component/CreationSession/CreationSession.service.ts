@@ -28,7 +28,6 @@ export class CreationSession1Service {
     }).pipe(
       concatMap(async () => this.utilitaire.sendMail())
     );
-    // .subscribe((response)=>{},(error)=>{}) 
     ;
   }
 }

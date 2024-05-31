@@ -472,13 +472,14 @@
             </div> -->
         </div>
       </fieldset>
-      <div *ngIf="this.alert===true" class="alert alert-success z-3 bg-white dropdown border-success dropup position-fixed bottom-0 end-0 me-5 bd-mode-toggle"style="width:300px; " role="alert">
+     
+      <div *ngIf="this.alert===true" class="alert alert-success z-3 bg-white border-success "style="width:300px; " role="alert">
         <span class="alert-icon"><span class="visually-hidden">Success</span></span>
         <p>{{ errorMessage }}</p>
       </div>
-
       <div class="bt p-3 d-flex justify-content-end">
         <div class="error-message">
+          
           <p class="text-success">{{ errorMessage }}</p>
         </div>
        

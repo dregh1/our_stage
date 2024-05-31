@@ -1,8 +1,8 @@
 <body>
-  <section class="mx-3 p-1">
+  <section class="mx-4  p-1">
     <div class="main">
 
-      <div class="text-center">
+      <div class="">
           <div class="card-header  text-body bg-body  active ">
             <ul class="nav nav-tabs card-header-tabs ">
              
@@ -24,54 +24,122 @@
             </ul>
             
           </div>
+
+
+
+          
           <!-- BROUILLON -->
-          <div class="card" *ngIf="isbrouillon===true"style=" height: 500px;">
-              <table class="table table-fixed">
-                <thead>
-                  <tr class="titre">
-                    <th scope="col" class="titre col-1">Identifiant</th>
-                    <th scope="col" class="titre col-1">Titre</th>
-                    <th scope="col" class=" titre col-2">Motif</th>
-                    <th scope="col" class="titre col-2">Devise</th>
-                    <th scope="col" class="titre col-2">Montant</th>
-                    <th scope="col" class="titre col-2">Fournisseurs</th>
-                    <th scope="col" class="titre col-2">Date création</th>
-                  </tr>
-                </thead>
-                <tbody
-                >
-                  <tr *ngFor="let detail of this.brouillon" [routerLink]="['/main/teste/', detail.id]"
-                  class="mb-1 p-1 scrollspy-example"
-                  data-spy="scroll"
-                  data-target="#navbarExample"
-                  data-offset="50"
+          <div class="card" *ngIf="isbrouillon===true">
+             
+            <table class="table table-fixed">
+              <thead>
+                <tr class="titre" >
+                      <th scope="col" class="titre "style="width:168px;">Identifiant</th>
+                      <th scope="col" class="titre "style="width:168px;">Titre</th>
+                      <th scope="col" class=" titre "style="width:168px;">Motif</th>
+                      <th scope="col" class="titre "style="width:168px;">Devise</th>
+                      <th scope="col" class="titre "style="width:168px;">Montant</th>
+                      <th scope="col" class="titre "style="width:168px;">Fournisseurs</th>
+                      <th scope="col" class="titre "style="width:170px;">Date création</th>
                   
-                  >  
-                  <td class="col-1 ">{{ detail.identifiant }}</td>
-                  <td class="col-1 ">{{ detail.titre }}</td>
-                  <td class="col-2 ">{{ detail.motif }}</td>
-                  <td class="col-2 ">{{ detail.devise }}</td>
-                  <td class="col-2 ">{{ detail.montantht }}</td>
-                  <td class="col-2 ">{{ detail.fournisseur }}</td>
-                  <td class="col-2 ">{{ detail.dateCreation | date:'EEEE dd MMMM yyyy HH:mm':'fr-FR' }} </td>
-                  </tr>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- [routerLink]="['/main/teste/', detail.id]" -->
+                <tr *ngFor="let detail of this.brouillon" 
+                class=" p-1 scrollspy-example"
+                data-spy="scroll"
+                data-target="#navbarExample"
+                data-offset="50"
+                > 
+                 <a class="btn"  data-bs-toggle="collapse" [attr.href]="'#'+ detail.identifiant" role="button" aria-expanded="false" [attr.aria-controls]="detail.identifiant">
+                    <td style="width:168px;" class="texte">{{ detail.identifiant }}</td>
+                    <td style="width:168px;"class="texte">{{ detail.titre }}</td>
+                    <td style="width:168px;"class="texte">{{ detail.motif }}</td>
+                    <td style="width:168px;"class="texte">{{ detail.devise }}</td>
+                    <td style="width:168px;"class="texte">{{ detail.montantht }}</td>
+                    <td style="width:168px;"class="texte">{{ detail.fournisseur }}</td>
+                    <td style="width:170px;"class="texte">{{ detail.dateCreation | date:'EEEE dd MMMM yyyy HH:mm':'fr-FR' }} </td>
+                </a><br> 
+                <div class="collapse" id="{{detail.identifiant}}">
+                  <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="btn-close d-flex justify-content-end" data-bs-toggle="collapse" [attr.href]="'#' + detail.identifiant" aria-expanded="false" [attr.aria-controls]="detail.identifiant" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
                     
-                </tbody>
-              </table>
+                  </div>
+                  <div class="">
+                   <div>
+                    <button type="button" class="btn mx-2 btn-primary " [routerLink]="['/main/teste/', detail.id]">Modifier</button>
+                    <button type="button" class="btn btn-secondary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getid(detail.id)" >Supprimer</button> 
+                    <button type="button" class="btn  btn-primary " data-bs-toggle="modal" data-bs-target="#example"(click)="getid(detail.id)">Soumettre</button>
+                  
+                  </div>
+                  </div>
+                </div>
+                 
+
+              </tr>
+              </tbody>
+              
+            </table>
+            <!-- modal suppression -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title h5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Etes vous sûr de vouloir supprimer cette demande ?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <!--  -->
+                    <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="supprimationDemande()">Supprimer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- modal soumission -->
+            <div class="modal fade" id="example" tabindex="-1" aria-labelledby="exampleLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title h5" id="exampleLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Etes vous sûr de vouloir soumettre cette demande ?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <!--  -->
+                    <button type="button" class="btn btn-primary"  data-bs-dismiss="modal"(click)="Soumission()">Soumettre</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
           </div>
           <!-- ATTENTE SESSION -->
           <div class="card" *ngIf="brouilloncliqueActive===true" style=" height: 500px;">
             <ul class="list-group"*ngFor="let detail of this.AttenteSession" >
               <li class="list-group-item p-3 d-flex justify-content-between align-items-center">
                 {{detail.titre}}
-                <button class="btn" class="badge text-bg-info rounded-pill" (click)="annulerdemande(detail.id)">annuler</button>
+                <button class="btn" class="badge text-bg-info rounded-pill" (click)="annulerdemande()">annuler</button>
               </li>
               
             </ul>
           </div>
           <!-- AVTIVE DEMANDE -->
-          <div class="card" *ngIf="Activedemandeclique===true" style=" height: 500px;">
-            <div *ngFor="let titre of groupedDetailDemandes | keyvalue">
+          <div class="card" *ngIf="Activedemandeclique===true" style=" height: 500px;"
+                class="mb-1 p-1 scrollspy-example "
+                data-spy="scroll"
+                data-target="#navbarExample"
+                data-offset="50"
+          >
+            <div *ngFor="let titre of groupedDetailDemandes | keyvalue" class="listetitre">
               <fieldset class="form-group border border-end-0">
                 <legend class="px-2 d-flex justify-content-between">
                   <h5 class="p-2">{{ titre.key }}</h5>
@@ -86,10 +154,15 @@
                   
                 </a>
                 </legend>
-                <div class="collapse" id="collapseExample-{{ titre.key }}">  <div data-offset="50">
+                <div class="collapse" id="collapseExample-{{ titre.key }}"> 
+                 <div 
+                 >
                   <div *ngFor="let direction of titre.value | keyvalue">
-                                  <table class="table">
-                                    <tr>
+                                 
+                                <table class="table">
+                                    <tr
+                                    
+                                    >
                                       <th class="p-3">Identifiant</th>
                                       <th class="p-3">Motif</th>
                                       <th class="p-3">Devise</th>
@@ -97,9 +170,10 @@
                                       <th class="p-3">Fournisseur</th>
                                       <th class="p-3">Date Creation</th>
                                       </tr>
-                                    <tr *ngFor="let demande of direction.value" [routerLink]="['/main/teste/', demande.id]" >
-                                      <ng-container 
-                                      >
+                                    <tr *ngFor="let demande of direction.value" [routerLink]="['/main/teste/', demande.id]"
+                                 
+                                    >
+                                     
                                         
                                         <td class="p-3 ">{{ this.demande.identifiant }}</td>
                                         <td class="p-3 ">{{ this.demande.motif }}</td>
@@ -109,12 +183,11 @@
                                         <td class="p-3">{{ this.demande.dateCreation | date:'EEEE dd MMMM yyyy HH:mm':'fr-FR' }}</td>
                                        
                                         
-                                          </ng-container>
                                     </tr>
                                   </table>
-                                </div>
-                          </div>
-                        </div>
+                  </div>
+                </div>
+               </div>
                   
                   
               </fieldset>
@@ -122,24 +195,43 @@
           </div>
       </div>
 
-      <div class="d-flex justify-content-between p-2">
-        <button
-              type="button"
-              class="btn "
-              [routerLink]="'/main/creationprescripteur'"
-            >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="solaris-icon si-add text-black me-2" viewBox="0 0 1000 1000">
-              <path d="M850 400H600V150a50 50 0 0 0-50-50H450a50 50 0 0 0-50 50v250H150a50 50 0 0 0-50 50v100a50 50 0 0 0 50 50h250v250a50 50 0 0 0 50 50h100a50 50 0 0 0 50-50V600h250a50 50 0 0 0 50-50V450a50 50 0 0 0-50-50" style="fill-rule:evenodd"/>
-            </svg> Ajout de ligne
-            </button>
-            <button type="button" class="btn  btn-secondary " (click)="exportToExcel()">
-              Extraction
-            </button>
-      </div>
+      
 
     </div>
+   
   </section>
+  <div class="d-flex justify-content-between p-2">
+    <button
+          type="button"
+          class="btn "
+          [routerLink]="'/main/creationprescripteur'"
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="solaris-icon si-add text-black me-2" viewBox="0 0 1000 1000">
+          <path d="M850 400H600V150a50 50 0 0 0-50-50H450a50 50 0 0 0-50 50v250H150a50 50 0 0 0-50 50v100a50 50 0 0 0 50 50h250v250a50 50 0 0 0 50 50h100a50 50 0 0 0 50-50V600h250a50 50 0 0 0 50-50V450a50 50 0 0 0-50-50" style="fill-rule:evenodd"/>
+        </svg> Ajout de ligne
+        </button>
+        <button type="button" class="btn  btn-secondary " (click)="exportToExcel()">
+          Extraction
+        </button>
+  </div>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!-- table active demande -->
  <!-- <div class="card">
   <div
@@ -251,9 +343,43 @@
 
 
 
-
+<!-- version tao  brouillon-->
+<!-- 
+  <table class="table table-fixed">
+                <thead>
+                  <tr class="">
+                    <th scope="col" class="titre "style="width:170px;">Identifiant</th>
+                    <th scope="col" class="titre "style="width:170px;">Titre</th>
+                    <th scope="col" class=" titre "style="width:170px;">Motif</th>
+                    <th scope="col" class="titre "style="width:170px;">Devise</th>
+                    <th scope="col" class="titre "style="width:170px;">Montant</th>
+                    <th scope="col" class="titre "style="width:170px;">Fournisseurs</th>
+                    <th scope="col" class="titre "style="width:179px;">Date création</th>
+                  </tr>
+                </thead>
+                <tbody
+                >
+                  <tr *ngFor="let detail of this.brouillon" [routerLink]="['/main/teste/', detail.id]"
+                  class="mb-1 p-1 scrollspy-example"
+                  data-spy="scroll"
+                  data-target="#navbarExample"
+                  data-offset="50"
+                  
+                  >  
+                  <td style="width:170px;">{{ detail.identifiant }}</td>
+                  <td style="width:170px;">{{ detail.titre }}</td>
+                  <td style="width:170px;">{{ detail.motif }}</td>
+                  <td style="width:170px;">{{ detail.devise }}</td>
+                  <td style="width:170px;">{{ detail.montantht }}</td>
+                  <td style="width:170px;">{{ detail.fournisseur }}</td>
+                  <td style="width:171px;">{{ detail.dateCreation | date:'EEEE dd MMMM yyyy HH:mm':'fr-FR' }} </td>
+                  </tr>
+                    
+                </tbody>
+              </table>
+ -->
 <!-- version taloha -->
-<!-- <table class="table table-fixed">
+ <!-- <table class="table table-fixed">
   <thead>
     <tr class="titre">
       <th scope="col" class="titre col-1">Identifiant</th>
@@ -283,7 +409,7 @@
     </tr>
       
   </tbody>
-</table> -->
+</table>  -->
 
 
 

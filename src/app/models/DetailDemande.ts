@@ -7,6 +7,7 @@ export class DetailDemande {
     public montantht?: string,
     public typereference?: string,
     public reference?: string,
+    public nomReference?: string,
     public estregularisation?: boolean,
     public iddirection?: number,
     public comsprescripteur?: string,

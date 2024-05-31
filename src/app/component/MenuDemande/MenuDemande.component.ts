@@ -9,6 +9,8 @@ import { UtilitaireService } from 'src/app/service/utilitaire.service';
 import { SessionCd } from 'src/app/models/SessionCd';
 import { Brouillon } from 'src/app/models/Brouillon';
 import { Demande } from 'src/app/models/Demande';
+import { Titre } from 'src/app/models/TitreDepense';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-menu-demande',
   templateUrl: './MenuDemande.component.html',
@@ -24,11 +26,12 @@ export class MenuDemandeComponent implements OnInit {
   nomDirection: string | null = '';
   DonneExcels: DonneeExcel[] = [];
   listesessionActive=false;
-  buttonTextColor = 'black';
+  buttonTextColor = 'black';idsupprimer='';
   brouilloncliqueActive=false;Activedemande=false;Activedemandeclique=false;isbrouillon=false;brouillonActive=false;
   //CREATION SESSION
   direction = new Direction();
-  demande = {
+  DetailDemandeById = new DetailDemande();
+  demandemodier = {
     estRegularisation: false,
     periode:'',
     idRubrique: '',
@@ -39,9 +42,10 @@ export class MenuDemandeComponent implements OnInit {
     comsPrescripteur: '',
     idDirection: '',
     idTitreDepense: '',
-    nomReference: '',
+    reference: '',
     titre: '',
     montantHt: '',
+    montantMga:'',
     idSession:'',
     fournisseur: '',
     idPeriode: '',
@@ -54,8 +58,16 @@ export class MenuDemandeComponent implements OnInit {
     estSoumis:false,
     depense:'',
     dateCreation:'',
-    identifiant:''
+    identifiant:'',
+    dateSoumission:'',nomReference:''
   };
+  demande=new DetailDemande();
+  titredepense = {
+    designation: '',
+    idDirection : '',
+    idSession : ''
+  };
+  titre = new Titre();datePipe:DatePipe;
   groupedDetailDemandes: { [titre: string]: { [iddirection: string]: DetailDemande[] } } = {};
   demandes = new Demande();
 session=new SessionCd();
@@ -65,7 +77,8 @@ session=new SessionCd();
     private MenuDemandeService: MenuDemandeService,
     private AuthenticationService: AuthenticationService,
     private utilitaire:UtilitaireService
-  ) {
+  ) { 
+    this.datePipe= new DatePipe('en-US');
     this.token = sessionStorage.getItem('token');
     if(this.token !== null )
       {
@@ -257,44 +270,162 @@ brouillonclique(){
     this.Activedemandeclique=true;
     this.brouillonActive =false; 
   }
-  annulerdemande(id:any){
-    this.MenuDemandeService.getAttteneSessionById(id).subscribe((response)=>
-    {
-      this.demandes=response;
-      console.log(response,'itooooooo demande par id');
-      
-   this.demande.estRegularisation = Boolean(this.demandes.estregularisation);
-   this.demande.idRubrique=this.demandes.idrubrique?.toString() ?? '';
-   this.demande.sousRubrique=this.demandes.sousrubrique?.toString() ?? '';
-   this.demande.motif=this.demandes.motif?.toString() ?? '';
-   this.demande.typeDevise=this.demandes.devise?.toString() ?? '';
-   this.demande.comsPrescripteur=this.demandes.comsprescripteur?.toString() ?? '';
-   this.demande.idDirection=this.demandes.iddirection?.toString() ?? '';
-   this.demande.idTitreDepense=this.demandes.idtitre?.toString() ?? '';
-   this.demande.nomReference=this.demandes.reference?.toString() ?? '';
-   this.demande.fournisseur=this.demandes.fournisseur?.toString() ?? '';
-   this.demande.montantHt=this.demandes.montantht?.toString() ?? '';
-   this.demande.idPeriode=this.demandes.idperiode?.toString() ?? '';
-   this.demande.typeReference=this.demandes.typereference?.toString() ?? '';
-   this.demande.validationPrescripteur=Boolean(this.demandes.validationprescripteur);
-   this.demande.estSoumis=Boolean(this.demandes.estSoumis);
-   this.demande.depense=this.demandes.depense?.toString() ?? '';
-   this.demande.dateCreation=this.demandes.dateCreation?.toString() ?? '';
-   this.demande.identifiant=this.demandes.identifiant?.toString()??'';
-   console.log(this.demande,'itodemande ');
-   this.demande.validationPrescripteur=false;
-     this.demande.estSoumis=false;
-    this.utilitaire.update(id, this.demande).subscribe((Response) => {
-      console.log(Response,'modication ooooooooo');
-      this.AttenteSession=Response;
-     });
-    });
-    
- 
-   
+
+  annulerdemande(){    
+    this.GetDataByid();
+    console.log(this.demande,'itodemande ');
+    // this.demande.validationPrescripteur=false;
+    //   this.demande.estSoumis=false;
+     this.utilitaire.update(parseInt(this.idsupprimer), this.demande).subscribe((Response) => {
+       console.log(Response,'modication ooooooooo');
+       this.AttenteSession=Response;
+      });
+  }
+  GetDataByid(){
+    this.MenuDemandeService.getAttteneSessionById(parseInt(this.idsupprimer)).subscribe((response)=>
+      {
+        this.demandes=response;
+        console.log(response,'itooooooo demande par id');
+        
+    //  this.demande.estRegularisation = Boolean(this.demandes.estregularisation);
+    //  this.demande.idRubrique=this.demandes.idrubrique?.toString() ?? '';
+    //  this.demande.sousRubrique=this.demandes.sousrubrique?.toString() ?? '';
+    //  this.demande.motif=this.demandes.motif?.toString() ?? '';
+    //  this.demande.devise=this.demandes.devise?.toString() ?? '';
+    //  this.demande.comsPrescripteur=this.demandes.comsprescripteur?.toString() ?? '';
+    //  this.demande.idDirection=this.demandes.iddirection?.toString() ?? '';
+    //  this.demande.idTitreDepense=this.demandes.idtitre?.toString() ?? '';
+    //  this.demande.nomReference=this.demandes.reference?.toString() ?? '';
+    //  this.demande.fournisseur=this.demandes.fournisseur?.toString() ?? '';
+    //  this.demande.montantHt=this.demandes.montantht?.toString() ?? '';
+    //  this.demande.idPeriode=this.demandes.idperiode?.toString() ?? '';
+    //  this.demande.typeReference=this.demandes.typereference?.toString() ?? '';
+    //  this.demande.validationPrescripteur=Boolean(this.demandes.validationprescripteur);
+    //  this.demande.estSoumis=Boolean(this.demandes.estSoumis);
+    //  this.demande.depense=this.demandes.depense?.toString() ?? '';
+    //  this.demande.dateCreation=this.demandes.dateCreation?.toString() ?? '';
+    //  this.demande.identifiant=this.demandes.identifiant?.toString()??'';
+      });
+      console.log(this.demande,'detailpar demande');
   }
   btnplus(){
   
     this.isUp=!this.isUp;
   }
+  //getid demande
+  getid(id:any){
+      this.idsupprimer= id;
+      console.log(id,'id de cette demande');
+      
+  }
+   //supprimer demande
+   supprimationDemande(){    
+    // console.log(id,'diddemande');
+
+      this.MenuDemandeService.supprimerDemande(parseInt(this.idsupprimer))
+      .subscribe((response)=>{},(error)=>{console.log(error);
+      });
+    }
+    Soumission(){
+    //recuperation par detail
+    console.log('idddemandeeeeeee',this.idsupprimer);
+    
+    this.utilitaire.getDetailDemandebyId(parseInt(this.idsupprimer)).subscribe((response) => {
+      this.DetailDemandeById = response;
+      this.demande=this.DetailDemandeById;
+    console.log('detaildemande ito veriena/////////',this.demande);
+      
+    if(this.idsession===''){
+      console.log('vide session');
+    }else{
+      console.log(this.idsession,'+///////////sessionnnn///////////////');
+       this.demande.idSession=this.idsession;
+       let dateValue = this.getormatdate();
+
+        if (typeof dateValue === 'string') {
+            // Convertir la chaîne en Date
+            this.demande.dateSoumission = new Date(dateValue);
+        } else if (dateValue === null || dateValue === undefined) {
+            // Gérer les cas où la valeur est null ou undefined
+            this.demande.dateSoumission = undefined; // Ou assignez explicitement à null si c'est ce que vous souhaitez
+        } else {
+            throw new Error('Type inattendu retourné par getormatdate');
+        }
+        this.demande.idtitre=this.DetailDemandeById.idtitre;
+       this.demande.validationprescripteur = true;
+        this.demande.estsoumis=false;
+       console.log(this.demande,'demande vaovao');
+       
+       this.updatetitre(this.demande.idtitre);
+       console.log(this.demande,'soumission demande');
+       this.update(this.demande);
+       console.log(this.demande,'e mis datepipe');
+      }
+    });
+    
+    
+    }
+    getormatdate(){
+      const date= new Date();
+      return this.datePipe.transform(date,'yyyy-MM-dd');  
+    }
+//modication prescripteur
+update(demande:any): void {
+  console.log('moulle');
+  console.log(this.demande.idSession,'idsesssinkk');
+  
+  console.log(this.demande,'demande a updater');
+  this.demandemodier.estRegularisation=demande.estregularisation;
+  this.demandemodier.comsPrescripteur=demande.comsprescripteur;
+  this.demandemodier.dateSoumission=demande.dateSoumission;
+  this.demandemodier.idDirection=demande.iddirection;
+  this.demandemodier.idPeriode=demande.idperiode;
+  this.demandemodier.dateCreation=demande.dateCreation;
+  this.demandemodier.devise=demande.devise;
+  this.demandemodier.depense=demande.depense;
+  this.demandemodier.fournisseur=demande.fournisseur;
+  this.demandemodier.idSession=demande.idSession;
+  this.demandemodier.idRubrique=demande.idrubrique;
+  this.demandemodier.motif=demande.motif;
+  this.demandemodier.identifiant=demande.identifiant;
+  this.demandemodier.montantHt=demande.montantht;
+  this.demandemodier.reference=demande.reference;
+  this.demandemodier.idTitreDepense=demande.idtitre;
+  this.demandemodier.montantMga=demande.montantMga;
+  this.demandemodier.validationPrescripteur=true;
+  this.demandemodier.sousRubrique=demande.sousrubrique;
+  this.demandemodier.nomReference=demande.nomReference;
+  this.demandemodier.typeReference=demande.typereference;
+  this.demandemodier.typeDevise=demande.devise;
+  console.log(this.demandemodier,'ito izy restultat');
+  
+  // this.MenuDemandeService.update(parseInt(this.idsupprimer),this.demandemodier).subscribe((Response) => {
+  //   console.log(Response,'vide ve');
+  // });
+  
+  //  window.location.reload();
+}
+
+    //modication prescripteur
+  updatetitre(idtitre:any): void { 
+    // console.log(this.demande.idTitreDepense,'titredepense');
+    console.log(this.idsession,'idsessionjjjjjj');
+    console.log('////////titre update');
+    
+    //recuperation titre by id
+    this.MenuDemandeService.gettitreById(parseInt(idtitre)).subscribe((data) => {
+      this.titre = data;
+    console.log(this.titre,'ito ');
+    this.titredepense.idDirection=this.titre.idDirection?.toString() ?? '';;
+    this.titredepense.designation=this.titre.designation?.toString() ?? '';;
+    this.titredepense.idSession = this.idsession ??"";
+    console.log(this.titredepense,'juu');
+            ///modication titre
+            this.MenuDemandeService.updatetitredepense(parseInt(idtitre), this.titredepense).subscribe((Response) => {
+              console.log(Response);
+            });
+  });
+    
+    
+   }
 }

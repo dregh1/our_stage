@@ -1,15 +1,15 @@
 
 
-table .tbody{
-  height: 300px;
-  overflow-y: auto;
-  width: 100%;
-}
-tr,td{
+// table .tbody{
+//   height: 50px;
+//   overflow-y: auto;
+//   width: 100%;
+// }
+tr,td,.listetitre{
   position: relative;
 }
 .table-fixed tbody {
-  height: 300px;
+  height: 500px;
   overflow-y: auto;
   width: 100%;
 }
@@ -25,11 +25,13 @@ tr,td{
 .table-fixed tbody td,
 .table-fixed tbody th,
 .table-fixed thead > tr > th {
-  float: left;
-  position: relative;
+   float: left;
+   position: relative;
 
 }
-
+// .texte{
+//   padding: 10px;
+// }
 
 
 
@@ -37,16 +39,17 @@ tr,td{
 //   background-color: #eee;
 //   height: 770px;
 // }
-header,.titre {
+table,.card,header,.titre,thead {
   background-color: #eee;
 }
 // .card-header,
 // .card {
 //   background-color: #ddd;
 // }
-tr:hover {
-  border-left: #ff7900;
-  background-color: #999;
+a:hover {
+  .texte{
+    color: #ff7900;
+  }
 }
 .scrollspy-example {
   overflow: auto;

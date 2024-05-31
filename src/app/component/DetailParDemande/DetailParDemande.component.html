@@ -149,7 +149,7 @@
                       <div class="mb-3 d-flex justify-content-between">
                         <div>
                           <label for="email" id="emailLabel" class="form-label is-required">Date de creation<span class="visually-hidden"> (required)</span></label>
-                         <span  class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>{{this.demande.dateCreation| date:'dd MM yy HH:mm'}}</span>
+                         <span  class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>{{this.demande.dateCreation| date:'dd /MM /yy HH:mm'}}</span>
 
                         <div class="valid-feedback">
                           Bien!
@@ -158,7 +158,7 @@
                           date vide.
                         </div>
                         </div>
-                        <div>
+                        <div *ngIf="this.testsoumission===true">
                           <label for="email" id="emailLabel" class="form-label is-required">Date de soumission<span class="visually-hidden"> (required)</span></label>
                          <span  class="form-control"   id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>{{this.demande.dateSoumission| date:'dd MM yy HH:mm'}}</span>
 
