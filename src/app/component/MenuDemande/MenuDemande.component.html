@@ -8,10 +8,10 @@
              
               <li class="nav-item" *ngIf="role === 'PRS'">
                 <!-- <button class="nav-link " aria-current="true" (click)="brouillonclique()" >Brouillon Liste des Demandes</button> -->
-                <a class="nav-link " aria-current="true" [class.active]="brouillonActive" (click)="brouillonclique()">Brouillon Liste des demandes</a>
+                <a class="nav-link " aria-current="true" [class.active]="brouillonActive" (click)="brouillonclique()">Brouillon liste des demandes</a>
               </li>
               <li class="nav-item " *ngIf="role === 'PRS'">
-                <button class="nav-link" aria-current="true"[class.active]="listesessionActive" (click)="brouilloncliqueactive()">Liste en attente Session</button>
+                <button class="nav-link" aria-current="true"[class.active]="listesessionActive" (click)="brouilloncliqueactive()">Liste en attente session</button>
               </li>
              
               
@@ -195,25 +195,25 @@
           </div>
       </div>
 
-      
+      <div class="d-flex justify-content-between p-2">
+        <button
+              type="button"
+              class="btn "
+              [routerLink]="'/main/creationprescripteur'"
+            >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="solaris-icon si-add text-black me-2" viewBox="0 0 1000 1000">
+              <path d="M850 400H600V150a50 50 0 0 0-50-50H450a50 50 0 0 0-50 50v250H150a50 50 0 0 0-50 50v100a50 50 0 0 0 50 50h250v250a50 50 0 0 0 50 50h100a50 50 0 0 0 50-50V600h250a50 50 0 0 0 50-50V450a50 50 0 0 0-50-50" style="fill-rule:evenodd"/>
+            </svg> Ajout de ligne
+            </button>
+            <button type="button" class="btn  btn-secondary " (click)="exportToExcel()">
+              Extraction
+            </button>
+      </div>
 
     </div>
    
   </section>
-  <div class="d-flex justify-content-between p-2">
-    <button
-          type="button"
-          class="btn "
-          [routerLink]="'/main/creationprescripteur'"
-        >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="solaris-icon si-add text-black me-2" viewBox="0 0 1000 1000">
-          <path d="M850 400H600V150a50 50 0 0 0-50-50H450a50 50 0 0 0-50 50v250H150a50 50 0 0 0-50 50v100a50 50 0 0 0 50 50h250v250a50 50 0 0 0 50 50h100a50 50 0 0 0 50-50V600h250a50 50 0 0 0 50-50V450a50 50 0 0 0-50-50" style="fill-rule:evenodd"/>
-        </svg> Ajout de ligne
-        </button>
-        <button type="button" class="btn  btn-secondary " (click)="exportToExcel()">
-          Extraction
-        </button>
-  </div>
+ 
 </body>
 
 

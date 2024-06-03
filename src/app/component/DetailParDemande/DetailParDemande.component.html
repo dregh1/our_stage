@@ -1,10 +1,10 @@
 <div class="accordion" id="accordionExample">
   <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    <h4 class="accordion-header">
+      <button class="accordion-button fs-4 text" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
         Prescripteur
       </button>
-    </h2>
+    </h4>
     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
       <div class="accordion-body">
         <div class="card card-body">
@@ -137,6 +137,14 @@
                         
                       </div>
                     </div>
+                    
+                   <div class="pt-5">
+                    <button type="button" class="btn btn-outline-secondary mx-3" (click)="precedent()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="solaris-icon si-form-chevron-left" viewBox="0 0 1000 1000">
+                        <path d="M604.5 208 396.286 416.214 313 499.5l83.286 83.286L604.5 791l83.286-83.286L479.57 499.5l208.215-208.214z"/>
+                      </svg>
+                    </button>
+                   </div>
                   </div>
     
                   <div class="col-md-6">
@@ -255,16 +263,23 @@
                         </div>
                       </div>
 
-                    
+                      <div class="d-flex justify-content-end">
+                        <p class="text-info p-2">
+                          {{ this.demande.validationPrescripteur ? 'validé' : 'non validé' }}
+                        </p>
+                      </div>
                       <div *ngIf="role === 'PRS' && this.demande.validationPrescripteur === false " class=" p-3 d-flex justify-content-end" >
                         <div class="error-message">
                           <p class="text-success">{{ errorMessage }}</p>
                         </div>
-                        <button type="button" class="btn btn-primary mx-3" (click)="precedent()">Précedent</button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >Supprimer</button> 
-                        <button type="button" class="btn btn-primary mx-3"(click)="update()">Enregistrer</button>
-                        <button type="button" class="btn btn-primary "(click)="valider()">Soumettre</button>  
+                        <div class="d-flex justify-content-between">
 
+                          <!-- <button type="button" class="btn btn-primary mx-3" (click)="precedent()">Précedent</button> -->
+                        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >Supprimer</button>  -->
+                        <button type="button" class="btn btn-primary mx-3"(click)="update()">Enregistrer</button>
+                        <!-- <button type="button" class="btn btn-primary "(click)="valider()">Soumettre</button>   -->
+
+                        </div>
                         <!--/ Modal  de suppression -->
 
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -291,14 +306,10 @@
                     </div>
                   </div>
             </div>
-            
+          
             <!-- </form> -->
           </div>
-          <div class="d-flex justify-content-end">
-            <p class="text-info p-2">
-              {{ this.demande.validationPrescripteur ? 'validé' : 'non validé' }}
-            </p>
-          </div>
+          
         </div>
       </div>
     </div>
