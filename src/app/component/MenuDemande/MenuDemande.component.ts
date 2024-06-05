@@ -68,8 +68,7 @@ export class MenuDemandeComponent implements OnInit {
     idSession : ''
   };
   titre = new Titre();datePipe:DatePipe;
-  groupedDetailDemandes: {[titre: string]: { [iddirection: string]: DetailDemande[] }} = {};
-  totalsParGroupe: { [key: string]: number } = {};
+  groupedDetailDemandes: { [titre: string]: { [iddirection: string]: DetailDemande[] } } = {};
   demandes = new Demande();
 session=new SessionCd();
   idsession:string ='';
@@ -131,9 +130,20 @@ session=new SessionCd();
                                               this.DetailDemande = donnees;
                                               console.log(this.DetailDemande,"io data");
 
-                                              ///aichage groupé    
-                                              const listeOriginale= DetailDemande ;
-                                              donnees.forEach(demande => {
+                                              ///aichage groupé
+                                            //   this.groupedDetailDemandes = donnees.reduce((acc, item) => {
+                                            //     if (item.titre) {
+                                            //       if (!acc[item.titre]) {
+                                            //         acc[item.titre] = [];
+                                            //       }
+                                            //       acc[item.titre].push(item);
+                                            //     }
+                                            //     return acc;
+                                            //   }, {} as { [titre: string]: DetailDemande[] });
+                                            //   console.log(this.groupedDetailDemandes,'laichage gorupé');
+                                              
+                                            //const listeOriginale= DetailDemande ;
+                                            donnees.forEach(demande => {
                                               const titre = demande.titre?? '';
                                               const iddirection = demande.iddirection?? '';
                                             
@@ -317,6 +327,7 @@ brouillonclique(){
       });
     }
     Soumission(){
+
     //recuperation par detail
     console.log('idddemandeeeeeee',this.idsupprimer);
     
@@ -348,11 +359,19 @@ brouillonclique(){
        
        this.updatetitre(this.demande.idtitre);
        console.log(this.demande,'soumission demande');
-       this.update(this.demande);
+      //  this.update(this.demande);
+      console.log("TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT");
+      console.log(this.demande.id);
+      
+
+      this.soumettreDemande(this.demande.id?.toString() ?? '');
+      this.notifierAchCdgSoumis();
+      
        console.log(this.demande,'e mis datepipe');
       }
+
     });
-    // window.location()
+    window.location.reload();
     
     }
     getormatdate(){
@@ -365,7 +384,7 @@ update(demande:any): void {
   console.log(this.demande.idSession,'idsesssinkk');
   
   console.log(this.demande,'demande a updater');
-  this.demandemodier.estRegularisation=demande.estRegularisation;
+  this.demandemodier.estRegularisation=demande.estregularisation;
   this.demandemodier.comsPrescripteur=demande.comsprescripteur;
   this.demandemodier.dateSoumission=demande.dateSoumission;
   this.demandemodier.idDirection=demande.iddirection;
@@ -418,12 +437,24 @@ update(demande:any): void {
     
     
    }
+   notifierAchCdgSoumis(){
+    this.MenuDemandeService.notifSoumission();
+  }
 
+   soumettreDemande (id : string){
+    console.log("#############################################");
+    
+    this.MenuDemandeService.soumettreDemande(id)
+    .subscribe(
+      (response)=>{console.log(response);
 
+    },(error)=>{console.error(error);}
+    
+    );
+   }
 
 
    normaliserTitre(titre: string): string {
     return titre.replace(/\s+/g, ''); // Remplace tous les espaces par des chaînes vides
   }
- 
 }

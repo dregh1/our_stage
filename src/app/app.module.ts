@@ -12,12 +12,12 @@ import { CreationPrescripteurComponent } from './component/CreationPrescripteur/
 import { CreationSession1Component } from './component/CreationSession/CreationSession.component';
 import { HeaderComponent } from './component/header/header.component';
 import { TestComponent } from './component/DetailParDemande/DetailParDemande.component';
-import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
 import { ValidationComponent } from './component/validation/validation.component';
 import { SuperAdminComponent } from './component/super-admin/super-admin.component';
 import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
 
 registerLocaleData(localeFr);
 @NgModule({

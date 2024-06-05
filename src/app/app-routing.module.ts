@@ -9,8 +9,9 @@ import { MainComponent } from './component/main/main.component';
 import { CreationSession1Component } from './component/CreationSession/CreationSession.component';
 import { CreationPrescripteurComponent } from './component/CreationPrescripteur/CreationPrescripteur.component';
 import { TestComponent } from './component/DetailParDemande/DetailParDemande.component';
-import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
+
 import { SuperAdminComponent } from './component/super-admin/super-admin.component';
+import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
 const routes: Routes = [
   { path: '', component: AuthenticationComponent },
   {
