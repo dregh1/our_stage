@@ -3,6 +3,20 @@
     <div class="main">
 
       <div class="">
+        <div class="d-flex justify-content-end p-2">
+          <button
+                type="button"
+                class="btn "
+                [routerLink]="'/main/creationprescripteur'"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="solaris-icon si-add text-black me-2" viewBox="0 0 1000 1000">
+                <path d="M850 400H600V150a50 50 0 0 0-50-50H450a50 50 0 0 0-50 50v250H150a50 50 0 0 0-50 50v100a50 50 0 0 0 50 50h250v250a50 50 0 0 0 50 50h100a50 50 0 0 0 50-50V600h250a50 50 0 0 0 50-50V450a50 50 0 0 0-50-50" style="fill-rule:evenodd"/>
+              </svg> Ajout de ligne
+              </button>
+              <button type="button" class="btn  btn-secondary " (click)="exportToExcel()">
+                Extraction
+              </button>
+        </div>
           <div class="card-header  text-body bg-body  active ">
             <ul class="nav nav-tabs card-header-tabs ">
              
@@ -120,7 +134,6 @@
                 </div>
               </div>
             </div>
-            
           </div>
           <!-- ATTENTE SESSION -->
           <div class="card" *ngIf="brouilloncliqueActive===true" style=" height: 500px;">
@@ -133,82 +146,60 @@
             </ul>
           </div>
           <!-- AVTIVE DEMANDE -->
+          
           <div class="card" *ngIf="Activedemandeclique===true" style=" height: 500px;"
                 class="mb-1 p-1 scrollspy-example "
                 data-spy="scroll"
                 data-target="#navbarExample"
-                data-offset="50"
+                data-offset="50"class="listetitre"
           >
-            <div *ngFor="let titre of groupedDetailDemandes | keyvalue" class="listetitre">
-              <fieldset class="form-group border border-end-0">
-                <legend class="px-2 d-flex justify-content-between">
-                  <h5 class="p-2">{{ titre.key }}</h5>
-                  <a
-                    class="fs-3 text fw-bold btn"
-                    data-bs-toggle="collapse"
-                    [attr.href]="'#collapseExample-' + titre.key"
-                    aria-expanded="false" 
-                    [attr.aria-controls]="'collapseExample-' + titre.key"
-                  >+
-                    <!-- {{ this.isUp ? '-' :   '+' }} -->
-                  
-                </a>
-                </legend>
-                <div class="collapse" id="collapseExample-{{ titre.key }}"> 
-                 <div 
-                 >
-                  <div *ngFor="let direction of titre.value | keyvalue">
+
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+          <div class="accordion-item" *ngFor="let titre of groupedDetailDemandes | keyvalue" >
+            <p class="accordion-header bg-ligth ">
+              <button class="accordion-button" type="button"  data-bs-toggle="collapse"
+              [attr.href]="'#collapseExample-' +normaliserTitre(titre.key)"
+              aria-expanded="false" 
+              [attr.aria-controls]="'collapseExample-' + normaliserTitre(titre.key)">
+                {{ titre.key }}
+              </button>
+            </p>
+            <div  class="collapse " id="collapseExample-{{ normaliserTitre(titre.key) }}">
+              
+                <div *ngFor="let direction of titre.value | keyvalue">
                                  
-                                <table class="table">
-                                    <tr
-                                    
-                                    >
-                                      <th class="p-3">Identifiant</th>
-                                      <th class="p-3">Motif</th>
-                                      <th class="p-3">Devise</th>
-                                      <th class="p-3">Montant (HT)</th>
-                                      <th class="p-3">Fournisseur</th>
-                                      <th class="p-3">Date Creation</th>
-                                      </tr>
-                                    <tr *ngFor="let demande of direction.value" [routerLink]="['/main/teste/', demande.id]"
-                                 
-                                    >
-                                     
-                                        
-                                        <td class="p-3 ">{{ this.demande.identifiant }}</td>
-                                        <td class="p-3 ">{{ this.demande.motif }}</td>
-                                        <td class="p-3 ">{{ this.demande.devise }}</td>
-                                        <td class="p-3">{{ this.demande.montantht }}</td>
-                                        <td classq="p-3 ">{{ this.demande.fournisseur }}</td>
-                                        <td class="p-3">{{ this.demande.dateCreation | date:'EEEE dd MMMM yyyy HH:mm':'fr-FR' }}</td>
-                                       
-                                        
-                                    </tr>
-                                  </table>
-                  </div>
-                </div>
-               </div>
-                  
-                  
-              </fieldset>
-            </div> 
+                  <table class="table">
+                      <tr
+                      
+                      >
+                        <th class="p-3">Identifiant</th>
+                        <th class="p-3">Motif</th>
+                        <th class="p-3">Devise</th>
+                        <th class="p-3">Montant (HT)</th>
+                        <th class="p-3">Fournisseur</th>
+                        <th class="p-3">Date Creation</th>
+                        </tr>
+                      <tr *ngFor="let demande of direction.value" [routerLink]="['/main/teste/', demande.id]">
+                          <td class="p-3 ">{{ this.demande.identifiant }}</td>
+                          <td class="p-3 ">{{ this.demande.motif }}</td>
+                          <td class="p-3 ">{{ this.demande.devise }}</td>
+                          <td class="p-3">{{ this.demande.montantht }}</td>
+                          <td classq="p-3 ">{{ this.demande.fournisseur }}</td>
+                          <td class="p-3">{{ this.demande.dateCreation | date:'EEEE dd MMMM yyyy HH:mm':'fr-FR' }}</td>
+                         
+                          
+                      </tr>
+                    </table>
+               
+                
+              </div>
+            </div>
+          </div>
+        </div>
+           
           </div>
       </div>
-
-      <div class="d-flex justify-content-between p-2">
-        <button
-              type="button"
-              class="btn "
-              [routerLink]="'/main/creationprescripteur'"
-            >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="solaris-icon si-add text-black me-2" viewBox="0 0 1000 1000">
-              <path d="M850 400H600V150a50 50 0 0 0-50-50H450a50 50 0 0 0-50 50v250H150a50 50 0 0 0-50 50v100a50 50 0 0 0 50 50h250v250a50 50 0 0 0 50 50h100a50 50 0 0 0 50-50V600h250a50 50 0 0 0 50-50V450a50 50 0 0 0-50-50" style="fill-rule:evenodd"/>
-            </svg> Ajout de ligne
-            </button>
-            <button type="button" class="btn  btn-secondary " (click)="exportToExcel()">
-              Extraction
-            </button>
-      </div>
+      
 
     </div>
    

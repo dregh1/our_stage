@@ -68,7 +68,8 @@ export class MenuDemandeComponent implements OnInit {
     idSession : ''
   };
   titre = new Titre();datePipe:DatePipe;
-  groupedDetailDemandes: { [titre: string]: { [iddirection: string]: DetailDemande[] } } = {};
+  groupedDetailDemandes: {[titre: string]: { [iddirection: string]: DetailDemande[] }} = {};
+  totalsParGroupe: { [key: string]: number } = {};
   demandes = new Demande();
 session=new SessionCd();
   idsession:string ='';
@@ -130,20 +131,9 @@ session=new SessionCd();
                                               this.DetailDemande = donnees;
                                               console.log(this.DetailDemande,"io data");
 
-                                              ///aichage groupé
-                                            //   this.groupedDetailDemandes = donnees.reduce((acc, item) => {
-                                            //     if (item.titre) {
-                                            //       if (!acc[item.titre]) {
-                                            //         acc[item.titre] = [];
-                                            //       }
-                                            //       acc[item.titre].push(item);
-                                            //     }
-                                            //     return acc;
-                                            //   }, {} as { [titre: string]: DetailDemande[] });
-                                            //   console.log(this.groupedDetailDemandes,'laichage gorupé');
-                                              
-                                            //const listeOriginale= DetailDemande ;
-                                            donnees.forEach(demande => {
+                                              ///aichage groupé    
+                                              const listeOriginale= DetailDemande ;
+                                              donnees.forEach(demande => {
                                               const titre = demande.titre?? '';
                                               const iddirection = demande.iddirection?? '';
                                             
@@ -362,7 +352,7 @@ brouillonclique(){
        console.log(this.demande,'e mis datepipe');
       }
     });
-    
+    // window.location()
     
     }
     getormatdate(){
@@ -375,7 +365,7 @@ update(demande:any): void {
   console.log(this.demande.idSession,'idsesssinkk');
   
   console.log(this.demande,'demande a updater');
-  this.demandemodier.estRegularisation=demande.estregularisation;
+  this.demandemodier.estRegularisation=demande.estRegularisation;
   this.demandemodier.comsPrescripteur=demande.comsprescripteur;
   this.demandemodier.dateSoumission=demande.dateSoumission;
   this.demandemodier.idDirection=demande.iddirection;
@@ -399,11 +389,11 @@ update(demande:any): void {
   this.demandemodier.typeDevise=demande.devise;
   console.log(this.demandemodier,'ito izy restultat');
   
-  // this.MenuDemandeService.update(parseInt(this.idsupprimer),this.demandemodier).subscribe((Response) => {
-  //   console.log(Response,'vide ve');
-  // });
+  this.MenuDemandeService.update(parseInt(this.idsupprimer),this.demandemodier).subscribe((Response) => {
+    console.log(Response,'vide ve');
+  });
   
-  //  window.location.reload();
+   window.location.reload();
 }
 
     //modication prescripteur
@@ -428,4 +418,12 @@ update(demande:any): void {
     
     
    }
+
+
+
+
+   normaliserTitre(titre: string): string {
+    return titre.replace(/\s+/g, ''); // Remplace tous les espaces par des chaînes vides
+  }
+ 
 }

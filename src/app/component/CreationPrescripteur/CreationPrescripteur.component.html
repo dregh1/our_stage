@@ -2,15 +2,16 @@
 
 <body>
   <section class="mx-3">
-    <div class="mx-2 pt-5">
-      <fieldset class="form-group border border-1 p-3">
-        <legend class="w-auto px-2">Prescripteur</legend>
-        <!--  -->
-        <div class="card card-body">
-          <main class="order-1">
- 
-            <div class="container-xxl pt-4">
-              <div class="row">
+    <div class="mx-2">
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h4 class="accordion-header">
+            <button class="accordion-button fs-4 text" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Ajout Demande
+            </button>
+          </h4>
+          <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
                 <div class="col-sm-12 col-lg-3 offset-lg-1" style="width: 80%;">
                  
                   <!-- <form class="needs-validation mb-5" novalidate> -->
@@ -18,7 +19,15 @@
                       <div class="col-md-6">
                      
                           <div class="col-sm-4 col-md-6 mb-3">
-                            <div class="mb-3">
+                            <div class="mb-4">
+                        
+                              <label for="email" id="emailLabel" class="form-label is-required">Régularisation<span class="visually-hidden"> (required)</span></label>
+                              <div class="form-check form-switch">
+                                <input class="form-check-input" [(ngModel)]="this.demande.estregularisation"  type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                              </div> 
+                            </div>
+                          
+                            <!-- <div class="mb-3">
                               <label for="email" id="emailLabel" class="form-label is-required">Date de creation<span class="visually-hidden"> (required)</span></label>
                               <span  class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>{{this.demande.dateCreation}}</span>
                               
@@ -28,7 +37,7 @@
                               <div id="emailFeedback" class="invalid-feedback">
                                 date vide.
                               </div>
-                            </div>
+                            </div> -->
                           <!-- <span class="text-primary me-1">*</span>indicates required -->
                           <label for="selectTitle" id="selectTitleLabel" class="form-label is-required">Titre<span class="visually-hidden"> (required)</span></label>
                           <div class="input-group mb-2">
@@ -148,6 +157,14 @@
                               </div>
                               
                             </div>
+
+                            <div class="mb-3">
+                              <button type="button" class="btn btn-outline-secondary mx-3" (click)="precedent()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="solaris-icon si-form-chevron-left" viewBox="0 0 1000 1000">
+                                  <path d="M604.5 208 396.286 416.214 313 499.5l83.286 83.286L604.5 791l83.286-83.286L479.57 499.5l208.215-208.214z"/>
+                                </svg>
+                              </button>
+                            </div>
                           </div>
                         </div>
           
@@ -155,17 +172,17 @@
                          
                           <div class="col-sm-4 col-md-6 mb-4">
                         
-                              <label for="selectTitle" id="selectTitleLabel" class="form-label is-required">Régularisation<span class="visually-hidden"> (required)</span></label>
-                             <div class="form-check form-switch">
-                                <input class="form-check-input" [(ngModel)]="this.demande.estregularisation"  type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                            
+                              <label for="email" id="emailLabel" class="form-label is-required">Date de creation<span class="visually-hidden"> (required)</span></label>
+                              <span  class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>{{this.demande.dateCreation}}</span>
+                              
+                              <div class="valid-feedback">
+                                Bien!
                               </div>
-                            <div class="valid-feedback">
-                              Bien!
+                              <div id="emailFeedback" class="invalid-feedback">
+                                date vide.
+                              </div>
                             </div>
-                            <div id="selectTitleFeedback" class="invalid-feedback">
-                              Regularisation vide.
-                             </div>
-                              </div>
                               <div class="mb-3">
                               <label for="email" id="emailLabel" class="form-label is-required">Direction<span class="visually-hidden"> (required)</span></label>
                                 <select
@@ -255,243 +272,43 @@
                               </div>
                             </div>
                             <!-- <button (click)="test()">test</button> -->
-                           
+                           <div class="mb-3 d-flex justify-content-end">
+                            <button
+                              type="button"
+                              class="btn z-1 btn-primary "
+                              (click)="creerDemande()"
+                            >
+                              Enregistrer 
+                            </button>
+                           </div>
                           </div>
                         </div>
                   </div>
                   <!-- </form> -->
-                </div>
-              </div>
-            </div>
-          </main>
-          <!-- <div class="mx-4 p-4">
-            <div class="justify-content-around d-flex">
-              
-
-              <div class="d-flex">
                 
-                <div class="label">
-                  <span class="input-group-text mb-2" id="basic-addon1"
-                    >Regularisation *</span
-                  >
-                  <span class="input-group-text mb-2" id="basic-addon1"
-                  >opax/capex</span
-                >
-                  <span class="input-group-text mb-2" id="basic-addon1"
-                    >Type Réference</span
-                  >
-                  
-                  <span class="input-group-text mb-2" id="basic-addon1"
-                    >Devise *</span
-                  >
-                  <span class="input-group-text mb-2" id="basic-addon1"
-                    >Rubrique *</span
-                  >
-                 
-                </div>
-                <div class="mx-3">
-                  <div class="form-check mb-2 form-switch">
-                    <input
-                      class="form-check-input"
-                      [(ngModel)]="this.demande.estregularisation"
-                      type="checkbox"
-                      role="switch"
-                      id="flexSwitchCheckChecked"
-                      checked
-                    />
+                  <div *ngIf="this.alert===true" class="alert alert-success z-3 bg-white border-success "style="width:300px; " role="alert">
+                    <span class="alert-icon"><span class="visually-hidden">Success</span></span>
+                    <p>{{ errorMessage }}</p>
                   </div>
-                  <div class="input-group mb-2">
-                    <select
-                      class="form-select"
-                      [(ngModel)]="this.demande.depense"
-                     
-                      aria-label="Example select with button addon"
-                    >
-                      <option value="OPAX">OPAX</option>
-                      <option value="CAPEX">CAPEX</option>
-                    </select>
-                  </div>
-                  <div class="input-group mb-2">
-                    <select
-                      class="form-select"
-                      [(ngModel)]="this.demande.typeReference"
-                      id="inputGroupSelect04"
-                      aria-label="Example select with button addon" (ngModelChange)="refencedemande()"
-                    >
-                      <option selected value="BC"> BC</option>
-                      <option value="DED"> DED</option>
-                    </select>
-                  
-                    <div *ngIf="nomrefence===true">
-                      <input
-                      type="text"
-                      step="any"
-                      [(ngModel)]="this.demande.nomReference"
-                      class="form-control mb-2 mx-2"
-                      placeholder=""
-                      aria-label=""
-                      aria-describedby="basic-addon1"
-                    />
+                  <div class="bt p-3 d-flex justify-content-end">
+                    <div class="error-message">
+                      
+                      <p class="text-success">{{ errorMessage }}</p>
                     </div>
-                  
+                   
+                          
+                    
                   </div>
-                 
-                  
-                  <div class="input-group mb-2">
-                    <select
-                      class="form-select"
-                      [(ngModel)]="this.demande.typeDevise"
-                      aria-label="Example select with button addon"
-                      required
-                    >
-                      <option value="EUR">EUR</option>
-                      <option value="USD">USD</option>
-                      <option value="MGA">MGA</option>
-                    </select>
-                  </div>
-                  <div class="input-group mb-2">
-                    <select
-                      class="form-select"
-                      [(ngModel)]="this.demande.idRubrique"
-                      id="inputGroupSelect04"
-                      aria-label="Example select with button addon"
-                    >
-                      <option
-                        *ngFor="let item of this.rubriques"
-                        [value]="item.id"
-                      >
-                        {{ item.designation }}
-                      </option>
-                    </select>
-                  </div>
+                
+                
                 
                 </div>
               </div>
-
-              <div class="d-flex">
-                <div class="label">
-                  <span class="input-group-text mb-2" id="basic-addon1"
-                    >Titre</span
-                  >
-                  
-                  <span class="input-group-text mb-2" id="basic-addon1"
-                    >fournisseurs</span
-                  >
-                  <span class="input-group-text mb-3" id="basic-addon1"
-                    >Montant HT *</span
-                  >
-                  <span class="input-group-text mb-2" id="basic-addon1"
-                    >Sous Rubrique</span
-                  >
-                  <span class="input-group-text mb-2" id="basic-addon1"
-                    >Période prestation *</span
-                  >
-                </div>
-                <div class="mx-3">
-                  <div class="input-group mb-2">
-                    <select
-                      class="form-select"
-                      [(ngModel)]="this.demande.idTitreDepense"
-                      id="idtitre"
-                      aria-label="Liste déroulante des titres de dépenses"
-                    >
-                      <ng-container *ngFor="let titre of this.titres">
-                        <option
-                          *ngIf="titre.idDirection === this.direction.id && titre.designation!='sans titre'"
-                          [value]="titre.id"
-                        >
-                          {{ titre.designation }}
-                        </option>
-                      </ng-container>
-                    </select>
-
-                    <button
-                      class="btn btn-outline-secondary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                      data-bs-whatever="@mdo"
-                    >
-                      +
-                    </button>
-                  </div>
-                <div class="input-group mb-2">
-                    <select
-                      class="form-select"
-                      [(ngModel)]="this.demande.idFournisseur"
-                      id="inputGroupSelect04"
-                      aria-label="Example select with button addon"
-                    >
-                      <option
-                        *ngFor="let item of this.fournisseurs"
-                        [value]="item.id"
-                      >
-                        {{ item.nom }}
-                      </option>
-                    </select>
-                  </div>
-                  <input
-                    type="number"
-                    step="any"
-                    [(ngModel)]="this.demande.montantHt"
-                    class="form-control mb-2"
-                    placeholder=""
-                    aria-label=""
-                    aria-describedby="basic-addon1"
-                  />
-                  <input
-                    type="text"
-                    class="form-control mb-2"
-                    placeholder=""
-                    aria-label=""
-                    [(ngModel)]="this.demande.sousRubrique"
-                    aria-describedby="basic-addon1"
-                  />
-                  <div class="input-group mb-2">
-                    <select
-                      class="form-select"
-                      [(ngModel)]="this.demande.idPeriode"
-                      id="inputGroupSelect04"aria-labelledby="countryLabel countryFeedback" autocomplete="country-name" required
-                    >
-                      <option
-                        *ngFor="let item of this.periodes"
-                        [value]="item.id"
-                      >
-                        {{ item.designation }}
-                      </option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              
             </div>
-            <label for="validationTextarea" class="form-label is-required">Motif<span class="visually-hidden"> (required)</span></label>
-            <textarea class="form-control" [(ngModel)]="this.demande.motif" ></textarea>
-            <label for="validationTextarea" class="form-label is-required">Commentaire<span class="visually-hidden"> (required)</span></label>
-            <textarea class="form-control" [(ngModel)]="this.demande.comsPrescripteur" ></textarea>
-         
-            </div> -->
+          </div>
         </div>
-      </fieldset>
      
-      <div *ngIf="this.alert===true" class="alert alert-success z-3 bg-white border-success "style="width:300px; " role="alert">
-        <span class="alert-icon"><span class="visually-hidden">Success</span></span>
-        <p>{{ errorMessage }}</p>
-      </div>
-      <div class="bt p-3 d-flex justify-content-end">
-        <div class="error-message">
-          
-          <p class="text-success">{{ errorMessage }}</p>
-        </div>
-       
-              <button
-              type="button"
-              class="btn z-1 btn-primary "
-              (click)="creerDemande()"
-            >
-              Enregistrer 
-            </button>
-        
-      </div>
+      
     </div>
   </section>
 </body>
