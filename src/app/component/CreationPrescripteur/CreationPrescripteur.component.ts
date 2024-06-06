@@ -319,4 +319,15 @@ session=new SessionCd();
 precedent(){
   this.router.navigate(['/main/MenuDemande']);
 }
+
+
+
+
+
+
+
+
+
+
+
 }

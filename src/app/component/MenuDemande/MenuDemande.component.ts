@@ -11,6 +11,8 @@ import { Brouillon } from 'src/app/models/Brouillon';
 import { Demande } from 'src/app/models/Demande';
 import { Titre } from 'src/app/models/TitreDepense';
 import { DatePipe } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
+
 @Component({
   selector: 'app-menu-demande',
   templateUrl: './MenuDemande.component.html',
@@ -44,7 +46,7 @@ export class MenuDemandeComponent implements OnInit {
     idTitreDepense: '',
     reference: '',
     titre: '',
-    montantHt: '',
+    montantHt: 0,
     montantMga:'',
     idSession:'',
     fournisseur: '',
@@ -76,7 +78,7 @@ session=new SessionCd();
     constructor(
     private MenuDemandeService: MenuDemandeService,
     private AuthenticationService: AuthenticationService,
-    private utilitaire:UtilitaireService
+    private utilitaire:UtilitaireService,private decimalPipe: DecimalPipe
   ) { 
     this.datePipe= new DatePipe('en-US');
     this.token = sessionStorage.getItem('token');
@@ -456,5 +458,12 @@ update(demande:any): void {
 
    normaliserTitre(titre: string): string {
     return titre.replace(/\s+/g, ''); // Remplace tous les espaces par des chaînes vides
+  }
+  formatNumber(value?: string): string | null {
+    if (value === null || value === undefined) {
+      return null; // Retourne null si value est null ou undefined
+  }
+    return  value?.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+
   }
 }

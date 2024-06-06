@@ -12,6 +12,7 @@ import { TestComponent } from './component/DetailParDemande/DetailParDemande.com
 
 import { SuperAdminComponent } from './component/super-admin/super-admin.component';
 import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
+import { IndexComponent } from './index/index.component';
 const routes: Routes = [
   { path: '', component: AuthenticationComponent },
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
       // {path:'detail/:type',children[{path:':id',component:pagecomponent}]}
       { path: 'teste/:id', component: TestComponent },
       { path: 'superAdmin', component: SuperAdminComponent },
+      {path:'index',component:IndexComponent}
     ],
   },
   { path: 'validation', component: ValidationComponent },

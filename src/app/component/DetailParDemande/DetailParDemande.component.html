@@ -1,8 +1,8 @@
-<div class="accordion" id="accordionExample">
+<div class="accordion mx-5" id="accordionExample " >
   <div class="accordion-item">
-    <h4 class="accordion-header">
-      <button class="accordion-button fs-4 text" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        Prescripteur
+    <h4 class="accordion-header ">
+      <button class="accordion-button  fs-4 text" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      Prescripteur
       </button>
     </h4>
     <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
@@ -207,7 +207,7 @@
                         </div>
                       </div>
                       <div class="mb-3">
-                        <label for="lastName" id="lastNameLabel" class="form-label is-required">Montant Ht<span class="visually-hidden"> (required)</span></label>
+                        <label for="lastName" id="lastNameLabel" class="form-label is-required">Montant HT<span class="visually-hidden"> (required)</span></label>
                         <input type="number" class="form-control"[(ngModel)]="this.demande.montantHt" id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>
                         <div class="valid-feedback">
                           Bien!
@@ -265,13 +265,14 @@
 
                       <div class="d-flex justify-content-end">
                         <p class="text-info p-2">
-                          {{ this.demande.validationPrescripteur ? 'validé' : 'non validé' }}
+                          {{ this.demande.validationPrescripteur ? 'Soumis' : 'non soumis' }}
                         </p>
-                      </div>
-                      <div *ngIf="role === 'PRS' && this.demande.validationPrescripteur === false " class=" p-3 d-flex justify-content-end" >
                         <div class="error-message">
                           <p class="text-success">{{ errorMessage }}</p>
                         </div>
+                      </div>
+                      <div *ngIf="role === 'PRS' && this.demande.validationPrescripteur === false " >
+                       
                         <div class="d-flex justify-content-between">
 
                           <!-- <button type="button" class="btn btn-primary mx-3" (click)="precedent()">Précedent</button> -->
