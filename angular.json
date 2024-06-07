@@ -32,8 +32,7 @@
               "node_modules/boosted/dist/css/boosted.min.css"
             ],
             "scripts": [
-              "node_modules/boosted/dist/js/boosted.min.js",
-              "src/app/index.js"
+              "node_modules/boosted/dist/js/boosted.min.js"
             ]
           },
           "configurations": {
