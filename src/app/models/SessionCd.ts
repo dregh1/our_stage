@@ -9,6 +9,7 @@ export class SessionCd {
     public estFerme?: boolean,
     public tauxEur?: Number,
     public tauxUsd?: Number,
-    public tauxMga?: Number
+    public tauxMga?: Number,
+    public tauxgbp?: Number
   ) {}
 }

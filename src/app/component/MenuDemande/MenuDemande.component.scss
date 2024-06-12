@@ -1,6 +1,9 @@
 .icon-modi{
-  width: 42px;
-  height: 18px;
+  width: 23px;
+  height: 19px;
+}
+.icon-modi:hover{
+  color: #ff7900;
 }
 // body{
 //   background-color:#eee;
@@ -14,7 +17,7 @@ tr,td,.listetitre{
   position: relative;
 }
 .table-fixed tbody {
-  height: 500px;
+  // height: 500px;
   overflow-y: auto;
   width: 100%;
 }
@@ -51,10 +54,30 @@ tr,td,.listetitre{
 // .card {
 //   background-color: #ddd;
 // }
-a:hover {
-  .texte{
-    color: #ff7900;
-  }
+
+.bleu{
+  color: cadetblue;
+}
+
+.rouge{
+  color: red;
+}
+
+.vert{
+  color: green;
+}
+.texte1{
+  width: 148px;
+}
+.texte2{
+  width: 140px;
+}
+.texte{
+  width: 139px;
+}
+
+.texte3{
+  width: 139px;
 }
 .scrollspy-example {
   overflow: auto;
@@ -75,5 +98,18 @@ svg {
 svg { 
   width: 10px;
   height: 10px;
+}
+.texte1{
+  width: 100px;
+}
+.texte2{
+  width: 100px;
+}
+.texte{
+  width: 100px;
+}
+
+.texte3{
+  width: 100px;
 }
 }

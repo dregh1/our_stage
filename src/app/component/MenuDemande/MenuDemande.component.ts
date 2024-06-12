@@ -71,6 +71,7 @@ export class MenuDemandeComponent implements OnInit {
   };
   titre = new Titre();datePipe:DatePipe;
   groupedDetailDemandes: { [titre: string]: { [iddirection: string]: DetailDemande[] } } = {};
+  totalMontantsHT : {[titre:string]:number;}={};
   demandes = new Demande();
 session=new SessionCd();
   idsession:string ='';
@@ -132,41 +133,71 @@ session=new SessionCd();
                                               this.DetailDemande = donnees;
                                               console.log(this.DetailDemande,"io data");
 
-                                              ///aichage groupé
-                                            //   this.groupedDetailDemandes = donnees.reduce((acc, item) => {
-                                            //     if (item.titre) {
-                                            //       if (!acc[item.titre]) {
-                                            //         acc[item.titre] = [];
-                                            //       }
-                                            //       acc[item.titre].push(item);
-                                            //     }
-                                            //     return acc;
-                                            //   }, {} as { [titre: string]: DetailDemande[] });
-                                            //   console.log(this.groupedDetailDemandes,'laichage gorupé');
-                                              
                                             //const listeOriginale= DetailDemande ;
-                                            donnees.forEach(demande => {
-                                              const titre = demande.titre?? '';
-                                              const iddirection = demande.iddirection?? '';
+                                            // donnees.forEach(demande => {
+                                            //   const titre = demande.titre?? '';
+                                            //   const iddirection = demande.iddirection?? '';
                                             
-                                              // Si le titre n'est pas encore présent dans l'objet, initialisez-le
-                                              if (!(titre in this.groupedDetailDemandes)) {
-                                                this.groupedDetailDemandes[titre] = {};
-                                              }
+                                            //   // Si le titre n'est pas encore présent dans l'objet, initialisez-le
+                                            //   if (!(titre in this.groupedDetailDemandes)) {
+                                            //     this.groupedDetailDemandes[titre] = {};
+                                            //   }
                                             
-                                              // Vérifiez si le tableau pour cette iddirection existe déjà
-                                              if (!this.groupedDetailDemandes[titre][iddirection]) {
-                                                // Si non, initialisez-le avec un tableau vide
-                                                this.groupedDetailDemandes[titre][iddirection] = [];
-                                              }
+                                            //   // Vérifiez si le tableau pour cette iddirection existe déjà
+                                            //   if (!this.groupedDetailDemandes[titre][iddirection]) {
+                                            //     // Si non, initialisez-le avec un tableau vide
+                                            //     this.groupedDetailDemandes[titre][iddirection] = [];
+                                            //   }
                                             
-                                              // Ajoutez la demande au tableau correspondant
-                                              this.groupedDetailDemandes[titre][iddirection].push(demande);
-                                            });
+                                            //   // Ajoutez la demande au tableau correspondant
+                                            //   this.groupedDetailDemandes[titre][iddirection].push(demande);
+                                            // }); 
                                             
-                                            console.log(this.groupedDetailDemandes,'test groupe detaildemande');
-                                             });
-                                                
+
+
+                                            // Supposons que groupedDetailDemandes est déjà défini comme un objet
+
+
+                                            // console.log(this.groupedDetailDemandes,'test groupe detaildemande');
+                                          ///addition
+                                          donnees.forEach(demande => {
+                                             const titre = demande.titre?? '';
+                                             const iddirection = demande.iddirection?? '';
+                                          
+                                            // Si le titre n'est pas encore présent dans l'objet, initialisez-le
+                                            if (!(titre in this.groupedDetailDemandes)) {
+                                              this.groupedDetailDemandes[titre] = {};
+                                            }
+                                          
+                                            // Vérifiez si le tableau pour cette iddirection existe déjà
+                                            if (!this.groupedDetailDemandes[titre][iddirection]) {
+                                              // Si non, initialisez-le avec un tableau vide
+                                              this.groupedDetailDemandes[titre][iddirection] = [];
+                                            }
+                                          
+                                            // Ajoutez la demande au tableau correspondant
+                                            this.groupedDetailDemandes[titre][iddirection].push(demande);
+                                          console.log('chaque montant ',demande.montantht);
+                                          console.log('somme montantht',demande.montantht);
+                                          
+                                            // Calculez le total des montants HT pour ce groupe
+                                            // const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + (demande.montantht || 0), 0);
+                                            const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + Number(demande.montantht) || 0, 0);
+
+
+                                            // Stockez le total dans l'objet totalMontantsHT
+                                            this.totalMontantsHT[titre] = total;
+                                            
+                                          });
+                                           console.log(this.groupedDetailDemandes, 'test groupe detaildemande');
+                                          
+
+
+
+
+
+
+                                          });    
       
                                             //RECUPERATION brouillon
                                             this.MenuDemandeService.searchbrouillon(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((datas) => {
@@ -222,6 +253,8 @@ session=new SessionCd();
     // this.MenuDemandeService.getdmdactive().subscribe(Response => {
     //   this.actives = Response;
     // });
+
+    
   }
 //exporter excel
 exportToExcel(): void {
@@ -233,7 +266,7 @@ exportToExcel(): void {
       Motif: detail.motif,
       Fournisseur: detail.fournisseur,
       Devise: detail.devise,
-      MontantHt: detail.montantht,
+      MontantHt: detail.montantht?.toString(),
       MontantMga: detail.montantMga,
       Commentaireprescripteur: detail.comsprescripteur,
       Periode: detail.periode,
@@ -459,11 +492,21 @@ update(demande:any): void {
    normaliserTitre(titre: string): string {
     return titre.replace(/\s+/g, ''); // Remplace tous les espaces par des chaînes vides
   }
-  formatNumber(value?: string): string | null {
+   formatNumber(value?: any): string | null {
     if (value === null || value === undefined) {
-      return null; // Retourne null si value est null ou undefined
-  }
-    return  value?.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+        return null; // Retourne null si value est null ou undefined
+    }
+    return value?.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1 ");
+}
 
-  }
+//    formatNumber(value?: string): string | null {
+//     if (value === null || value === undefined) {
+//         return null; // Retourne null si value est null ou undefined
+//     }
+//     return value?.toString().replace(/\.\d+/g, " ");
+// }
+som(num:any){
+  var som;
+ return som=+parseInt(num);
+}
 }

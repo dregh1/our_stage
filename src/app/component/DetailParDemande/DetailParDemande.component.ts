@@ -183,7 +183,9 @@ somme='+';
       });
       
     }
-    
+    this.testeService.demandesoumis(this.id).subscribe((result)=>{
+      this.testsoumission=result;
+    });
   }
   testedatesoumission(){
     if(this.demande.dateSoumission===''){
