@@ -8,7 +8,9 @@
               >Direction</span
             >
             <span class="input-group-text mb-2" id="basic-addon1">Statut</span>
+            
           </div>
+          
           <div class="mx-3">
             <div class="input-group mb-2">
               <select
@@ -36,15 +38,30 @@
                 <option >En Attente</option> -->
               </select>
             </div>
+            <div class="input-group mb-2">
+
+              <nav aria-label="...">
+                <ul class="pagination">
+                  <li class="page-item disabled">
+                    <span class="page-link"> </span>
+                  </li>
+                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                  
+                  <li class="page-item disabled">
+                    <a class="page-link" href="#"> </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
         </div>
         <div class="d-flex">
           <div class="label">
             <span class="input-group-text mb-2" id="basic-addon1"
-              >session CD</span
+              >Session CD</span
             >
             <span class="input-group-text mb-2" id="basic-addon1"
-              >fournisseurs</span
+              >Fournisseur</span
             >
             <span class="input-group-text mb-2" id="basic-addon1">Motif</span>
           </div>
@@ -184,54 +201,42 @@
             <div style="height: 480px" data-offset="50">
               <table class="table table-fixed" id="montable">
                 <tr class="titre">
-                  <th class="texte">Regularisation</th>
-                  <th class="texte">Type</th>
-                  <th class="texte">Motif</th>
-                  <th class="texte">Montant (HT)</th>
-                  <th class="texte">Devise</th>
-                  <th class="texte">Fournisseur</th>
-                  <th class="texte">Montant MGA HT</th>
-                  <th class="texte">C/aire prs</th>
-                  <th class="texte">Periode</th>
-                  <th class="texte">C/aires CDG</th>
-                  <th class="texte">C/aires DASC</th>
-                  <th class="texte">Decision CD</th>
-                  <th class="texte">C/aires CD</th>
+                  <th class="p-3">Régularisation</th>
+                  <th class="p-3">Type</th>
+                  <th class="p-3">Motif</th>
+                  <th class="p-3">Montant (HT)</th>
+                  <th class="p-3">Devise</th>
+                  <th class="p-3">Fournisseur</th>
+                  <th class="p-3">Montant MGA HT</th>
+                  <th class="p-3">C/aire Prescripteur</th>
+                  <th class="p-3">Période</th>
+                  <th class="p-3">C/aires CDG</th>
+                  <th class="p-3">C/aires DASC</th>
+                  <th class="p-3">Décision CD</th>
+                  <th class="p-3">C/aires CD</th>
                 </tr>
 
                 <tr *ngFor="let detail of this.allDetails">
-                  <td class="texte" >{{ this.detail.estregularisation? 'Oui' : 'Non' }}   </td>
-                  <td class="texte">{{ this.detail.typereference }}</td>
-                  <td class="texte"  >{{ this.detail.motif }}</td>
-                  <td class="texte">{{ this.detail.montantht }}</td>
-                  <td class="texte">{{ this.detail.devise }}</td>
-                  <td class="texte">{{ this.detail.fournisseur }}</td>
-                  <td class="texte">{{ this.detail.montantMga }}</td>
-                  <td class="texte">{{ this.detail.comsprescripteur }}</td>
-                  <td class="texte">{{ this.detail.periode }}</td>
-                  <td class="texte">{{ this.detail.comsCdg }}</td>
-                  <td class="texte">{{ this.detail.comsAchat }}</td>
-                  <td class="texte">{{ this.detail.etatFinal }}</td>
-                  <td class="texte">{{ this.detail.comsCd }}</td>
-                </tr> 
-              </table> 
-
-
-             
+                  <td class="p-3" >{{ this.detail.estregularisation? 'Oui' : 'Non' }}   </td>
+                  <td class="p-3">{{ this.detail.typereference }}</td>
+                  <td class="p-3">{{ this.detail.motif }}</td>
+                  <td class="p-3" style="text-align: end;">{{ formatNumber(this.detail.montantht) }}</td>
+                  <td class="p-3">{{ this.detail.devise }}</td>
+                  <td class="p-3">{{ this.detail.fournisseur }}</td>
+                  <td class="p-3" style="text-align: end;">{{ formatNumber(this.detail.montantMga) }}</td>
+                  <td class="p-3">{{ this.detail.comsprescripteur }}</td>
+                  <td class="p-3">{{ this.detail.periode }}</td>
+                  <td class="p-3">{{ this.detail.comsCdg }}</td>
+                  <td class="p-3">{{ this.detail.comsAchat }}</td>
+                  <td class="p-3">{{ this.detail.etatFinal }}</td>
+                  <td class="p-3">{{ this.detail.comsCd }}</td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
       </fieldset>
     </div>
-
-
-
-
-    
-
-
-
-
     <div class="bt p-3 d-flex justify-content-end">
       <button
         type="button"

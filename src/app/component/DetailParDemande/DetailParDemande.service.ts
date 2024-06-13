@@ -195,14 +195,7 @@ export class TesteService {
       headers,
     });
   }
- //demande soumis
- demandesoumis(id: number): Observable<boolean> {
-  const headers = this.getHeaders();
-  return this.http.get<boolean>(
-    `${this.baseUrl}/isExist/${id}`,
-    { headers }
-  );
-}
+
   //supprimer demande
   supprimerDemande(id: number) :Observable<any> {
     const headers = this.getHeaders();

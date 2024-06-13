@@ -14,6 +14,10 @@ export class SuperAdminComponent implements OnInit {
   listUserExistant : User[] =[] ;     //list users existant chez ldap via keycloak 
 
   nomAchercher : string = '';
+  alert = true;
+
+  sectionGestionDonnee=false;
+  sectionGestionUser=true;
 
   resultatRecherche : User[] = [];
 
@@ -114,7 +118,7 @@ export class SuperAdminComponent implements OnInit {
     });
 
     // Utilisation de HttpClient pour envoyer la requête POSt
-    this.http.post('http://localhost:8082/admin/realms/oma/users/'+this.iduser+'/role-mappings/realm', data, { headers })
+    this.http.post('http://localhost:8083/admin/realms/oma/users/'+this.iduser+'/role-mappings/realm', data, { headers })
      .subscribe(response => {
         console.log(response);
       }, error => {
@@ -135,4 +139,140 @@ export class SuperAdminComponent implements OnInit {
   envoyerMail(){
     this.utilitaire.sendMail();
   }
+
+
+  // gestion utilisateur
+  gestionUtilisateur(){
+    this.sectionGestionUser =true; 
+    this.sectionGestionDonnee =  false;
+
+  }
+
+  gestionDonnees(){
+    this.sectionGestionDonnee =true; 
+    this.sectionGestionUser =  false;
+
+ 
+  }
+
+    //import csv
+ 
+
+    onFileSelected(event :Event) {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      
+      if (!file) {
+        console.error("Aucun fichier sélectionné");
+        return;
+      }
+  
+      
+    }
+  
+    // onFileSelected(event: Event): Promise<string[]> {
+    //   return new Promise((resolve, reject) => {
+    //     const file = (event.target as HTMLInputElement).files?.[0];
+    
+    //     if (!file) {
+    //       console.error("Aucun fichier sélectionné");
+    //       reject(new Error("Aucun fichier sélectionné"));
+    //       return;
+    //     }
+    
+    //     const reader = new FileReader();
+    //     reader.onload = (e: ProgressEvent<FileReader>) => {
+    //       let csvData = e.target?.result;
+    
+    //       if (csvData && e.target) {
+    //         if (typeof e.target.result === 'string') {
+    //           csvData = e.target.result;
+    //         } else if (e.target.result instanceof ArrayBuffer) {
+    //           // Convertir ArrayBuffer en String
+    //           const decoder = new TextDecoder();
+    //           csvData = decoder.decode(e.target.result);
+    //         } else {
+    //           console.error("Le résultat n'est ni une chaîne de caractères ni un ArrayBuffer.");
+    //           reject(new Error("Le résultat n'est ni une chaîne de caractères ni un ArrayBuffer."));
+    //           return;
+    //         }
+    
+    //         // Exemple de traitement
+    //         const lines = csvData.split('\n');
+    //         resolve(lines);
+    //       } else {
+    //         console.error("Erreur lors de la lecture du fichier");
+    //         reject(new Error("Erreur lors de la lecture du fichier"));
+    //       }
+    //     };
+    //     reader.onerror = () => reject(new Error("Erreur lors de la lecture du fichier"));
+    //     reader.readAsText(file);
+    //   });
+    // }
+    
+  
+    uploadFile() {
+      // Récupère le fichier sélectionné par l'utilisateur via l'élément input
+      const fileInput = document.getElementById('file-input') as HTMLInputElement;
+      const file = fileInput.files? fileInput.files[0] : null;
+    
+      // Vérifie si un fichier a été sélectionné
+      if (!file) {
+        alert('Veuillez sélectionner un fichier.');
+        return;
+      }
+  
+      this.onFileSelected({ target: fileInput } as unknown as Event);
+     
+       const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        let csvData = e.target?.result;
+        
+        if (csvData && e.target) {
+          // Traiter les données CSV ici
+              if (typeof e.target.result === 'string') {
+                csvData = e.target.result;
+              } else if (e.target.result instanceof ArrayBuffer) {
+                // Convertir ArrayBuffer en String
+                const decoder = new TextDecoder();
+                csvData = decoder.decode(e.target.result);
+              } else {
+                console.error("Le résultat n'est ni une chaîne de caractères ni un ArrayBuffer.");
+                return;
+              }
+  
+  
+          // Exemple de traitement
+          let lines = csvData.split('\n');
+         
+          // console.log(lines);
+          
+  
+          let correctLines : string [] = [];
+          
+          for( let i =0; i< lines.length ; i++)
+          {
+            correctLines.push(lines[i].replace("\r","")) ;
+          }
+              console.log(correctLines);
+              
+              // insertion en masse des rubrique
+              this.superAdm.insertionRubriques(correctLines).subscribe(
+                (response)=>{console.log(response);}, 
+                (error)=>{console.error(error)}, 
+              );
+              
+              
+        } else {
+          console.error("Erreur lors de la lecture du fichier");
+        }
+      };
+      reader.readAsText(file);
+      // Appelle la méthode onFileSelected pour traiter le fichier
+    }
+
+
+  
+
+
+ 
 }

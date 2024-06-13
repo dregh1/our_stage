@@ -44,9 +44,8 @@ export class CreationPrescripteurComponent implements OnInit {
   idSession: any = '';
   idTitredepense: any = 1;
   motif: any;
-  montantHt: any;estChampVidetitre=true;
-  boutonClique=false;estChampVidemotif=true;estChampVidedevise=true;estChampVidemontant=true;estChampVidenomreference=true;
-  estChampVideperiode=true;estChampViderubrique=true;estChampVidedepense=true;estChampVidetypereference=true;
+  montantHt: any;
+
   demande = {
     estregularisation: '',
     typeReference: '',
@@ -200,50 +199,13 @@ session=new SessionCd();
   showDetailsAct(title: string) {
     this.selectedTitleAct = title;
   }
-  isMontantHtTrimmed(): boolean {
-    if (typeof this.demande.montantHt === 'number') {
-        // Convertir le nombre en chaîne et vérifier si elle est non vide après trim
-        const trimmedMontantHt = String(this.demande.montantHt).trim();
-        return trimmedMontantHt!== '';
-    } else if (typeof this.demande.montantHt === 'string') {
-        // Si c'est déjà une chaîne, juste vérifier si elle est non vide après trim
-        return this.demande.montantHt.trim()!== '';
-    }
-    // Si montantHt n'est ni un nombre ni une chaîne, retournez false par défaut
-    return false;
-}
-istitredepense(){
-  if (typeof this.TitreDepense === 'number') {
-    // Convertir le nombre en chaîne et vérifier si elle est non vide après trim
-    const trimmedMontantHt = String(this.TitreDepense).trim();
-    return trimmedMontantHt!== '';
-} else if (typeof this.TitreDepense === 'string') {
-    // Si c'est déjà une chaîne, juste vérifier si elle est non vide après trim
-    return (this.TitreDepense as string).trim()!== '';
-}
-// Si montantHt n'est ni un nombre ni une chaîne, retournez false par défaut
-return false;
-
-}
   creerDemande() {
-    
-    this.boutonClique = true;
-    this.estChampVidemotif= this.demande.motif.trim().length === 0;
-    this.estChampVideperiode= this.demande.idPeriode.trim().length === 0;
-    this.estChampViderubrique= this.demande.idRubrique.trim().length === 0;
-    // this.estChampVidemontant= this.demande.montantHt.trim().length === 0;
-    this.estChampVidedevise= this.demande.typeDevise.trim().length === 0;
-    this.estChampVidedepense= this.demande.depense.trim().length === 0;
-    this.estChampVidetypereference= this.demande.typeReference.trim().length === 0;
-    this.estChampVidenomreference= this.demande.nomReference.trim().length === 0;
       console.log(this.demande.dateCreation,'date creation');
       
     console.log(this.demande.depense);
     
     let missingField: keyof Demande | null = null; // Type for the missing field name
-    if (!this.demande.montantHt) {
-      missingField = 'montantHt' as keyof Demande;
-    }
+
     if (!this.demande.typeDevise) {
       missingField = 'typeDevise' as keyof Demande; // Type assertion
     }
@@ -253,7 +215,9 @@ return false;
     if (!this.demande.idRubrique) {
       missingField = 'rubrique' as keyof Demande; // Type assertion
     }
-   
+    if (!this.demande.montantHt) {
+      missingField = 'montantHt' as keyof Demande;
+    }
     if (!this.demande.idPeriode) {
       missingField = 'periode' as keyof Demande;
     }
@@ -364,11 +328,6 @@ precedent(){
 
 
 
-
-
-
-
-// init(); // Appelle la fonction immédiatement
 
 
 }

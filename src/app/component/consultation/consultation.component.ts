@@ -164,5 +164,12 @@ exportToExcel(): void {
   this.consultationService.exportToExcel(donneesUniques, 'MyData.xlsx');
 }
 
+formatNumber(value?: string): string | null {
+  if (value === null || value === undefined) {
+    return null; // Retourne null si value est null ou undefined
+  }
+  return  value?.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1 ");
+
+}
 
 }

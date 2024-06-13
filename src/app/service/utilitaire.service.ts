@@ -71,7 +71,7 @@ export class UtilitaireService {
 
          getMailUser(idGroup : string , tokenAdmin : string)
          {
-           const url  = `http://localhost:8082/admin/realms/oma/groups/${idGroup}/members`;
+           const url  = `http://localhost:8083/admin/realms/oma/groups/${idGroup}/members`;
            const headers = new HttpHeaders({ Authorization: `Bearer ${tokenAdmin}` });
            return this.http.get<any[]>(url, { headers });
          }
@@ -79,7 +79,7 @@ export class UtilitaireService {
 
          getIdOfGroup(nomGroupe : string , tokenAdmin : string)
          {
-           const url  = 'http://localhost:8082/admin/realms/oma/groups?search='+nomGroupe;
+           const url  = 'http://localhost:8083/admin/realms/oma/groups?search='+nomGroupe;
            const headers = new HttpHeaders({ Authorization: `Bearer ${tokenAdmin}` });
            return this.http.get<any>(url, { headers });
          }
@@ -101,18 +101,18 @@ export class UtilitaireService {
            }
            const mails : MyMail []=[];
 
-           const url = 'http://localhost:8082/realms/oma/protocol/openid-connect/token';
+           const url = 'http://localhost:8083/realms/oma/protocol/openid-connect/token';
 
            const params = new HttpParams()
            .set('grant_type', 'password')
-           .set('client_id', 'quarkus-client')
-           .set('client_secret', 'diNdyU2iGksempOMKqs5gZlA2UkwngCJ')
+           .set('client_id', 'angular-client')
+           .set('client_secret', 'F6ONL3ox63NBv1h1J5wmmibHlDhLA1MI')
            .set('username', 'charlesandrea')
            .set('password', 'password');
 
        
 
-           // return this.http.post<any>(url,{ params }).subscribe(response =>{ console.log(response); }) ;
+           //recuperation TOKEN ADMIN
            return this.http
            .post( url, params.toString(), 
                {  
@@ -129,6 +129,8 @@ export class UtilitaireService {
                      // console.log(tokenAdmin);
                      // console.log(response);
 
+                     //recuperation email prescripteur:
+                     const urlGetUserInRole ='http://localhost:8083/admin/realms/oma/roles/PRS/users';
                      // recuperation de id Du groupe
                      this.getIdOfGroup("DSI",tokenAdmin)
                      .subscribe(
@@ -139,14 +141,15 @@ export class UtilitaireService {
                                                  if (groupObject[0].hasOwnProperty('id'))
                                                  {
                                                    const idGroup = groupObject[0].id;
-
-                                                   //RECUPERATION DES MAIL DES UTILISATEURS
+ 
+                                                   //RECUPERATION DES MAIL DES UTILISATEURS dans la meme direction
                                                    this.getMailUser(idGroup,tokenAdmin)
                                                      .subscribe((userListe)=>
                                                      {
                                                        console.log(userListe);
                                                        //RECUPERATION des email de tous utilisateurs
-                                                       // console.log("taille :"+userListe.length);
+                                                              
+                                                              // console.log("taille :"+userListe.length);
                                                        
                                                          for(let i =0;i<userListe.length; i++ )
                                                          {
@@ -237,5 +240,13 @@ export class UtilitaireService {
     return this.http.get<DetailDemande>(`${this.baseUrl}/detailDemande/${id}`, {
       headers,
     });
+  }
+
+  formatNumber(value?: string): string | null {
+    if (value === null || value === undefined) {
+      return null; // Retourne null si value est null ou undefined
+    }
+    return  value?.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1 ");
+  
   }
 }
