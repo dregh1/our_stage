@@ -22,7 +22,7 @@ export class MenuDemandeComponent implements OnInit {
   role: string | null = '';
   isUp=false;
   token: string | null = '';
-  DetailDemande: DetailDemande[] = [];
+  DetailDemande: DetailDemande[] = []; DetailDemandesanstitre: DetailDemande[] = [];
   brouillon: Brouillon[]=[];
   AttenteSession: DetailDemande[]=[];
   nomDirection: string | null = '';
@@ -164,9 +164,63 @@ session=new SessionCd();
                                               this.groupedDetailDemandes[titre][iddirection].push(demande);
                                             });
                                             
+<<<<<<< HEAD
                                             console.log(this.groupedDetailDemandes,'test groupe detaildemande');
                                              });
                                                 
+=======
+
+
+                                            // Supposons que groupedDetailDemandes est déjà défini comme un objet
+
+
+                                            // console.log(this.groupedDetailDemandes,'test groupe detaildemande');
+                                          ///addition
+                                          donnees.forEach(demande => {
+                                             const titre = demande.titre?? '';
+                                             const iddirection = demande.iddirection?? '';
+                                          
+                                            // Si le titre n'est pas encore présent dans l'objet, initialisez-le
+                                            if (!(titre in this.groupedDetailDemandes)) {
+                                              this.groupedDetailDemandes[titre] = {};
+                                            }
+                                          
+                                            // Vérifiez si le tableau pour cette iddirection existe déjà
+                                            if (!this.groupedDetailDemandes[titre][iddirection]) {
+                                              // Si non, initialisez-le avec un tableau vide
+                                              this.groupedDetailDemandes[titre][iddirection] = [];
+                                            }
+                                          
+                                            // Ajoutez la demande au tableau correspondant
+                                            this.groupedDetailDemandes[titre][iddirection].push(demande);
+                                          console.log('chaque montantMga ',demande.montantMga);
+                                          console.log('somme montantMga',demande.montantMga);
+                                          
+                                            // Calculez le total des montants HT pour ce groupe
+                                            // const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + (demande.montantMga || 0), 0);
+                                            const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + Number(demande.montantMga) || 0, 0);
+
+
+                                            // Stockez le total dans l'objet totalMontantsHT
+                                            this.totalMontantsHT[titre] = total;
+                                            
+                                          });
+                                           console.log(this.groupedDetailDemandes, 'test groupe detaildemande');
+                                          
+                                          console.log(this.direction.id,'direction id');console.log(this.idsession,'idsession');
+                                          
+                                          
+                                            //RECUPERATION active sans titre
+                                            this.MenuDemandeService.sanstitre(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((donnees) => {
+                                              this.DetailDemandesanstitre = donnees;
+                                              console.log(this.DetailDemandesanstitre,"io data sns titre");
+                                            });
+
+
+
+
+                                          });    
+>>>>>>> Sprint3
       
                                             //RECUPERATION brouillon
                                             this.MenuDemandeService.searchbrouillon(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((datas) => {

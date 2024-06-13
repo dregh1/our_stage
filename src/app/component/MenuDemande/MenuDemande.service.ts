@@ -232,5 +232,21 @@ export class MenuDemandeService {
 
   //   });
   // }
+  //get demande active sans titre
+  sanstitre(idDirection : string | '' , idsession :string | ''): Observable<DetailDemande[]>{
+    const headers = this.getHeaders();
+    const queryParams = new URLSearchParams();
+
+    // if(idDirection !== '')
+    queryParams.append('idDirection', idDirection ? encodeURIComponent(idDirection) : ''); // Handle empty strings and special characters
+    
+    // if(idsession !== '')
+    queryParams.append('idSession', idsession ? encodeURIComponent(idsession) : '');
+    
+    const url = `${this.baseUrl2}/active/sanstitre?${queryParams.toString()}`; // Build URL with encoded params
+
+    return this.http.get<DetailDemande[]>(url, { headers });
+  //  return this.http.get<DetailDemande[]>(this.baseUrl+`/search?idDirection=${idDirection}&statut=${statut}&motif=${motif}&dateDebut=${datedebut}&dateFin=${datefin}&session=${session}&idFournisseur=${idfournisseur}`,{headers});
+  }
 
 }

@@ -4,7 +4,7 @@ export class DetailDemande {
     public idtitre?: number,
     public titre?: string,
     public motif?: string,
-    public montantht?: string,
+    public montantht?: number,
     public typereference?: string,
     public reference?: string,
     public nomReference?: string,

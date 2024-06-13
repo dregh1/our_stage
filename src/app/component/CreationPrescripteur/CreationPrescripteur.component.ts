@@ -200,6 +200,19 @@ session=new SessionCd();
     this.selectedTitleAct = title;
   }
   creerDemande() {
+<<<<<<< HEAD
+=======
+    
+    this.boutonClique = true;
+    this.estChampVidemotif= this.demande.motif.trim().length === 0;
+    this.estChampVideperiode= this.demande.idPeriode.trim().length === 0;
+    this.estChampViderubrique= this.demande.idRubrique.trim().length === 0;
+    //  this.estChampVidemontant= this.demande.montantHt.trim().length === 0;
+    this.estChampVidedevise= this.demande.typeDevise.trim().length === 0;
+    this.estChampVidedepense= this.demande.depense.trim().length === 0;
+    this.estChampVidetypereference= this.demande.typeReference.trim().length === 0;
+    this.estChampVidenomreference= this.demande.nomReference.trim().length === 0;
+>>>>>>> Sprint3
       console.log(this.demande.dateCreation,'date creation');
       
     console.log(this.demande.depense);
