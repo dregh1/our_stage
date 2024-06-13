@@ -64,7 +64,7 @@
                       <th scope="col" class="titre texte1">Montant</th>
                       <th scope="col" class="titre texte1">Fournisseurs</th>
                       <th scope="col" class="titre texte1">Date création</th>
-                      <th scope="col" class="titre texte1">Action</th>
+                      <th scope="col" class="titre texte2">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -194,7 +194,7 @@
             <div class="accordion mx-4" id="accordionPanelsStayOpenExample">
             <div class="accordion-item" *ngFor="let titre of groupedDetailDemandes | keyvalue" >
               <p class="accordion-header d-flex justify-content-between ">
-                <button class="accordion-button fs-5" type="button"  data-bs-toggle="collapse"
+                <button class="accordion-button fs-5 titreliste" type="button"  data-bs-toggle="collapse"
                 [attr.href]="'#collapseExample-' +normaliserTitre(titre.key)"
                 aria-expanded="false" 
                 [attr.aria-controls]="'collapseExample-' + normaliserTitre(titre.key)">
@@ -203,7 +203,7 @@
                 </button>
     
               </p>
-              <p class="text-dark">Total Montant HT : <a class="text-primary link">{{ formatNumber(totalMontantsHT[titre.key])}}</a></p>
+              <p class="text-light">Total Montant HT (MGA): <a class="text-dark">{{ formatNumber(totalMontantsHT[titre.key])}}</a></p>
               <div  class="collapse " id="collapseExample-{{ normaliserTitre(titre.key) }}">
                 
                   <div *ngFor="let direction of titre.value | keyvalue">
@@ -277,22 +277,7 @@
                                 </ul>
                               </td>
                               <!-- </a> -->
-                          <div class="collapse" id="{{detail.identifiant}}">
-                            <div class="modal-header">
-                              <h5 class="modal-title"></h5>
-                              <button type="button" class="btn-close d-flex justify-content-end" data-bs-toggle="collapse" [attr.href]="'#' + detail.identifiant" aria-expanded="false" [attr.aria-controls]="detail.identifiant" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
-                              
-                            </div>
-                            <div>
-                              <button type="button" class="btn mx-2 btn-primary " [routerLink]="['/main/teste/', detail.id]">Modifier</button>
-                              <button type="button" class="btn btn-secondary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getid(detail.id)" >Supprimer</button> 
-                              <button type="button" class="btn  btn-primary " data-bs-toggle="modal" data-bs-target="#example"(click)="getid(detail.id)">Soumettre</button>
-                            
-        
-                            </div>
-                          </div>
-                          
-          
+                        
                         </tr>
                        
                         </tbody>
@@ -305,7 +290,7 @@
               </div>
             </div>
             </div>
-            <table class="table table-fixed">
+            <table class="table table-fixed mx-4">
               
               <tbody>
                 <!-- [routerLink]="['/main/teste/', detail.id]" -->
@@ -354,20 +339,7 @@
                       </ul>
                     </td>
                     <!-- </a> -->
-                <div class="collapse" id="{{detail.identifiant}}">
-                  <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="btn-close d-flex justify-content-end" data-bs-toggle="collapse" [attr.href]="'#' + detail.identifiant" aria-expanded="false" [attr.aria-controls]="detail.identifiant" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
-                    
-                  </div>
-                  <div>
-                    <button type="button" class="btn mx-2 btn-primary " [routerLink]="['/main/teste/', detail.id]">Modifier</button>
-                    <button type="button" class="btn btn-secondary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getid(detail.id)" >Supprimer</button> 
-                    <button type="button" class="btn  btn-primary " data-bs-toggle="modal" data-bs-target="#example"(click)="getid(detail.id)">Soumettre</button>
-                  
-
-                  </div>
-                </div>
+                
                 
 
               </tr>

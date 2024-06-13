@@ -412,7 +412,7 @@ brouillonclique(){
       }
 
     });
-    //window.location.reload();
+    window.location.reload();
     
     }
     getormatdate(){
