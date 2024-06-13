@@ -17,7 +17,7 @@
                       loading="lazy"
                     />
                     </a>
-                    <p class="mx-2">Authentification</p>
+                    <p class="mx-2">Comité de dépense</p>
                   </div>
 
                 
@@ -29,8 +29,8 @@
                 
                       <div class="">
                         <div class="mb-3">
-                          <label for="email" id="emailLabel" class="form-label is-required">Identifiant<span class="visually-hidden"> (required)</span></label>
-                          <input type="text"  class="form-control"  [(ngModel)]="this.logindata.username" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+                          <label for="email" id="emailLabel" class="form-label is-required">Trigramme<span class="visually-hidden"> (required)</span></label>
+                          <input type="text" class="form-control"  [(ngModel)]="this.logindata.username" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
                         </div>
                         <div class="mb-3">
                           <label for="email" id="emailLabel" class="form-label is-required">Mot de passe<span class="visually-hidden"> (required)</span></label>
@@ -75,15 +75,6 @@
                             <button type="button" class="btn btn-primary" (click)="sendToKc()">
                               Connexion
                             </button>
-                            <button type="button" class="btn btn-primary" (click)="loginLdap()">
-                              con
-                            </button>
-                            <!-- <nav aria-label="Page navigation example with icons">
-                              <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#" aria-label="Previous"></a></li>
-                                <li class="page-item"><a class="page-link" href="#" aria-label="Next"></a></li>
-                              </ul>
-                            </nav> -->
                           </div>
                       </div>
                       <div class="text-center mb-1 p-1" *ngIf="spinnershow===true">

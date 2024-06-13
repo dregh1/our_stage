@@ -11,9 +11,6 @@ export class AuthenticationService {
 
   constructor(private http: HttpClient) {}
 
-  loginLdap(): Observable<any> {
-    return this.http.post<any>(this.baseUrl + '/login',{});
-  }
   // get(): Observable<Personnel[]> {
   //   return this.http.get<Personnel[]>(this.baseUrl+'/all');
   // }

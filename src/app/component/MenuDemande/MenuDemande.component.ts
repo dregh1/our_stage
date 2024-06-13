@@ -19,10 +19,17 @@ import { DecimalPipe } from '@angular/common';
   styleUrls: ['./MenuDemande.component.scss'],
 })
 export class MenuDemandeComponent implements OnInit {
+  currentPage: number = 1; // Initialisation de la page courante
+  itemsPerPage: number = 10; // Nombre d'éléments par page
+  totalItems: number = 100; // Total d'éléments
+  totalPages!: number ; // Calculé dynamiquement
+
+
+
   role: string | null = '';
   isUp=false;
   token: string | null = '';
-  DetailDemande: DetailDemande[] = []; DetailDemandesanstitre: DetailDemande[] = [];
+  DetailDemande: DetailDemande[] = [];
   brouillon: Brouillon[]=[];
   AttenteSession: DetailDemande[]=[];
   nomDirection: string | null = '';
@@ -71,6 +78,7 @@ export class MenuDemandeComponent implements OnInit {
   };
   titre = new Titre();datePipe:DatePipe;
   groupedDetailDemandes: { [titre: string]: { [iddirection: string]: DetailDemande[] } } = {};
+  totalMontantsHT : {[titre:string]:number;}={};
   demandes = new Demande();
 session=new SessionCd();
   idsession:string ='';
@@ -132,43 +140,26 @@ session=new SessionCd();
                                               this.DetailDemande = donnees;
                                               console.log(this.DetailDemande,"io data");
 
-                                              ///aichage groupé
-                                            //   this.groupedDetailDemandes = donnees.reduce((acc, item) => {
-                                            //     if (item.titre) {
-                                            //       if (!acc[item.titre]) {
-                                            //         acc[item.titre] = [];
-                                            //       }
-                                            //       acc[item.titre].push(item);
-                                            //     }
-                                            //     return acc;
-                                            //   }, {} as { [titre: string]: DetailDemande[] });
-                                            //   console.log(this.groupedDetailDemandes,'laichage gorupé');
-                                              
                                             //const listeOriginale= DetailDemande ;
-                                            donnees.forEach(demande => {
-                                              const titre = demande.titre?? '';
-                                              const iddirection = demande.iddirection?? '';
+                                            // donnees.forEach(demande => {
+                                            //   const titre = demande.titre?? '';
+                                            //   const iddirection = demande.iddirection?? '';
                                             
-                                              // Si le titre n'est pas encore présent dans l'objet, initialisez-le
-                                              if (!(titre in this.groupedDetailDemandes)) {
-                                                this.groupedDetailDemandes[titre] = {};
-                                              }
+                                            //   // Si le titre n'est pas encore présent dans l'objet, initialisez-le
+                                            //   if (!(titre in this.groupedDetailDemandes)) {
+                                            //     this.groupedDetailDemandes[titre] = {};
+                                            //   }
                                             
-                                              // Vérifiez si le tableau pour cette iddirection existe déjà
-                                              if (!this.groupedDetailDemandes[titre][iddirection]) {
-                                                // Si non, initialisez-le avec un tableau vide
-                                                this.groupedDetailDemandes[titre][iddirection] = [];
-                                              }
+                                            //   // Vérifiez si le tableau pour cette iddirection existe déjà
+                                            //   if (!this.groupedDetailDemandes[titre][iddirection]) {
+                                            //     // Si non, initialisez-le avec un tableau vide
+                                            //     this.groupedDetailDemandes[titre][iddirection] = [];
+                                            //   }
                                             
-                                              // Ajoutez la demande au tableau correspondant
-                                              this.groupedDetailDemandes[titre][iddirection].push(demande);
-                                            });
+                                            //   // Ajoutez la demande au tableau correspondant
+                                            //   this.groupedDetailDemandes[titre][iddirection].push(demande);
+                                            // }); 
                                             
-<<<<<<< HEAD
-                                            console.log(this.groupedDetailDemandes,'test groupe detaildemande');
-                                             });
-                                                
-=======
 
 
                                             // Supposons que groupedDetailDemandes est déjà défini comme un objet
@@ -193,12 +184,12 @@ session=new SessionCd();
                                           
                                             // Ajoutez la demande au tableau correspondant
                                             this.groupedDetailDemandes[titre][iddirection].push(demande);
-                                          console.log('chaque montantMga ',demande.montantMga);
-                                          console.log('somme montantMga',demande.montantMga);
+                                          console.log('chaque montant ',demande.montantht);
+                                          console.log('somme montantht',demande.montantht);
                                           
                                             // Calculez le total des montants HT pour ce groupe
-                                            // const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + (demande.montantMga || 0), 0);
-                                            const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + Number(demande.montantMga) || 0, 0);
+                                            // const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + (demande.montantht || 0), 0);
+                                            const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + Number(demande.montantht) || 0, 0);
 
 
                                             // Stockez le total dans l'objet totalMontantsHT
@@ -207,28 +198,18 @@ session=new SessionCd();
                                           });
                                            console.log(this.groupedDetailDemandes, 'test groupe detaildemande');
                                           
-                                          console.log(this.direction.id,'direction id');console.log(this.idsession,'idsession');
-                                          
-                                          
-                                            //RECUPERATION active sans titre
-                                            this.MenuDemandeService.sanstitre(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((donnees) => {
-                                              this.DetailDemandesanstitre = donnees;
-                                              console.log(this.DetailDemandesanstitre,"io data sns titre");
-                                            });
+
+
 
 
 
 
                                           });    
->>>>>>> Sprint3
       
                                             //RECUPERATION brouillon
-                                            this.MenuDemandeService.searchbrouillon(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((datas) => {
-                                              this.brouillon = datas;
-                                              console.log(this.brouillon,"io brouillon");
-                                              
-                                            });
-                                            //RECUPERATION ATTENTE sESSION
+                                            this.loadBrouillon(this.direction.id?.toString() ??'',this.idsession.toString());
+                                            
+
                                             this.MenuDemandeService.getAttenteSession(this.direction.id?.toString() ??'').subscribe((datas) => {
                                               this.AttenteSession = datas;
                                               console.log(this.AttenteSession,"io   AttenteSession");
@@ -260,6 +241,15 @@ session=new SessionCd();
     //getbytitre
   }
 
+
+  loadBrouillon(idDirection : string, idSession : string) :void
+  {
+    this.MenuDemandeService.searchbrouillon(idDirection?.toString() ??'',idSession.toString() ) .subscribe((datas) => {
+      this.brouillon = datas;
+      console.log(this.brouillon,"io brouillon");
+      
+    });
+  }
   ngOnInit(): void {
     
 
@@ -276,6 +266,8 @@ session=new SessionCd();
     // this.MenuDemandeService.getdmdactive().subscribe(Response => {
     //   this.actives = Response;
     // });
+
+    
   }
 //exporter excel
 exportToExcel(): void {
@@ -287,7 +279,7 @@ exportToExcel(): void {
       Motif: detail.motif,
       Fournisseur: detail.fournisseur,
       Devise: detail.devise,
-      MontantHt: detail.montantht,
+      MontantHt: detail.montantht?.toString(),
       MontantMga: detail.montantMga,
       Commentaireprescripteur: detail.comsprescripteur,
       Periode: detail.periode,
@@ -513,11 +505,21 @@ update(demande:any): void {
    normaliserTitre(titre: string): string {
     return titre.replace(/\s+/g, ''); // Remplace tous les espaces par des chaînes vides
   }
-  formatNumber(value?: string): string | null {
+   formatNumber(value?: any): string | null {
     if (value === null || value === undefined) {
-      return null; // Retourne null si value est null ou undefined
+        return null; // Retourne null si value est null ou undefined
     }
-    return  value?.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1 ");
+    return value?.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1 ");
+}
 
-  }
+//    formatNumber(value?: string): string | null {
+//     if (value === null || value === undefined) {
+//         return null; // Retourne null si value est null ou undefined
+//     }
+//     return value?.toString().replace(/\.\d+/g, " ");
+// }
+som(num:any){
+  var som;
+ return som=+parseInt(num);
+}
 }

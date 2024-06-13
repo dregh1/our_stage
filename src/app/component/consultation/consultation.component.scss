@@ -5,22 +5,33 @@
 // fieldset{
 //   background-color: #eee;
 // }
-.scrollmenu {
-  overflow: auto;
-  white-space: nowrap;
+
+
+
+
+
+
+.texte{
+  padding: 10px;
+  // width: 200px;
 }
+
+// .scrollmenu {
+//   overflow: auto;
+//   white-space: nowrap;
+// }
 .scrollspy-example {
   overflow: auto;
   position: relative;
   }
 
-  div.scrollmenu span {
-    display: inline-block;
-    width: 200px;
-    text-align: center;
-    padding: 14px;
-    text-decoration: none;
-  }
+//   div.scrollmenu span {
+//     display: inline-block;
+//     width: 200px;
+//     text-align: center;
+//     padding: 14px;
+//     text-decoration: none;
+//   }
  
 .input-group,.form-control{
       width: 200px;

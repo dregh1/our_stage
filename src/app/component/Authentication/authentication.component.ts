@@ -43,10 +43,6 @@ alert=false;erreur=false;
   // NG ON INIT
   ngOnInit(): void {}
 
-  loginLdap(){
-    this.authenticationService.loginLdap().subscribe((response)=>{},(error)=>{console.error(error)});
-  }
-
   //ENVOYE LOGIN & MDP > KEYCLOAK
   sendToKc() {
     this.spinnershow=true;
