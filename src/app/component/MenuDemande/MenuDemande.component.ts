@@ -22,7 +22,7 @@ export class MenuDemandeComponent implements OnInit {
   role: string | null = '';
   isUp=false;
   token: string | null = '';
-  DetailDemande: DetailDemande[] = [];
+  DetailDemande: DetailDemande[] = []; DetailDemandesanstitre: DetailDemande[] = [];
   brouillon: Brouillon[]=[];
   AttenteSession: DetailDemande[]=[];
   nomDirection: string | null = '';
@@ -177,12 +177,12 @@ session=new SessionCd();
                                           
                                             // Ajoutez la demande au tableau correspondant
                                             this.groupedDetailDemandes[titre][iddirection].push(demande);
-                                          console.log('chaque montant ',demande.montantht);
-                                          console.log('somme montantht',demande.montantht);
+                                          console.log('chaque montantMga ',demande.montantMga);
+                                          console.log('somme montantMga',demande.montantMga);
                                           
                                             // Calculez le total des montants HT pour ce groupe
-                                            // const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + (demande.montantht || 0), 0);
-                                            const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + Number(demande.montantht) || 0, 0);
+                                            // const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + (demande.montantMga || 0), 0);
+                                            const total = this.groupedDetailDemandes[titre][iddirection].reduce((acc, demande) => acc + Number(demande.montantMga) || 0, 0);
 
 
                                             // Stockez le total dans l'objet totalMontantsHT
@@ -191,8 +191,14 @@ session=new SessionCd();
                                           });
                                            console.log(this.groupedDetailDemandes, 'test groupe detaildemande');
                                           
-
-
+                                          console.log(this.direction.id,'direction id');console.log(this.idsession,'idsession');
+                                          
+                                          
+                                            //RECUPERATION active sans titre
+                                            this.MenuDemandeService.sanstitre(this.direction.id?.toString() ??'',this.idsession.toString() ) .subscribe((donnees) => {
+                                              this.DetailDemandesanstitre = donnees;
+                                              console.log(this.DetailDemandesanstitre,"io data sns titre");
+                                            });
 
 
 
@@ -406,7 +412,7 @@ brouillonclique(){
       }
 
     });
-    window.location.reload();
+    //window.location.reload();
     
     }
     getormatdate(){
