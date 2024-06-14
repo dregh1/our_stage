@@ -23,7 +23,7 @@ export class TestComponent implements OnInit {
 
   existanceAvisAchat : boolean =false;
   existanceAvisCdg : boolean =false;
-
+  existDemande : boolean =false;
 
   role: string | null = '';
   token: string | null = '';
@@ -121,6 +121,14 @@ somme='+';
     this.datePipe= new DatePipe('en-US');
     this.id = this.activatedRoute.snapshot.params['id'];
     
+
+              //recup id demdande si existe
+              this.testeService.demandesoumis(this.id).subscribe((data) => {
+                console.log(data);
+                
+                this.existDemande= data;
+                console.log('exist demande',this.existDemande);
+            });
     // RECUPERATION ROLE , DIRECTION , NOM utilisateur
     this.token = sessionStorage.getItem('token');
     if (this.token !== null) {
@@ -169,7 +177,6 @@ somme='+';
                                                   console.log("--------------vvvvvvvv---------------");
                                                   console.log(this.titres,"io titre");
                                                  
-                                                  
                                                 });
                                       });
 
