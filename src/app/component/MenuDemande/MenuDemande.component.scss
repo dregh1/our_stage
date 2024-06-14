@@ -16,24 +16,28 @@
 tr,td,.listetitre{
   position: relative;
 }
+// .card{
+//   min-height: 500px;
+// }
+
 .table-fixed tbody {
   // height: 500px;
   overflow-y: auto;
   width: 100%;
 }
 
-.table-fixed thead,
-.table-fixed tbody,
-.table-fixed tr,
-.table-fixed td,
-.table-fixed th {
-  display: block;
-}
+// .table-fixed thead,
+// .table-fixed tbody,
+// .table-fixed tr,
+// .table-fixed td,
+// .table-fixed th {
+//   display: block;
+// }
 
 .table-fixed tbody td,
 .table-fixed tbody th,
 .table-fixed thead > tr > th {
-   float: left;
+  //  float: left;
    position: relative;
 
 }

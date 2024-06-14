@@ -52,11 +52,13 @@ export class MenuDemandeService {
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     XLSX.writeFile(wb, fileName);
   }
-  searchbrouillon(idDirection : string | '' , idsession :string | ''): Observable<Brouillon[]>{
+  searchbrouillon(idDirection : string | '' , idsession :string | '' , page : number , size : number): Observable<Brouillon[]>{
     const headers = this.getHeaders();
     const queryParams = new URLSearchParams();
     queryParams.append('idDirection', idDirection ? encodeURIComponent(idDirection) : ''); // Handle empty strings and special characters
     queryParams.append('idSession', idsession ? encodeURIComponent(idsession) : '');
+    queryParams.append('page', page ? encodeURIComponent(page) : '');
+    queryParams.append('size', size ? encodeURIComponent(size) : '');
     
     const url = `${this.baseUrl}/brouillon/s?${queryParams.toString()}`; // Build URL with encoded params
 

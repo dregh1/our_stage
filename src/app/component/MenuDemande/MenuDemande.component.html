@@ -47,92 +47,120 @@
           
           <!-- BROUILLON -->
           <div class="card" *ngIf="isbrouillon===true">
-             
-            <table class="table table-fixed">
-              <thead>
-                <tr class="titre" >
-                  <th scope="col">
-                  <div class="font-size-16">
-                    <input type="checkbox" class="form-check-input" id="contacusercheck" /><label class="form-check-label" for="contacusercheck"></label>
-                  </div>
-                  </th>
-                 
-                      <th scope="col" class="titre texte1">Identifiant</th>
-                      <th scope="col" class="titre texte1">Titre</th>
-                      <th scope="col" class=" titre texte1">Motif</th>
-                      <th scope="col" class="titre texte1">Devise</th>
-                      <th scope="col" class="titre texte1">Montant</th>
-                      <th scope="col" class="titre texte1">Fournisseurs</th>
-                      <th scope="col" class="titre texte1">Date création</th>
-                      <th scope="col" class="titre texte2">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- [routerLink]="['/main/teste/', detail.id]" -->
-                <tr *ngFor="let detail of this.brouillon" 
-                class=" p-1 scrollspy-example"
-                data-spy="scroll"
-                data-target="#navbarExample"
-                data-offset="50"
-                > 
-                 <!-- <a class="btn"  data-bs-toggle="collapse" [attr.href]="'#'+ detail.identifiant" role="button" aria-expanded="false" [attr.aria-controls]="detail.identifiant"> -->
-                  <td>
-                    <div class="font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck" /><label class="form-check-label" for="contacusercheck"></label></div>
-                    </td>  
-                  <td  class="texte1">{{ detail.identifiant }}</td>
-                    <td class="texte1 text-truncate" data-toggle="tooltip" title="{{ detail.titre }}">{{ detail.titre }}</td>
-                    <td  class="texte1 text-truncate" data-toggle="tooltip" title="{{ detail.motif }}"> {{ detail.motif }} </td>
-                    <td class="texte1">{{ detail.devise }}</td>
-                    <td class="texte1">{{ formatNumber(detail.montantht) }}</td>
-                    <td class="texte1 text-truncate" data-toggle="tooltip" title="{{ detail.fournisseur }}">{{ detail.fournisseur }}</td>
-                    <td class="texte1">{{ detail.dateCreation | date:'d/M/y':'fr-FR' }} </td>
-                    <td class="texte2">
-                      <ul class="list-inline mb-0">
-                          <li class="list-inline-item">
-                            <a [routerLink]="['/main/teste/', detail.id]" >
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bleu icon-modi solaris-icon si-pencil" viewBox="0 0 1000 1000">
-                                <path d="m876.2 238.316-51.077-51.108-63.846-63.884a81.08 81.08 0 0 0-68.3-23.078q-1.067.141-2.131.32a81 81 0 0 0-13.825 3.471l-.091.03a80.9 80.9 0 0 0-30.578 19.257L186.663 583.292l-53.526 176.424-13.253 43.678-18.684 61.59a29 29 0 0 0-.485 1.827c-.045.192-.078.383-.119.575-.087.415-.17.83-.238 1.242-.037.227-.066.453-.1.68a26 26 0 0 0-.245 2.931q-.01.345-.013.689.001.564.025 1.123c.008.211.013.422.027.632.027.425.069.847.116 1.267.018.152.028.305.048.456q.111.855.276 1.693c.021.108.05.214.072.322q.143.673.313 1.334c.051.191.11.379.165.568q.15.531.323 1.053.106.31.219.617a27 27 0 0 0 .629 1.586q.207.473.431.935c.095.2.188.393.288.587.164.322.339.638.516.952.095.171.188.343.287.511q.342.576.713 1.134c.059.09.114.183.175.273q.464.685.969 1.341c.1.127.2.248.3.373.246.308.493.614.752.911.135.156.277.307.415.46q.35.387.713.76.233.236.472.467.361.352.736.69.246.227.5.443.39.335.792.655c.167.132.331.266.5.395.3.228.6.445.912.66.147.1.29.21.438.309q.688.463 1.405.885.032.019.065.036.687.4 1.4.759c.162.082.329.156.494.235.337.163.677.323 1.022.472q.298.124.592.241a26 26 0 0 0 1.61.591q.493.162.995.306.317.093.638.177c.352.092.706.172 1.062.249.2.044.4.091.6.129.415.08.835.145 1.256.206.147.021.291.048.438.067q.856.106 1.726.159c.117.007.236.006.353.011.4.019.8.037 1.208.037.056 0 .113-.006.169-.006.358 0 .719-.023 1.08-.04.283-.013.565-.019.85-.041.377-.03.758-.081 1.137-.127.272-.033.542-.056.814-.1.421-.064.845-.153 1.269-.237.233-.047.466-.082.7-.135q.963-.219 1.93-.51c.017 0 .034-.008.051-.014l21.618-6.566 83.587-25.391 176.317-53.56 262.68-262.838L876.2 353.308a80.93 80.93 0 0 0 22.163-41.279q.136-.669.26-1.338.611-3.294.95-6.62c.026-.248.053-.5.076-.744q.342-3.7.35-7.422v-.093a81.08 81.08 0 0 0-23.799-57.496M359.047 755.779l37.419 37.442-176.318 53.559-66.969-67.01 53.527-176.424 37.419 37.441 459.69-459.967 19.154 19.165-459.691 459.968 76.615 76.661 459.691-459.968 19.154 19.166Z" style="fill-rule:evenodd"/>
-                              </svg>
-                            </a>                 
-                           </li>
-                          <li class="list-inline-item">
-                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getid(detail.id)">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="rouge icon-modi solaris-icon si-trash" viewBox="0 0 1000 1000">
-                                <path d="M750 149.959H625V125a50 50 0 0 0-50-50H425a50 50 0 0 0-50 50v24.959H250a75 75 0 0 0-75 75V275h650v-50.041a75 75 0 0 0-75-75M425 125h150v24.959H425zM225 299.959V925h550V299.959zM375 400v425a25 25 0 0 1-50 0V399.959a25 25 0 0 1 50 0zm150 0v425a25 25 0 0 1-50 0V399.959a25 25 0 0 1 50 0zm150 0v425a25 25 0 0 1-50 0V399.959a25 25 0 0 1 50 0z" style="fill-rule:evenodd"/>
-                              </svg>
-                            </a>
-                          </li>
-                          <li class="list-inline-item ">
-                            <a data-bs-toggle="modal" data-bs-target="#example"(click)="getid(detail.id)">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="vert icon-modi solaris-icon si-email-replied" viewBox="0 0 1000 1000">
-                                <path d="M936.69 626.977C929.946 633.537 921.147 638 911 638H748v74.666L609 575.9a12.7 12.7 0 0 1-2.2-2.331l-.028.028a35.9 35.9 0 0 1-8.649-23.1h-.013s.006-.416.006-.5-.006.5-.006-.5h.013a37.94 37.94 0 0 1 10.844-25.277l-.057.1L748 387.666V462h163c20.684 0 37 17.456 37 38.166v100a37.17 37.17 0 0 1-11.31 26.811M900 437H773v-24.447l52-49.753v-86.539C731 369.145 559.513 535.5 559.513 535.5h-.054c-15.3 16-36.133 22.8-59.119 22.8-24.349 0-46.26-9.8-61.76-26.8h-.108L175 275.051v87.593L410.742 590.5h.2c23.151 23 54.541 34.7 89.127 34.7 34.244 0 65.361-11.855 88.491-34.429.772.878 1.561 1.681 2.386 2.522.164.17.329.307.5.473l139.141 136.746a25 25 0 0 0 17.53 7.163A24.944 24.944 0 0 0 773 712.666V662h127v138H187.5a87.5 87.5 0 0 1-87.5-87.5c0-.164.011-.324.012-.488L100 712V175h712v-.009c.148 0 .3-.005.444-.005A87.593 87.593 0 0 1 900 262.61z" style="fill-rule:evenodd"/>
-                              </svg>
-                            </a>
-                          </li>
-                      </ul>
-                    </td>
-                    <!-- </a> -->
-                    <div class="collapse" id="{{detail.identifiant}}">
-                      <div class="modal-header">
-                        <h5 class="modal-title"></h5>
-                        <button type="button" class="btn-close d-flex justify-content-end" data-bs-toggle="collapse" [attr.href]="'#' + detail.identifiant" aria-expanded="false" [attr.aria-controls]="detail.identifiant" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
-                        
-                      </div>
-                      <div class="">
-                      <div>
-                        <button type="button" class="btn mx-2 btn-primary " [routerLink]="['/main/teste/', detail.id]">Modifier</button>
-                        <button type="button" class="btn btn-secondary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getid(detail.id)" >Supprimer</button> 
-                        <button type="button" class="btn  btn-primary " data-bs-toggle="modal" data-bs-target="#example"(click)="getid(detail.id)">Soumettre</button>
-                      
-                      </div>
-                      </div>
+            <div>
+              <table class="table table-fixed">
+                <thead>
+                  <tr class="titre" >
+                    <th scope="col">
+                    <div class="font-size-16">
+                      <input type="checkbox" class="form-check-input" id="contacusercheck" /><label class="form-check-label" for="contacusercheck"></label>
                     </div>
-                 
+                    </th>
+                   
+                        <th scope="col" class="titre texte1">Identifiant</th>
+                        <th scope="col" class="titre texte1">Titre</th>
+                        <th scope="col" class=" titre texte1">Motif</th>
+                        <th scope="col" class="titre texte1">Devise</th>
+                        <th scope="col" class="titre texte1">Montant</th>
+                        <th scope="col" class="titre texte1">Fournisseurs</th>
+                        <th scope="col" class="titre texte1">Date création</th>
+                        <th scope="col" class="titre texte2">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- [routerLink]="['/main/teste/', detail.id]" -->
+                  <tr *ngFor="let detail of this.brouillon" 
+                  class=" p-1 scrollspy-example"
+                  data-spy="scroll"
+                  data-target="#navbarExample"
+                  data-offset="50"
+                  > 
+                   <!-- <a class="btn"  data-bs-toggle="collapse" [attr.href]="'#'+ detail.identifiant" role="button" aria-expanded="false" [attr.aria-controls]="detail.identifiant"> -->
+                    <td>
+                      <div class="font-size-16"><input type="checkbox" class="form-check-input" id="contacusercheck" /><label class="form-check-label" for="contacusercheck"></label></div>
+                      </td>  
+                    <td  class="texte1">{{ detail.identifiant }}</td>
+                      <td class="texte1 text-truncate" data-toggle="tooltip" title="{{ detail.titre }}">{{ detail.titre }}</td>
+                      <td  class="texte1 text-truncate" data-toggle="tooltip" title="{{ detail.motif }}"> {{ detail.motif }} </td>
+                      <td class="texte1">{{ detail.devise }}</td>
+                      <td class="texte1">{{ formatNumber(detail.montantht) }}</td>
+                      <td class="texte1 text-truncate" data-toggle="tooltip" title="{{ detail.fournisseur }}">{{ detail.fournisseur }}</td>
+                      <td class="texte1">{{ detail.dateCreation | date:'d/M/y':'fr-FR' }} </td>
+                      <td class="texte2">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                              <a [routerLink]="['/main/teste/', detail.id]" >
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bleu icon-modi solaris-icon si-pencil" viewBox="0 0 1000 1000">
+                                  <path d="m876.2 238.316-51.077-51.108-63.846-63.884a81.08 81.08 0 0 0-68.3-23.078q-1.067.141-2.131.32a81 81 0 0 0-13.825 3.471l-.091.03a80.9 80.9 0 0 0-30.578 19.257L186.663 583.292l-53.526 176.424-13.253 43.678-18.684 61.59a29 29 0 0 0-.485 1.827c-.045.192-.078.383-.119.575-.087.415-.17.83-.238 1.242-.037.227-.066.453-.1.68a26 26 0 0 0-.245 2.931q-.01.345-.013.689.001.564.025 1.123c.008.211.013.422.027.632.027.425.069.847.116 1.267.018.152.028.305.048.456q.111.855.276 1.693c.021.108.05.214.072.322q.143.673.313 1.334c.051.191.11.379.165.568q.15.531.323 1.053.106.31.219.617a27 27 0 0 0 .629 1.586q.207.473.431.935c.095.2.188.393.288.587.164.322.339.638.516.952.095.171.188.343.287.511q.342.576.713 1.134c.059.09.114.183.175.273q.464.685.969 1.341c.1.127.2.248.3.373.246.308.493.614.752.911.135.156.277.307.415.46q.35.387.713.76.233.236.472.467.361.352.736.69.246.227.5.443.39.335.792.655c.167.132.331.266.5.395.3.228.6.445.912.66.147.1.29.21.438.309q.688.463 1.405.885.032.019.065.036.687.4 1.4.759c.162.082.329.156.494.235.337.163.677.323 1.022.472q.298.124.592.241a26 26 0 0 0 1.61.591q.493.162.995.306.317.093.638.177c.352.092.706.172 1.062.249.2.044.4.091.6.129.415.08.835.145 1.256.206.147.021.291.048.438.067q.856.106 1.726.159c.117.007.236.006.353.011.4.019.8.037 1.208.037.056 0 .113-.006.169-.006.358 0 .719-.023 1.08-.04.283-.013.565-.019.85-.041.377-.03.758-.081 1.137-.127.272-.033.542-.056.814-.1.421-.064.845-.153 1.269-.237.233-.047.466-.082.7-.135q.963-.219 1.93-.51c.017 0 .034-.008.051-.014l21.618-6.566 83.587-25.391 176.317-53.56 262.68-262.838L876.2 353.308a80.93 80.93 0 0 0 22.163-41.279q.136-.669.26-1.338.611-3.294.95-6.62c.026-.248.053-.5.076-.744q.342-3.7.35-7.422v-.093a81.08 81.08 0 0 0-23.799-57.496M359.047 755.779l37.419 37.442-176.318 53.559-66.969-67.01 53.527-176.424 37.419 37.441 459.69-459.967 19.154 19.165-459.691 459.968 76.615 76.661 459.691-459.968 19.154 19.166Z" style="fill-rule:evenodd"/>
+                                </svg>
+                              </a>                 
+                             </li>
+                            <li class="list-inline-item">
+                              <a data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getid(detail.id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="rouge icon-modi solaris-icon si-trash" viewBox="0 0 1000 1000">
+                                  <path d="M750 149.959H625V125a50 50 0 0 0-50-50H425a50 50 0 0 0-50 50v24.959H250a75 75 0 0 0-75 75V275h650v-50.041a75 75 0 0 0-75-75M425 125h150v24.959H425zM225 299.959V925h550V299.959zM375 400v425a25 25 0 0 1-50 0V399.959a25 25 0 0 1 50 0zm150 0v425a25 25 0 0 1-50 0V399.959a25 25 0 0 1 50 0zm150 0v425a25 25 0 0 1-50 0V399.959a25 25 0 0 1 50 0z" style="fill-rule:evenodd"/>
+                                </svg>
+                              </a>
+                            </li>
+                            <li class="list-inline-item ">
+                              <a data-bs-toggle="modal" data-bs-target="#example"(click)="getid(detail.id)">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="vert icon-modi solaris-icon si-email-replied" viewBox="0 0 1000 1000">
+                                  <path d="M936.69 626.977C929.946 633.537 921.147 638 911 638H748v74.666L609 575.9a12.7 12.7 0 0 1-2.2-2.331l-.028.028a35.9 35.9 0 0 1-8.649-23.1h-.013s.006-.416.006-.5-.006.5-.006-.5h.013a37.94 37.94 0 0 1 10.844-25.277l-.057.1L748 387.666V462h163c20.684 0 37 17.456 37 38.166v100a37.17 37.17 0 0 1-11.31 26.811M900 437H773v-24.447l52-49.753v-86.539C731 369.145 559.513 535.5 559.513 535.5h-.054c-15.3 16-36.133 22.8-59.119 22.8-24.349 0-46.26-9.8-61.76-26.8h-.108L175 275.051v87.593L410.742 590.5h.2c23.151 23 54.541 34.7 89.127 34.7 34.244 0 65.361-11.855 88.491-34.429.772.878 1.561 1.681 2.386 2.522.164.17.329.307.5.473l139.141 136.746a25 25 0 0 0 17.53 7.163A24.944 24.944 0 0 0 773 712.666V662h127v138H187.5a87.5 87.5 0 0 1-87.5-87.5c0-.164.011-.324.012-.488L100 712V175h712v-.009c.148 0 .3-.005.444-.005A87.593 87.593 0 0 1 900 262.61z" style="fill-rule:evenodd"/>
+                                </svg>
+                              </a>
+                            </li>
+                        </ul>
+                      </td>
+                      <!-- </a> -->
+                      <div class="collapse" id="{{detail.identifiant}}">
+                        <div class="modal-header">
+                          <h5 class="modal-title"></h5>
+                          <button type="button" class="btn-close d-flex justify-content-end" data-bs-toggle="collapse" [attr.href]="'#' + detail.identifiant" aria-expanded="false" [attr.aria-controls]="detail.identifiant" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
+                          
+                        </div>
+                        <div class="">
+                        <div>
+                          <button type="button" class="btn mx-2 btn-primary " [routerLink]="['/main/teste/', detail.id]">Modifier</button>
+                          <button type="button" class="btn btn-secondary mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="getid(detail.id)" >Supprimer</button> 
+                          <button type="button" class="btn  btn-primary " data-bs-toggle="modal" data-bs-target="#example"(click)="getid(detail.id)">Soumettre</button>
+                        
+                        </div>
+                        </div>
+                      </div>
+                   
+  
+                </tr>
+                </tbody>
+                
+              </table>
+            </div> 
+            
+            <div class="nav" >
+              <nav aria-label="...">
+                <ul class="pagination">
+                  <li class="page-item" (click)="goToPreviousBrouillon()" [ngClass]="{'disabled': currentPage === 1}">
+                    <span class="page-link"></span>
+                  </li>
+                  <li class="page-item"  [ngClass]="{'visually-hidden' : currentPage === 1}">
+                    <a class="page-link" >{{this.currentPage - 1}}</a>
+                  </li>
 
-              </tr>
-              </tbody>
-              
-            </table>
+                  <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{this.currentPage}}</span>
+                  </li>
+
+                  <li class="page-item">
+                    <a class="page-link" href="#">{{this.currentPage + 1}}</a>
+                  </li>     
+                             
+                  <li class="page-item" >
+                    <a class="page-link" (click)="goToNextPageBrouillon()"></a>
+                  </li>
+
+                </ul>
+              </nav>
+            </div>
+
             <!-- modal suppression -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog">
@@ -172,6 +200,7 @@
               </div>
             </div>
           </div>
+
           <!-- ATTENTE SESSION -->
           <div class="card" *ngIf="brouilloncliqueActive===true" style=" height: 500px;">
             <ul class="list-group"*ngFor="let detail of this.AttenteSession" >
@@ -194,7 +223,7 @@
             <div class="accordion mx-4" id="accordionPanelsStayOpenExample">
             <div class="accordion-item" *ngFor="let titre of groupedDetailDemandes | keyvalue" >
               <p class="accordion-header d-flex justify-content-between ">
-                <button class="accordion-button fs-5 titreliste" type="button"  data-bs-toggle="collapse"
+                <button class="accordion-button collapsed fs-5 titreliste" type="button"  data-bs-toggle="collapse"
                 [attr.href]="'#collapseExample-' +normaliserTitre(titre.key)"
                 aria-expanded="false" 
                 [attr.aria-controls]="'collapseExample-' + normaliserTitre(titre.key)">

@@ -63,21 +63,20 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title h5" id="exampleModalLabel">Détail Utilisateur</h1>
+          <h1 class="modal-title h5" id="exampleModalLabel">Rôle</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Close"><span class="visually-hidden">Close</span></button>
         </div>
         <div class="modal-body">
             <div class="">
                 <label for="validationDefault01" class="form-label is-required ">Assigner Role<span class="visually-hidden"> (required)</span></label>
-                <select [(ngModel)] ="this.rola"
+                <select [(ngModel)] ="this.roleToAssign"
                     class="form-select"
                     id="inputGroupSelect04"
                     aria-label="Example select with button addon" 
                     >
-                      <option selected value="ACH"> Achat</option>
-                      <option value="PRS"> Prescripteur</option>
-                      <option value="CDG"> CDG</option>
-                    </select>
+                    <option *ngFor="let item of this.roleList" value="{{item.id}}">{{item.description}}</option>
+                      
+                </select>
                 
             </div>
         </div>

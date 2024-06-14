@@ -20,6 +20,9 @@ import { DecimalPipe } from '@angular/common';
 })
 export class MenuDemandeComponent implements OnInit {
   currentPage: number = 1; // Initialisation de la page courante
+ 
+  previousDisabled : boolean = (this.currentPage = 1)? true : false ;
+
   itemsPerPage: number = 10; // Nombre d'éléments par page
   totalItems: number = 100; // Total d'éléments
   totalPages!: number ; // Calculé dynamiquement
@@ -29,7 +32,7 @@ export class MenuDemandeComponent implements OnInit {
   role: string | null = '';
   isUp=false;
   token: string | null = '';
-  DetailDemande: DetailDemande[] = [];
+  DetailDemande: DetailDemande[] = [];DetailDemandesanstitre: DetailDemande[] = [];
   brouillon: Brouillon[]=[];
   AttenteSession: DetailDemande[]=[];
   nomDirection: string | null = '';
@@ -207,7 +210,7 @@ session=new SessionCd();
                                           });    
       
                                             //RECUPERATION brouillon
-                                            this.loadBrouillon(this.direction.id?.toString() ??'',this.idsession.toString());
+                                            this.loadBrouillon(this.direction.id?.toString() ??'',this.idsession.toString() ,this.currentPage , this.itemsPerPage);
                                             
 
                                             this.MenuDemandeService.getAttenteSession(this.direction.id?.toString() ??'').subscribe((datas) => {
@@ -242,14 +245,31 @@ session=new SessionCd();
   }
 
 
-  loadBrouillon(idDirection : string, idSession : string) :void
+  loadBrouillon(idDirection : string, idSession : string , page : number , size :number)  :void
   {
-    this.MenuDemandeService.searchbrouillon(idDirection?.toString() ??'',idSession.toString() ) .subscribe((datas) => {
+    this.MenuDemandeService.searchbrouillon(idDirection?.toString() ??'',idSession.toString() ,page , size) .subscribe((datas) => {
+      
+      // const totalPagesHeader = datas.headers.get('X-Pages-Total');
+      // console.log("------------------------------------------------"+totalPagesHeader);
+      
       this.brouillon = datas;
       console.log(this.brouillon,"io brouillon");
       
     });
   }
+
+  goToNextPageBrouillon(): void {
+
+      this.currentPage++;
+      this.loadBrouillon(this.direction.id?.toString() ??'',this.idsession.toString() ,this.currentPage , this.itemsPerPage);
+    
+
+    }
+    goToPreviousBrouillon(): void {
+        this.currentPage--;
+        this.loadBrouillon(this.direction.id?.toString() ??'',this.idsession.toString() ,this.currentPage , this.itemsPerPage);    
+    }
+
   ngOnInit(): void {
     
 
