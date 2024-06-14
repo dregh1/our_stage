@@ -38,11 +38,6 @@
 
           <!-- BROUILLON -->
           <div class="card" *ngIf="isbrouillon===true">
-             
-
-
-
-
             <div class="table-responsive">
               <table class="table table-sm table-hover has-checkbox ">
                
@@ -171,7 +166,7 @@
           </div>
           <!-- AVTIVE DEMANDE -->
           
-          <div class="card" *ngIf="Activedemandeclique===true" style=" height: 350px;"
+          <div class="card" *ngIf="Activedemandeclique===true" 
                
           >
 
@@ -268,27 +263,7 @@
 
 
             <table class="table table-sm table-hover has-checkbox ">
-               
-              <thead>
-                <tr>
-                  <th scope="col">
-                    <div class="form-check mb-0">
-                      <input class="form-check-input" type="checkbox" id="customCheck">
-                      <label class="form-check-label" for="customCheck">
-                        <span class="visually-hidden">Select all</span>
-                      </label>
-                    </div>
-                  </th>
-                  <th scope="col">Identifiant</th>
-                  <th scope="col">Titre</th>
-                  <th scope="col">Motif</th>
-                  <th scope="col">Devise</th>
-                  <th scope="col">Montant</th>
-                  <th scope="col">Fournisseur(s)</th>
-                  <th scope="col">Date création</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
+             
               <tbody>
                 <tr *ngFor="let detail of DetailDemandesanstitre">
                   <td>
