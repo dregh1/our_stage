@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationComponent } from './component/Authentication/authentication.component';
 import { ConsultationComponent } from './component/consultation/consultation.component';
 import { NotificationComponent } from './component/notification/notification.component';
@@ -19,8 +19,9 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
 import { DecimalPipe } from '@angular/common';
-import { CommonModule } from '@angular/common';
 import { IndexComponent } from './index/index.component';
+// import { CommonModule } from '@angular/common';
+// import { GrapheComponent } from './graphe/graphe.component';
 
 registerLocaleData(localeFr);
 @NgModule({
@@ -40,7 +41,7 @@ registerLocaleData(localeFr);
     IndexComponent
     //  DetailComponent
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule, CommonModule],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule, FormsModule,ReactiveFormsModule],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' }, DecimalPipe
   ],

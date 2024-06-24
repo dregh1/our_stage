@@ -84,4 +84,8 @@ export class HeaderComponent implements OnInit {
     
     this.router.navigate(['../validation']);
   }
+  creation(){
+    this.router.navigate(['/main/index']);
+  }
+
 }
