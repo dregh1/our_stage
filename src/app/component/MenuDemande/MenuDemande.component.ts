@@ -253,7 +253,7 @@ session=new SessionCd();
       // console.log("------------------------------------------------"+totalPagesHeader);
       
       this.brouillon = datas;
-      console.log(this.brouillon,"io brouillon");
+      console.log(this.brouillon,"io brouillon #############################");
       
     });
   }

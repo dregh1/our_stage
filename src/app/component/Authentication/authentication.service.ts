@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Direction } from 'src/app/models/Direction';
 import { HttpHeaders } from '@angular/common/http';
+import { LoginData } from 'src/app/models/LoginData';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
   private baseUrl = 'http://localhost:8080/teste';
+  private url = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
@@ -281,5 +283,18 @@ export class AuthenticationService {
   //   }
   // }
 
-  
+  loginLdap(username: string, password: string): Observable<any> {
+    // const headers = this.getHeaders();
+
+    let body = new URLSearchParams();
+    body.append('username', username);
+    body.append('password', password);
+      return this.http.post<any>(this.url+'/teste/log',  body.toString() ,
+       {
+        headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+      }
+      );
+      // return this.http.post<any>(this.url+'/teste/log', login);
+    }
+
 }

@@ -24,10 +24,17 @@ export class AuthenticationComponent implements OnInit {
   showPassword: boolean = false;
   showmesg = false;
 alert=false;erreur=false;
-  logindata = {
-    username: '',
-    password: '',
-  };
+
+    logindata = {
+      username: '',
+      password: '',
+    };
+
+  
+
+  loginLdap = {
+
+  }
 
   username: any;
   password: any;
@@ -42,6 +49,17 @@ alert=false;erreur=false;
 
   // NG ON INIT
   ngOnInit(): void {}
+
+  login(){
+
+      this.authenticationService.loginLdap(this.logindata.username,this.logindata.password)
+      .subscribe((response)=>{console.log(response);
+      },
+      (error)=>{console.error(error)}
+      );
+
+  } 
+
 
   //ENVOYE LOGIN & MDP > KEYCLOAK
   sendToKc() {
