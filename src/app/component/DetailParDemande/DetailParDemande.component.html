@@ -154,7 +154,7 @@
 
                       <div class="mb-3 d-flex justify-content-between">
                         <div>
-                          <label for="email" id="emailLabel" class="form-label ">Date de creation<span class="visually-hidden"> (required)</span></label>
+                          <label for="email" id="emailLabel" class="form-label ">Date de création<span class="visually-hidden"> (required)</span></label>
                          <span  class="form-control"  id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>{{this.demande.dateCreation| date:'dd /MM /yy HH:mm'}}</span>
 
                         <div class="valid-feedback">
@@ -166,7 +166,7 @@
                         </div>
                         <div *ngIf="this.existDemande==true">
                           <label for="email" id="emailLabel" class="form-label ">Date de soumission<span class="visually-hidden"> (required)</span></label>
-                         <span  class="form-control"   id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>{{this.demande.dateSoumission| date:'d/M/y'}}</span>
+                         <span  class="form-control"   id="lastName" aria-labelledby="lastNameLabel lastNameFeedback" autocomplete="family-name" required>{{this.demande.dateSoumission| date:'d/MM/y'}}</span>
 
                         <div class="valid-feedback">
                           Bien!
@@ -199,7 +199,7 @@
                     </div>
                     <div class="col-12">
                       <div class="mb-3">
-                        <label for="firstName" id="firstNameLabel" class="form-label ">Fournisseurs<span class="visually-hidden"> (required)</span></label>
+                        <label for="firstName" id="firstNameLabel" class="form-label ">Fournisseur(s)<span class="visually-hidden"> (required)</span></label>
                         <input type="text" class="form-control" [(ngModel)]="this.demande.fournisseur" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
                         <div class="valid-feedback">
                           Bien!
