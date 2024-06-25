@@ -26,21 +26,21 @@
             </div>
             <div class="mb-3">
               <label for="email" id="emailLabel" class="form-label is-required">EUR<span class="visually-hidden"> (required)</span></label>
-              <input   type="number"step="any" class="form-control" placeholder="EUR" [(ngModel)]="this.session.tauxEur" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+              <input   type="number"step="any" class="form-control"  [(ngModel)]="this.session.tauxEur" id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
               <div *ngIf="estChampVideeur && boutonClique && (!this.session.tauxEur || !this.istauxeur()) " style="color:red;">
                 Veuillez remplir le taux EUR.
                </div>
             </div>
             <div class="mb-3">
               <label for="email" id="emailLabel" class="form-label is-required">USD<span class="visually-hidden"> (required)</span></label>
-              <input  type="number"step="any" class="form-control" placeholder="USD"[(ngModel)]="this.session.tauxUsd"  id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+              <input  type="number"step="any" class="form-control" [(ngModel)]="this.session.tauxUsd"  id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
               <div *ngIf="estChampVideusd && boutonClique && (!this.session.tauxUsd || !this.istauxusd())" style="color:red;">
                 Veuillez remplir le taux USD.
                </div>
             </div>
             <div class="mb-3">
               <label for="email" id="emailLabel" class="form-label is-required">GBP<span class="visually-hidden"> (required)</span></label>
-              <input  type="number"step="any" placeholder="GBP" class="form-control" [(ngModel)]="this.session.tauxgbp"  id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
+              <input  type="number"step="any" class="form-control" [(ngModel)]="this.session.tauxgbp"  id="firstName" aria-labelledby="firstNameLabel firstNameFeedback" autocomplete="given-name" required>
               <div *ngIf="estChampVidegbp && boutonClique && (!this.session.tauxgbp || !this.istauxgbp())" style="color:red;">
                 Veuillez remplir le taux GBP.
                </div>

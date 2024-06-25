@@ -103,13 +103,7 @@ export class TesteService {
     const headers = this.getHeaders();
     return this.http.get<Periode[]>(this.baseUrl + '/periode/get', { headers });
   }
-  // maka periode
-  getFournisseur(): Observable<Fournisseur[]> {
-    const headers = this.getHeaders();
-    return this.http.get<Fournisseur[]>(this.baseUrl + '/fournisseur/get', {
-      headers,
-    });
-  }
+
   // maka rubrique
   getRubrique(): Observable<Rubrique[]> {
     const headers = this.getHeaders();

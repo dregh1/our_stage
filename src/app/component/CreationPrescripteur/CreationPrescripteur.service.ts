@@ -65,11 +65,7 @@ getRubrique(): Observable<Rubrique[]> {
   const headers = this.getHeaders();
   return this.http.get<Rubrique[]>(this.baseUrl2+'/rubrique/get',{headers});
 }
-// maka periode
-  getFournisseur(): Observable<Fournisseur[]> {
-    const headers = this.getHeaders();
-  return this.http.get<Fournisseur[]>(this.baseUrl+'/fournisseur/get',{headers});
-}
+
 
 
 // maka ny brouillon

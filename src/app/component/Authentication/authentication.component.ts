@@ -24,10 +24,17 @@ export class AuthenticationComponent implements OnInit {
   showPassword: boolean = false;
   showmesg = false;
 alert=false;erreur=false;
-  logindata = {
-    username: '',
-    password: '',
-  };
+
+    logindata = {
+      username: '',
+      password: '',
+    };
+
+  
+
+  loginLdap = {
+
+  }
 
   username: any;
   password: any;
@@ -43,6 +50,17 @@ alert=false;erreur=false;
   // NG ON INIT
   ngOnInit(): void {}
 
+  login(){
+
+      this.authenticationService.loginLdap(this.logindata.username,this.logindata.password)
+      .subscribe((response)=>{console.log(response);
+      },
+      (error)=>{console.error(error)}
+      );
+
+  } 
+
+
   //ENVOYE LOGIN & MDP > KEYCLOAK
   sendToKc() {
     this.spinnershow=true;
@@ -50,13 +68,13 @@ alert=false;erreur=false;
       .set('username', this.logindata.username)
       .set('password', this.logindata.password)
       .set('grant_type', 'password')
-      .set('client_id', 'quarkus-client')
-      .set('client_secret', 'diNdyU2iGksempOMKqs5gZlA2UkwngCJ');
+      .set('client_id', 'angular-client')
+      .set('client_secret', 'F6ONL3ox63NBv1h1J5wmmibHlDhLA1MI');
 
     return (
       this.http
         .post(
-          'http://localhost:8082/realms/oma/protocol/openid-connect/token',
+          'http://localhost:8083/realms/oma/protocol/openid-connect/token',
           body.toString(),
           {
             headers: new HttpHeaders().set(

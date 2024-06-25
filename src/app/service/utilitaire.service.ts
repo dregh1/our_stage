@@ -23,6 +23,17 @@ export class UtilitaireService {
             return this.http.get<Direction[]>(this.baseUrl+'/getDirection',{headers});
           }
 
+          private getHeadersBytoken(tokenAdmin : string): HttpHeaders {
+              
+            
+                if (tokenAdmin) {
+                  return new HttpHeaders({ Authorization: `Bearer ${tokenAdmin}` });
+                } else {
+                  // Handle the case where no token is found (e.g., throw an error or redirect to login)
+                  throw new Error('No authorization token found');
+                }
+          }
+
           private getHeaders(): HttpHeaders {
               
             const token = sessionStorage.getItem('token');                  // Recuperation token
@@ -71,7 +82,7 @@ export class UtilitaireService {
 
          getMailUser(idGroup : string , tokenAdmin : string)
          {
-           const url  = `http://localhost:8082/admin/realms/oma/groups/${idGroup}/members`;
+           const url  = `http://localhost:8083/admin/realms/oma/groups/${idGroup}/members`;
            const headers = new HttpHeaders({ Authorization: `Bearer ${tokenAdmin}` });
            return this.http.get<any[]>(url, { headers });
          }
@@ -79,7 +90,7 @@ export class UtilitaireService {
 
          getIdOfGroup(nomGroupe : string , tokenAdmin : string)
          {
-           const url  = 'http://localhost:8082/admin/realms/oma/groups?search='+nomGroupe;
+           const url  = 'http://localhost:8083/admin/realms/oma/groups?search='+nomGroupe;
            const headers = new HttpHeaders({ Authorization: `Bearer ${tokenAdmin}` });
            return this.http.get<any>(url, { headers });
          }
@@ -99,14 +110,14 @@ export class UtilitaireService {
              username : '',
              email : '',
            }
-           const mails : MyMail []=[];
+           let mails : MyMail []=[];
 
-           const url = 'http://localhost:8082/realms/oma/protocol/openid-connect/token';
+           const url = 'http://localhost:8083/realms/oma/protocol/openid-connect/token';
 
            const params = new HttpParams()
            .set('grant_type', 'password')
-           .set('client_id', 'quarkus-client')
-           .set('client_secret', 'diNdyU2iGksempOMKqs5gZlA2UkwngCJ')
+           .set('client_id', 'angular-client')
+           .set('client_secret', 'F6ONL3ox63NBv1h1J5wmmibHlDhLA1MI')
            .set('username', 'charlesandrea')
            .set('password', 'password');
 
@@ -130,54 +141,70 @@ export class UtilitaireService {
                      // console.log(response);
 
                      // recuperation de id Du groupe
-                     this.getIdOfGroup("DSI",tokenAdmin)
-                     .subscribe(
-                                 (groupObject)=> {
+                    //  this.getIdOfGroup("DSI",tokenAdmin)
+                    //  .subscribe(
+                    //              (groupObject)=> {
                                                  
-                                               console.log(groupObject)
+                    //                            console.log(groupObject)
                                                
-                                                 if (groupObject[0].hasOwnProperty('id'))
-                                                 {
-                                                   const idGroup = groupObject[0].id;
+                    //                              if (groupObject[0].hasOwnProperty('id'))
+                    //                              {
+                    //                                const idGroup = groupObject[0].id;
 
-                                                   //RECUPERATION DES MAIL DES UTILISATEURS
-                                                   this.getMailUser(idGroup,tokenAdmin)
-                                                     .subscribe((userListe)=>
-                                                     {
-                                                       console.log(userListe);
-                                                       //RECUPERATION des email de tous utilisateurs
-                                                       // console.log("taille :"+userListe.length);
+                    //                                //RECUPERATION DES MAIL DES UTILISATEURS
+                    //                     //            this.getMailUser(idGroup,tokenAdmin)
+                    //                     //              .subscribe((userListe)=>
+                    //                     //              {
+                    //                     //                console.log(userListe);
+                    //                     //                //RECUPERATION des email de tous utilisateurs
+                    //                     //                // console.log("taille :"+userListe.length);
                                                        
-                                                         for(let i =0;i<userListe.length; i++ )
-                                                         {
-                                                           const oneMail = new MyMail();
+                    //                     //                 //  for(let i =0;i<userListe.length; i++ )
+                    //                     //                 //  {
+                    //                     //                 //    const oneMail = new MyMail();
                                                            
-                                                           oneMail.username = userListe[i].username;
-                                                           oneMail.email = userListe[i].email;
+                    //                     //                 //    oneMail.username = userListe[i].username;
+                    //                     //                 //    oneMail.email = userListe[i].email;
                                                            
-                                                           mails.push(oneMail);
+                    //                     //                 //    mails.push(oneMail);
 
-                                                         }
-                                                         this.mailSender(mails).subscribe(
-                                                           (response)=>{console.log(response);
-                                                           },
-                                                           (error)=>{console.log(error);
-                                                           }
-                                                         );
-                                                         // console.log(mails);
+                    //                     //                 //  }
 
-                                                     }
-                                                   )
+                    //                     // //RECUPERATION MAIL PRESCRIPTEUR
+                                                        
+                    //                     //                  // console.log(mails);
 
-                                                 }else
-                                                 {
-                                                   console.error("Aucune groupe trouvé");
-                                                   
-                                                 }
-                                               },
+                    //                     //              }
+                    //                     //            )
+                                        
+
+                    //     }else
+                    //     {
+                    //       console.error("Aucune groupe trouvé");
+                          
+                    //     }
+                    //                            },
                                  
-                                 (error)=> console.log(error)
-                               );
+                    //              (error)=> console.log(error)
+                    //            );
+
+
+                    this.getEmailPRS(tokenAdmin)
+                                        .then(
+                                          (emails: MyMail[]) => 
+                                            {
+                                              console.log("#####################");
+                                              mails = emails;
+                                              console.log(emails);
+                                              console.log("#####################");
+                                              
+
+                    //ENVOIE MAIL PRESCRIPTEUR 
+                    this.mailSender (mails).subscribe((response) => {},(error)=>{}) ;
+
+                                               });
+
+
                    }else 
                    {
                      console.error("Impossible d'envoyer le mail");
@@ -187,6 +214,48 @@ export class UtilitaireService {
            
 
          }
+
+         // get mail PRS
+         async getEmailPRS( tokenAdmin : string): Promise<MyMail[]> {
+  
+  
+          
+          const ursPRS = "http://localhost:8083/admin/realms/oma/roles/CDG/users";
+        
+          const headers = this.getHeadersBytoken(tokenAdmin);
+          try {
+            const httpResponse = await this.http.get<any>(ursPRS, { headers }).toPromise();
+            
+            
+            if (!httpResponse  ) {
+              // console.error('Aucune réponse valide reçue', httpResponse);
+              throw new Error('Aucune réponse valide reçue pour la liste ACH');
+            }
+     
+      
+            const responseAch = httpResponse; // Assurez-vous que la réponse contient les données attendues
+
+      
+            const mails: MyMail[] = [];
+            for (let i = 0; i < responseAch.length; i++) {
+              if (responseAch[i].hasOwnProperty('email') && responseAch[i].hasOwnProperty('username')) {
+                const oneMail = new MyMail(responseAch[i].username, responseAch[i].email);
+                mails.push(oneMail);
+              }
+            }
+      
+        
+      
+      
+            console.log('_-_-_-_-_-_-_-_-_-_-__-_-_-_-_-_-_-_-_-_-_');
+            
+            console.log(mails); // Pour le débogage
+            return mails; // Retourne le tableau de MyMail
+          } catch (error) {
+            console.error(error);
+            throw error; // Propage l'erreur si nécessaire
+          }
+        }
 
          // get titre par IDSESSION & IDDIRECTION
          getTitres(idDirection : string | '' , idSession: string | ''): Observable<Titre[]>{
@@ -238,4 +307,6 @@ export class UtilitaireService {
       headers,
     });
   }
+
+
 }

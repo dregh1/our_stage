@@ -52,11 +52,13 @@ export class MenuDemandeService {
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     XLSX.writeFile(wb, fileName);
   }
-  searchbrouillon(idDirection : string | '' , idsession :string | ''): Observable<Brouillon[]>{
+  searchbrouillon(idDirection : string | '' , idsession :string | '' , page : number , size : number): Observable<Brouillon[]>{
     const headers = this.getHeaders();
     const queryParams = new URLSearchParams();
     queryParams.append('idDirection', idDirection ? encodeURIComponent(idDirection) : ''); // Handle empty strings and special characters
     queryParams.append('idSession', idsession ? encodeURIComponent(idsession) : '');
+    queryParams.append('page', page ? encodeURIComponent(page) : '');
+    queryParams.append('size', size ? encodeURIComponent(size) : '');
     
     const url = `${this.baseUrl}/brouillon/s?${queryParams.toString()}`; // Build URL with encoded params
 
@@ -232,21 +234,5 @@ export class MenuDemandeService {
 
   //   });
   // }
-  //get demande active sans titre
-  sanstitre(idDirection : string | '' , idsession :string | ''): Observable<DetailDemande[]>{
-    const headers = this.getHeaders();
-    const queryParams = new URLSearchParams();
-
-    // if(idDirection !== '')
-    queryParams.append('idDirection', idDirection ? encodeURIComponent(idDirection) : ''); // Handle empty strings and special characters
-    
-    // if(idsession !== '')
-    queryParams.append('idSession', idsession ? encodeURIComponent(idsession) : '');
-    
-    const url = `${this.baseUrl2}/active/sanstitre?${queryParams.toString()}`; // Build URL with encoded params
-
-    return this.http.get<DetailDemande[]>(url, { headers });
-  //  return this.http.get<DetailDemande[]>(this.baseUrl+`/search?idDirection=${idDirection}&statut=${statut}&motif=${motif}&dateDebut=${datedebut}&dateFin=${datefin}&session=${session}&idFournisseur=${idfournisseur}`,{headers});
-  }
 
 }

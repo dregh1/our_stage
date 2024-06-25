@@ -9,10 +9,10 @@ import { MainComponent } from './component/main/main.component';
 import { CreationSession1Component } from './component/CreationSession/CreationSession.component';
 import { CreationPrescripteurComponent } from './component/CreationPrescripteur/CreationPrescripteur.component';
 import { TestComponent } from './component/DetailParDemande/DetailParDemande.component';
+
 import { SuperAdminComponent } from './component/super-admin/super-admin.component';
 import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
 import { IndexComponent } from './index/index.component';
-// import { GrapheComponent } from './graphe/graphe.component';
 const routes: Routes = [
   { path: '', component: AuthenticationComponent },
   {
@@ -24,6 +24,7 @@ const routes: Routes = [
       { path: 'auth', component: AuthenticationComponent },
       { path: 'consultation', component: ConsultationComponent },
       { path: 'MenuDemande', component: MenuDemandeComponent },
+
       { path: 'notification', component: NotificationComponent },
       { path: 'creationsession', component: CreationSession1Component },
       {
@@ -34,15 +35,12 @@ const routes: Routes = [
       // {path:'detail/:type',children[{path:':id',component:pagecomponent}]}
       { path: 'teste/:id', component: TestComponent },
       { path: 'superAdmin', component: SuperAdminComponent },
-      {path:'index',component:IndexComponent},
-      // {path:'graphe',component:GrapheComponent},
-     
- 
+      {path:'index',component:IndexComponent}
     ],
   },
   { path: 'validation', component: ValidationComponent },
-  
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],

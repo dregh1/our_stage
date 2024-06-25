@@ -3,6 +3,8 @@ import { SuperAdminService } from './super-admin.service';
 import { User } from 'src/app/models/User';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UtilitaireService } from 'src/app/service/utilitaire.service';
+import { Role } from 'src/app/models/Role';
+import { NEVER, never } from 'rxjs';
 
 @Component({
   selector: 'app-super-admin',
@@ -17,12 +19,20 @@ export class SuperAdminComponent implements OnInit {
 
   resultatRecherche : User[] = [];
 
+
+  roleList : Role [] = [];
+  roleToAssign = "";
+  // role
+
+
   rola : string = 'ACH';
   constructor(private superAdm : SuperAdminService, private http: HttpClient , private utilitaire : UtilitaireService) { }
 
   ngOnInit(): void {
     this.superAdm.getTokenAdmin();
     this.rechercherAll();
+    this.getAllRole();
+    
   }
 
   rechercherAll()  // recuperer les users 
@@ -100,26 +110,38 @@ export class SuperAdminComponent implements OnInit {
   assigneRole() {
 
     const token = sessionStorage.getItem('tokenAdmin');
-    const data = [
-      {
-        "id": "6a68b6d7-448c-423d-801d-75f30ffc9a67",
-        "name": "ACH"
-      }
-    ];
+    let roleTableToSend : [] = [];
 
-    // Création d'un objet HttpHeaders pour définir les en-têtes nécessaires
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
-    });
 
-    // Utilisation de HttpClient pour envoyer la requête POSt
-    this.http.post('http://localhost:8082/admin/realms/oma/users/'+this.iduser+'/role-mappings/realm', data, { headers })
-     .subscribe(response => {
-        console.log(response);
-      }, error => {
-        console.error(error);
-      });
+    console.log("*-*-**-*-*-*-*-*-*");
+    console.log(this.roleToAssign);
+    
+    let roleToSend = this.getRoleById(this.roleToAssign);
+
+      // if(roleToSend ) 
+      
+      // roleTableToSend.push(roleToSend);
+    
+    // const data = [
+    //   {
+    //     "id": "6a68b6d7-448c-423d-801d-75f30ffc9a67",
+    //     "name": "ACH"
+    //   }
+    // ];
+
+    // // Création d'un objet HttpHeaders pour définir les en-têtes nécessaires
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   'Authorization': `Bearer ${token}`
+    // });
+
+    // // Utilisation de HttpClient pour envoyer la requête POSt
+    // this.http.post('http://localhost:8083/admin/realms/oma/users/'+this.iduser+'/role-mappings/realm', data, { headers })
+    //  .subscribe(response => {
+    //     console.log(response);
+    //   }, error => {
+    //     console.error(error);
+    //   });
   }
 
   getIdUser(id : string)
@@ -134,5 +156,30 @@ export class SuperAdminComponent implements OnInit {
   //teste envoye mail
   envoyerMail(){
     this.utilitaire.sendMail();
+  }
+
+
+  // fonction get all roles
+  getAllRole()
+  {
+    this.superAdm.getAllRoles().subscribe(
+      (response)=>{  this.roleList = response ; console.log(response ); console.log("/////////////////////////" );
+      },
+      (error)=>{})
+  }
+
+
+
+  getRoleById( id : string ) : Role | null
+  {
+    
+    for(let item of this.roleList  )
+    {
+        if(item.id === id)
+        return item
+    }
+    
+    return null;
+
   }
 }

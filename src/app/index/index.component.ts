@@ -1,26 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder,Validators  }from '@angular/forms';
-
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
+  constructor() { }
 
-  heroForm = this.fb.group({
-    name: ['', Validators.required],
-    power: ['', Validators.required]
-  });
+  ngOnInit(): void {
+}
+nomUtilisateur: string='';prenomUtilisateur: string='';
+estChampVide = true;estChampVide1 = true;
+boutonClique = false;
 
-  constructor(private fb: FormBuilder) {}
-
-  onSubmit() {
-    console.log('okokokkooko');
-    
-    // Traiter le formulaire ici
-  }
-ngOnInit(): void {
-    
+verifierChamp() {
+  this.boutonClique = true;
+  this.estChampVide = this.nomUtilisateur.trim().length === 0;
+  this.estChampVide1= this.prenomUtilisateur.trim().length === 0;
 }
 }

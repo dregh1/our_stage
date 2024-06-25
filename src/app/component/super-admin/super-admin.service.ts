@@ -1,11 +1,15 @@
 import { HttpParams, HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { MyMail } from 'src/app/models/MyMail';
+import { Role } from 'src/app/models/Role';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SuperAdminService {
+
+  private baseUrl = 'http://localhost:8080/teste';
 
   constructor(private http: HttpClient) { }
 
@@ -35,14 +39,14 @@ export class SuperAdminService {
   getTokenAdmin()
   {
 
-    const url = 'http://localhost:8082/realms/oma/protocol/openid-connect/token';
+    const url = 'http://localhost:8083/realms/oma/protocol/openid-connect/token';
 
     const params = new HttpParams()
     .set('grant_type', 'password')
-    .set('client_id', 'quarkus-client')
-    .set('client_secret', 'diNdyU2iGksempOMKqs5gZlA2UkwngCJ')
-    .set('username', 'ash')
-    .set('password', 'ash');
+    .set('client_id', 'angular-client')
+    .set('client_secret', 'F6ONL3ox63NBv1h1J5wmmibHlDhLA1MI')
+    .set('username', 'charlesandrea')
+    .set('password', 'password');
 
 
 
@@ -75,7 +79,7 @@ export class SuperAdminService {
   //GET ALL USERS
   getAllUser()
   {
-    const url = "http://localhost:8082/admin/realms/oma/users";
+    const url = "http://localhost:8083/admin/realms/oma/users";
   
     const headers = this.getHeadersAdmin();
     return this.http.get<any[]>(url,{headers});
@@ -91,8 +95,10 @@ export class SuperAdminService {
 
   async getEmailSoumission(): Promise<MyMail[]> {
   
-    const urlAchat = "http://localhost:8082/admin/realms/oma/roles/ACH/users";
-    const urlCdg = "http://localhost:8082/admin/realms/oma/roles/CDG/users";
+    const urlAchat = "http://localhost:8083/admin/realms/oma/roles/ACH/users";
+    const urlCdg = "http://localhost:8083/admin/realms/oma/roles/CDG/users";
+    
+    const ursPRS = "http://localhost:8083/admin/realms/oma/roles/PRS/users";
   
     const headers = this.getHeadersAdmin();
     try {
@@ -139,5 +145,11 @@ export class SuperAdminService {
       console.error(error);
       throw error; // Propage l'erreur si nécessaire
     }
+  }
+
+
+  getAllRoles (): Observable<Role[]>
+  {
+      return this.http.get<Role[]>(this.baseUrl + '/roles');
   }
 }

@@ -1,20 +1,12 @@
-<form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
-    <label>
-      Name:
-      <input type="text" formControlName="name">
-    </label>
-    <p *ngIf="heroForm.controls.name.invalid && (heroForm.controls.name.dirty || heroForm.controls.name.touched)">
-      Name is required.
-    </p>
-  
-    <label>
-      Power:
-      <input type="text" formControlName="power">
-    </label>
-    <p *ngIf="heroForm.controls.power.invalid && (heroForm.controls.power.dirty || heroForm.controls.power.touched)">
-      Power is required.
-    </p>
-  
-    <button type="submit">Submit</button>
-  </form>
-  
+<input type="text" [(ngModel)]="nomUtilisateur" #nomInput>
+<div *ngIf="estChampVide && boutonClique &&!nomUtilisateur.trim()" style="color:red;">
+    Veuillez remplir le champ.
+</div>
+  <input type="text" [(ngModel)]="prenomUtilisateur" #nomInput>
+  <div *ngIf="estChampVide1 && boutonClique &&!prenomUtilisateur.trim()" style="color:red;">
+    Veuillez remplir le champ.
+  </div>
+  <button (click)="verifierChamp()">Valider</button>
+
+<!-- Message d'erreur conditionnel -->
+

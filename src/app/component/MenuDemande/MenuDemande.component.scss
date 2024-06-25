@@ -1,6 +1,3 @@
-// .card{
-//   height: 350px;
-// }
 .icon-modi{
   width: 23px;
   height: 19px;
@@ -8,27 +5,82 @@
 .icon-modi:hover{
   color: #ff7900;
 }
+// body{
+//   background-color:#eee;
+//   }
+// table .tbody{
+//   height: 50px;
+//   overflow-y: auto;
+//   width: 100%;
+// }
+
+// tr,td,.listetitre{
+//   position: relative;
+// }
+// .table-fixed tbody {
+//   // height: 500px;
+//   overflow-y: auto;
+//   width: 100%;
+// }
+
+
+
+
+// .table-fixed tbody td,
+// .table-fixed tbody th,
+// .table-fixed thead > tr > th {
+//    float: left;
+//    position: relative;
+
+// }
+// .texte{
+//   padding: 10px;
+// }
+
+
+
+// body {
+//   background-color: #eee;
+//   height: 770px;
+// }
+// table,.card,header,.titre,thead {
+//   background-color: #eee;
+// }
+// .card-header,
+// .card {
+//   background-color: #ddd;
+// }
 .titreliste{
   background: #eee;
 }
 .bleu{
-  color: #3e9dd6;
+  color: cadetblue;
 }
 
 .rouge{
-  color: #f66;
+  color: red;
 }
 
 .vert{
-  color: #6c6;
+  color: green;
 }
 .texte1{
   width: 100px;
 }
+// .texte2{
+//   width: 119px;
+// }
 .texte{
   width: 150px;
 }
 
+// .texte3{
+//   width: 139px;
+// }
+// .scrollspy-example {
+//   overflow: auto;
+//   position: relative;
+// }
 .icon {
   font-size: 30px;
 }
@@ -54,9 +106,14 @@ svg {
 .texte1{
   width: 100px;
 }
+// .texte2{
+//   width: 100px;
+// }
 .texte{
   width: 100px;
 }
 
-
+// .texte3{
+//   width: 100px;
+// }
 }

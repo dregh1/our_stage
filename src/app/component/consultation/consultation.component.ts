@@ -40,10 +40,7 @@ export class ConsultationComponent implements OnInit {
   constructor(private consultationService: ConsultationService) {}
 
   ngOnInit(): void {
-   // maka ny fournisseur
-   this.consultationService.getFournisseur().subscribe((data) => {
-    this.fournisseurs = data;
-  });
+
   // maka ny direction
   this.consultationService.getdirection().subscribe((data) => {
     this.directions = data;

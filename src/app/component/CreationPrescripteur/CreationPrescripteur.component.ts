@@ -166,9 +166,7 @@ session=new SessionCd();
     this.demande.dateCreation=this.getormatdate()?.toString() ?? '';
 
     // recuperation ny fournisseur
-    this.CreationPrescripteurService.getFournisseur().subscribe((data) => {
-      this.fournisseurs = data;
-    });
+
 
     // recuperation ny periode
     this.CreationPrescripteurService.getPeriode().subscribe((data) => {
@@ -231,7 +229,7 @@ return false;
     this.estChampVidemotif= this.demande.motif.trim().length === 0;
     this.estChampVideperiode= this.demande.idPeriode.trim().length === 0;
     this.estChampViderubrique= this.demande.idRubrique.trim().length === 0;
-    //  this.estChampVidemontant= this.demande.montantHt.trim().length === 0;
+    // this.estChampVidemontant= this.demande.montantHt.trim().length === 0;
     this.estChampVidedevise= this.demande.typeDevise.trim().length === 0;
     this.estChampVidedepense= this.demande.depense.trim().length === 0;
     this.estChampVidetypereference= this.demande.typeReference.trim().length === 0;

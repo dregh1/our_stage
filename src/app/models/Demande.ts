@@ -9,7 +9,6 @@ export class Demande {
     public fournisseur?: string,
     public devise?:number,
     public montantht?: number,
-    public montantmga?:number,
     public idrubrique?: number,
     public sousrubrique?: string,
     public estregularisation?: boolean,
