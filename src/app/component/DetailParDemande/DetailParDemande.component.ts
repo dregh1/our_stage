@@ -235,10 +235,7 @@ somme='+';
     this.testeService.getPeriode().subscribe((data) => {
       this.periodes = data;
     });
-    // recuperation ny fournisseur
-    this.testeService.getFournisseur().subscribe((data) => {
-      this.fournisseurs = data;
-    });
+
     //recuperation rubrique
     this.testeService.getRubrique().subscribe((data) => {
       this.rubriques = data;

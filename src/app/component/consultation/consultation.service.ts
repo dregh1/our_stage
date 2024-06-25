@@ -28,11 +28,7 @@ export class ConsultationService {
       throw new Error('No authorization token found');
     }
 }
-// recuperation Fournisseur
-getFournisseur(): Observable<Fournisseur[]> {
-  const headers = this.getHeaders();
-  return this.http.get<Fournisseur[]>(this.baseUrl+'/fournisseur/get',{headers});
-}
+
 
 // recuperation Direction
 getdirection(): Observable<Direction[]> {
