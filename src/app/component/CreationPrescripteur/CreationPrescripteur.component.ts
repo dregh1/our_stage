@@ -166,9 +166,7 @@ session=new SessionCd();
     this.demande.dateCreation=this.getormatdate()?.toString() ?? '';
 
     // recuperation ny fournisseur
-    this.CreationPrescripteurService.getFournisseur().subscribe((data) => {
-      this.fournisseurs = data;
-    });
+
 
     // recuperation ny periode
     this.CreationPrescripteurService.getPeriode().subscribe((data) => {
