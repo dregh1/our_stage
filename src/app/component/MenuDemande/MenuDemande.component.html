@@ -1,10 +1,7 @@
 <body>
   <section class="mx-4  p-1">
     <div class="main">
-
-      <div class="">
         <div class="d-flex justify-content-between p-2">
-          <h4></h4>
           <div>
                   <button
                   type="button"
@@ -93,7 +90,7 @@
                               </svg>
                             </a>
                           </li>
-                          <li class="list-inline-item ">
+                          <li class="list-inline-item">
                             <a data-bs-toggle="modal" data-bs-target="#example"(click)="getid(detail.id)">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="vert icon-modi solaris-icon si-email-replied" viewBox="0 0 1000 1000">
                                 <path d="M936.69 626.977C929.946 633.537 921.147 638 911 638H748v74.666L609 575.9a12.7 12.7 0 0 1-2.2-2.331l-.028.028a35.9 35.9 0 0 1-8.649-23.1h-.013s.006-.416.006-.5-.006.5-.006-.5h.013a37.94 37.94 0 0 1 10.844-25.277l-.057.1L748 387.666V462h163c20.684 0 37 17.456 37 38.166v100a37.17 37.17 0 0 1-11.31 26.811M900 437H773v-24.447l52-49.753v-86.539C731 369.145 559.513 535.5 559.513 535.5h-.054c-15.3 16-36.133 22.8-59.119 22.8-24.349 0-46.26-9.8-61.76-26.8h-.108L175 275.051v87.593L410.742 590.5h.2c23.151 23 54.541 34.7 89.127 34.7 34.244 0 65.361-11.855 88.491-34.429.772.878 1.561 1.681 2.386 2.522.164.17.329.307.5.473l139.141 136.746a25 25 0 0 0 17.53 7.163A24.944 24.944 0 0 0 773 712.666V662h127v138H187.5a87.5 87.5 0 0 1-87.5-87.5c0-.164.011-.324.012-.488L100 712V175h712v-.009c.148 0 .3-.005.444-.005A87.593 87.593 0 0 1 900 262.61z" style="fill-rule:evenodd"/>
@@ -195,7 +192,6 @@
                   aria-expanded="false" 
                   [attr.aria-controls]="'collapseExample-' + normaliserTitre(titre.key)">
                     {{ titre.key }}
-                    
                   </button>     
                 </p>
                 <p class="text-light">Total Montant HT (MGA): <a class="text-dark">{{ formatNumber(totalMontantsHT[titre.key])}}</a></p>
@@ -359,7 +355,6 @@
               </div>
           </div>  
          </div>
-      </div> 
     </div>   
   </section>
 </body>

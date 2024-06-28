@@ -1,16 +1,32 @@
-import { TestBed } from '@angular/core/testing';
 
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CreationPrescripteurService } from './CreationPrescripteur.service';
+// Assurez-vous que le chemin d'importation est correct
 
 describe('CreationPrescripteurService', () => {
   let service: CreationPrescripteurService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(CreationPrescripteurService);
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule // Importez le module ici
+      ],
+      providers: [CreationPrescripteurService]
+    });
+
+    service = TestBed.inject(CreationPrescripteurService); // Injectez le service
+    httpMock = TestBed.inject(HttpTestingController); // Injectez le HttpTestingController pour mocker les requêtes HTTP
+  });
+
+  afterEach(() => {
+    httpMock.verify(); // Vérifiez qu'aucune requête n'a été laissée pendante
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  // Ajoutez ici vos autres tests qui utilisent HttpClient
 });

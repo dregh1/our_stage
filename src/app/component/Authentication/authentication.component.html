@@ -7,7 +7,6 @@
             <header data-bs-theme="">
               <nav class="mb-3" aria-label="Global navigation - With one line title example">
                 <div class="">
-
                   <!-- Orange brand logo -->
                   <div class="navbar-brand me-auto me-lg-4">
                     <a class="stretched-link" href="#">
@@ -19,14 +18,11 @@
                     </a>
                     <p class="mx-2">Comité de dépense</p>
                   </div>
-
-                
                 </div>
               </nav>
             </header>    
-              <div class="row">
-                
-                
+              <div class="row"> 
+                <!-- formulaire d'inscription-->
                       <div class="">
                         <div class="mb-3">
                           <label for="email" id="emailLabel" class="form-label is-required">Trigramme<span class="visually-hidden"> (required)</span></label>
@@ -63,6 +59,8 @@
                           </div>
                           
                         </div>
+<!-- alert message connexion -->
+
                         <div *ngIf="this.alert===true" class="alert alert-success" role="alert">
                           <span class="alert-icon"><span class="visually-hidden">Success</span></span>
                           <p>Success connexion.</p>
@@ -77,6 +75,8 @@
                             </button>
                           </div>
                       </div>
+
+                      <!-- loading  -->
                       <div class="text-center mb-1 p-1" *ngIf="spinnershow===true">
                         <div class="spinner-grow text-primary mx-1" style="width: 10px;height: 10px;" role="status">
                           <span class="visually-hidden">Loading...</span>

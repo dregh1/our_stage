@@ -20,6 +20,8 @@ import localeFr from '@angular/common/locales/fr';
 import { MenuDemandeComponent } from './component/MenuDemande/MenuDemande.component';
 import { DecimalPipe } from '@angular/common';
 import { IndexComponent } from './index/index.component';
+// import { HttpClientTestingModule } from '@angular/common/http/testing';
+
 // import { CommonModule } from '@angular/common';
 // import { GrapheComponent } from './graphe/graphe.component';
 

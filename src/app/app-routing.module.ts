@@ -35,9 +35,7 @@ const routes: Routes = [
       { path: 'teste/:id', component: TestComponent },
       { path: 'superAdmin', component: SuperAdminComponent },
       {path:'index',component:IndexComponent},
-      // {path:'graphe',component:GrapheComponent},
-     
- 
+      // {path:'graphe',component:GrapheComponent}, 
     ],
   },
   { path: 'validation', component: ValidationComponent },

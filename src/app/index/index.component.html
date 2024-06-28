@@ -3,7 +3,7 @@
       Name:
       <input type="text" formControlName="name">
     </label>
-    <p *ngIf="heroForm.controls.name.invalid && (heroForm.controls.name.dirty || heroForm.controls.name.touched)">
+    <p class="text-danger" *ngIf="heroForm.controls.name.invalid && (heroForm.controls.name.dirty || heroForm.controls.name.touched)">
       Name is required.
     </p>
   
@@ -11,7 +11,7 @@
       Power:
       <input type="text" formControlName="power">
     </label>
-    <p *ngIf="heroForm.controls.power.invalid && (heroForm.controls.power.dirty || heroForm.controls.power.touched)">
+    <p class="text-danger" *ngIf="heroForm.controls.power.invalid && (heroForm.controls.power.dirty || heroForm.controls.power.touched)">
       Power is required.
     </p>
   
